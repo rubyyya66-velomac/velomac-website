@@ -1,0 +1,729 @@
+import type { Product } from "@/types/content";
+
+const reviewTechnicalData = {
+  columns: ["Item", "Available information"],
+  rows: [
+    ["Technical data", "Available for review during model selection."],
+    ["Flow range", "Confirmed according to meter size, media and operating condition."]
+  ],
+  note: "Share media, pipe size, flow range, pressure and temperature so Velomac can confirm the suitable configuration."
+};
+
+export const products: Product[] = [
+  {
+    slug: "vortex-flowmeter",
+    name: "Vortex Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For steam, gas and liquid measurement in vibration-prone process lines.",
+    overview:
+      "Vortex flowmeters measure flow by detecting vortices generated in the flow stream. They are commonly selected for steam, gas and clean liquid service where process conditions, vibration and compensation needs must be checked before model selection.",
+    image: "/images/products/vortex-flowmeter.jpg",
+    imageAlt: "Velomac flanged vortex flowmeter on clean background",
+    relatedApplicationSlugs: ["steam-measurement", "gas-flow-measurement", "high-vibration-pipelines", "energy-loss-visibility"],
+    typicalMedia: ["Steam", "Gas", "Liquid"],
+    typicalApplications: [
+      "Boiler steam metering",
+      "Steam distribution lines",
+      "Compressed air lines",
+      "Industrial gas lines",
+      "Process liquid measurement",
+      "Vibration-prone process lines"
+    ],
+    availableTypes: [
+      "Multivariable Flanged Vortex Flowmeter",
+      "Standard Flanged Vortex Flowmeter",
+      "Tri-Clamp Sanitary Vortex Flowmeter",
+      "Insertion Vortex Flowmeter with Isolation Valve",
+      "Wireless Integrated Vortex Flowmeter",
+      "Wafer-Style Vortex Flowmeter",
+      "PTFE-Body Vortex Flowmeter",
+      "Large-Diameter Vortex Flowmeter"
+    ],
+    coreCapabilities: [
+      {
+        title: "Steam and gas configurations",
+        text:
+          "Available configurations can support steam, gas or liquid measurement after checking media, flow range, pressure and temperature."
+      },
+      {
+        title: "Options for vibration-prone lines",
+        text:
+          "Vibration-resilient sensor structures can be reviewed for process lines where signal quality may be affected by equipment vibration."
+      },
+      {
+        title: "Insertion and large-diameter options",
+        text:
+          "Insertion and large-diameter styles support larger pipelines where a full bore meter body may not be the preferred configuration."
+      },
+      {
+        title: "Multiple output options",
+        text:
+          "Pulse, analog and battery-powered options should be matched to the site control system."
+      }
+    ],
+    technicalData: {
+      title: "Vortex Flowmeter Technical Data",
+      columns: ["Parameter", "Specification"],
+      rows: [
+        ["Line Size (DN)", "25, 40, 50, 65, 80, 100, 125, 150, 200, 250, 300; insertion type: DN300-DN1000"],
+        ["Pressure Rating (PN)", "DN25-DN200: 4.0 MPa; DN250-DN300: 1.6 MPa; higher ratings customizable on request"],
+        ["Process Temperature", "Piezoelectric: -40 deg C to 260 deg C or 320 deg C; capacitive: -40 deg C to 300 deg C, 400 deg C or 450 deg C"],
+        ["Wetted Parts Material", "1Cr18Ni9Ti; other materials customizable on request"],
+        ["Vibration Tolerance", "Piezoelectric: <= 0.2g; capacitive: 1.0g to 2.0g"],
+        ["Accuracy", "+/-1.0% of reading, +/-1.5% of reading, or +/-1.0% full scale; insertion type: +/-2.5%"],
+        ["Turndown Ratio", "1:6 to 1:30"],
+        ["Power Supply", "Sensor: 12V DC or 24V DC; transmitter: 12V DC or 24V DC; battery-powered: 3.6V lithium battery"],
+        ["Output Signal", "Square wave pulse; analog current: 4-20mA"],
+        ["Hazardous Area Approvals", "Intrinsically safe: Ex ia IIC T2-T5; flameproof: Ex d IIC T2-T5"],
+        ["Enclosure Rating", "Standard: IP65; submersible: IP68"],
+        ["Measuring Media", "Gas, liquid, steam"]
+      ],
+      note: "Selection note: Confirm final configuration against media, flow range, pressure, temperature and site details."
+    },
+    flowRange: {
+      title: "Selected Vortex Flow Range",
+      columns: ["Line Size (DN)", "Liquid range (m3/h)", "Gas range (m3/h)"],
+      rows: [
+        ["20", "0.8-8", "6-30"],
+        ["25", "1.2-12", "9-55"],
+        ["50", "5-50", "30-300"],
+        ["100", "20-200", "120-1200"],
+        ["200", "75-750", "500-5000"],
+        ["300", "160-1600", "1100-11000"],
+        ["600 insertion", "450-6500", "6100-61000"],
+        ["1000 insertion", "1200-1700", "17000-170000"]
+      ],
+      note: "Selected flow ranges are shown for orientation. Final sizing depends on media, flow range, pressure, temperature and site details."
+    },
+    seo: {
+      title: "Vortex Flowmeter for Steam, Gas and Liquid Measurement | Velomac",
+      description:
+        "Velomac vortex flowmeter options for steam, gas and liquid applications, including flanged, wafer, insertion, wireless and PTFE-body configurations."
+    }
+  },
+  {
+    slug: "electromagnetic-flowmeter",
+    name: "Electromagnetic Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For conductive liquids in water, wastewater and chemical applications.",
+    overview:
+      "Electromagnetic flowmeters are used for conductive liquid measurement where moving parts are not required. Selection depends on conductivity, lining material, electrode material, pipe size, flow velocity and chemical compatibility.",
+    image: "/images/products/electromagnetic-flowmeter.jpg",
+    imageAlt: "Velomac flanged electromagnetic flowmeter on clean background",
+    relatedApplicationSlugs: ["conductive-liquid-measurement", "chemical-process-lines", "energy-loss-visibility"],
+    typicalMedia: ["Conductive liquid", "Water", "Wastewater", "Chemical liquid"],
+    typicalApplications: [
+      "Water treatment",
+      "Wastewater flow measurement",
+      "Chemical dosing and transfer",
+      "Conductive slurry-compatible service",
+      "Large-diameter water pipelines"
+    ],
+    availableTypes: [
+      "Standard Flanged Electromagnetic Flowmeter",
+      "Wafer-Style Ceramic-Lined Electromagnetic Flowmeter",
+      "Full Stainless Steel Electromagnetic Flowmeter",
+      "Tri-Clamp Sanitary Electromagnetic Flowmeter",
+      "Insertion Electromagnetic Flowmeter",
+      "Flanged Ceramic-Lined Electromagnetic Flowmeter",
+      "Wireless Integrated Electromagnetic Flowmeter",
+      "Remote Mount Electromagnetic Flowmeter",
+      "Large-Diameter Rubber-Lined Electromagnetic Flowmeter",
+      "PTFE-Lined Electromagnetic Flowmeter"
+    ],
+    coreCapabilities: [
+      {
+        title: "Conductive liquid measurement",
+        text:
+          "Used for conductive liquids where fluid compatibility and grounding conditions can be confirmed during selection."
+      },
+      {
+        title: "Lining and electrode options",
+        text:
+          "Neoprene, polyurethane, PTFE, FEP and ceramic lining options are available, along with multiple electrode materials."
+      },
+      {
+        title: "Integrated or remote mounting",
+        text:
+          "Integrated and remote mount configurations support different installation spaces and operating environments."
+      },
+      {
+        title: "Large pipe coverage",
+        text:
+          "Line sizes from DN4 to DN2400 support small process lines and large water infrastructure."
+      }
+    ],
+    technicalData: {
+      title: "Electromagnetic Flowmeter Technical Data",
+      columns: ["Parameter", "Specification"],
+      rows: [
+        ["Line Size (DN)", "4-2400"],
+        ["Measuring Media", "Conductive liquids"],
+        ["Liner Material", "Neoprene, polyurethane (PU), PTFE, FEP, ceramic"],
+        ["Flow Velocity", "<= 15 m/s"],
+        ["Excitation Method", "Square wave excitation"],
+        ["Electrode Material", "Stainless steel 316L, Hastelloy C, Hastelloy B, titanium, tantalum, platinum-iridium, ceramic"],
+        ["Pressure Rating (PN)", "0.6 MPa, 1.0 MPa, 1.6 MPa, 4.0 MPa"],
+        ["Lining Temperature Range", "Neoprene: -10 deg C to 60 deg C; PU: -10 deg C to 80 deg C; PTFE: -10 deg C to 120 deg C; FEP: -10 deg C to 150 deg C; ceramic: -40 deg C to 180 deg C"],
+        ["Minimum Conductivity", ">= 5 uS/cm"],
+        ["Accuracy", "+/-1.0%, +/-0.5%, +/-0.2% of reading"],
+        ["Output Signal", "Analog 4-20mA, pulse/frequency, high/low limit alarm"],
+        ["Digital Communication", "RS485/RS232, HART, wireless transmission optional"],
+        ["Enclosure Rating", "IP65, IP68"],
+        ["Hazardous Area Approvals", "Flameproof: Ex d IIC T3-T6"],
+        ["Power Supply", "85-250V AC, 20-36V DC, 3.6V lithium battery"]
+      ],
+      note: "Selection note: Confirm final configuration against media, flow range, pressure, temperature and site details."
+    },
+    flowRange: {
+      title: "Selected Electromagnetic Flow Range",
+      columns: ["Line Size (DN)", "0.3-0.5 m/s range (m3/h)", "0.5-10 m/s range (m3/h)"],
+      rows: [
+        ["4", "-", "0.02-0.2"],
+        ["10", "0.08-0.14", "0.14-2.8"],
+        ["25", "0.53-0.88", "0.88-17.7"],
+        ["50", "2.13-3.53", "3.53-71.0"],
+        ["100", "8.49-14.0", "14.0-283"],
+        ["300", "76.2-127", "127-2540"],
+        ["800", "543-905", "905-18100"],
+        ["2400", "4480-8143", "8143-162800"]
+      ],
+      note: "Selected flow ranges are shown for orientation. Final sizing depends on media, flow range, pressure, temperature and site details."
+    },
+    seo: {
+      title: "Electromagnetic Flowmeter for Conductive Liquids | Velomac",
+      description:
+        "Velomac electromagnetic flowmeter options for conductive liquids, water, wastewater and chemical applications with lining and electrode selection."
+    }
+  },
+  {
+    slug: "liquid-turbine-flowmeter",
+    name: "Liquid Turbine Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For clean liquid applications with stable flow conditions.",
+    overview:
+      "Liquid turbine flowmeters are used for clean liquids in stable flow conditions. Selection should confirm line size, connection type, viscosity, pressure loss and the required output signal.",
+    image: "/images/products/liquid-turbine-flowmeter.jpg",
+    imageAlt: "Velomac flanged liquid turbine flowmeter on clean background",
+    relatedApplicationSlugs: ["conductive-liquid-measurement", "chemical-process-lines", "energy-loss-visibility"],
+    typicalMedia: ["Clean liquid", "Water", "Low-viscosity liquid"],
+    typicalApplications: [
+      "Clean liquid transfer",
+      "Batching lines",
+      "Utility liquid monitoring",
+      "Process water lines",
+      "Liquid systems with stable flow"
+    ],
+    availableTypes: [
+      "Flanged Liquid Turbine Flowmeter",
+      "Threaded Liquid Turbine Flowmeter",
+      "Tri-Clamp Liquid Turbine Flowmeter",
+      "Insertion Liquid Turbine Flowmeter"
+    ],
+    coreCapabilities: [
+      {
+        title: "Clean liquid service",
+        text:
+          "Suitable for clean liquid applications where flow is stable and the fluid will not damage the turbine rotor."
+      },
+      {
+        title: "Connection options",
+        text:
+          "Threaded, integral flanged, sanitary tri-clamp and insertion styles support different installation requirements."
+      },
+      {
+        title: "Signal outputs",
+        text:
+          "Pulse, 4-20mA, RS485 Modbus and GPRS options should be matched to site controls."
+      },
+      {
+        title: "Compact installation",
+        text:
+          "A turbine meter can be a practical option where the liquid is clean and operating conditions remain within the meter range."
+      }
+    ],
+    technicalData: {
+      title: "Liquid Turbine Flowmeter Technical Data",
+      columns: ["Parameter", "Specification"],
+      rows: [
+        ["Line Size (DN) and Connection", "DN4-DN50 threaded; DN15-DN200 integral flanged; DN4-DN80 tri-clamp sanitary; >= DN150 insertion"],
+        ["Accuracy", "In-line: +/-1.0%, +/-0.5%, +/-0.2% of reading; insertion: +/-5.0%, +/-2.5%"],
+        ["Turndown Ratio", "1:10 to 1:20"],
+        ["Wetted Parts Material", "Stainless steel 304/316; other materials customizable on request"],
+        ["Process Temperature", "-20 deg C to 80 deg C, 120 deg C or 200 deg C"],
+        ["Ambient Conditions", "Temperature: -20 deg C to 60 deg C; relative humidity: 5% to 90%; atmospheric pressure: 86 to 106 kPa"],
+        ["Connection Standards", "Flange: GB9113 standard; thread: BSPT male thread standard"],
+        ["Output Signal", "3-wire pulse; 2-wire analog 4-20mA; RS485 with Modbus protocol; wireless GPRS"],
+        ["Power Supply", "6-24V DC; battery-powered: 3.6V lithium battery"],
+        ["Transmission Distance", "<= 1000m"],
+        ["Cable Entry", "M20 x 1.5"],
+        ["Hazardous Area Approvals", "Standard: non-Ex; flameproof: Ex d IIC T2-T6; intrinsically safe: Ex ia IIC T2-T6"],
+        ["Enclosure Rating", "IP65"]
+      ],
+      note: "Selection note: Confirm final configuration against media, flow range, pressure, temperature and site details."
+    },
+    flowRange: {
+      title: "Liquid Turbine Flow Range",
+      columns: ["Line Size (DN)", "Standard flow range (m3/h)", "Extended flow range (m3/h)", "Max pressure loss (MPa)"],
+      rows: [
+        ["4", "0.04-0.25", "0.04-0.4", "0.12"],
+        ["10", "0.2-1.2", "0.15-1.5", "0.05"],
+        ["25", "1-10", "0.5-10", "0.035"],
+        ["50", "4-40", "2-40", "0.025"],
+        ["100", "20-200", "10-200", "0.025"],
+        ["150", "30-300", "15-300", "0.025"],
+        ["200", "80-800", "40-800", "0.025"]
+      ],
+      note: "Selected flow ranges are shown for orientation. Final sizing depends on media, flow range, pressure, temperature and site details."
+    },
+    seo: {
+      title: "Liquid Turbine Flowmeter for Clean Liquid Applications | Velomac",
+      description:
+        "Velomac liquid turbine flowmeter options for clean liquids with threaded, flanged, sanitary and insertion configurations."
+    }
+  },
+  {
+    slug: "gas-turbine-flowmeter",
+    name: "Gas Turbine Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For natural gas, coal gas, air and compatible industrial gases.",
+    overview:
+      "Gas turbine flowmeters are used for compatible gases where line size, pressure rating, connection type and flow range can be matched to the operating condition.",
+    image: "/images/products/gas-turbine-flowmeter.jpg",
+    imageAlt: "Velomac gas turbine flowmeter on clean background",
+    relatedApplicationSlugs: ["gas-flow-measurement", "energy-loss-visibility"],
+    typicalMedia: ["Natural gas", "Coal gas", "Air", "Compatible industrial gases"],
+    typicalApplications: [
+      "Natural gas metering",
+      "Industrial gas distribution",
+      "Air flow monitoring",
+      "Gas utility lines",
+      "Compatible process gas service"
+    ],
+    availableTypes: [
+      "Threaded Gas Turbine Flowmeter",
+      "Integral Flanged Gas Turbine Flowmeter",
+      "Tri-Clamp Sanitary Gas Turbine Flowmeter",
+      "Insertion Gas Turbine Flowmeter"
+    ],
+    coreCapabilities: [
+      {
+        title: "Gas-focused sizing",
+        text:
+          "Gas flow ranges should be reviewed by line size, standard range, extended range and pressure rating."
+      },
+      {
+        title: "Connection flexibility",
+        text:
+          "Threaded, flanged, sanitary and insertion configurations support different line sizes and installation needs."
+      },
+      {
+        title: "Output and communication options",
+        text:
+          "Voltage pulse, 4-20mA and optional RS485 communication are listed for integration with site systems."
+      },
+      {
+        title: "Hazardous area options",
+        text:
+          "Intrinsically safe and flameproof options are available for suitable applications."
+      }
+    ],
+    technicalData: {
+      title: "Gas Turbine Flowmeter Technical Data",
+      columns: ["Parameter", "Specification"],
+      rows: [
+        ["Measuring Media", "Natural gas, coal gas, air and other compatible gases"],
+        ["Line Size (DN) and Connection", "DN4-DN50 threaded; DN15-DN200 integral flanged; DN4-DN80 tri-clamp sanitary; >= DN150 insertion"],
+        ["Accuracy", "In-line: +/-1.0%, +/-0.5%, +/-0.2% of reading; insertion: +/-5.0%, +/-2.5%"],
+        ["Turndown Ratio", "1:10 to 1:20"],
+        ["Wetted Parts Material", "Stainless steel 304/316; other materials customizable on request"],
+        ["Process Temperature", "-20 deg C to 80 deg C"],
+        ["Ambient Conditions", "Temperature: -20 deg C to 50 deg C; relative humidity: 5% to 90%; atmospheric pressure: 86 to 106 kPa"],
+        ["Connection Standards", "Flange: GB9113 standard; thread: BSPT male thread standard"],
+        ["Output Signal and Communication", "Voltage pulse; 2-wire analog 4-20mA; optional RS485 interface"],
+        ["Power Supply", "Sensor: 12V DC; transmitter: 24V DC; local display: 3.0V lithium battery"],
+        ["Transmission Distance", "<= 1000m"],
+        ["Cable Entry", "M20 x 1.5"],
+        ["Hazardous Area Approvals", "Intrinsically safe: Ex ib IIB T4; flameproof: Ex d IIB T6"],
+        ["Enclosure Rating", "IP65"]
+      ],
+      note: "Selection note: Confirm final configuration against media, flow range, pressure, temperature and site details."
+    },
+    flowRange: {
+      title: "Selected Gas Turbine Flow Range",
+      columns: ["Line Size (DN)", "Standard range (m3/h)", "Extended range (m3/h)", "Connection"],
+      rows: [
+        ["20", "2.2-25", "4-40", "Flanged"],
+        ["40", "5-50", "6-60", "Flanged threaded"],
+        ["80", "20-400", "10-160", "Flanged"],
+        ["100", "32-650", "13-250", "Flanged"],
+        ["150", "50-1000", "80-1600", "Flanged"],
+        ["200", "130-2500", "50-1000", "Flanged"],
+        ["300", "200-4000", "320-6500", "Flanged"]
+      ],
+      note: "Selected flow ranges are shown for orientation. Final sizing depends on media, flow range, pressure, temperature and site details."
+    },
+    seo: {
+      title: "Gas Turbine Flowmeter for Industrial Gas Measurement | Velomac",
+      description:
+        "Velomac gas turbine flowmeter options for natural gas, air, coal gas and compatible industrial gas applications."
+    }
+  },
+  {
+    slug: "thermal-mass-flowmeter",
+    name: "Thermal Mass Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For compressed air, flare gas, ventilation and stable gas measurement.",
+    overview:
+      "Thermal mass flowmeters measure gas mass flow directly and are often considered for compressed air, flare gas, ventilation and multi-component gas applications after gas composition and operating range are checked.",
+    image: "/images/products/thermal-mass-flowmeter.jpg",
+    imageAlt: "Velomac thermal mass flowmeter options on clean background",
+    relatedApplicationSlugs: ["gas-flow-measurement", "energy-loss-visibility"],
+    typicalMedia: ["Compressed air", "Flare gas", "Ventilation air", "Stable gas", "Industrial gas"],
+    typicalApplications: [
+      "Compressed air monitoring",
+      "Flare gas measurement",
+      "Ventilation systems",
+      "Blast furnace air flow",
+      "Multi-component gas applications"
+    ],
+    availableTypes: [
+      "Wafer Thermal Mass Flowmeter",
+      "Flanged Thermal Mass Flowmeter",
+      "Insertion Thermal Mass Flowmeter"
+    ],
+    coreCapabilities: [
+      {
+        title: "Direct gas mass measurement",
+        text:
+          "Direct mass flow measurement can be reviewed without separate temperature and pressure compensation sensors."
+      },
+      {
+        title: "Insertion and in-line options",
+        text:
+          "Insertion and in-line installation types cover a broad line size range when process conditions are confirmed."
+      },
+      {
+        title: "Gas range selection",
+        text:
+          "Flow range depends on line size and gas type, including air, oxygen and combustible gas service."
+      },
+      {
+        title: "Industrial gas monitoring",
+        text:
+          "Used for compressed air, flare gas, ventilation and similar gas services where stable measurement is needed."
+      }
+    ],
+    technicalData: {
+      title: "Thermal Mass Flowmeter Technical Data",
+      columns: ["Parameter", "Specification"],
+      rows: [
+        ["Installation Type", "Insertion or in-line"],
+        ["Measuring Media", "Common stable gases; consultation required for reactive media such as acetylene or boron trichloride"],
+        ["Line Size (DN)", "Insertion: DN65-DN4000; in-line: DN15-DN2000"],
+        ["Flow Velocity", "0.1 to 120 Nm/s"],
+        ["Accuracy", "+/-1.0% to +/-2.5% of reading"],
+        ["Temperature Rating", "Process sensor: -40 deg C to 450 deg C; transmitter ambient: -20 deg C to 45 deg C"],
+        ["Pressure Rating (PN)", "Insertion: <= 4.0 MPa; in-line: <= 1.6 MPa; higher ratings customizable on request"],
+        ["Power Supply", "24V DC, >= 18W"],
+        ["Response Time", "1 second"],
+        ["Output Signal", "4-20mA optically isolated, max load 500 ohm; RS485 optically isolated"],
+        ["Alarm Output", "1 to 2 normally open contacts, 24V / 0.5A"],
+        ["Compatible Pipe Materials", "Carbon steel, stainless steel, plastics and others"],
+        ["Local Display", "4-line LCD display"],
+        ["Ingress Protection", "IP65, IP67, IP68"],
+        ["Wetted Parts Material", "Insertion: stainless steel; in-line: stainless steel or carbon steel"]
+      ],
+      note: "Selection note: Confirm final configuration against gas type, flow range, pressure, temperature and site details."
+    },
+    flowRange: {
+      title: "Selected Thermal Mass Flow Range",
+      columns: ["Line Size (DN)", "Air standard range (Nm3/h)", "Air extended range (Nm3/h)", "Oxygen range (Nm3/h)"],
+      rows: [
+        ["10", "0.5-28", "0.03-30", "0.5-14"],
+        ["25", "0.5-175", "0.18-180", "0.5-89"],
+        ["50", "1-600", "0.5-700", "0.7-352"],
+        ["100", "3-2300", "3-2800", "3-1420"],
+        ["200", "12-9000", "12-11500", "12-5650"],
+        ["500", "70-57000", "70-70000", "70-35300"],
+        ["1000", "290-230000", "290-280000", "290-140000"],
+        ["2000", "1150-900000", "Confirm during sizing", "1150-560000"]
+      ],
+      note: "Selected flow ranges are shown for orientation. Final sizing depends on gas type, flow range, pressure, temperature and site details."
+    },
+    seo: {
+      title: "Thermal Mass Flowmeter for Industrial Gas Measurement | Velomac",
+      description:
+        "Velomac thermal mass flowmeter options for compressed air, flare gas, ventilation and stable industrial gas measurement."
+    }
+  },
+  {
+    slug: "v-cone-flowmeter",
+    name: "V-Cone Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For differential pressure flow measurement in larger process lines.",
+    overview:
+      "V-Cone flowmeters are differential pressure meters used where process layout, pipe size and pressure conditions must be reviewed together.",
+    image: "/images/products/v-cone-flowmeter.jpg",
+    imageAlt: "Velomac V-Cone flowmeter on clean background",
+    relatedApplicationSlugs: ["steam-measurement", "gas-flow-measurement", "high-vibration-pipelines"],
+    typicalMedia: ["Gas", "Liquid", "Steam"],
+    typicalApplications: ["Large-diameter lines", "Process utilities", "Differential pressure flow measurement"],
+    availableTypes: [
+      "Stainless Steel Flanged V Cone Flowmeter",
+      "Carbon Steel Flanged V Cone Flowmeter",
+      "Large Diameter V Cone Meter Body",
+      "Insertion V Cone Flowmeter with Isolation Valve",
+      "Standard Insertion V Cone Flowmeter",
+      "Insertion Cone Flowmeter with Isolation Valve"
+    ],
+    coreCapabilities: [
+      {
+        title: "Differential pressure measurement",
+        text:
+          "Uses a cone element to create a differential pressure signal for flow calculation."
+      },
+      {
+        title: "Large line options",
+        text:
+          "Line sizes up to DN3000 can be reviewed according to the application."
+      }
+    ],
+    technicalData: {
+      title: "V-Cone Flowmeter Technical Data",
+      columns: ["Parameter", "Specification"],
+      rows: [
+        ["Measurement Accuracy", "+/-0.5% to +/-2.0%"],
+        ["Repeatability", "+/-0.1%"],
+        ["Turndown Ratio", "10:1 or higher"],
+        ["Straight Pipe Requirements", "Upstream 1 to 2D; downstream 1 to 3D"],
+        ["Beta Ratio", "0.40 to 0.85"],
+        ["Reynolds Number", ">= 8000"],
+        ["Line Size (DN)", "15 to 3000"],
+        ["Process Temperature", "-50 deg C to 650 deg C"],
+        ["Pressure Rating", "Confirm during sizing"]
+      ],
+      note: "Selection note: Confirm final configuration against media, flow range, pressure, temperature and site details."
+    },
+    flowRange: {
+      columns: ["Item", "Status"],
+      rows: [["Flow range", "Confirmed during application review."]]
+    },
+    seo: {
+      title: "V-Cone Flowmeter for Differential Pressure Measurement | Velomac",
+      description:
+        "Velomac V-Cone flowmeter options for differential pressure flow measurement in process and utility lines."
+    }
+  },
+  {
+    slug: "swirl-flowmeter",
+    name: "Swirl Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For gas and steam lines where compact installation and compensation may be required.",
+    overview:
+      "Swirl flowmeters are selected for gas or steam service after checking flow range, pressure, temperature and installation space.",
+    image: "/images/products/swirl-flowmeter.jpg",
+    imageAlt: "Velomac swirl flowmeter on clean background",
+    relatedApplicationSlugs: ["steam-measurement", "gas-flow-measurement", "high-vibration-pipelines"],
+    typicalMedia: ["Gas", "Steam"],
+    typicalApplications: ["Steam distribution", "Industrial gas lines", "Compact process installation"],
+    availableTypes: ["Integrated Swirl Flowmeter"],
+    coreCapabilities: [
+      {
+        title: "Compensation options",
+        text:
+          "Temperature and pressure compensation can be reviewed for standard volumetric flow output."
+      },
+      {
+        title: "Compact installation",
+        text:
+          "A swirl meter can be considered where the process layout requires a compact flowmeter body."
+      }
+    ],
+    technicalData: reviewTechnicalData,
+    flowRange: {
+      columns: ["Item", "Status"],
+      rows: [["Flow range", "Confirmed during application review."]]
+    },
+    seo: {
+      title: "Swirl Flowmeter for Steam and Gas Applications | Velomac",
+      description:
+        "Velomac swirl flowmeter options for steam and gas applications with application-based selection support."
+    }
+  },
+  {
+    slug: "balanced-differential-pressure-flowmeter",
+    name: "Balanced Differential Pressure Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For differential pressure flow measurement in process and duct applications.",
+    overview:
+      "Balanced differential pressure flowmeters are selected for process lines or duct applications where a differential pressure device fits the site layout.",
+    image: "/images/products/balanced-dp-flowmeter.jpg",
+    imageAlt: "Velomac balanced differential pressure flowmeter on clean background",
+    relatedApplicationSlugs: ["steam-measurement", "gas-flow-measurement", "energy-loss-visibility"],
+    typicalMedia: ["Gas", "Liquid", "Steam"],
+    typicalApplications: ["Process lines", "Utility lines", "Square duct applications"],
+    availableTypes: [
+      "Flanged Balanced Flowmeter",
+      "Welded Balanced Flowmeter",
+      "Wafer Balanced Flowmeter",
+      "Square Duct Balanced Flowmeter"
+    ],
+    coreCapabilities: [
+      {
+        title: "Multiple body styles",
+        text:
+          "Flanged, welded, wafer and square duct styles support different installation requirements."
+      },
+      {
+        title: "Differential pressure output",
+        text:
+          "Selection should confirm the transmitter, pipe run and expected pressure loss."
+      }
+    ],
+    technicalData: reviewTechnicalData,
+    flowRange: {
+      columns: ["Item", "Status"],
+      rows: [["Flow range", "Confirmed during application review."]]
+    },
+    seo: {
+      title: "Balanced Differential Pressure Flowmeter | Velomac",
+      description:
+        "Velomac balanced differential pressure flowmeter options for process lines and square duct applications."
+    }
+  },
+  {
+    slug: "ultrasonic-flowmeter",
+    name: "Ultrasonic Flowmeter",
+    category: "Flowmeters",
+    shortDescription:
+      "For closed pipe, open channel, clamp-on and energy metering applications.",
+    overview:
+      "Ultrasonic flowmeters can support closed pipe, wall mounted, open channel, clamp-on and energy metering applications depending on site requirements.",
+    image: "/images/products/ultrasonic-flowmeter.jpg",
+    imageAlt: "Velomac flanged ultrasonic flowmeter on clean background",
+    relatedApplicationSlugs: ["conductive-liquid-measurement", "energy-loss-visibility"],
+    typicalMedia: ["Water", "Cooling water", "Process liquid"],
+    typicalApplications: ["Closed pipe flow", "Open channel flow", "Clamp-on measurement", "Thermal energy metering"],
+    availableTypes: [
+      "Flanged Ultrasonic Flowmeter",
+      "Wall Mounted Ultrasonic Flowmeter",
+      "Open Channel Ultrasonic Flowmeter",
+      "Ultrasonic Thermal Energy Meter",
+      "Clamp On Ultrasonic Flowmeter"
+    ],
+    coreCapabilities: [
+      {
+        title: "Several installation styles",
+        text:
+          "Flanged, wall mounted, open channel, energy meter and clamp-on versions support different liquid and utility applications."
+      },
+      {
+        title: "Water and utility systems",
+        text:
+          "Often considered for water, cooling water and utility measurement where the application supports ultrasonic measurement."
+      }
+    ],
+    technicalData: reviewTechnicalData,
+    flowRange: {
+      columns: ["Item", "Status"],
+      rows: [["Flow range", "Confirmed during application review."]]
+    },
+    seo: {
+      title: "Ultrasonic Flowmeter for Water and Utility Applications | Velomac",
+      description:
+        "Velomac ultrasonic flowmeter options for closed pipe, open channel, clamp-on and thermal energy measurement."
+    }
+  },
+  {
+    slug: "radar-level-transmitter",
+    name: "Radar Level Transmitter",
+    category: "Level Instruments",
+    shortDescription:
+      "For non-contact level measurement in tanks, vessels and open process conditions.",
+    overview:
+      "Radar level transmitters are used for level measurement where the process condition, range, antenna type and installation space need to be checked.",
+    image: "/images/products/radar-level-transmitter.jpg",
+    imageAlt: "Velomac radar level transmitter options on clean background",
+    relatedApplicationSlugs: ["chemical-process-lines", "conductive-liquid-measurement"],
+    typicalMedia: ["Liquid level", "Solid level", "Process vessel level"],
+    typicalApplications: ["Storage tanks", "Process vessels", "Open level measurement"],
+    availableTypes: [
+      "80G FMCW Radar",
+      "26G High Frequency Radar",
+      "6G Low Frequency Radar",
+      "Guided Wave Radar"
+    ],
+    coreCapabilities: [
+      {
+        title: "Multiple radar families",
+        text:
+          "80G, 26G, 6G and guided wave radar options can be reviewed according to the level application."
+      },
+      {
+        title: "Application review required",
+        text:
+          "Level selection should confirm tank type, measurement range, medium, process pressure and temperature."
+      }
+    ],
+    technicalData: reviewTechnicalData,
+    flowRange: undefined,
+    seo: {
+      title: "Radar Level Transmitter | Velomac",
+      description:
+        "Velomac radar level transmitter options for tank and process vessel level measurement."
+    }
+  },
+  {
+    slug: "magnetic-level-gauge",
+    name: "Magnetic Level Gauge",
+    category: "Level Instruments",
+    shortDescription:
+      "For direct visual level indication in tanks and vessels.",
+    overview:
+      "Magnetic level gauges provide local visual level indication. Final selection should confirm medium, pressure, temperature, vessel connection and material compatibility.",
+    image: "/images/products/magnetic-level-gauge.jpg",
+    imageAlt: "Velomac magnetic level gauge product photo on clean background",
+    relatedApplicationSlugs: ["chemical-process-lines", "conductive-liquid-measurement"],
+    typicalMedia: ["Liquid level"],
+    typicalApplications: ["Tank level indication", "Vessel level indication", "Local level reading"],
+    availableTypes: ["Magnetic Level Gauge"],
+    coreCapabilities: [
+      {
+        title: "Local level visibility",
+        text:
+          "A magnetic level gauge can provide a direct visual level reference near the vessel."
+      },
+      {
+        title: "Site details needed",
+        text:
+          "Connection, pressure, temperature and material compatibility should be confirmed before quotation."
+      }
+    ],
+    technicalData: reviewTechnicalData,
+    flowRange: undefined,
+    seo: {
+      title: "Magnetic Level Gauge | Velomac",
+      description:
+        "Velomac magnetic level gauge for local level indication in tank and vessel applications."
+    }
+  }
+];
+
+export const featuredProducts = products;
+
+export function getProductBySlug(slug: string) {
+  return products.find((product) => product.slug === slug);
+}
+
+export function getProductsByCategory(category: Product["category"]) {
+  return products.filter((product) => product.category === category);
+}

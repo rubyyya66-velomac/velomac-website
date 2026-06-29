@@ -1,0 +1,43 @@
+:root {
+  /* Main brand blue used for buttons, links, accents and main blue surfaces. */
+  --editable-main-brand-blue: #0057b8;
+  --editable-main-brand-blue-rgb: 0 87 184;
+
+  /* Slightly darker blue used for stronger blue surfaces. */
+  --editable-main-brand-blue-dark: #004a9c;
+
+  /* Supporting bright blue used for small highlights and subtle technology accents. */
+  --editable-supporting-blue: #00aeef;
+
+  /* Light page background used for quiet industrial sections. */
+  --editable-light-background: #f5f8fc;
+
+  /* Hero headline size on the homepage. Keep this as a clamp() value. */
+  --editable-hero-headline-size: clamp(2.45rem, 4.2vw, 3.55rem);
+
+  /* Hero subheadline size on the homepage. */
+  --editable-hero-subheadline-size: clamp(1.0625rem, 1.35vw, 1.18rem);
+
+  /* Homepage hero vertical spacing. */
+  --editable-hero-section-padding: clamp(3.25rem, 5.5vw, 4.5rem);
+
+  /* Homepage hero image maximum width. */
+  --editable-hero-image-max-width: 660px;
+
+  /* Homepage hero image panel shape. Use values such as 1 / 1 or 4 / 3. */
+  --editable-hero-image-panel-aspect: 1 / 1;
+
+  /* General section spacing. These match the current responsive section rhythm. */
+  --editable-section-spacing-mobile: 3.5rem;
+  --editable-section-spacing-tablet: 4rem;
+  --editable-section-spacing-desktop: 5rem;
+
+  /* Default product/application card image shape. */
+  --editable-card-image-aspect: 4 / 3;
+
+  /* Header navigation font size. */
+  --editable-header-nav-font-size: 15px;
+
+  /* Footer vertical spacing. */
+  --editable-footer-spacing: 3.5rem;
+}
