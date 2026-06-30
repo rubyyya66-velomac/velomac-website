@@ -1,0 +1,119 @@
+{
+  "metadata": {
+    "title": "About Velomac Flow Meter | Manufacturer-Direct Industrial Instrumentation",
+    "description": "Velomac Flow Meter is a manufacturer-direct industrial instrumentation brand focused on flow measurement for process industries."
+  },
+  "hero": {
+    "label": "About Velomac",
+    "headline": "Flow Measurement Support, Close to the Factory Floor",
+    "description": "Velomac Flow Meter is a manufacturer-direct industrial instrumentation brand supporting steam, gas, liquid and chemical flow measurement for process industries.",
+    "timelineLine": "Founded in 2006, with decades of flow measurement manufacturing experience.",
+    "ctaLabel": "Request a Quote",
+    "ctaHref": "/contact",
+    "image": {
+      "src": "/images/about/about-hero-production-support.png",
+      "alt": "Velomac production floor with flowmeter product support",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  "companyProfile": {
+    "label": "Company Profile",
+    "headline": "Industrial Flow Measurement with Factory-Close Support",
+    "description": "Velomac supports product manufacturing, in-house calibration and application-based model selection for steam, gas, liquid and chemical applications.",
+    "stats": [
+      {
+        "value": "2006",
+        "label": "Founded"
+      },
+      {
+        "value": "12,000 m²",
+        "label": "Manufacturing hub"
+      },
+      {
+        "value": "20,000",
+        "label": "Units annual capacity"
+      },
+      {
+        "value": "50+",
+        "label": "Industry specialists"
+      },
+      {
+        "value": "R&D",
+        "label": "In-house support"
+      },
+      {
+        "value": "Calibration",
+        "label": "In-house checking"
+      }
+    ]
+  },
+  "processContext": {
+    "label": "Process Context",
+    "headline": "Factory Support Connected to Real Working Lines",
+    "description": "Product selection is tied to the actual process condition: media, pipe size, flow range, pressure, temperature, installation space and site vibration.",
+    "image": {
+      "src": "/images/about/about-process-factory-line.jpg",
+      "alt": "Velomac factory floor with flowmeter production context",
+      "width": 3618,
+      "height": 1152
+    }
+  },
+  "capabilities": {
+    "label": "Capabilities",
+    "headline": "Manufacturer-Direct, Calibration-Aware, Application-Based",
+    "intro": "For overseas buyers, the important question is not only which model exists, but whether the configuration fits the real site condition.",
+    "points": [
+      {
+        "title": "Manufacturer-Direct Production",
+        "text": "Product manufacturing and application communication stay close to the factory."
+      },
+      {
+        "title": "In-House Calibration",
+        "text": "Gas and liquid calibration support meter checking before shipment."
+      },
+      {
+        "title": "R&D and Technical Support",
+        "text": "The team helps connect product configuration with media, flow range, installation and signal needs."
+      },
+      {
+        "title": "Application-Based Model Selection",
+        "text": "Selection starts with process conditions, not only product family names."
+      }
+    ],
+    "image": {
+      "src": "/images/about/about-capability-test-system.png",
+      "alt": "Velomac flowmeter test system and product setup",
+      "width": 1448,
+      "height": 1086
+    }
+  },
+  "calibration": {
+    "label": "Calibration",
+    "headline": "Calibration Capabilities",
+    "description": "Gas and liquid calibration capabilities support flowmeter checking before shipment and help align the meter with intended process conditions.",
+    "image": {
+      "src": "/images/about/about-calibration-final-check.PNG",
+      "alt": "Velomac flowmeter wiring and final checking before shipment",
+      "width": 1448,
+      "height": 1086
+    },
+    "standards": [
+      {
+        "title": "Gas Flow Standards",
+        "text": "Pipeline range DN15-DN300, sonic nozzle vacuum system, pulse capacity up to 10 kHz, uncertainty <= 0.3%."
+      },
+      {
+        "title": "Liquid Flow Standards",
+        "text": "Pipeline range DN15-DN600, with reference electromagnetic meters and static mass method details available for calibration review."
+      }
+    ]
+  },
+  "finalCta": {
+    "label": "Company Timeline",
+    "headline": "Founded in 2006",
+    "text": "Founded in 2006, with decades of flow measurement manufacturing experience.",
+    "buttonLabel": "Request a Quote",
+    "href": "/contact"
+  }
+}

@@ -1,4 +1,4 @@
-import articleData from "./articles.json";
+import articleData from "./data/articles.json";
 
 export type ArticleSection = {
   heading: string;

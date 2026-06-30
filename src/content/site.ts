@@ -1,51 +1,10 @@
+import siteData from "./data/site.json";
+
+const { navItems: siteNavItems, ...siteFields } = siteData;
+
 export const site = {
-  name: "Velomac Flow Meter",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.velomacflowmeter.com",
-  description:
-    "Industrial flow measurement for steam, gas, liquid and demanding process applications.",
-  email: "info@velomacflowmeter.com",
-  whatsapp: "(+86) 133-2631-1877",
-  location: "Weihai, China",
-  logos: {
-    header: "/images/brand/velomac-logo.png",
-    footer: "/images/brand/velomac-logo-transparent.png",
-    favicon: "/images/brand/favicon.png",
-    alt: "Velomac Flow Meter logo"
-  },
-  buttons: {
-    requestQuote: "Request a Quote",
-    viewProducts: "View Products",
-    viewResources: "View resources",
-    readArticle: "Read article",
-    viewDetails: "View details"
-  },
-  footer: {
-    description: "Industrial flow measurement for steam, gas and liquid applications.",
-    copyrightName: "Velomac Flow Meter",
-    columns: {
-      products: "Products",
-      applications: "Applications",
-      resources: "Resources",
-      contact: "Contact"
-    }
-  },
-  facts: [
-    "Founded in 2006",
-    "12,000 m2 manufacturing hub",
-    "20,000 units annual capacity",
-    "50+ industry specialists",
-    "In-house R&D and support",
-    "In-house calibration"
-  ],
-  // Final timeline wording can be adjusted after company history is confirmed.
-  timelineLine:
-    "Founded in 2006, with decades of flow measurement manufacturing experience."
+  ...siteFields,
+  url: process.env.NEXT_PUBLIC_SITE_URL || siteData.url
 };
 
-export const navItems = [
-  { label: "Products", href: "/products" },
-  { label: "Applications", href: "/applications" },
-  { label: "Resources", href: "/resources" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" }
-];
+export const navItems = siteNavItems;
