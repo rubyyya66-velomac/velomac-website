@@ -83,3 +83,12 @@ a {
     linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(245, 248, 252, 0.95)),
     #ffffff;
 }
+
+body:has(.admin-shell) > header,
+body:has(.admin-shell) > footer {
+  display: none;
+}
+
+body:has(.admin-shell) > main {
+  min-height: 100vh;
+}

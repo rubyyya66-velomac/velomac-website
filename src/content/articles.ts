@@ -9,6 +9,7 @@ export type ResourceArticle = {
   slug: string;
   title: string;
   category: string;
+  status?: "published" | "draft";
   summary: string;
   intro?: string;
   description: string;
@@ -25,7 +26,9 @@ export type ResourceArticle = {
   sections: ArticleSection[];
 };
 
-export const articles = articleData as ResourceArticle[];
+export const editableArticles = articleData as ResourceArticle[];
+
+export const articles = editableArticles.filter((article) => article.status !== "draft");
 
 export const resourceCategories = Array.from(
   new Set(articles.map((article) => article.category))

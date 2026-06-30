@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import { adminContentFiles } from "@/content/adminContentFiles";
 import { adminSessionCookieName, getAdminAuthFailure, verifyAdminSession } from "@/lib/adminAuth";
-import { readAdminContent, saveAdminContent } from "@/lib/adminContent";
+import { isAllowedImageFilename, listPublicImages, saveUploadedImage } from "@/lib/adminContent";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const maxUploadBytes = 5 * 1024 * 1024;
 
 export async function GET(request: Request) {
   const authFailure = requireAdmin(request);
@@ -12,21 +13,14 @@ export async function GET(request: Request) {
     return authFailure;
   }
 
-  const { searchParams } = new URL(request.url);
-  const fileKey = searchParams.get("file");
-
-  if (!fileKey) {
-    return NextResponse.json({ files: adminContentFiles });
-  }
-
   try {
-    const result = await readAdminContent(fileKey);
-    return NextResponse.json(result);
+    const images = await listPublicImages();
+    return NextResponse.json({ images });
   } catch (error) {
-    console.error("Admin content read failed", error);
+    console.error("Admin media list failed", error);
     return NextResponse.json(
-      { message: "This content could not be loaded. Please refresh and try again." },
-      { status: 400 }
+      { message: "Images could not be loaded. Please refresh and try again." },
+      { status: 500 }
     );
   }
 }
@@ -38,30 +32,35 @@ export async function POST(request: Request) {
   }
 
   try {
-    const body = (await request.json()) as {
-      file?: string;
-      content?: unknown;
-      message?: string;
-    };
+    const formData = await request.formData();
+    const file = formData.get("file");
 
-    if (!body.file || body.content === undefined) {
-      return NextResponse.json({ message: "File and content are required." }, { status: 400 });
+    if (!(file instanceof File)) {
+      return NextResponse.json({ message: "Please choose an image file to upload." }, { status: 400 });
     }
 
-    const result = await saveAdminContent({
-      key: body.file,
-      content: body.content,
-      message: "Update website content from admin"
+    if (!isAllowedImageFilename(file.name)) {
+      return NextResponse.json({ message: "Please upload a JPG, PNG, WEBP or SVG image." }, { status: 400 });
+    }
+
+    if (file.size > maxUploadBytes) {
+      return NextResponse.json({ message: "Image is too large. Please upload a file under 5 MB." }, { status: 400 });
+    }
+
+    const result = await saveUploadedImage({
+      filename: file.name,
+      bytes: Buffer.from(await file.arrayBuffer())
     });
 
     return NextResponse.json({
-      message: result.mode === "github" ? "Saved and committed to GitHub." : "Saved locally.",
+      message: result.mode === "github" ? "Image uploaded and committed to GitHub." : "Image uploaded locally.",
+      path: result.path,
       mode: result.mode
     });
   } catch (error) {
-    console.error("Admin content save failed", error);
+    console.error("Admin media upload failed", error);
     return NextResponse.json(
-      { message: error instanceof Error ? error.message : "Could not save content. Please try again." },
+      { message: error instanceof Error ? error.message : "Image upload failed. Please try again." },
       { status: 500 }
     );
   }
