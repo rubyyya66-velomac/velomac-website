@@ -30,20 +30,29 @@ export const contactContent = {
     fields: [
       { label: "Name", name: "name", type: "text", required: true, placeholder: "" },
       { label: "Company", name: "company", type: "text", required: true, placeholder: "" },
-      { label: "Country", name: "country", type: "text", required: false, placeholder: "" },
+      { label: "Country / Region", name: "country-region", type: "text", required: false, placeholder: "" },
       { label: "Email", name: "email", type: "email", required: true, placeholder: "" },
       { label: "WhatsApp / Phone", name: "whatsapp-phone", type: "text", required: false, placeholder: "" }
     ],
     productInterestLabel: "Product Interest",
     productInterestName: "product-interest",
     productInterestPlaceholder: "Select a product",
-    requirementsLabel: "Your Requirements",
+    processFields: [
+      { label: "Medium / Fluid", name: "medium-fluid", type: "text", required: false, placeholder: "" },
+      { label: "Pipe Size", name: "pipe-size", type: "text", required: false, placeholder: "" },
+      { label: "Flow Range", name: "flow-range", type: "text", required: false, placeholder: "" },
+      { label: "Temperature / Pressure", name: "temperature-pressure", type: "text", required: false, placeholder: "" }
+    ],
+    requirementsLabel: "Message / Application Details",
     requirementsName: "requirements",
     requirementsPlaceholder: "",
     attachmentLabel: "Attachment Upload (optional)",
     attachmentName: "attachment",
     submitLabel: "Submit Inquiry",
     confirmationMessage:
-      "Thank you. Velomac will review your process details and contact you with the next step."
+      "Thank you. Your request has been received. Our team will get back to you soon.",
+    errorMessage:
+      "Something went wrong. Please email us directly at",
+    errorEmail: site.email
   }
 };
