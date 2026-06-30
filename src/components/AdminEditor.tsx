@@ -11,6 +11,8 @@ type JsonObject = { [key: string]: JsonValue };
 type AdminPayload = {
   file: AdminContentFile;
   content: JsonValue;
+  mode?: "local-fs" | "github" | "bundled-fallback";
+  warning?: string;
 };
 
 type AdminSelectedFile = AdminContentFile["key"] | "media";
@@ -81,6 +83,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
           setPayload(responseBody);
           setRawJson(JSON.stringify(responseBody.content, null, 2));
           setState("idle");
+          setMessage(responseBody.warning || "");
         }
       } catch (error) {
         if (!ignore) {
