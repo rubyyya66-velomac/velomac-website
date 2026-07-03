@@ -1293,5 +1293,306 @@
       "title": "",
       "description": ""
     }
+  },
+  {
+    "slug": "pharma-utility-flow-measurement-precheck",
+    "title": "Pharma Utility Flow Measurement: Turning Facility PreCheck Into Design Evidence",
+    "category": "Pharmaceutical Utilities",
+    "status": "published",
+    "description": "Pharma utility flow measurement guide for WFI, clean steam, CIP/SIP, solvent, and API utility planning before facility commissioning and review.",
+    "excerpt": "Pharma utility flow points should be planned before commissioning begins.",
+    "summary": "WFI, clean steam, CIP/SIP, solvent, and API utility lines need early flow measurement planning during pharma facility design.",
+    "intro": "Pharma utility flow measurement should start during facility design, before WFI, clean steam, CIP/SIP, solvent, and API utility points reach commissioning.\n",
+    "coverImage": "/images/uploads/1783045872138-chatgpt-image-jul-3-2026-10-30-31-am.png",
+    "coverAlt": "Pharma utility flow measurement planning for WFI, clean steam, CIP, SIP, solvent, and API process utility lines",
+    "publishedDate": "2026-07-03",
+    "relatedProducts": [],
+    "relatedApplications": [],
+    "relatedProductSlugs": [
+      "electromagnetic-flowmeter",
+      "vortex-flowmeter",
+      "coriolis-flowmeter",
+      "metal-tube-rotameter"
+    ],
+    "relatedApplicationSlugs": [
+      "pharmaceutical-utilities-flow-measurement",
+      "steam-flow-measurement",
+      "conductive-liquid-flow-measurement",
+      "chemical-process-flow-measurement",
+      "process-automation-flow-measurement",
+      "energy-management-flow-measurement"
+    ],
+    "takeaways": [
+      "- Utility flow points should be defined during pharma facility design.",
+      "- WFI, clean steam, CIP/SIP, solvent, and API lines need separate review.",
+      "- Flowmeter selection depends on medium, flow range, pipe layout, and signal output.",
+      "- Early planning helps reduce late commissioning changes.",
+      "- P&ID details, site photos, and process conditions make selection clearer.",
+      "- Velomac can review the measurement point before ordering."
+    ],
+    "sections": [
+      {
+        "heading": "Quick Answer",
+        "body": [
+          "Pharma utility flow measurement should start during facility design because WFI, clean steam, CIP/SIP, solvent, and API utility lines support production readiness, cleaning cycles, batch control, energy management, and process automation.",
+          "When these measurement points are defined early, engineering teams can align the pipe layout, meter type, signal output, access space, and DCS / PLC integration before equipment ordering begins."
+        ]
+      },
+      {
+        "heading": "Why Pharma Utility Flow Measurement Matters Earlier",
+        "body": [
+          "A pharma facility review starts before production. Utility flow planning should start there too.",
+          "In pharmaceutical projects, flowmeters are often treated as small instruments compared with reactors, skids, filling lines, cleanrooms, and automation systems. In real plant work, utility flow points affect many parts of the facility:",
+          "- WFI distribution",
+          "- Clean steam supply",
+          "- Plant steam supply",
+          "- CIP liquid transfer",
+          "- SIP support",
+          "- Solvent handling",
+          "- API process utility lines",
+          "- Cooling and heating circuits",
+          "- Batch and cleaning sequence control",
+          "When the measurement point is clear during design, the project team has more room to plan pipe layout, instrument access, signal logic, and commissioning work."
+        ]
+      },
+      {
+        "heading": "Why This Topic Is Timely",
+        "body": [
+          "The FDA PreCheck pilot announced on June 29, 2026 highlights earlier engagement for new drug manufacturing facilities, including facility readiness and design-stage communication before operation.",
+          "For engineering teams, the message is practical: facility evidence should be prepared earlier. Utility flow points are part of that evidence because they show how critical media will be supplied, measured, cleaned, controlled, and integrated into automation."
+        ]
+      },
+      {
+        "heading": "Key Definitions",
+        "body": [
+          "WFI means Water for Injection. It is a high-grade water utility used in pharmaceutical production and cleaning-related applications.",
+          "Clean steam is steam used where contact quality and sanitary conditions matter. It is often connected with sterilization, SIP, and controlled pharma utility systems.",
+          "CIP means Clean-in-Place. It refers to cleaning process equipment and piping without disassembly.",
+          "SIP means Sterilize-in-Place. It uses steam or other controlled methods to sterilize process equipment and lines.",
+          "API process utility refers to supporting fluid lines used around active pharmaceutical ingredient production, such as heating, cooling, dosing, transfer, cleaning, and auxiliary process support."
+        ]
+      },
+      {
+        "heading": "Where This Appears in Real Pharma Projects",
+        "body": [
+          "Pharma utility flow measurement may appear in both new facilities and expansion projects.",
+          "Common project areas include:",
+          "- WFI loop supply and return",
+          "- Purified water distribution",
+          "- Clean steam headers and branch lines",
+          "- Plant steam supply for utilities",
+          "- CIP supply and return lines",
+          "- SIP steam lines",
+          "- Solvent transfer and dosing lines",
+          "- API process support lines",
+          "- Skid-mounted process systems",
+          "- Utility tie-ins for new production suites",
+          "Each point may look simple on a P&ID, but each one needs real installation details. The medium, pipe size, pressure, temperature, flow range, cleaning cycle, and signal output all affect flowmeter selection."
+        ]
+      },
+      {
+        "heading": " What Plant Teams Should Check Earlier",
+        "body": [
+          "Before selecting a flowmeter, plant teams should check what the measurement point is expected to prove.",
+          "Some points are used for process control. Some support batch records. Some help utility balance. Some are used for local observation. Some support maintenance review.",
+          "The required role of the flow point should be clear before the meter type is selected.",
+          "Important checks include:",
+          "- Medium type",
+          "- Conductivity for liquid lines",
+          "- Steam condition",
+          "- Minimum, normal, and maximum flow",
+          "- Pipe size and pipe material",
+          "- Pressure and temperature",
+          "- Cleaning or sterilization cycle",
+          "- Sanitary connection needs",
+          "- Straight pipe availability",
+          "- Installation orientation",
+          "- Local display needs",
+          "- DCS / PLC signal output",
+          "- Communication protocol",
+          "- Access for maintenance",
+          "- Shutdown or tie-in plan"
+        ]
+      },
+      {
+        "heading": "What Engineers Should Prepare Before Flowmeter Selection",
+        "body": [
+          "For a pharma utility point, engineers should prepare practical site and process information before requesting a flowmeter recommendation.",
+          "Useful information includes:",
+          "- Line name and utility type",
+          "- P&ID or simple process sketch",
+          "- Pipe size and connection type",
+          "- Fluid name and concentration",
+          "- Liquid conductivity where relevant",
+          "- Flow range",
+          "- Operating pressure",
+          "- Operating temperature",
+          "- Cleaning cycle conditions",
+          "- Steam type and steam quality notes",
+          "- Expected output signal",
+          "- DCS / PLC requirement",
+          "- Installation space photos",
+          "- Upstream and downstream pipe layout",
+          "- Local display or remote display needs",
+          "- Material requirements",
+          "- Batch, continuous, or intermittent flow pattern",
+          "This information helps the project team match the selected meter with the real installation, medium, and automation requirement."
+        ]
+      },
+      {
+        "heading": "How This Affects Flowmeter Selection",
+        "body": [
+          "Pharma utility flow measurement should be reviewed by utility type. Different utility lines may need different measurement principles.",
+          "The selection depends on the medium, line condition, required signal, and installation space.",
+          "A WFI line may need a different approach from clean steam. A solvent dosing line may need a different approach from a CIP transfer line. A local auxiliary line may only need visual indication, while a process automation point may need output to the control system."
+        ]
+      },
+      {
+        "heading": "Which Flowmeter Types May Be Relevant",
+        "body": [
+          "- Electromagnetic Flowmeter",
+          "Electromagnetic flowmeters may be relevant for conductive liquids such as WFI, purified water, and CIP liquids when the medium conductivity and installation conditions fit the application.",
+          "They are commonly reviewed for liquid utility lines where the pipe is full and the flow signal needs to connect with plant automation.",
+          "- Vortex Flowmeter",
+          "Vortex flowmeters may be relevant for clean steam and plant steam measurement when steam conditions, pipe size, vibration environment, and straight pipe requirements are suitable.",
+          "For steam points, temperature and pressure conditions should be reviewed early because they affect measurement configuration and output planning.",
+          "- Coriolis Flowmeter",
+          "Coriolis flowmeters may be relevant for smaller flow points, dosing lines, solvent lines, and process liquids where mass flow, density, or batch control is important.",
+          "The actual medium, viscosity, pressure loss, material compatibility, and flow range should be confirmed before selection.",
+          "- Metal Tube Rotameter",
+          "Metal tube rotameters may be relevant for auxiliary lines, local observation points, purge lines, and smaller utility points where simple local indication is useful.",
+          "They should be selected based on medium, flow range, pressure, temperature, and required connection style."
+        ]
+      },
+      {
+        "heading": "What Velomac Usually Reviews",
+        "body": [
+          "For pharma utility applications, Velomac usually reviews the measurement point before recommending a flowmeter type.",
+          "The review may include:",
+          "- Medium and utility type",
+          "- Pipe size and connection",
+          "- Flow range",
+          "- Pressure and temperature",
+          "- Conductivity for liquid applications",
+          "- Steam condition for steam lines",
+          "- Installation space",
+          "- Straight pipe condition",
+          "- Vibration environment",
+          "- Signal output requirement",
+          "- DCS / PLC integration",
+          "- Local display requirement",
+          "- Material and lining needs",
+          "- Calibration expectations",
+          "- Project stage and tie-in plan",
+          "This helps engineers, EPCs, procurement teams, and plant teams clarify the measurement point before ordering."
+        ]
+      },
+      {
+        "heading": "Practical Checklist",
+        "body": [
+          "Use this checklist before selecting a flowmeter for pharma utilities:",
+          "- Define the utility line and measurement purpose.",
+          "- Confirm the medium and operating conditions.",
+          "- Check minimum, normal, and maximum flow.",
+          "- Review pipe size, connection, and installation space.",
+          "- Confirm cleaning, sterilization, or solvent exposure.",
+          "- Decide local display, remote signal, or DCS / PLC output.",
+          "- Check straight pipe and accessibility.",
+          "- Review material and lining requirements.",
+          "- Prepare site photos or P&ID details.",
+          "- Confirm whether calibration documents are required for the project."
+        ]
+      },
+      {
+        "heading": "Common Questions",
+        "body": [
+          "- What is pharma utility flow measurement?",
+          "Pharma utility flow measurement is the measurement of supporting fluid lines in a pharmaceutical facility, including WFI, purified water, clean steam, plant steam, CIP/SIP media, solvents, and API process utility lines.",
+          "- Why should utility flow points be planned before commissioning?",
+          "Early planning helps the project team align pipe layout, meter type, signal output, access space, and automation requirements before the facility reaches the commissioning stage.",
+          "- Which flowmeter is suitable for WFI or purified water?",
+          "Electromagnetic flowmeters may be suitable when the liquid is conductive and the pipe is full. The final selection should confirm conductivity, flow range, connection, material, and installation conditions.",
+          "- Which flowmeter is suitable for clean steam?",
+          "Vortex flowmeters may be suitable for clean steam or plant steam when pipe size, steam condition, flow range, straight pipe, and vibration conditions fit the application.",
+          "- Can one flowmeter type cover all pharma utility lines?",
+          "Different utility lines often need different flowmeter types. WFI, clean steam, CIP liquid, solvent, and small auxiliary lines should be reviewed separately."
+        ]
+      },
+      {
+        "heading": "Practical Closing",
+        "body": [
+          "Pharma facility PreCheck turns utilities into design evidence. Flow measurement points should be clear before production, procurement, and commissioning decisions become harder to adjust.",
+          "Velomac supports manufacturer-direct flowmeter selection for steam, gas, liquid, plant utilities, water treatment, chemical lines, HVAC, and process automation applications. When relevant, Velomac can also review calibration needs and support the selected measurement point after installation.",
+          "If your team is reviewing a similar measurement point, Velomac can help check the medium, flow range, pipe conditions, installation space, and signal requirements before selection."
+        ]
+      }
+    ],
+    "estimatedWordCount": 0,
+    "seo": {
+      "title": "",
+      "description": ""
+    }
+  },
+  {
+    "slug": "new-article-2",
+    "title": "New Article",
+    "category": "Flowmeter Selection",
+    "status": "draft",
+    "description": "",
+    "excerpt": "",
+    "summary": "",
+    "intro": "",
+    "coverImage": "/images/blog/flowmeter-quote-site-details.png",
+    "coverAlt": "",
+    "publishedDate": "2026-07-03",
+    "relatedProducts": [],
+    "relatedApplications": [],
+    "relatedProductSlugs": [],
+    "relatedApplicationSlugs": [],
+    "takeaways": [],
+    "sections": [
+      {
+        "heading": "Section heading",
+        "body": [
+          "Write the article paragraph here."
+        ]
+      }
+    ],
+    "estimatedWordCount": 0,
+    "seo": {
+      "title": "",
+      "description": ""
+    }
+  },
+  {
+    "slug": "new-article-3",
+    "title": "New Article",
+    "category": "Flowmeter Selection",
+    "status": "draft",
+    "description": "",
+    "excerpt": "",
+    "summary": "",
+    "intro": "",
+    "coverImage": "/images/blog/flowmeter-quote-site-details.png",
+    "coverAlt": "",
+    "publishedDate": "2026-07-03",
+    "relatedProducts": [],
+    "relatedApplications": [],
+    "relatedProductSlugs": [],
+    "relatedApplicationSlugs": [],
+    "takeaways": [],
+    "sections": [
+      {
+        "heading": "Section heading",
+        "body": [
+          "Write the article paragraph here."
+        ]
+      }
+    ],
+    "estimatedWordCount": 0,
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   }
 ]
