@@ -1550,8 +1550,8 @@
     "relatedProductSlugs": [
       "electromagnetic-flowmeter",
       "ultrasonic-flowmeter",
-      "metal-tube-rotameter",
-      "coriolis-flowmeter"
+      "liquid-turbine-flowmeter",
+      "v-cone-flowmeter"
     ],
     "relatedApplicationSlugs": [
       "conductive-liquid-flow-measurement",
@@ -1937,37 +1937,49 @@
         ]
       },
       {
-        "heading": "Metal Tube Rotameter",
+        "heading": "Liquid Turbine Flowmeter",
         "body": [
-          "A metal tube rotameter can provide local indication on smaller chemical, purge, wash-water, or dosing lines.",
-          "It may suit points where operators need direct on-site flow indication.",
+          "A liquid turbine flowmeter may be considered for clean, low-viscosity auxiliary liquid streams within a DLE plant.",
+          "Possible measurement points may include:",
+          "- Clean wash water",
+          "- Treated process water",
+          "- Compatible chemical transfer",
+          "- Stable batching lines",
+          "- Utility liquid monitoring",
+          "It is generally more suitable where the liquid remains clean and does not contain suspended solids, salt crystals, or deposits that could affect the turbine rotor.",
           "Selection should consider:",
+          "- Liquid cleanliness",
+          "- Viscosity",
           "- Chemical compatibility",
-          "- Minimum flow",
-          "- Maximum flow",
-          "- Pressure",
-          "- Temperature",
-          "- Fluid density",
-          "- Vertical installation",
-          "- Local indication requirements",
-          "- Optional transmitter output"
+          "- Minimum and maximum flow",
+          "- Pressure loss",
+          "- Pipe size",
+          "- Stable flow conditions",
+          "- Required signal output",
+          "It should not be selected for raw brine without confirming solids, crystallization risk, and wetted-material compatibility."
         ]
       },
       {
-        "heading": "Coriolis Flowmeter",
+        "heading": "V-Cone Flowmeter",
         "body": [
-          "A Coriolis flowmeter may be considered when direct mass flow or density measurement is important, particularly on concentrated product or controlled reagent streams.",
-          "The review should include:",
-          "- Pipe size",
+          "A V-Cone flowmeter may be considered for larger DLE process liquid lines where differential pressure measurement matches the pipe layout and operating conditions.",
+          "Possible applications may include:",
+          "- Larger process water lines",
+          "- Treated brine transfer",
+          "- Utility liquid pipelines",
+          "- Large-diameter process lines",
+          "- Measurement points with limited straight-pipe space",
+          "Selection should include a review of:",
+          "- Liquid composition",
+          "- Pipe diameter",
           "- Flow range",
-          "- Pressure loss",
-          "- Density",
-          "- Viscosity",
-          "- Material compatibility",
-          "- Gas bubbles",
-          "- Support and vibration conditions",
-          "- Cleaning requirements",
-          "Its suitability should be balanced against line size, installation space, and available pump pressure."
+          "- Pressure conditions",
+          "- Differential pressure transmitter arrangement",
+          "- Wetted materials",
+          "- Deposit or scaling risk",
+          "- Available pressure loss",
+          "- Installation and maintenance access",
+          "For corrosive brine service, material compatibility and the complete pressure-measurement arrangement must be confirmed before selection."
         ]
       },
       {
