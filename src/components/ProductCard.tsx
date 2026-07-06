@@ -4,16 +4,21 @@ import { site } from "@/content/site";
 import type { Product } from "@/types/content";
 
 type ProductCardVariant = "default" | "featured" | "compact";
+type ProductCardImageScale = "default" | "large";
 
 export function ProductCard({
   product,
-  variant = "default"
+  variant = "default",
+  imageScale = "default"
 }: {
   product: Product;
   variant?: ProductCardVariant;
+  imageScale?: ProductCardImageScale;
 }) {
   const isFeatured = variant === "featured";
   const isCompact = variant === "compact";
+  const hasLargeImage = imageScale === "large";
+  const imagePadding = hasLargeImage ? (isCompact ? "p-2.5" : "p-4") : isCompact ? "p-5" : isFeatured ? "p-8" : "p-6";
 
   return (
     <article
@@ -31,9 +36,7 @@ export function ProductCard({
             alt={product.imageAlt}
             fill
             sizes={isFeatured ? "(min-width: 1024px) 33vw, 100vw" : "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"}
-            className={`object-contain transition duration-300 group-hover:scale-[1.03] ${
-              isCompact ? "p-5" : isFeatured ? "p-8" : "p-6"
-            }`}
+            className={`object-contain transition duration-300 group-hover:scale-[1.03] ${imagePadding}`}
           />
         </div>
       </Link>

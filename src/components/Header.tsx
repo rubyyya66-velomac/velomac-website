@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { navItems, site } from "@/content/site";
 
 export function Header() {
@@ -7,9 +8,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-metal-200 bg-white backdrop-blur-md">
       <div className="hidden border-b border-metal-100 bg-metal-50/70 lg:block">
         <div className="mx-auto flex w-full max-w-[1200px] justify-end gap-5 px-8 py-2 text-[13px] font-medium leading-5 text-slate-600">
-          <a className="focus-ring rounded-sm transition hover:text-industrial-700" href={`mailto:${site.email}`}>
-            Email: {site.email}
-          </a>
+          <CopyEmailButton email={site.email} />
           <span className="text-metal-300">|</span>
           <span>WhatsApp: {site.whatsapp}</span>
         </div>
@@ -34,7 +33,7 @@ export function Header() {
         </nav>
         <Link
           href="/contact"
-          className="focus-ring inline-flex w-fit items-center justify-center border border-navy-950 bg-navy-950 px-4 py-2.5 text-[15px] font-semibold text-white transition hover:border-industrial-600 hover:bg-industrial-700"
+          className="focus-ring inline-flex w-fit items-center justify-center border border-industrial-600 bg-industrial-600 px-4 py-2.5 text-[15px] font-semibold text-white transition hover:border-industrial-700 hover:bg-industrial-700"
           aria-label={`Request a quote from ${site.name}`}
         >
           {site.buttons.requestQuote}
