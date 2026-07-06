@@ -1534,27 +1534,526 @@
     }
   },
   {
-    "slug": "new-article-2",
-    "title": "New Article",
+    "slug": "dle-brine-flow-measurement",
+    "title": "DLE Brine Flow Measurement: Turning Direct Lithium Extraction Into a Controlled Continuous Process",
     "category": "Flowmeter Selection",
     "status": "draft",
-    "description": "",
-    "excerpt": "",
-    "summary": "",
-    "intro": "",
-    "coverImage": "/images/blog/flowmeter-quote-site-details.png",
-    "coverAlt": "",
+    "description": "Learn how DLE brine flow measurement supports extraction, chemical dosing, lithium recovery, reinjection, water tracking, and flowmeter selection.",
+    "excerpt": "DLE plants depend on controlled brine, chemical, water, and reinjection flows across the full process train.",
+    "summary": "Controlled brine flow supports stable DLE plant operation.",
+    "intro": "DLE brine flow measurement becomes critical when plant teams must control extraction, chemical dosing, adsorption, concentration, water use, and reinjection as one connected industrial process.",
+    "coverImage": "/images/uploads/1783310064673-chatgpt-image-jul-6-2026-11-53-04-am.png",
+    "coverAlt": "DLE brine flow measurement system installed on an industrial lithium extraction process line.",
     "publishedDate": "2026-07-03",
     "relatedProducts": [],
     "relatedApplications": [],
-    "relatedProductSlugs": [],
-    "relatedApplicationSlugs": [],
-    "takeaways": [],
+    "relatedProductSlugs": [
+      "electromagnetic-flowmeter",
+      "ultrasonic-flowmeter",
+      "metal-tube-rotameter",
+      "coriolis-flowmeter"
+    ],
+    "relatedApplicationSlugs": [
+      "conductive-liquid-flow-measurement",
+      "chemical-process-flow-measurement",
+      "water-treatment-flow-measurement",
+      "process-automation-flow-measurement"
+    ],
+    "takeaways": [
+      "Treat DLE as a complete liquid flow process",
+      "Define the purpose of every measurement point",
+      "Map brine, chemicals, water, product, and return flows",
+      "Confirm brine composition before selecting materials",
+      "Match each flowmeter to its individual process stream",
+      "Agree signal requirements before procurement"
+    ],
     "sections": [
       {
-        "heading": "Section heading",
+        "heading": "Quick Answer",
         "body": [
-          "Write the article paragraph here."
+          "Direct lithium extraction, or DLE, turns lithium-bearing brine into a continuous process involving extraction, treatment, separation, concentration, water handling, and reinjection.",
+          "Lithium recovery depends on chemistry, but the chemistry can only be evaluated when the plant can verify how much brine, reagent, wash water, concentrate, and depleted brine moves through each stage.",
+          "For engineering teams, DLE flow measurement is therefore more than a production instrument. It supports process control, chemical consumption tracking, water accounting, equipment protection, material balance, and environmental monitoring."
+        ]
+      },
+      {
+        "heading": "What Is Direct Lithium Extraction?",
+        "body": [
+          "Direct lithium extraction is a group of processes used to separate lithium from natural or geothermal brines without relying entirely on long-duration evaporation.",
+          "The exact process varies by technology. A DLE plant may use adsorption, ion exchange, solvent extraction, membranes, or other separation methods.",
+          "A typical process train may include:",
+          "- Brine extraction",
+          "- Feed storage and balancing",
+          "- Suspended solids removal",
+          "- Pre-treatment",
+          "- pH adjustment",
+          "- Chemical dosing",
+          "- Lithium adsorption or separation",
+          "- Washing and elution",
+          "- Lithium solution concentration",
+          "- Water recovery",
+          "- Lithium-depleted brine handling",
+          "- Reinjection or controlled return",
+          "- Wastewater and residue treatment",
+          "Each stage creates a separate liquid measurement point with different chemical, hydraulic, and installation conditions."
+        ]
+      },
+      {
+        "heading": "Why DLE Brine Flow Measurement Matters",
+        "body": [
+          "DLE plants must establish a clear relationship between brine entering the process, lithium solution leaving the separation stage, chemicals consumed, water added, and depleted brine returned or treated.",
+          "An unstable or poorly defined flow measurement point can affect:",
+          "- Residence time through adsorption equipment",
+          "- Chemical dosing ratios",
+          "- Lithium loading and elution cycles",
+          "- Water consumption calculations",
+          "- Feed balance between parallel process trains",
+          "- Reinjection volume tracking",
+          "- Pump and valve control",
+          "- Process alarms",
+          "- Environmental reporting",
+          "- Production reconciliation",
+          "A flow reading also needs a clear purpose.",
+          "A control loop may require fast signal response, while a water balance point may place greater emphasis on long-term totalization and traceable records.",
+          "The instrument should therefore be selected around the measurement duty rather than the pipe size alone."
+        ]
+      },
+      {
+        "heading": "Why This Topic Is Receiving More Attention",
+        "body": [
+          "The Chilean Salar de Atacama DLE project direction highlights the need to connect lithium extraction with brine processing, reinjection, water management, and continuous monitoring.",
+          "Critical minerals funding in the United States has also included DLE, geothermal brine pre-treatment, post-treatment, and disposal technologies.",
+          "These developments show that DLE engineering extends beyond the separation material itself.",
+          "Commercial projects must connect extraction technology with continuous brine handling, process control, water tracking, and downstream treatment."
+        ]
+      },
+      {
+        "heading": "Where Flow Measurement Appears in a DLE Plant",
+        "body": []
+      },
+      {
+        "heading": "Raw Brine Extraction",
+        "body": [
+          "The extraction measurement point establishes how much brine enters the operation.",
+          "It may also support pump control, reservoir monitoring, extraction allocation, and comparison with downstream process flow.",
+          "Engineers should confirm whether the line contains:",
+          "- Suspended solids",
+          "- Entrained gas",
+          "- Salt crystals",
+          "- Changing density",
+          "- Scaling deposits",
+          "- Variable flow from extraction pumps"
+        ]
+      },
+      {
+        "heading": "Pre-Treatment Lines",
+        "body": [
+          "Pre-treatment may remove solids or adjust the brine before it reaches the lithium separation stage.",
+          "Flow measurement can help control:",
+          "- Filter loading",
+          "- Dilution",
+          "- Chemical addition",
+          "- Distribution between treatment trains",
+          "- Wash cycles",
+          "- Process balancing",
+          "Deposits, scaling, and changing brine composition should be considered during flowmeter selection."
+        ]
+      },
+      {
+        "heading": "Chemical Dosing",
+        "body": [
+          "Acids, alkalis, regenerants, wash solutions, and other chemicals may be added at several stages.",
+          "The required measurement approach depends on whether the plant needs:",
+          "- Local indication",
+          "- Remote totalization",
+          "- Batch control",
+          "- Mass flow",
+          "- Ratio control against the main brine stream",
+          "- DCS or PLC feedback"
+        ]
+      },
+      {
+        "heading": "Adsorption or Separation Feed",
+        "body": [
+          "The feed flow affects contact time and loading conditions within the separation equipment.",
+          "When several adsorption vessels or modular trains operate in parallel, individual branch measurements can help identify uneven flow distribution and support process sequencing."
+        ]
+      },
+      {
+        "heading": "Elution and Washing",
+        "body": [
+          "Water or chemical solutions may be used to remove lithium from the separation media and prepare it for another cycle.",
+          "These streams may have smaller pipe sizes and wider changes between active flow, flushing, and idle periods.",
+          "Minimum flow conditions should be reviewed carefully."
+        ]
+      },
+      {
+        "heading": "Concentrated Lithium Solution",
+        "body": [
+          "The concentrated product stream may require measurement for:",
+          "- Production accounting",
+          "- Tank transfer",
+          "- Downstream concentration",
+          "- Chemical conversion",
+          "- Batch control",
+          "- Process balance",
+          "Density, composition, temperature, available pressure, and possible crystallization should be included in the application review."
+        ]
+      },
+      {
+        "heading": "Water Recovery and Wastewater Treatment",
+        "body": [
+          "DLE water impact cannot be evaluated from the extraction line alone.",
+          "Plant teams may also need to measure:",
+          "- Freshwater supply",
+          "- Recycled water",
+          "- Wash water",
+          "- Wastewater",
+          "- Filter discharge",
+          "- Neutralization streams",
+          "- Treated water",
+          "- Process return lines"
+        ]
+      },
+      {
+        "heading": "Lithium-Depleted Brine Return",
+        "body": [
+          "The return or reinjection line helps establish the difference between gross brine extraction and net brine removal.",
+          "This measurement point may also support:",
+          "- Pump control",
+          "- Return distribution",
+          "- Monitoring records",
+          "- Comparison with extraction volumes",
+          "- Reinjection planning",
+          "- Material balance calculations"
+        ]
+      },
+      {
+        "heading": "What Plant Teams Should Check Earlier",
+        "body": []
+      },
+      {
+        "heading": "Define the Purpose of Each Meter",
+        "body": [
+          "Every measurement point should have a defined function, such as:",
+          "- Process control",
+          "- Chemical ratio control",
+          "- Batch measurement",
+          "- Totalization",
+          "- Environmental monitoring",
+          "- Water balance",
+          "- Production accounting",
+          "- Pump protection",
+          "- Alarm generation",
+          "- Local operator indication",
+          "The measurement purpose influences the meter technology, output signal, display requirements, and expected operating range."
+        ]
+      },
+      {
+        "heading": "Map the Entire Liquid Balance",
+        "body": [
+          "A DLE process flow diagram should identify where liquid enters, changes composition, splits between trains, returns to the process, leaves as product, or moves to treatment.",
+          "This creates a measurement boundary for:",
+          "- Extracted brine",
+          "- Processed brine",
+          "- Chemical additions",
+          "- Wash water",
+          "- Recycled water",
+          "- Concentrated lithium solution",
+          "- Wastewater",
+          "- Lithium-depleted brine",
+          "A useful brine or water balance normally requires several coordinated measurement points across the process."
+        ]
+      },
+      {
+        "heading": "Confirm Brine and Chemical Properties",
+        "body": [
+          "The word “brine” alone provides too little information for flowmeter selection.",
+          "Engineering teams should prepare:",
+          "- Brine source",
+          "- Chemical composition",
+          "- Salt concentration",
+          "- Conductivity",
+          "- Density",
+          "- Viscosity",
+          "- Suspended solids",
+          "- Crystal formation risk",
+          "- Entrained gas risk",
+          "- Operating temperature",
+          "- Cleaning or flushing chemicals",
+          "Chemical dosing lines require the same level of detail, especially where concentration changes during operation."
+        ]
+      },
+      {
+        "heading": "Review Materials and Linings",
+        "body": [
+          "High-conductivity brine may suit electromagnetic measurement, but conductivity does not confirm material compatibility.",
+          "The meter body, electrodes, lining, seals, process connections, and grounding arrangement must match the actual brine and chemical conditions.",
+          "Material selection should consider:",
+          "- Chloride concentration",
+          "- Acidity or alkalinity",
+          "- Temperature",
+          "- Abrasive particles",
+          "- Cleaning chemicals",
+          "- Expected service conditions",
+          "- Plant material specifications"
+        ]
+      },
+      {
+        "heading": "Check the Hydraulic Conditions",
+        "body": [
+          "Flowmeter selection also depends on how the liquid moves through the pipe.",
+          "Plant teams should review:",
+          "- Full-pipe conditions",
+          "- Minimum flow",
+          "- Normal operating flow",
+          "- Maximum flow",
+          "- Pump operating pattern",
+          "- Flow direction",
+          "- Pulsation",
+          "- Control valves",
+          "- Elbows and reducers",
+          "- Air pockets",
+          "- Vertical or horizontal installation",
+          "- Straight-pipe availability",
+          "- Drainability",
+          "- Scaling or deposit risk",
+          "A meter positioned near a pump discharge, control valve, branch connection, or partially filled section may require additional engineering review."
+        ]
+      },
+      {
+        "heading": "Confirm the Signal Architecture",
+        "body": [
+          "The meter output should be agreed before procurement.",
+          "Relevant details include:",
+          "- 4–20 mA output",
+          "- Pulse or frequency output",
+          "- Digital communication",
+          "- Local totalizer",
+          "- Remote totalization",
+          "- DCS or PLC connection",
+          "- Batch control requirements",
+          "- Alarm outputs",
+          "- Power supply",
+          "- Cable distance",
+          "- Remote transmitter requirements",
+          "This helps avoid selecting a meter configuration that does not support the planned control or reporting function."
+        ]
+      },
+      {
+        "heading": "Information to Prepare Before Flowmeter Selection",
+        "body": [
+          "For each DLE measurement point, prepare:",
+          "- Measured liquid or chemical",
+          "- Composition and concentration",
+          "- Conductivity when relevant",
+          "- Density and viscosity",
+          "- Solids, crystals, or entrained gas",
+          "- Pipe size and schedule",
+          "- Pipe material and internal lining",
+          "- Minimum flow",
+          "- Normal operating flow",
+          "- Maximum flow",
+          "- Operating pressure",
+          "- Design pressure",
+          "- Operating temperature",
+          "- Design temperature",
+          "- Installation orientation",
+          "- Available straight-pipe length",
+          "- Nearby pumps, valves, and fittings",
+          "- Available installation space",
+          "- Required local display",
+          "- Required output and communication",
+          "- Control, totalization, or monitoring purpose",
+          "- Material and process-connection requirements",
+          "- Retrofit or new-build status",
+          "- Cleaning, flushing, and maintenance conditions",
+          "A marked process diagram and clear pipe photographs can also help identify installation constraints before ordering."
+        ]
+      },
+      {
+        "heading": "How DLE Conditions Affect Flowmeter Selection",
+        "body": [
+          "DLE flowmeter selection should be completed stream by stream.",
+          "The main brine line, a small reagent line, a wash-water branch, and a concentrated lithium solution line may all require different measurement technologies.",
+          "The main selection factors include:",
+          "- Electrical conductivity",
+          "- Chemical compatibility",
+          "- Solids and deposits",
+          "- Required flow range",
+          "- Pipe access",
+          "- Available straight runs",
+          "- Pressure loss allowance",
+          "- Local or remote indication",
+          "- Control system requirements",
+          "- Maintenance access",
+          "- Retrofit limitations",
+          "Using one meter technology throughout the plant may simplify documentation, but each stream still needs an individual application review."
+        ]
+      },
+      {
+        "heading": "Which Flowmeter Types May Be Relevant?",
+        "body": []
+      },
+      {
+        "heading": "Electromagnetic Flowmeter",
+        "body": [
+          "An electromagnetic flowmeter is often relevant for electrically conductive brine, process water, wastewater, and conductive chemical liquids.",
+          "It provides an open flow path without internal moving parts.",
+          "The pipe should remain full, and the grounding arrangement should match the pipe construction.",
+          "Selection should include a review of:",
+          "- Liquid conductivity",
+          "- Electrode material",
+          "- Lining material",
+          "- Solids and abrasion",
+          "- Pipe grounding",
+          "- Empty-pipe conditions",
+          "- Installation orientation",
+          "- Required flow range",
+          "Electromagnetic flowmeters may be considered for:",
+          "- Raw brine",
+          "- Treated brine",
+          "- Lithium-depleted brine",
+          "- Conductive chemical solutions",
+          "- Process water",
+          "- Wastewater treatment lines"
+        ]
+      },
+      {
+        "heading": "Ultrasonic Flowmeter",
+        "body": [
+          "Clamp-on ultrasonic flowmeters may support retrofit measurement where pipe cutting is difficult or where temporary verification is required.",
+          "Application suitability depends on:",
+          "- Pipe material",
+          "- Pipe diameter",
+          "- Wall thickness",
+          "- Internal lining",
+          "- External coating",
+          "- Deposits",
+          "- Solids or gas in the liquid",
+          "- Available straight pipe",
+          "- Sensor mounting condition",
+          "Ultrasonic measurement can be useful for existing brine or water lines, but pipe data and acoustic conditions should be reviewed before selection."
+        ]
+      },
+      {
+        "heading": "Metal Tube Rotameter",
+        "body": [
+          "A metal tube rotameter can provide local indication on smaller chemical, purge, wash-water, or dosing lines.",
+          "It may suit points where operators need direct on-site flow indication.",
+          "Selection should consider:",
+          "- Chemical compatibility",
+          "- Minimum flow",
+          "- Maximum flow",
+          "- Pressure",
+          "- Temperature",
+          "- Fluid density",
+          "- Vertical installation",
+          "- Local indication requirements",
+          "- Optional transmitter output"
+        ]
+      },
+      {
+        "heading": "Coriolis Flowmeter",
+        "body": [
+          "A Coriolis flowmeter may be considered when direct mass flow or density measurement is important, particularly on concentrated product or controlled reagent streams.",
+          "The review should include:",
+          "- Pipe size",
+          "- Flow range",
+          "- Pressure loss",
+          "- Density",
+          "- Viscosity",
+          "- Material compatibility",
+          "- Gas bubbles",
+          "- Support and vibration conditions",
+          "- Cleaning requirements",
+          "Its suitability should be balanced against line size, installation space, and available pump pressure."
+        ]
+      },
+      {
+        "heading": "What Velomac Usually Reviews",
+        "body": [
+          "Before recommending a flowmeter, Velomac reviews the complete measurement point rather than matching a model to pipe diameter alone.",
+          "The application review may include:",
+          "- Brine or chemical composition",
+          "- Conductivity and concentration",
+          "- Solids, deposits, or crystals",
+          "- Pipe size and pipe material",
+          "- Flow range",
+          "- Pressure and temperature",
+          "- Installation orientation",
+          "- Available straight pipe",
+          "- Pump and valve positions",
+          "- Lining and electrode materials",
+          "- Local display requirements",
+          "- Signal output",
+          "- DCS or PLC integration",
+          "- Retrofit constraints",
+          "- Calibration requirements",
+          "This helps engineers, EPCs, system integrators, and procurement teams align the meter with the actual process duty before ordering."
+        ]
+      },
+      {
+        "heading": "Practical Checklist",
+        "body": [
+          "Before finalizing a DLE flowmeter specification, confirm:",
+          "- The purpose of the measurement point is defined",
+          "- Minimum, normal, and maximum flow are available",
+          "- The full liquid composition is documented",
+          "- Conductivity is confirmed for electromagnetic measurement",
+          "- Brine solids, gas, scaling, and crystals are considered",
+          "- Electrode, lining, seal, and body materials are reviewed",
+          "- The pipe remains full during measurement",
+          "- Pumps, valves, elbows, and reducers are shown",
+          "- Retrofit limitations and shutdown access are understood",
+          "- Local display and totalization needs are confirmed",
+          "- DCS or PLC signal requirements are agreed",
+          "- Water, chemical, product, and return-flow boundaries are mapped",
+          "- Installation drawings and pipe photographs are available",
+          "- Calibration and commissioning responsibilities are assigned"
+        ]
+      },
+      {
+        "heading": "Common Questions",
+        "body": [
+          "- What is the main flow measurement challenge in DLE?",
+          "The main challenge is that brine composition, solids, chemical exposure, flow range, and installation conditions can change between process stages.",
+          "Each stream requires its own measurement review.",
+          "- Is an electromagnetic flowmeter suitable for lithium brine?",
+          "It may be suitable when the brine has sufficient electrical conductivity and the pipe remains full.",
+          "Electrode, lining, grounding, solids, and chemical compatibility must also be confirmed.",
+          "- Can an ultrasonic flowmeter be installed without cutting the pipe?",
+          "A clamp-on ultrasonic flowmeter can be mounted outside the pipe.",
+          "Its suitability depends on pipe material, wall thickness, lining, deposits, liquid condition, and available straight pipe.",
+          "- Why measure both extracted and returned brine?",
+          "Measuring both streams helps the plant compare gross extraction with lithium-depleted brine return.",
+          "This supports process balance, net withdrawal tracking, pump control, and monitoring records."
+        ]
+      },
+      {
+        "heading": "Which information is most important before requesting a quotation?",
+        "body": [
+          "Start with:",
+          "- Liquid composition",
+          "- Pipe size",
+          "- Minimum flow",
+          "- Normal flow",
+          "- Maximum flow",
+          "- Pressure",
+          "- Temperature",
+          "- Pipe material",
+          "- Installation layout",
+          "- Available space",
+          "- Required signal output"
+        ]
+      },
+      {
+        "heading": "Clarify the Measurement Point Before Ordering",
+        "body": [
+          "DLE plants run on controlled brine, chemical, water, product, and reinjection flows.",
+          "Early application review helps connect the selected meter with the process chemistry, piping conditions, control system, and monitoring purpose.",
+          "Velomac provides manufacturer-direct flowmeter support across conductive liquids, chemical lines, water treatment, plant utilities, and process automation.",
+          "If your team is reviewing a DLE measurement point, Velomac can check the medium, flow range, pipe conditions, installation space, materials, and signal requirements before selection."
         ]
       }
     ],
