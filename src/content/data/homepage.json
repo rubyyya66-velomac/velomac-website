@@ -6,7 +6,7 @@
   "hero": {
     "label": "Industrial Flow Measurement",
     "headline": "Industrial Flow Measurement for Real Process Conditions",
-    "subheadline": "Steam, gas, liquid and chemical flow measurement, supported by manufacturer-direct production and in-house calibration.",
+    "subheadline": "Steam, gas and liquid flow measurement matched to media, flow range and site conditions.",
     "image": {
       "src": "/images/homepage/velomac-product-range.png",
       "alt": "Velomac flowmeter product range"
@@ -16,17 +16,17 @@
       "href": "/contact"
     },
     "secondaryCta": {
-      "label": "View Products",
+      "label": "Explore Products",
       "href": "/products"
     }
   },
   "trustPoints": [
     {
-      "title": "Manufacturer Direct",
+      "title": "Manufacturer-Direct",
       "text": "Factory-close communication for product configuration and order details."
     },
     {
-      "title": "In-house Calibration",
+      "title": "In-House Calibration",
       "text": "Flowmeters are checked before shipment to support stable field measurement."
     },
     {
@@ -36,7 +36,7 @@
   ],
   "siteConditions": {
     "title": "Built Around Real Site Conditions",
-    "description": "Flowmeter selection starts with the process. Media, flow range, pressure, temperature, pipe size and installation details shape the right recommendation.",
+    "description": "Flowmeter selection starts with the process. Media, flow range, pressure, temperature, pipe size and installation details shape the meter configuration.",
     "image": {
       "src": "/images/applications/high-vibration-pipelines.png",
       "alt": "Industrial pipeline condition used for flowmeter selection"
@@ -82,7 +82,7 @@
   },
   "whyVelomac": {
     "eyebrow": "Why Velomac",
-    "title": "Built for Practical Industrial Buying",
+    "title": "From Factory Floor to Field Reading",
     "stats": [
       {
         "value": "2006",

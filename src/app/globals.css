@@ -84,6 +84,115 @@ a {
     #ffffff;
 }
 
+.homepage-hero {
+  background:
+    linear-gradient(135deg, #061426 0%, #081d32 48%, #111827 100%);
+}
+
+.homepage-hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.11) 1px, transparent 1px),
+    linear-gradient(118deg, transparent 0 45%, rgba(0, 174, 239, 0.2) 45.2% 45.45%, transparent 45.7% 100%);
+  background-size: 64px 64px, 64px 64px, 100% 100%;
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.42));
+}
+
+.homepage-hero__flow {
+  position: absolute;
+  left: -12%;
+  height: 1px;
+  width: 72vw;
+  background: linear-gradient(90deg, transparent, rgba(0, 174, 239, 0.58), transparent);
+  opacity: 0.58;
+  transform-origin: left center;
+}
+
+.homepage-hero__flow--one {
+  top: 28%;
+  transform: rotate(-12deg);
+}
+
+.homepage-hero__flow--two {
+  bottom: 22%;
+  opacity: 0.34;
+  transform: rotate(9deg);
+}
+
+.homepage-hero__visual {
+  transform: translateZ(0);
+}
+
+.homepage-proof-surface {
+  background:
+    linear-gradient(135deg, #061426 0%, #0b2138 56%, #0d2d4d 100%);
+}
+
+.homepage-proof-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .homepage-hero__flow--one {
+    animation: homepage-flow-one 11s ease-in-out infinite alternate;
+  }
+
+  .homepage-hero__flow--two {
+    animation: homepage-flow-two 13s ease-in-out infinite alternate;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .homepage-reveal {
+      animation: homepage-reveal 0.7s ease-out both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
+@keyframes homepage-flow-one {
+  from {
+    transform: translateX(-4%) rotate(-12deg);
+  }
+
+  to {
+    transform: translateX(8%) rotate(-12deg);
+  }
+}
+
+@keyframes homepage-flow-two {
+  from {
+    transform: translateX(5%) rotate(9deg);
+  }
+
+  to {
+    transform: translateX(-6%) rotate(9deg);
+  }
+}
+
+@keyframes homepage-reveal {
+  from {
+    opacity: 0.01;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 body:has(.admin-shell) > header,
 body:has(.admin-shell) > footer {
   display: none;
