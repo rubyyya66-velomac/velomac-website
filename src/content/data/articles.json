@@ -2076,27 +2076,559 @@
     }
   },
   {
-    "slug": "new-article-3",
-    "title": "New Article",
-    "category": "Flowmeter Selection",
-    "status": "draft",
-    "description": "",
-    "excerpt": "",
-    "summary": "",
-    "intro": "",
+    "slug": "cement-carbon-capture-utility-flow",
+    "title": "Cement Carbon Capture Flow Measurement Starts With Plant Utilities",
+    "category": "Industrial Decarbonization",
+    "status": "published",
+    "description": "Cement carbon capture flow measurement starts with plant utilities. Learn what EPCs and plant teams should verify before retrofit flowmeter selection.",
+    "excerpt": "Carbon capture retrofits add utility flow points that should be defined before flowmeter selection and DCS integration.",
+    "summary": "Plan utility measurement before cement carbon capture retrofit.",
+    "intro": "Cement carbon capture flow measurement should be planned alongside the retrofit, because new capture equipment can change cooling water, steam, compressed air, wastewater, auxiliary gas, and DCS requirements across the plant.",
     "coverImage": "/images/blog/flowmeter-quote-site-details.png",
-    "coverAlt": "",
-    "publishedDate": "2026-07-03",
+    "coverAlt": "Flowmeters on cooling water, steam, compressed air, and wastewater lines serving a cement carbon capture retrofit",
+    "publishedDate": "2026-07-08",
     "relatedProducts": [],
     "relatedApplications": [],
-    "relatedProductSlugs": [],
-    "relatedApplicationSlugs": [],
-    "takeaways": [],
+    "relatedProductSlugs": [
+      "vortex-flowmeter",
+      "electromagnetic-flowmeter",
+      "thermal-mass-flowmeter",
+      "ultrasonic-flowmeter"
+    ],
+    "relatedApplicationSlugs": [
+      "steam-flow-measurement",
+      "compressed-air-flow-measurement",
+      "gas-flow-measurement",
+      "conductive-liquid-flow-measurement",
+      "energy-management-flow-measurement",
+      "process-automation-flow-measurement"
+    ],
+    "takeaways": [
+      "Carbon capture retrofits add new utility flow points.",
+      "Define the measurement boundary before selecting the meter.",
+      "Prepare minimum, normal, and maximum flow values.",
+      "Review existing meters against the revised utility demand.",
+      "Confirm installation space and signal requirements early.",
+      "Treat CO₂-related lines as separate applications."
+    ],
     "sections": [
       {
-        "heading": "Section heading",
+        "heading": "Quick Answer",
         "body": [
-          "Write the article paragraph here."
+          "A cement carbon capture retrofit adds more than capture equipment. It also creates new flow measurement points across cooling water, steam, compressed air, process water, wastewater, chemical liquids, auxiliary gas, and CO₂-related process lines.",
+          "These points may support process control, utility balancing, energy management, equipment monitoring, internal allocation, or DCS reporting.",
+          "Before selecting a flowmeter, the EPC and plant team should define:",
+          "- What the measurement point represents",
+          "- Which team will use the reading",
+          "- The minimum, normal, and maximum flow",
+          "- The expected pressure and temperature",
+          "- The available installation space",
+          "- The required signal output",
+          "- How the value will be used in the DCS or PLC",
+          "A successful retrofit measurement plan gives engineering, automation, utility, and operations teams a shared understanding of each flow value."
+        ]
+      },
+      {
+        "heading": "Why Cement Carbon Capture Flow Measurement Matters",
+        "body": [
+          "Carbon capture is becoming a practical retrofit topic for the cement industry.",
+          "In June 2026, Denmark granted approximately USD 2.6 billion in support to the Aalborg Portland carbon capture and storage project, which is planned to begin operation in 2030. Cement production accounts for approximately 8% of global CO₂ emissions.",
+          "Heidelberg Materials has also installed an industrial-scale carbon capture facility at its Brevik cement plant in Norway.",
+          "For instrumentation teams, the key issue is the effect of the capture unit on the wider plant.",
+          "New capture equipment can increase utility demand, introduce additional process lines, change existing flow ranges, and create new signals for the plant control system.",
+          "The measurement discussion therefore needs to begin during retrofit planning, rather than after piping and equipment locations have already been fixed."
+        ]
+      },
+      {
+        "heading": "What Is a Cement Carbon Capture Retrofit?",
+        "body": [
+          "A cement carbon capture retrofit adds a capture process to an existing cement plant.",
+          "Depending on the capture method and plant arrangement, the retrofit may include:",
+          "- Cooling systems",
+          "- Heat exchangers",
+          "- Steam or thermal utility connections",
+          "- Compressors and pumps",
+          "- Chemical preparation or circulation systems",
+          "- Process water lines",
+          "- Wastewater handling",
+          "- Auxiliary gas systems",
+          "- CO₂ conditioning and transfer lines",
+          "- Additional automation and monitoring points",
+          "Each supporting system can create one or more new flow measurement requirements.",
+          "The retrofit may also change the duty of an existing utility header. A cooling water or compressed air meter selected for the original plant demand may need to be reviewed against the new operating range."
+        ]
+      },
+      {
+        "heading": "Where New Flow Points Appear in Real Projects",
+        "body": []
+      },
+      {
+        "heading": "Cooling Water",
+        "body": [
+          "Carbon capture equipment may require cooling water for process cooling, heat exchangers, compressors, pumps, or auxiliary equipment.",
+          "The project team should first determine whether the capture unit will use:",
+          "- An existing cooling water header",
+          "- A new dedicated cooling circuit",
+          "- A branch from the plant utility network",
+          "- A temporary construction or commissioning supply",
+          "The meter location should reflect the required measurement boundary.",
+          "For example, one meter may measure the total cooling water supplied to the capture unit, while separate branch meters may support individual equipment monitoring."
+        ]
+      },
+      {
+        "heading": " Steam",
+        "body": [
+          "Some capture processes use steam for heating or regeneration.",
+          "A steam flow measurement point may support:",
+          "- Process control",
+          "- Utility allocation",
+          "- Energy management",
+          "- Capture unit load monitoring",
+          "- Comparison between design and operating conditions",
+          "- Steam system balancing",
+          "The review should include steam pressure, temperature, minimum demand, maximum demand, compensation requirements, condensate risk, and the condition of the available pipe section."
+        ]
+      },
+      {
+        "heading": "Compressed Air and Instrument Air",
+        "body": [
+          "A carbon capture retrofit can add pneumatic valves, actuators, cleaning systems, and auxiliary equipment.",
+          "This may increase demand on the existing compressed air network.",
+          "The engineering team should define whether the meter will measure:",
+          "- The complete capture unit",
+          "- A compressor branch",
+          "- An instrument air header",
+          "- A local equipment package",
+          "- Peak startup demand",
+          "- Normal operating consumption",
+          "The measurement purpose affects the required flow range, response, output, and meter location."
+        ]
+      },
+      {
+        "heading": "Process Water and Wastewater",
+        "body": [
+          "Carbon capture systems may introduce process water, wash water, condensate, wastewater, or treated water lines.",
+          "For each point, engineers should confirm:",
+          "- Whether the pipe remains full",
+          "- Whether the liquid is conductive",
+          "- Whether solids or bubbles may be present",
+          "- The expected temperature",
+          "- The chemical composition",
+          "- The required lining and electrode materials",
+          "- The available straight pipe",
+          "These details influence both flowmeter technology and material selection."
+        ]
+      },
+      {
+        "heading": "Chemical Liquids",
+        "body": [
+          "Chemical preparation, dosing, washing, or circulation systems may create additional liquid measurement points.",
+          "The fluid name alone provides limited selection information.",
+          "The application review should also include:",
+          "- Concentration",
+          "- Conductivity",
+          "- Viscosity",
+          "- Temperature",
+          "- Corrosive properties",
+          "- Suspended solids",
+          "- Crystallization risk",
+          "- Minimum and maximum flow",
+          "Small dosing lines and larger circulation lines may require different measurement methods even when they carry the same chemical."
+        ]
+      },
+      {
+        "heading": "Auxiliary Gas",
+        "body": [
+          "Clean utility gas, purge gas, or other auxiliary gas lines may need measurement for process control or consumption monitoring.",
+          "The review should include:",
+          "- Gas composition",
+          "- Pressure",
+          "- Temperature",
+          "- Moisture",
+          "- Contamination",
+          "- Minimum flow",
+          "- Normal flow",
+          "- Maximum flow",
+          "- Required flow units",
+          "Gas composition is particularly important when the selected measurement principle depends on gas properties."
+        ]
+      },
+      {
+        "heading": " CO₂-Related Process Lines",
+        "body": [
+          "CO₂-related lines require a separate application review.",
+          "The engineering team should confirm:",
+          "- CO₂ concentration",
+          "- Gas, liquid, or dense-phase condition",
+          "- Pressure",
+          "- Temperature",
+          "- Density variation",
+          "- Moisture",
+          "- Impurities",
+          "- Flow range",
+          "- Measurement purpose",
+          "- Required output",
+          "Technology selection for a CO₂ line should be based on the complete operating condition rather than the medium name and pipe size alone."
+        ]
+      },
+      {
+        "heading": " Where Retrofit Measurement Problems Usually Begin",
+        "body": []
+      },
+      {
+        "heading": "The Measurement Boundary Is Unclear",
+        "body": [
+          "A utility header can serve both the existing cement process and the new capture unit.",
+          "The project team needs to decide exactly what the meter should represent.",
+          "Possible boundaries include:",
+          "- Total plant utility demand",
+          "- Total carbon capture demand",
+          "- One equipment package",
+          "- One process stage",
+          "- One distribution branch",
+          "- One reporting or allocation point",
+          "A clear boundary helps EPC, operations, utility, and automation teams interpret the reading in the same way."
+        ]
+      },
+      {
+        "heading": "Only One Design Flow Is Available",
+        "body": [
+          "A retrofit process can operate at several load conditions.",
+          "Startup, normal production, reduced plant output, cleaning, maintenance, and seasonal cooling demand may create different flow rates.",
+          "Flowmeter sizing should therefore use:",
+          "- Minimum operating flow",
+          "- Normal operating flow",
+          "- Maximum operating flow",
+          "- Startup or cleaning flow when relevant",
+          "This gives the application review a more realistic operating range."
+        ]
+      },
+      {
+        "heading": "Existing Pipe Information Is Incomplete",
+        "body": [
+          "An older cement plant may have drawings that differ from the installed piping.",
+          "Important details can include:",
+          "- Actual internal diameter",
+          "- Pipe schedule",
+          "- Pipe material",
+          "- Lining thickness",
+          "- Internal condition",
+          "- Flange standard",
+          "- Flow direction",
+          "- Existing reducers or valves",
+          "A site photograph and a simple pipe sketch can often clarify conditions that remain uncertain in older drawings."
+        ]
+      },
+      {
+        "heading": "The Meter Location Is Selected Late",
+        "body": [
+          "Retrofit sites usually have limited space.",
+          "The proposed location may already be close to:",
+          "- Elbows",
+          "- Control valves",
+          "- Isolation valves",
+          "- Pumps",
+          "- Compressors",
+          "- Reducers",
+          "- Pipe supports",
+          "- Platforms",
+          "- Structural steel",
+          "- Vibration sources",
+          "Early flowmeter installation review gives piping teams more options for straight pipe, access, orientation, cable routing, and future maintenance."
+        ]
+      },
+      {
+        "heading": " The Signal Requirement Is Still Open",
+        "body": [
+          "The process application and the control system need to be reviewed together.",
+          "Before ordering, the project team should confirm:",
+          "- Analog output",
+          "- Pulse or frequency output",
+          "- Digital communication",
+          "- Instantaneous flow",
+          "- Totalized flow",
+          "- Engineering units",
+          "- DCS scaling",
+          "- Alarm handling",
+          "- Power supply",
+          "- Local display",
+          "- Cable distance",
+          "- Grounding arrangement",
+          "This helps prevent commissioning changes to the meter configuration, control cabinet, or DCS database."
+        ]
+      },
+      {
+        "heading": "What Plant Teams Should Check Earlier",
+        "body": [
+          "The first question should be:",
+          "What decision will this flow value support?",
+          "The answer may be:",
+          "- Controlling a process valve",
+          "- Balancing a utility network",
+          "- Tracking steam or compressed air consumption",
+          "- Monitoring cooling water demand",
+          "- Confirming equipment operating conditions",
+          "- Comparing design and actual flow",
+          "- Allocating utility consumption",
+          "- Supporting DCS trends",
+          "- Identifying abnormal utility demand",
+          "Once the purpose is clear, the team can define the required flow range, output, communication, totalization, compensation, and response characteristics.",
+          "The measurement point should also have a named owner.",
+          "For example, the process team may define the operating range, the piping team may define the installation arrangement, and the automation team may define the signal and DCS requirements."
+        ]
+      },
+      {
+        "heading": " What Information Engineers Should Prepare",
+        "body": []
+      },
+      {
+        "heading": "Medium Information",
+        "body": [
+          "Prepare:",
+          "- Medium name",
+          "- Gas or liquid composition",
+          "- Concentration",
+          "- Conductivity for liquid service",
+          "- Density when available",
+          "- Viscosity when relevant",
+          "- Moisture or bubbles",
+          "- Solids or contamination",
+          "- Corrosive properties",
+          "- Expected fluid phase"
+        ]
+      },
+      {
+        "heading": "Operating Conditions",
+        "body": [
+          "Provide:",
+          "- Minimum flow",
+          "- Normal flow",
+          "- Maximum flow",
+          "- Startup flow when relevant",
+          "- Operating pressure",
+          "- Operating temperature",
+          "- Design pressure",
+          "- Design temperature",
+          "Actual operating conditions are especially useful when the capture unit connects to an existing plant utility network."
+        ]
+      },
+      {
+        "heading": "Pipe Information",
+        "body": [
+          "Confirm:",
+          "- Nominal pipe size",
+          "- Actual internal diameter",
+          "- Pipe schedule",
+          "- Pipe material",
+          "- Lining material",
+          "- Lining thickness",
+          "- Flange standard",
+          "- Flow direction",
+          "- Full-pipe condition"
+        ]
+      },
+      {
+        "heading": "Installation Information",
+        "body": [
+          "Review:",
+          "- Available upstream straight pipe",
+          "- Available downstream straight pipe",
+          "- Nearby elbows and reducers",
+          "- Valve position",
+          "- Pump or compressor location",
+          "- Vibration conditions",
+          "- Installation orientation",
+          "- Indoor or outdoor location",
+          "- Ambient conditions",
+          "- Platform access",
+          "- Maintenance space",
+          "- Shutdown window"
+        ]
+      },
+      {
+        "heading": "Signal and Control Information",
+        "body": [
+          "Prepare:",
+          "- Required output",
+          "- Communication protocol",
+          "- DCS or PLC input type",
+          "- Engineering units",
+          "- Totalizer requirements",
+          "- Local display requirements",
+          "- Alarm requirements",
+          "- Power supply",
+          "- Cable distance",
+          "- Grounding arrangement",
+          "A combined process, pipe, installation, and signal data sheet gives the flowmeter manufacturer a much clearer basis for review."
+        ]
+      },
+      {
+        "heading": "How the Retrofit Affects Flowmeter Selection",
+        "body": [
+          "Flowmeter selection should consider the complete measurement point.",
+          "The medium identifies the starting technology group. The flow range, pressure, temperature, pipe arrangement, signal requirements, and measurement purpose then narrow the selection.",
+          "A meter suitable for a new cooling water line may differ from one selected for an existing water pipe with limited shutdown access.",
+          "A compressed air meter used for energy management may also require a different range and output arrangement from one used in a process control loop."
+        ]
+      },
+      {
+        "heading": "Which Flowmeter Types May Be Relevant?",
+        "body": []
+      },
+      {
+        "heading": "Vortex Flowmeter",
+        "body": [
+          "A vortex flowmeter may be considered for:",
+          "- Steam",
+          "- Compressed air",
+          "- Utility gas",
+          "- Selected process gas lines",
+          "The application review should include:",
+          "- Minimum and maximum flow",
+          "- Pressure",
+          "- Temperature",
+          "- Gas density",
+          "- Steam condition",
+          "- Condensation risk",
+          "- Available straight pipe",
+          "- Pipe vibration",
+          "- Compensation requirements",
+          "Steam and gas applications may also require pressure or temperature compensation according to the required flow units."
+        ]
+      },
+      {
+        "heading": "Electromagnetic Flowmeter",
+        "body": [
+          "An electromagnetic flowmeter may be considered for:",
+          "- Cooling water",
+          "- Conductive process water",
+          "- Conductive wastewater",
+          "- Conductive chemical liquids",
+          "- Water treatment lines",
+          "The pipe should remain full, and the liquid should have sufficient conductivity.",
+          "Material review should cover the lining, electrodes, temperature, chemical concentration, and expected fluid condition."
+        ]
+      },
+      {
+        "heading": "Thermal Mass Flowmeter",
+        "body": [
+          "A thermal mass flowmeter may be considered for:",
+          "- Compressed air",
+          "- Clean utility gas",
+          "- Selected auxiliary gas lines",
+          "The review should include:",
+          "- Gas composition",
+          "- Moisture",
+          "- Contamination",
+          "- Pressure",
+          "- Temperature",
+          "- Minimum and maximum flow",
+          "- Pipe size",
+          "- Sensor location",
+          "- Required gas flow units",
+          "Stable gas composition gives the application review a clearer basis for configuration."
+        ]
+      },
+      {
+        "heading": "Ultrasonic Flowmeter",
+        "body": [
+          "An ultrasonic flowmeter may be considered for retrofit water lines, particularly when shutdown time or pipe cutting is restricted.",
+          "For clamp-on measurement, engineers should prepare:",
+          "- Pipe material",
+          "- Pipe outside diameter",
+          "- Wall thickness",
+          "- Internal lining",
+          "- External coating",
+          "- Pipe condition",
+          "- Fluid condition",
+          "- Full-pipe confirmation",
+          "- Available sensor mounting length",
+          "Clamp-on ultrasonic measurement can support retrofit planning, temporary verification, and selected permanent water applications."
+        ]
+      },
+      {
+        "heading": "Reviewing Existing Flowmeters",
+        "body": [
+          "Existing flowmeters should be checked against the revised plant conditions.",
+          "The review should compare the original meter configuration with:",
+          "- New minimum flow",
+          "- New normal flow",
+          "- New maximum flow",
+          "- Revised pressure and temperature",
+          "- Updated utility demand",
+          "- New measurement boundary",
+          "- Required DCS signal",
+          "- New totalizer requirements",
+          "- Revised pipe arrangement",
+          "- Available maintenance access",
+          "In some applications, the existing meter can continue to support the revised duty after its range and signal configuration are confirmed.",
+          "In other applications, a dedicated branch meter creates a clearer measurement boundary for the carbon capture unit."
+        ]
+      },
+      {
+        "heading": "What Velomac Usually Reviews",
+        "body": [
+          "For a cement carbon capture utility measurement point, Velomac usually reviews:",
+          "- Medium and composition",
+          "- Pipe size and internal diameter",
+          "- Minimum, normal, and maximum flow",
+          "- Pressure and temperature",
+          "- Installation orientation",
+          "- Available straight pipe",
+          "- Nearby valves, pumps, and reducers",
+          "- Vibration conditions",
+          "- Pipe material and lining",
+          "- Required output",
+          "- DCS or PLC integration",
+          "- Measurement purpose",
+          "- Shutdown limitations",
+          "- Suitable flowmeter technology",
+          "Where relevant, the review can also include meter configuration and in-house calibration planning before delivery."
+        ]
+      },
+      {
+        "heading": "Practical Checklist",
+        "body": [
+          "Before selecting a flowmeter for a cement carbon capture retrofit, confirm:",
+          "- The measurement purpose is defined.",
+          "- The measurement boundary is agreed.",
+          "- The team responsible for the reading is identified.",
+          "- Minimum, normal, and maximum flow are available.",
+          "- Startup and cleaning conditions are included.",
+          "- Pressure and temperature are confirmed.",
+          "- The expected fluid phase is clear.",
+          "- Pipe material, size, schedule, and lining are known.",
+          "- Available straight pipe has been checked.",
+          "- Nearby valves, pumps, reducers, and vibration sources are identified.",
+          "- Installation orientation is confirmed.",
+          "- Maintenance access is available.",
+          "- The required DCS or PLC signal is finalized.",
+          "- Engineering units and totalizer requirements are confirmed.",
+          "- Power supply and grounding requirements are defined.",
+          "- Existing meters have been reviewed against the new duty.",
+          "- CO₂-related lines have received a separate application review."
+        ]
+      },
+      {
+        "heading": "Common Questions",
+        "body": [
+          "- Why Does Carbon Capture Create More Plant Utility Flow Points?",
+          "Capture equipment can require cooling water, steam, compressed air, process water, chemical liquids, wastewater handling, and auxiliary gas. Each supporting system may need flow measurement for control, monitoring, allocation, or energy management.",
+          "- Can the Existing Utility Flowmeter Serve the New Capture Unit?",
+          "It may be suitable when its flow range, operating conditions, signal output, and measurement boundary match the revised duty. The existing meter and new utility demand should be reviewed together.",
+          "- Which Flowmeter May Suit Cooling Water?",
+          "An electromagnetic flowmeter may suit conductive water in a full pipe. An ultrasonic flowmeter may also be considered for retrofit water lines, depending on the pipe construction, fluid condition, installation space, and shutdown plan.",
+          "- Which Flowmeter May Suit Compressed Air?",
+          "Vortex and thermal mass flowmeters may both be considered. Selection depends on the pressure, temperature, gas condition, moisture, flow range, pipe size, straight pipe, and required flow units.",
+          "- Should the DCS Signal Be Defined Before Ordering?",
+          "Yes. The project team should confirm the output type, communication, engineering units, scaling, totalizer, alarm handling, power supply, and grounding arrangement before finalizing the meter configuration."
+        ]
+      },
+      {
+        "heading": "Define the Measurement Point Before Ordering",
+        "body": [
+          "A cement carbon capture retrofit creates new flow values that EPC, automation, utility, and operations teams need to understand and use consistently.",
+          "Velomac provides manufacturer-direct application review to help teams confirm the medium, flow range, pipe conditions, installation space, and signal requirements before flowmeter selection."
         ]
       }
     ],
