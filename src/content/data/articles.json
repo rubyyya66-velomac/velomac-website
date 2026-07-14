@@ -2647,7 +2647,7 @@
     "excerpt": "Create one traceable flow record for every cooling-system fill, flush, drain, sample and discharge event.",
     "summary": "Track commissioning water from fill through final discharge.",
     "intro": "Data center commissioning water flow measurement should be planned before flushing begins, so EPCs and site teams can connect each fill, drain, sample, and discharge to the correct pipeline, time period, and water volume.",
-    "coverImage": "/images/uploads/1784016823592-chatgpt-image-jul-14-2026-04-12-38-pm.png",
+    "coverImage": "/images/uploads/1784018468699-chatgpt-image-jul-14-2026-04-12-35-pm.png",
     "coverAlt": "Engineers recording data center commissioning water flow during cooling-pipeline filling, flushing, sampling, and temporary discharge.",
     "publishedDate": "2026-07-14",
     "relatedProducts": [],
@@ -2711,7 +2711,13 @@
       {
         "heading": "Why This Issue Is Receiving More Attention",
         "body": [
-          "Write a paragraph here."
+          "In July 2026, Cheyenne, Wyoming, suspended acceptance of industrial wastewater associated with data center fill-and-flush and closed-loop operations after contamination was traced to discharge from a data center construction site. The affected system was a reclaimed-water system rather than the city’s drinking-water supply.",
+          "The incident moved attention beyond annual data center water consumption and toward the control of individual commissioning discharges.",
+          "Long-term reuse remains another part of the water-management picture. An EPA case study on Quincy, Washington, describes a circular water-treatment system developed with Microsoft that offsets approximately 138 million gallons of potable-water demand per year for data center cooling.",
+          "These examples represent two different measurement needs:",
+          "- Long-term monitoring of cooling-water supply, treatment, circulation, and reuse",
+          "- Short-term documentation of commissioning fills, flushes, drains, and discharges",
+          "Both require clear flow measurement boundaries, but the meters, operating ranges, and data records may be different."
         ]
       },
       {
