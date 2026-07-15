@@ -3212,16 +3212,16 @@
       "- vortex-flowmeter"
     ],
     "relatedApplicationSlugs": [
-      "- food-and-beverage-flow-measurement",
-      "- conductive-liquid-flow-measurement",
-      "- steam-flow-measurement",
-      "- process-automation-flow-measurement"
+      "food-and-beverage-flow-measurement",
+      "conductive-liquid-flow-measurement",
+      "steam-flow-measurement",
+      "process-automation-flow-measurement"
     ],
     "takeaways": [
-      "- Final capacity is only one operating condition.",
-      "- Commissioning and production flows should be listed separately.",
-      "- CIP and rinse stages need their own flow-range review.",
-      "- Meter size should not be copied directly from pipe size.",
+      "Final capacity is only one operating condition.",
+      "Commissioning and production flows should be listed separately.",
+      "CIP and rinse stages need their own flow-range review.",
+      "Meter size should not be copied directly from pipe size.",
       "- Signal scaling should reflect low-flow commissioning conditions.",
       "- Application review should happen before the specification is fixed."
     ],
