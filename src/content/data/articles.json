@@ -3206,10 +3206,10 @@
     "relatedProducts": [],
     "relatedApplications": [],
     "relatedProductSlugs": [
-      "- electromagnetic-flowmeter",
-      "- turbine-flowmeter",
-      "- coriolis-flowmeter",
-      "- vortex-flowmeter"
+      "electromagnetic-flowmeter",
+      "turbine-flowmeter",
+      "coriolis-flowmeter",
+      "vortex-flowmeter"
     ],
     "relatedApplicationSlugs": [
       "food-and-beverage-flow-measurement",
@@ -3222,8 +3222,8 @@
       "Commissioning and production flows should be listed separately.",
       "CIP and rinse stages need their own flow-range review.",
       "Meter size should not be copied directly from pipe size.",
-      "- Signal scaling should reflect low-flow commissioning conditions.",
-      "- Application review should happen before the specification is fixed."
+      "Signal scaling should reflect low-flow commissioning conditions.",
+      "Application review should happen before the specification is fixed."
     ],
     "sections": [
       {
