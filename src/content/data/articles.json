@@ -3206,10 +3206,9 @@
     "relatedProducts": [],
     "relatedApplications": [],
     "relatedProductSlugs": [
-      "electromagnetic-flowmeter",
-      "turbine-flowmeter",
-      "coriolis-flowmeter",
-      "vortex-flowmeter"
+      "Electromagnetic Flowmeter",
+      "Liquid Turbine Flowmeter",
+      "Vortex Flowmeter"
     ],
     "relatedApplicationSlugs": [
       "food-and-beverage-flow-measurement",
@@ -3739,37 +3738,20 @@
         ]
       },
       {
-        "heading": "Turbine Flowmeter",
+        "heading": "Liquid Turbine Flowmeter",
         "body": [
-          "Turbine flowmeters may be considered for clean, low-viscosity liquids and selected batching or ingredient lines.",
+          "A Liquid Turbine Flowmeter may be considered for selected clean, low-viscosity liquids and batching applications.",
           "Engineers should review:",
-          "- Minimum flow",
-          "- Maximum flow",
-          "- Batch duration",
-          "- Liquid cleanliness",
-          "- Viscosity",
-          "- Pressure loss",
-          "- Straight-run availability",
-          "- Sanitary design",
-          "- Cleaning method"
-        ]
-      },
-      {
-        "heading": "Coriolis Flowmeter",
-        "body": [
-          "Coriolis flowmeters may be considered where mass flow, density information, ingredient dosing, or batch measurement is required.",
-          "Engineers should review:",
-          "- Minimum batch flow",
-          "- Normal and peak flow",
-          "- Batch duration",
-          "- Pressure loss",
-          "- Pipe support",
-          "- Vibration",
-          "- Product density",
-          "- Product viscosity",
-          "- Cleaning requirements",
-          "- Installation space",
-          "The selected size should reflect small-batch and startup conditions, not only the final transfer rate."
+          "Minimum flow",
+          "Maximum flow",
+          "Batch duration",
+          "Liquid cleanliness",
+          "Viscosity",
+          "Pressure loss",
+          "Straight-pipe availability",
+          "Connection requirements",
+          "Cleaning method",
+          "For small batches, the minimum transfer rate and batch duration should be confirmed before the meter size is selected."
         ]
       },
       {
