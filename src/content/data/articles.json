@@ -3190,5 +3190,732 @@
       "title": "",
       "description": ""
     }
+  },
+  {
+    "slug": "food-plant-commissioning-flowmeter-sizing",
+    "title": "Flowmeter Sizing for Food Plant Commissioning and Full Production",
+    "category": "Food and Beverage Flow Measurement",
+    "status": "published",
+    "description": "Flowmeter sizing for food plant commissioning should cover startup, CIP, batch, normal, and peak flow before specifications and meter selection are fixed.",
+    "excerpt": "A flowmeter selected only for future capacity may miss the low-flow conditions that define commissioning, CIP, and early production.",
+    "summary": "Size for startup flow and future production.",
+    "intro": "Flowmeter sizing for food plant commissioning should reflect water runs, CIP cycles, small batches, single-line startup, and gradual production ramp-up, not only the final capacity written into the original project design.",
+    "coverImage": "/images/uploads/1784093933473-chatgpt-image-jul-15-2026-01-38-31-pm.png",
+    "coverAlt": "Food processing plant commissioning with engineers reviewing CIP, batch production, and full-capacity flowmeter sizing",
+    "publishedDate": "2026-07-15",
+    "relatedProducts": [],
+    "relatedApplications": [],
+    "relatedProductSlugs": [
+      "- electromagnetic-flowmeter",
+      "- turbine-flowmeter",
+      "- coriolis-flowmeter",
+      "- vortex-flowmeter"
+    ],
+    "relatedApplicationSlugs": [
+      "- food-and-beverage-flow-measurement",
+      "- conductive-liquid-flow-measurement",
+      "- steam-flow-measurement",
+      "- process-automation-flow-measurement"
+    ],
+    "takeaways": [
+      "- Final capacity is only one operating condition.",
+      "- Commissioning and production flows should be listed separately.",
+      "- CIP and rinse stages need their own flow-range review.",
+      "- Meter size should not be copied directly from pipe size.",
+      "- Signal scaling should reflect low-flow commissioning conditions.",
+      "- Application review should happen before the specification is fixed."
+    ],
+    "sections": [
+      {
+        "heading": "Section heading",
+        "body": [
+          "A food plant flowmeter should not be selected only from the final production capacity and nominal pipe size.",
+          "Before the specification is finalized, engineering teams should define the minimum, normal, and peak flow for each operating stage.",
+          "- Water commissioning",
+          "- CIP and rinse cycles",
+          "- Small-batch production",
+          "- Single-line startup",
+          "- Stable production",
+          "- Future full-capacity operation",
+          "A meter sized only for the future peak flow may remain near the lower end of its measuring range during commissioning, when plant teams need clear process data for adjustment, verification, and automation checks."
+        ]
+      },
+      {
+        "heading": "The Design Capacity Belongs to the Future",
+        "body": [
+          "New food and beverage plants are usually designed around the production output they expect to reach later.",
+          "The piping system may already allow for:",
+          "- Additional production lines",
+          "- More filling or processing equipment",
+          "- Increased operating shifts",
+          "- Higher batch frequency",
+          "- Greater utility demand",
+          "- Future plant expansion",
+          "The plant rarely begins at that capacity.",
+          "Initial operation may involve:",
+          "- Water circulation tests",
+          "- One active production line",
+          "- Small trial batches",
+          "- Recipe adjustment",
+          "- Pump and valve tuning",
+          "- CIP commissioning",
+          "- Limited operating hours",
+          "- Gradual introduction of additional equipment",
+          "The future flow may explain why a larger pipe was selected, but it does not describe every condition the flowmeter must measure.",
+          "The flowmeter still has to support the first week, the first month, and each stage of the production ramp-up."
+        ]
+      },
+      {
+        "heading": "Why Full-Production Sizing Can Miss Commissioning Conditions",
+        "body": [
+          "When a flowmeter is selected mainly from the final peak flow, the actual commissioning flow may remain far below the selected measuring range.",
+          "This can make it harder for plant teams to observe:",
+          "- Small changes during valve adjustment",
+          "- Low-flow batch stages",
+          "- The beginning and end of a short transfer",
+          "- Residual flow after a pump stops",
+          "- Differences between CIP steps",
+          "- Early production trends",
+          "- Gradual changes during plant ramp-up",
+          "The meter may still provide a signal, but the selected range may not suit the actual measurement task.",
+          "This matters because commissioning is the stage when process, automation, EPC, equipment, and plant teams are trying to understand the same operating condition from the same flow value.",
+          "The main sizing question should therefore include more than maximum capacity.",
+          "Engineering teams should also ask:",
+          "- What is the lowest flow the plant must observe?",
+          "- What is the normal flow during the first operating stage?",
+          "- What is the flow when only one line is running?",
+          "- What are the CIP and rinse flow ranges?",
+          "- What data will be used for batch control or valve adjustment?"
+        ]
+      },
+      {
+        "heading": "Flowmeter Decisions Often Begin Before the RFQ",
+        "body": [
+          "In many food plant projects, the main flowmeter decisions begin during EPC engineering and instrument specification development.",
+          "Before suppliers receive a formal RFQ, the project documents may already define:",
+          "- Flowmeter technology",
+          "- Nominal meter size",
+          "- Minimum and maximum flow",
+          "- Wetted materials",
+          "- Connection type",
+          "- Signal output",
+          "- Communication requirements",
+          "- Calibration requirements",
+          "- Installation arrangement",
+          "- Technical document requirements",
+          "If the early project documents contain only final production conditions, the selected meter direction may already overlook the commissioning stage.",
+          "By the time procurement begins comparing quotations, manufacturers may be responding to a specification that does not fully represent how the plant will initially operate.",
+          "For this reason, commissioning flow should be reviewed while the following items can still be adjusted:",
+          "- Process assumptions",
+          "- Instrument data sheets",
+          "- Meter sizing",
+          "- Material requirements",
+          "- Signal configuration",
+          "- Installation details",
+          "- Calibration range",
+          "Early application review allows EPCs, automation engineers, procurement teams, and manufacturers to work from the same operating conditions before the specification becomes fixed."
+        ]
+      },
+      {
+        "heading": "What Flowmeter Sizing for Food Plant Commissioning Should Include",
+        "body": [
+          "Flowmeter sizing for food plant commissioning requires more than one design value.",
+          "Each operating point should be listed separately."
+        ]
+      },
+      {
+        "heading": "Minimum Flow",
+        "body": [
+          "Minimum flow is the lowest flow that the plant needs to observe, totalize, or control.",
+          "It may occur during:",
+          "- Initial water runs",
+          "- Small-batch transfer",
+          "- Low-rate ingredient dosing",
+          "- Final rinse stages",
+          "- Reduced single-line operation",
+          "- Pump or valve adjustment",
+          "The minimum flow should reflect the actual measurement purpose.",
+          "A flow used only for general trend observation may have different requirements from a flow used for dosing, batch control, or totalization."
+        ]
+      },
+      {
+        "heading": "Normal Commissioning Flow",
+        "body": [
+          "Normal commissioning flow is the typical flow while the plant is being tested and brought online.",
+          "It may include:",
+          "- Water circulation",
+          "- Equipment testing",
+          "- One-line operation",
+          "- Reduced pump speed",
+          "- Trial production",
+          "- Early CIP verification",
+          "This value may be significantly lower than the normal flow expected after the plant reaches stable production."
+        ]
+      },
+      {
+        "heading": "Normal Production Flow",
+        "body": [
+          "Normal production flow is the flow expected during the most common stable operating condition.",
+          "It should not automatically be treated as the same value as the maximum design flow."
+        ]
+      },
+      {
+        "heading": "Peak Flow",
+        "body": [
+          "Peak flow is the highest short-term or continuous flow expected during:",
+          "- Product transfer",
+          "- Tank filling",
+          "- CIP circulation",
+          "- Full production",
+          "- Short process stages",
+          "- Simultaneous line operation",
+          "The project team should clarify whether the peak is continuous or only lasts for a short period."
+        ]
+      },
+      {
+        "heading": "Batch Duration",
+        "body": [
+          "Batch duration is the time available to transfer, dose, or fill the required volume.",
+          "Two batches with the same total volume may require very different flow rates when their transfer times are different.",
+          "Engineers should prepare:",
+          "- Batch volume",
+          "- Minimum batch duration",
+          "- Normal batch duration",
+          "- Maximum transfer flow",
+          "- Low-flow stages at the beginning or end of the batch"
+        ]
+      },
+      {
+        "heading": "Future Expansion Flow",
+        "body": [
+          "Future expansion flow is the expected condition after more lines, equipment, or shifts are introduced.",
+          "This value should be included in the review, but it should not replace the lower flow conditions that occur during startup and early production."
+        ]
+      },
+      {
+        "heading": "Where This Issue Appears in Real Food Plant Projects",
+        "body": []
+      },
+      {
+        "heading": "Water Commissioning",
+        "body": [
+          "Before food product enters the system, water is often used to check:",
+          "- Pumps",
+          "- Valves",
+          "- Tanks",
+          "- Pipework",
+          "- Instruments",
+          "- PLC logic",
+          "- Interlocks",
+          "- Filling sequences",
+          "Only part of the process may be active during these checks.",
+          "The water flow can therefore be much lower than the future product flow.",
+          "If the meter is sized only for full production, the commissioning team may have limited visibility when adjusting pumps, valves, and control logic."
+        ]
+      },
+      {
+        "heading": "Single-Line Startup",
+        "body": [
+          "A plant designed for several production or filling lines may begin with only one active line.",
+          "The main header may already be sized for all planned lines, while the actual flow reflects only the first operating stage.",
+          "This difference should be considered before the meter size is copied directly from the pipe size."
+        ]
+      },
+      {
+        "heading": "CIP and Rinse Cycles",
+        "body": [
+          "CIP supply, return, rinse water, and cleaning chemical circulation can each have different flow requirements.",
+          "One general CIP value may not describe:",
+          "- Initial rinse flow",
+          "- Chemical circulation flow",
+          "- Intermediate rinse flow",
+          "- Final rinse flow",
+          "- CIP return flow",
+          "- Tank transfer flow",
+          "Each stage that needs to be monitored or controlled should be included in the flow-range review."
+        ]
+      },
+      {
+        "heading": "Small-Batch Production",
+        "body": [
+          "Initial batches may be used for:",
+          "- Recipe confirmation",
+          "- Product trials",
+          "- Operator training",
+          "- Equipment adjustment",
+          "- Quality review",
+          "- Filling-line checks",
+          "These batches may create:",
+          "- Low continuous flow",
+          "- Short high-flow periods",
+          "- Frequent starts and stops",
+          "- Slow flow at the end of transfer",
+          "- Different flow ranges between recipes"
+        ]
+      },
+      {
+        "heading": "Gradual Production Ramp-Up",
+        "body": [
+          "Many plants increase production in stages.",
+          "The flowmeter may need to support:",
+          "- Initial trial production",
+          "- One-shift operation",
+          "- Increased operating hours",
+          "- Additional production lines",
+          "- Higher batch frequency",
+          "- Final planned capacity",
+          "The selected range should remain useful throughout this transition."
+        ]
+      },
+      {
+        "heading": "Why CIP and Production Flow Need Separate Review",
+        "body": [
+          "CIP and product flow may pass through the same pipe, but they should not automatically be treated as the same measurement condition.",
+          "CIP may involve:",
+          "- Water at different temperatures",
+          "- Cleaning chemicals",
+          "- Supply and return flow",
+          "- Multiple rinse stages",
+          "- Different pump speeds",
+          "- Different valve positions",
+          "- Short transitions between cleaning steps",
+          "Production may involve:",
+          "- Ingredients with different viscosity",
+          "- Conductive or non-conductive liquids",
+          "- Suspended solids or pulp",
+          "- Entrained air",
+          "- Batch transfer",
+          "- Ingredient dosing",
+          "- Recipe-dependent flow changes",
+          "The meter selected for the production peak should also be checked against the lowest CIP, rinse, and batch flows the plant needs to observe.",
+          "The process team should also confirm whether CIP and production require the same:",
+          "- Measuring range",
+          "- Wetted materials",
+          "- Temperature limits",
+          "- Signal scaling",
+          "- Totalizer settings",
+          "- Control response"
+        ]
+      },
+      {
+        "heading": "What EPC and Plant Teams Should Confirm Earlier",
+        "body": [
+          "Before the instrument data sheet and RFQ are finalized, the EPC, process, automation, equipment, and plant teams should agree on the actual operating stages."
+        ]
+      },
+      {
+        "heading": "First-Stage Operation",
+        "body": [
+          "Confirm:",
+          "- How many lines will operate first",
+          "- Which tanks and skids will be commissioned first",
+          "- Whether production begins with reduced batches",
+          "- Whether water will be used before product",
+          "- The expected first-month flow range",
+          "- Whether pumps will initially operate at reduced speed"
+        ]
+      },
+      {
+        "heading": "Final-Stage Operation",
+        "body": [
+          "Confirm:",
+          "- Planned number of production lines",
+          "- Expected operating shifts",
+          "- Normal full-production flow",
+          "- Maximum continuous flow",
+          "- Short-duration peak flow",
+          "- Future expansion assumptions"
+        ]
+      },
+      {
+        "heading": "CIP Operation",
+        "body": [
+          "Confirm:",
+          "- CIP supply flow",
+          "- CIP return flow",
+          "- Rinse flow",
+          "- Cleaning chemical flow",
+          "- Temperature changes",
+          "- Pump operating conditions",
+          "- Whether CIP and product use the same meter"
+        ]
+      },
+      {
+        "heading": "Measurement Purpose",
+        "body": [
+          "Confirm whether the flow value supports:",
+          "- General trend observation",
+          "- Batch totalization",
+          "- Ingredient dosing",
+          "- Pump monitoring",
+          "- Valve adjustment",
+          "- CIP verification",
+          "- Production reporting",
+          "- Alarm or interlock logic",
+          "- PLC or DCS control",
+          "The required measuring range and signal configuration depend on how the plant will use the flow value."
+        ]
+      },
+      {
+        "heading": "What Information Engineers Should Prepare",
+        "body": []
+      },
+      {
+        "heading": "Process Medium",
+        "body": [
+          "Prepare:",
+          "- Medium name",
+          "- Process water, rinse water, or CIP solution",
+          "- Milk, juice, syrup, beverage, oil, or ingredient",
+          "- Conductivity where an electromagnetic flowmeter is considered",
+          "- Viscosity where relevant",
+          "- Density where relevant",
+          "- Solids, pulp, bubbles, or entrained air",
+          "- Cleaning chemicals",
+          "- Steam or hot-water utility conditions"
+        ]
+      },
+      {
+        "heading": "Flow Range",
+        "body": [
+          "Prepare:",
+          "- Minimum commissioning flow",
+          "- Normal commissioning flow",
+          "- Minimum production flow",
+          "- Normal production flow",
+          "- Maximum continuous flow",
+          "- Short-duration peak flow",
+          "- CIP flow",
+          "- Rinse flow",
+          "- Batch volume",
+          "- Batch duration",
+          "- Future expansion flow",
+          "One maximum flow value is not enough for meter sizing."
+        ]
+      },
+      {
+        "heading": "Pipe and Installation Conditions",
+        "body": [
+          "Prepare:",
+          "- Nominal pipe size",
+          "- Actual internal diameter",
+          "- Pipe material",
+          "- Sanitary connection type",
+          "- Available upstream and downstream pipe",
+          "- Nearby valves, elbows, reducers, and pumps",
+          "- Horizontal or vertical installation",
+          "- Full-pipe conditions",
+          "- Drainability requirements",
+          "- Cleaning requirements",
+          "- Available installation space"
+        ]
+      },
+      {
+        "heading": "Process Conditions",
+        "body": [
+          "Prepare:",
+          "- Operating pressure",
+          "- Operating temperature",
+          "- CIP temperature",
+          "- Design pressure and temperature",
+          "- Pressure changes between operating stages",
+          "- Expected vibration",
+          "- Required wetted materials",
+          "- Cleaning chemical compatibility"
+        ]
+      },
+      {
+        "heading": "Signal and Automation Requirements",
+        "body": [
+          "Prepare:",
+          "- 4–20 mA output",
+          "- Pulse or frequency output",
+          "- Digital communication",
+          "- Totalizer requirements",
+          "- PLC or DCS connection",
+          "- Local display requirements",
+          "- Remote transmitter requirements",
+          "- Low-flow cutoff settings",
+          "- Signal scaling",
+          "- Required update behavior",
+          "These details should be aligned with the automation system before the final model is confirmed."
+        ]
+      },
+      {
+        "heading": "Why Signal Scaling Matters During Commissioning",
+        "body": [
+          "A flowmeter may suit the process while its configured output range still makes commissioning data difficult to use.",
+          "Possible issues include:",
+          "- The transmitter range is based only on the final peak flow.",
+          "- Low commissioning flow occupies a small part of the 4–20 mA span.",
+          "- Pulse values are too large for small batches.",
+          "- Low-flow cutoff settings suppress genuine process flow.",
+          "- PLC scaling does not match the configured meter range.",
+          "- Totalizer settings are based only on full-production volumes.",
+          "The automation team should review the meter range and control-system scaling together.",
+          "The local display, analog output, pulse output, totalizer, and PLC or DCS value should all represent the commissioning condition in a useful way."
+        ]
+      },
+      {
+        "heading": "How Commissioning Conditions Affect Flowmeter Selection",
+        "body": [
+          "Flowmeter selection should begin with the actual operating range, not the pipe size alone."
+        ]
+      },
+      {
+        "heading": "One Meter for Commissioning and Full Production",
+        "body": [
+          "One meter may cover both stages when its usable range includes:",
+          "- Minimum commissioning flow",
+          "- Normal early production",
+          "- CIP and rinse conditions",
+          "- Full-production flow",
+          "- Short peak flow",
+          "The complete range should be checked against the medium, meter size, pressure loss, process conditions, and measurement purpose."
+        ]
+      },
+      {
+        "heading": "A Smaller Meter Section in a Larger Pipeline",
+        "body": [
+          "The meter body does not always need to match the main pipe diameter.",
+          "A smaller meter section may increase the flow velocity during low-flow operation.",
+          "Before using this arrangement, engineers should review:",
+          "- Reducer design",
+          "- Pressure loss",
+          "- Sanitary requirements",
+          "- Drainability",
+          "- Cleaning",
+          "- Straight pipe",
+          "- Installation space",
+          "- Future full-production flow"
+        ]
+      },
+      {
+        "heading": "Separate Measurement Points",
+        "body": [
+          "Separate meters may be considered when one measuring range cannot support every operating stage.",
+          "Examples include:",
+          "- Low-flow ingredient dosing and high-flow transfer",
+          "- CIP and product measurement",
+          "- Individual production lines and the main header",
+          "- Small-batch operation and future full-capacity production",
+          "- Utility monitoring and direct process control"
+        ]
+      },
+      {
+        "heading": "Different Meter Configurations",
+        "body": [
+          "Some projects may use the same flowmeter technology with different sizes, output ranges, or configurations.",
+          "This should be identified before the specification treats every process line as one standard instrument package."
+        ]
+      },
+      {
+        "heading": "Which Flowmeter Types May Be Relevant?",
+        "body": [
+          "The suitable flowmeter depends on the medium, flow range, sanitary requirements, installation conditions, and measurement purpose."
+        ]
+      },
+      {
+        "heading": "Electromagnetic Flowmeter",
+        "body": [
+          "Electromagnetic flowmeters may be considered for conductive liquids such as:",
+          "- Process water",
+          "- Rinse water",
+          "- CIP solutions",
+          "- Conductive beverages",
+          "- Conductive food liquids",
+          "- Wastewater and return water",
+          "Engineers should confirm:",
+          "- Minimum conductivity",
+          "- Minimum and maximum flow",
+          "- Full-pipe conditions",
+          "- Lining material",
+          "- Electrode material",
+          "- Sanitary connections",
+          "- Cleaning temperature",
+          "- Available straight pipe",
+          "- Installation space",
+          "The meter size should be checked against commissioning flow rather than copied directly from the pipe size."
+        ]
+      },
+      {
+        "heading": "Turbine Flowmeter",
+        "body": [
+          "Turbine flowmeters may be considered for clean, low-viscosity liquids and selected batching or ingredient lines.",
+          "Engineers should review:",
+          "- Minimum flow",
+          "- Maximum flow",
+          "- Batch duration",
+          "- Liquid cleanliness",
+          "- Viscosity",
+          "- Pressure loss",
+          "- Straight-run availability",
+          "- Sanitary design",
+          "- Cleaning method"
+        ]
+      },
+      {
+        "heading": "Coriolis Flowmeter",
+        "body": [
+          "Coriolis flowmeters may be considered where mass flow, density information, ingredient dosing, or batch measurement is required.",
+          "Engineers should review:",
+          "- Minimum batch flow",
+          "- Normal and peak flow",
+          "- Batch duration",
+          "- Pressure loss",
+          "- Pipe support",
+          "- Vibration",
+          "- Product density",
+          "- Product viscosity",
+          "- Cleaning requirements",
+          "- Installation space",
+          "The selected size should reflect small-batch and startup conditions, not only the final transfer rate."
+        ]
+      },
+      {
+        "heading": "Vortex Flowmeter",
+        "body": [
+          "Vortex flowmeters may be considered for plant utilities such as:",
+          "- Steam",
+          "- Hot water",
+          "- Selected utility liquids",
+          "- Selected utility gas services",
+          "Engineers should confirm:",
+          "- Minimum startup flow",
+          "- Normal utility demand",
+          "- Peak utility demand",
+          "- Pressure",
+          "- Temperature",
+          "- Steam condition",
+          "- Straight pipe",
+          "- Vibration",
+          "- Temperature and pressure compensation requirements",
+          "A utility header designed for final production may also operate at low flow during commissioning."
+        ]
+      },
+      {
+        "heading": "What Velomac Reviews Before Selection",
+        "body": [
+          "Velomac provides manufacturer-direct application review while the measurement point, data sheet, and meter specification are still being confirmed.",
+          "The review can include:",
+          "- Medium",
+          "- Minimum, normal, and peak flow",
+          "- Commissioning and full-production conditions",
+          "- Batch volume and duration",
+          "- Pipe size and actual internal diameter",
+          "- Pressure and temperature",
+          "- Installation space",
+          "- Straight pipe",
+          "- Sanitary and material requirements",
+          "- Signal output",
+          "- PLC or DCS connection",
+          "- Calibration range",
+          "- Future expansion plan",
+          "This early review helps EPCs, system integrators, equipment builders, procurement teams, and plant engineers clarify the measurement point before the meter size and configuration are fixed."
+        ]
+      },
+      {
+        "heading": "Practical Checklist",
+        "body": [
+          "Before finalizing a food plant flowmeter specification, confirm:",
+          "- Minimum commissioning flow is identified.",
+          "- Normal commissioning flow is identified.",
+          "- Normal production flow is separated from peak flow.",
+          "- CIP and production flows are reviewed separately.",
+          "- CIP supply and return flows are available.",
+          "- The lowest rinse flow is known.",
+          "- Batch volume and batch duration are confirmed.",
+          "- Short high-flow and low-flow stages are identified.",
+          "- Future production expansion is considered.",
+          "- Meter size is reviewed separately from pipe size.",
+          "- Installation conditions are available.",
+          "- Full-pipe conditions are confirmed where required.",
+          "- Sanitary connections and wetted materials are confirmed.",
+          "- Signal output matches the automation system.",
+          "- PLC or DCS scaling is confirmed.",
+          "- Pulse and totalizer settings suit small batches.",
+          "- Low-flow cutoff settings are reviewed.",
+          "- Calibration range reflects the actual operating range.",
+          "- The manufacturer has reviewed the application before final selection."
+        ]
+      },
+      {
+        "heading": "Common Questions",
+        "body": [
+          "- Should the flowmeter size always match the pipe size?",
+          "No. The pipe may be sized for future production capacity while the commissioning flow is much lower.",
+          "Meter size should be reviewed against the actual flow range, pressure loss, installation design, cleaning requirements, and measurement purpose.",
+          "- Can one flowmeter cover commissioning and full production?",
+          "It may be possible when the meter’s usable range includes both the lowest commissioning flow and the highest production flow under the actual process conditions.",
+          "The complete range should be checked before the model and meter size are confirmed.",
+          "- Should CIP flow be included in flowmeter sizing?",
+          "Yes. CIP supply, return, cleaning chemical circulation, and rinse stages may have different flow conditions.",
+          "Each stage that needs to be observed, totalized, or controlled should be included.",
+          "- When should the flowmeter manufacturer review the application?",
+          "The review should happen while the instrument data sheet, meter size, materials, signal configuration, and installation requirements can still be adjusted.",
+          "This is ideally before the final RFQ or purchase order."
+        ]
+      },
+      {
+        "heading": "What information should be sent for application review?",
+        "body": [
+          "Prepare:",
+          "- Medium",
+          "- Minimum, normal, and peak flow",
+          "- Batch volume and duration",
+          "- Pipe size and internal diameter",
+          "- Pressure and temperature",
+          "- Installation conditions",
+          "- Sanitary and material requirements",
+          "- Signal output",
+          "- Measurement purpose",
+          "- Future expansion plan"
+        ]
+      },
+      {
+        "heading": "Size for the First Month and the Future Plant",
+        "body": [
+          "Final production capacity represents only one future operating condition.",
+          "The selected flowmeter must also support water commissioning, CIP, early batches, single-line operation, and gradual production ramp-up.",
+          "If your team is preparing a similar food or beverage measurement point, Velomac can help review the medium, flow range, pipe conditions, installation space, materials, and signal requirements before selection."
+        ]
+      }
+    ],
+    "estimatedWordCount": 0,
+    "seo": {
+      "title": "",
+      "description": ""
+    }
+  },
+  {
+    "slug": "new-article",
+    "title": "New Article",
+    "category": "Flowmeter Selection",
+    "status": "draft",
+    "description": "",
+    "excerpt": "",
+    "summary": "",
+    "intro": "",
+    "coverImage": "/images/blog/flowmeter-quote-site-details.png",
+    "coverAlt": "",
+    "publishedDate": "2026-07-15",
+    "relatedProducts": [],
+    "relatedApplications": [],
+    "relatedProductSlugs": [],
+    "relatedApplicationSlugs": [],
+    "takeaways": [],
+    "sections": [
+      {
+        "heading": "Section heading",
+        "body": [
+          "Write the article paragraph here."
+        ]
+      }
+    ],
+    "estimatedWordCount": 0,
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   }
 ]
