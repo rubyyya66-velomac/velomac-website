@@ -3206,9 +3206,9 @@
     "relatedProducts": [],
     "relatedApplications": [],
     "relatedProductSlugs": [
-      "Electromagnetic Flowmeter",
-      "Liquid Turbine Flowmeter",
-      "Vortex Flowmeter"
+      "electromagnetic-flowmeter",
+      "liquid-turbine-flowmeter",
+      "vortex-flowmeter"
     ],
     "relatedApplicationSlugs": [
       "food-and-beverage-flow-measurement",
