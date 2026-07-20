@@ -149,6 +149,13 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+            <Link
+              href="/quality-innovation"
+              className="focus-ring mt-7 inline-flex w-fit items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
+            >
+              Explore Quality &amp; Innovation
+              <span aria-hidden="true">{">"}</span>
+            </Link>
           </div>
         </Container>
       </Section>

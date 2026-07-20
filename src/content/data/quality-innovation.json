@@ -1,0 +1,268 @@
+{
+  "metadata": {
+    "title": "Quality & Innovation | Velomac Flow Meter",
+    "description": "Documented management systems, product certifications and patent records supporting Velomac's manufacturing and flow measurement development."
+  },
+  "hero": {
+    "eyebrow": "QUALITY & INNOVATION",
+    "headline": "Documented Standards. Continuous Development.",
+    "description": "Quality systems, product certifications and patented development supporting Velomac's flow measurement capabilities.",
+    "image": {
+      "src": "/images/quality/velomac-calibration-hero.jpg",
+      "alt": "Velomac in-house flowmeter calibration and testing system"
+    }
+  },
+  "trustFoundations": [
+    {
+      "title": "Management Systems",
+      "text": "Documented frameworks for quality and operations."
+    },
+    {
+      "title": "Product Certifications",
+      "text": "Relevant certification coverage across selected products."
+    },
+    {
+      "title": "40+ Patent Records",
+      "text": "Continued development in flowmeter structure and sensing."
+    }
+  ],
+  "standardsSection": {
+    "eyebrow": "DOCUMENTED STANDARDS",
+    "headline": "Quality Systems & Product Certifications",
+    "description": "Representative documents supporting our operations and product-related qualifications.",
+    "note": "Additional supporting documents are available for project review."
+  },
+  "documentGroups": [
+    {
+      "id": "management-systems",
+      "title": "Management Systems",
+      "documentIds": [
+        "quality-management-system",
+        "environmental-management-system",
+        "occupational-health-safety-system"
+      ]
+    },
+    {
+      "id": "product-certifications",
+      "title": "Product Certifications",
+      "documentIds": [
+        "sil3-liquid-level-meter",
+        "special-equipment-production-license",
+        "vortex-explosion-protection",
+        "electromagnetic-explosion-protection"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "id": "quality-management-system",
+      "title": "Quality Management System",
+      "category": "Management System",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Xingyuan Certification Centre Co., Ltd.",
+      "certificateNumber": "0350524Q30287R2S",
+      "issuedDate": "1 August 2024",
+      "expiryDate": "31 July 2027",
+      "scope": "ISO 9001:2015 - production and service of flowmeters within the permitted scope.",
+      "thumbnail": "/images/quality/quality-management-system.jpg",
+      "alt": "Velomac Quality Management System Certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "environmental-management-system",
+      "title": "Environmental Management System",
+      "category": "Management System",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Xingyuan Certification Centre Co., Ltd.",
+      "certificateNumber": "0350524E20183R1S",
+      "issuedDate": "1 August 2024",
+      "expiryDate": "31 July 2027",
+      "scope": "ISO 14001:2015 - production and service of flowmeters within the permitted scope.",
+      "thumbnail": "/images/quality/environmental-management-system.jpg",
+      "alt": "Velomac Environmental Management System Certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "occupational-health-safety-system",
+      "title": "Occupational Health and Safety Management System",
+      "category": "Management System",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Xingyuan Certification Centre Co., Ltd.",
+      "certificateNumber": "0350524S30173R1S",
+      "issuedDate": "1 August 2024",
+      "expiryDate": "31 July 2027",
+      "scope": "ISO 45001:2018 - production and service of flowmeters within the permitted scope.",
+      "thumbnail": "/images/quality/occupational-health-safety-system.jpg",
+      "alt": "Velomac Occupational Health and Safety Management System Certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "sil3-liquid-level-meter",
+      "title": "SIL 3 Verification - Liquid Level Meter",
+      "category": "Functional Safety",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "LL-C (Certification), Czech Republic",
+      "certificateNumber": "8603067",
+      "issuedDate": "27 September 2022",
+      "expiryDate": "26 September 2027",
+      "scope": "Liquid level meter verification according to IEC 61508:2010 Parts 1-7.",
+      "thumbnail": "/images/quality/sil3-liquid-level-meter.jpg",
+      "alt": "Velomac SIL 3 Verification Certificate for Liquid Level Meter",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "special-equipment-production-license",
+      "title": "Production License of Special Equipment",
+      "category": "Manufacturing Qualification",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Shandong Provincial Administration for Market Regulation",
+      "certificateNumber": "TS2737698-2030",
+      "issuedDate": "10 June 2026",
+      "expiryDate": "9 June 2030",
+      "scope": "Pressure piping component manufacturing; component combination devices; flowmeter body.",
+      "thumbnail": "/images/quality/special-equipment-production-license.jpg",
+      "alt": "Velomac Production License of Special Equipment",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "vortex-explosion-protection",
+      "title": "Vortex Flowmeter Explosion Protection",
+      "category": "Product Certification",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Nanyang Explosion Protected Electrical Apparatus Research Institute",
+      "certificateNumber": "CNEx23.5344X",
+      "issuedDate": "17 October 2023",
+      "expiryDate": "16 October 2028",
+      "scope": "LUGB vortex flowmeter; Ex db ia IIC T6 Gb; enclosure protection IP66.",
+      "thumbnail": "/images/quality/vortex-explosion-protection.jpg",
+      "alt": "Velomac Vortex Flowmeter Explosion Protection Certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "thermal-mass-explosion-protection",
+      "title": "Thermal Mass Flowmeter Explosion Protection",
+      "category": "Product Certification",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Nanyang Explosion Protected Electrical Apparatus Research Institute",
+      "certificateNumber": "CNEx23.5343X",
+      "issuedDate": "17 October 2023",
+      "expiryDate": "16 October 2028",
+      "scope": "TMF thermal mass flowmeter; Ex db IIC T6 Gb; enclosure protection IP66.",
+      "thumbnail": "/images/quality/thermal-mass-explosion-protection.jpg",
+      "alt": "Velomac Thermal Mass Flowmeter Explosion Protection Certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "electromagnetic-explosion-protection",
+      "title": "Electromagnetic Flowmeter Explosion Protection",
+      "category": "Product Certification",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Nanyang Explosion Protected Electrical Apparatus Research Institute",
+      "certificateNumber": "CNEx23.5341X",
+      "issuedDate": "17 October 2023",
+      "expiryDate": "16 October 2028",
+      "scope": "LDG electromagnetic flowmeter; Ex db ib mb IIC T6 Gb; enclosure protection IP66.",
+      "thumbnail": "/images/quality/electromagnetic-explosion-protection.jpg",
+      "alt": "Velomac Electromagnetic Flowmeter Explosion Protection Certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "metal-tube-explosion-protection",
+      "title": "Metal Tube Rotameter Explosion Protection",
+      "category": "Product Certification",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Nanyang Explosion Protected Electrical Apparatus Research Institute",
+      "certificateNumber": "CNEx23.5342X",
+      "issuedDate": "17 October 2023",
+      "expiryDate": "16 October 2028",
+      "scope": "WLTF metal tube rotameter; Ex db IIC T6 Gb; enclosure protection IP66.",
+      "thumbnail": "/images/quality/metal-tube-explosion-protection.jpg",
+      "alt": "Velomac Metal Tube Rotameter Explosion Protection Certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "id": "level-transmitter-explosion-protection",
+      "title": "Level Transmitter Explosion Protection",
+      "category": "Product Certification",
+      "holder": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "issuer": "Nanyang Explosion Protected Electrical Apparatus Research Institute",
+      "certificateNumber": "CNEx22.0585X",
+      "issuedDate": "9 February 2022",
+      "expiryDate": "8 February 2027",
+      "scope": "UHZ level transmitter; Ex d IIC T6 Gb; enclosure protection IP65.",
+      "thumbnail": "/images/quality/level-transmitter-explosion-protection.jpg",
+      "alt": "Velomac Level Transmitter Explosion Protection Certificate",
+      "publicDisplayApproved": true
+    }
+  ],
+  "patentsSection": {
+    "eyebrow": "TECHNICAL DEVELOPMENT",
+    "headline": "Patented Development",
+    "description": "More than 40 patent records associated with the company reflect continued development in flowmeter structure, sensing and application-focused design.",
+    "count": "40+",
+    "countLabel": "Patent Records",
+    "countDescription": "Reflecting continued development in flowmeter structures, sensing and industrial applications.",
+    "entriesHeadline": "Representative records"
+  },
+  "technicalAreas": [
+    {
+      "title": "Vibration-Resistant Vortex Measurement",
+      "description": "For vibration-prone industrial installations."
+    },
+    {
+      "title": "Flowmeter Structure & Application Design",
+      "description": "For different operating conditions and installation needs."
+    },
+    {
+      "title": "Sensor & Signal Development",
+      "description": "Supporting measurement functionality and signal acquisition."
+    }
+  ],
+  "patents": [
+    {
+      "title": "Large-Diameter Vibration-Resistant Vortex Flowmeter",
+      "publicationNumber": "CN 210952964 U",
+      "recordType": "Utility model record",
+      "technicalArea": "Vortex Flow Measurement",
+      "legalEntity": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "status": "Not independently rechecked",
+      "verifiedSource": "Company patent certificate",
+      "verifiedDate": "2026-07-16",
+      "thumbnail": "/images/quality/patents/large-diameter-vibration-resistant-vortex-patent.jpg",
+      "alt": "Redacted public preview of Velomac Large-Diameter Vibration-Resistant Vortex Flowmeter patent certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "title": "Explosion-Protected Vortex Flowmeter",
+      "publicationNumber": "CN 221173526 U",
+      "recordType": "Utility model record",
+      "technicalArea": "Vortex Flow Measurement",
+      "legalEntity": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "status": "Not independently rechecked",
+      "verifiedSource": "Company patent certificate",
+      "verifiedDate": "2026-07-16",
+      "thumbnail": "/images/quality/patents/explosion-protected-vortex-patent.jpg",
+      "alt": "Redacted public preview of Velomac Explosion-Protected Vortex Flowmeter patent certificate",
+      "publicDisplayApproved": true
+    },
+    {
+      "title": "Moisture-Protected Electromagnetic Flowmeter",
+      "publicationNumber": "CN 221706635 U",
+      "recordType": "Utility model record",
+      "technicalArea": "Electromagnetic Flow Measurement",
+      "legalEntity": "Weihai Weiliu Measurement and Control Instrument Co., Ltd.",
+      "status": "Not independently rechecked",
+      "verifiedSource": "Company patent certificate",
+      "verifiedDate": "2026-07-16",
+      "thumbnail": "/images/quality/patents/moisture-protected-electromagnetic-patent.jpg",
+      "alt": "Redacted public preview of Velomac Moisture-Protected Electromagnetic Flowmeter patent certificate",
+      "publicDisplayApproved": true
+    }
+  ],
+  "cta": {
+    "headline": "Supporting Documents for Project Review",
+    "description": "Additional certificates and supporting documents can be shared based on product, application and project requirements.",
+    "buttonLabel": "Contact Velomac",
+    "href": "/contact"
+  }
+}

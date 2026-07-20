@@ -4,7 +4,7 @@ import { resources } from "@/content/resources";
 import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ["", "/products", "/applications", "/resources", "/about", "/contact"];
+  const staticPages = ["", "/products", "/applications", "/resources", "/about", "/quality-innovation", "/contact"];
   const productPages = products.map((product) => `/products/${product.slug}`);
   const resourcePages = resources.map((resource) => `/resources/${resource.slug}`);
 
