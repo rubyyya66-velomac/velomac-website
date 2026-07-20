@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
+import { HeaderNav } from "@/components/HeaderNav";
 import { navItems, site } from "@/content/site";
 
 export function Header() {
@@ -24,13 +25,7 @@ export function Header() {
             className="h-14 w-auto sm:h-[72px]"
           />
         </Link>
-        <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[length:var(--editable-header-nav-font-size)] font-semibold text-slate-600 lg:gap-x-7 lg:gap-y-3">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="focus-ring rounded-sm transition hover:text-industrial-700">
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <HeaderNav navItems={navItems} />
         <Link
           href="/contact"
           className="focus-ring inline-flex w-fit items-center justify-center border border-industrial-600 bg-industrial-600 px-4 py-2.5 text-[15px] font-semibold text-white transition hover:border-industrial-700 hover:bg-industrial-700"
