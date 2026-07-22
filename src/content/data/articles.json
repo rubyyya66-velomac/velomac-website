@@ -4341,27 +4341,441 @@
     }
   },
   {
-    "slug": "new-article",
-    "title": "New Article",
-    "category": "Flowmeter Selection",
-    "status": "draft",
-    "description": "",
-    "excerpt": "",
-    "summary": "",
-    "intro": "",
-    "coverImage": "/images/blog/flowmeter-quote-site-details.png",
-    "coverAlt": "",
-    "publishedDate": "2026-07-20",
+    "slug": "concentrator-expansion-slurry-flow",
+    "title": "How Concentrator Expansion Changes Slurry Flow Measurement Downstream",
+    "category": "Mining & Mineral Processing",
+    "status": "published",
+    "description": "Learn how concentrator expansion changes slurry flow measurement, water balance, flowmeter sizing, abrasion review, and downstream retrofit planning.",
+    "excerpt": "A second concentrator can change slurry velocity, water demand, abrasion conditions, and the usable flow range across downstream pipelines.",
+    "summary": "Recheck slurry and water flow ranges before concentrator expansion.",
+    "intro": "Concentrator expansion slurry flow measurement requires more than copying the original line, because ore sorting, parallel processing, shared water systems, and changing solids content can reshape downstream operating conditions.",
+    "coverImage": "/images/uploads/1784690429767-chatgpt-image-jul-22-2026-11-18-16-am.png",
+    "coverAlt": "Slurry and process-water pipelines downstream of an expanded mineral concentrator with industrial flow measurement points",
+    "publishedDate": "2026-07-22",
     "relatedProducts": [],
     "relatedApplications": [],
-    "relatedProductSlugs": [],
-    "relatedApplicationSlugs": [],
-    "takeaways": [],
+    "relatedProductSlugs": [
+      "electromagnetic-flowmeter",
+      "ultrasonic-flowmeter"
+    ],
+    "relatedApplicationSlugs": [
+      "conductive-liquid-flow-measurement",
+      "water-treatment-flow-measurement",
+      "process-automation-flow-measurement"
+    ],
+    "takeaways": [
+      "Expansion changes more than maximum plant capacity.",
+      "Recalculate minimum, normal, and peak flow.",
+      "Review slurry density, solids content, and velocity together.",
+      "Define flow-balance boundaries before comparing totals.",
+      "Check liner and electrode conditions for abrasive service.",
+      "Assess suitable retrofit water lines before cutting the pipe."
+    ],
     "sections": [
       {
-        "heading": "Section heading",
+        "heading": "Quick Answer",
         "body": [
-          "Write the article paragraph here."
+          "A second concentrator does more than increase the nameplate production capacity of a mineral processing plant.",
+          "Ore sorting, additional wet-process equipment, parallel production lines, and shared water systems can change:",
+          "- Slurry solids content and density",
+          "- Process-water demand",
+          "- Recycle-water return flow",
+          "- Slurry velocity",
+          "- Pump operating points",
+          "- Tailings volume",
+          "- Pipeline abrasion conditions",
+          "- Minimum, normal, and peak flow",
+          "Existing flowmeter sizes, ranges, materials, and control settings should therefore be checked against the new downstream flow envelope instead of being copied directly from the original concentrator."
+        ]
+      },
+      {
+        "heading": "What Is the Downstream Flow Envelope?",
+        "body": [
+          "The downstream flow envelope is the complete range of process conditions that a pipeline and its measurement point may experience.",
+          "It includes more than the maximum design flow.",
+          "A practical flow envelope normally includes:",
+          "- Minimum flow during commissioning or reduced production",
+          "- Normal flow during stable operation",
+          "- Peak flow during combined concentrator operation",
+          "- Flow during single-line operation",
+          "- Flow during pump changeover",
+          "- Flow during flushing or water-system balancing",
+          "- Changes in slurry density and solids concentration",
+          "- Changes in process-water and recycle-water demand",
+          "- Different pump and valve operating combinations",
+          "A flowmeter selected only around maximum expansion capacity may provide limited usable information during commissioning, partial production, or single-line operation."
+        ]
+      },
+      {
+        "heading": "Why Concentrator Expansion Slurry Flow Measurement Must Be Rechecked",
+        "body": [
+          "A second concentrator does not always create a direct two-times increase at every downstream measurement point.",
+          "Ore sorting may remove part of the mined material before it reaches the wet-processing circuit. This can change the relationship between mine production, concentrator feed, process-water demand, slurry volume, and tailings generation.",
+          "The new and existing concentrators may also share certain systems while keeping others separate.",
+          "Shared systems may include:",
+          "- Process-water headers",
+          "- Recycle-water return lines",
+          "- Make-up water systems",
+          "- Pump stations",
+          "- Tailings pipelines",
+          "- Storage tanks",
+          "- Water treatment systems",
+          "Each operating combination can create a different flow condition.",
+          "The central engineering question is therefore:",
+          "What minimum, normal, and peak flow will each individual pipeline actually experience after the expansion?"
+        ]
+      },
+      {
+        "heading": "A Current Mineral Processing Expansion Example",
+        "body": [
+          "The Mt Holland lithium project expansion announced in July 2026 includes a second concentrator and a new integrated ore-sorting facility.",
+          "The planned expansion is expected to increase annual spodumene concentrate capacity from approximately 380,000 tonnes to approximately 760,000 tonnes, with expanded production targeted for 2030.",
+          "The published project information does not provide detailed downstream slurry and water flow data.",
+          "However, the project illustrates an important measurement issue: when ore sorting, concentrator capacity, and downstream feed requirements change together, the original process-water and slurry measurement design should be reviewed again.",
+          "The relevant flow measurement questions include:",
+          "- How much material will enter the wet-processing circuit after ore sorting?",
+          "- Will both concentrators use the same process-water system?",
+          "- Will both concentrators return water to the same recycle-water network?",
+          "- How will slurry solids content change at each measurement point?",
+          "- What operating combinations will create the minimum and peak flow?",
+          "- Will the existing meters remain within a usable velocity range?"
+        ]
+      },
+      {
+        "heading": "Where the New Flow Conditions May Appear",
+        "body": []
+      },
+      {
+        "heading": "Concentrator feed and discharge",
+        "body": [
+          "The additional concentrator may change the quantity, density, and solids loading of material entering downstream pipelines.",
+          "Measurement points should be reviewed for:",
+          "- Existing concentrator operation",
+          "- New concentrator operation",
+          "- Combined concentrator operation",
+          "- Reduced-load operation",
+          "- Startup and commissioning",
+          "The flow range for one concentrator operating alone may be substantially different from the flow seen when both lines operate together."
+        ]
+      },
+      {
+        "heading": "Process-water distribution",
+        "body": [
+          "A new concentrator may draw water from an existing process-water header or require a separate supply line.",
+          "When a shared header is used, the meter may experience:",
+          "- Low flow when one production line is operating",
+          "- Normal flow during stable combined operation",
+          "- Peak demand during startup or process adjustment",
+          "- Rapid changes when large valves or pumps are switched",
+          "The process-water measurement point should be checked against the full operating sequence rather than the final production target alone."
+        ]
+      },
+      {
+        "heading": "Recycle-water return",
+        "body": [
+          "Expansion can change the quantity and timing of recycle water returning from thickening, dewatering, storage, and tailings handling.",
+          "The available recycle-water flow may vary according to:",
+          "- Solids loading",
+          "- Water recovery rate",
+          "- Tank level",
+          "- Production schedule",
+          "- Tailings system operation",
+          "- Water treatment capacity",
+          "A wider recycle-water flow range can affect both water-balance calculations and make-up water control."
+        ]
+      },
+      {
+        "heading": "Tailings pipelines",
+        "body": [
+          "Higher concentrate production can increase tailings volume, but the hydraulic result depends on more than plant capacity.",
+          "Important conditions include:",
+          "- Tailings solids content",
+          "- Slurry density",
+          "- Water addition",
+          "- Particle characteristics",
+          "- Pipeline diameter",
+          "- Pump duty",
+          "- Operating schedule",
+          "- Required transport velocity",
+          "The actual effect on the pipeline should be calculated from the expected slurry condition rather than inferred from the production increase alone."
+        ]
+      },
+      {
+        "heading": "Pump discharge lines",
+        "body": [
+          "An expansion may move existing pumps to new operating points or introduce additional pumps operating in parallel.",
+          "The resulting flow range should be compared with:",
+          "- Pump operating curves",
+          "- Pipeline velocity",
+          "- Control valve operating range",
+          "- Flowmeter range",
+          "- Minimum-flow protection requirements",
+          "- Peak production demand",
+          "A meter that worked well at the original pump duty may operate differently after the hydraulic system changes."
+        ]
+      },
+      {
+        "heading": "Recheck the Flow-Balance Boundaries",
+        "body": [
+          "Expansion projects need clearly defined flow-balance boundaries.",
+          "Useful boundaries may include:",
+          "- Process-water inlet to the existing concentrator",
+          "- Process-water inlet to the new concentrator",
+          "- Slurry discharge from each concentrator",
+          "- Shared process-water header",
+          "- Recycle-water return",
+          "- Make-up water entering the system",
+          "- Tailings leaving the concentrator area",
+          "- Water transferred to storage or treatment",
+          "- Water entering the downstream refinery process",
+          "Measurement teams should also align:",
+          "- Engineering units",
+          "- Totaliser periods",
+          "- Density assumptions",
+          "- Reporting intervals",
+          "- Meter timestamps",
+          "- Batch or production boundaries",
+          "A difference between two flow totals does not automatically indicate a flowmeter issue.",
+          "The difference may also reflect:",
+          "- Water held in tanks",
+          "- Water retained in solids",
+          "- Time delays between process stages",
+          "- Intermittent transfers",
+          "- Flushing water",
+          "- Evaporation",
+          "- Drainage or maintenance activity",
+          "These process effects should be considered before comparing the old and new production lines."
+        ]
+      },
+      {
+        "heading": "Why Minimum Flow Matters After Expansion",
+        "body": [
+          "Expansion studies naturally focus on peak production, but the plant will not operate continuously at maximum capacity.",
+          "Lower-flow conditions can occur during:",
+          "- Initial commissioning",
+          "- Ramp-up production",
+          "- One concentrator operating alone",
+          "- Reduced ore availability",
+          "- Planned maintenance",
+          "- Pump changeover",
+          "- Process troubleshooting",
+          "- Partial plant shutdown",
+          "- Water-system balancing",
+          "- Temporary downstream restrictions",
+          "A meter sized mainly around the combined peak flow may provide limited usable measurement during these conditions.",
+          "Minimum flow should therefore be calculated for every credible operating mode."
+        ]
+      },
+      {
+        "heading": "How Expansion Affects Flowmeter Selection",
+        "body": [
+          "Copying the original flowmeter size can create problems when the new pipeline has different flow, velocity, density, solids content, or material conditions.",
+          "Engineering teams should review:",
+          "- Measurement purpose",
+          "- Actual pipe internal diameter",
+          "- Minimum flow",
+          "- Normal flow",
+          "- Peak flow",
+          "- Fluid velocity at each operating point",
+          "- Slurry density range",
+          "- Solids concentration",
+          "- Particle characteristics",
+          "- Fluid conductivity where applicable",
+          "- Abrasion conditions",
+          "- Pipe material",
+          "- Internal pipe lining",
+          "- Full-pipe conditions",
+          "- Pressure",
+          "- Temperature",
+          "- Installation orientation",
+          "- Available straight pipe length",
+          "- Upstream and downstream fittings",
+          "- Pump operating arrangement",
+          "- Required signal output",
+          "- DCS or PLC communication requirements",
+          "- Installation and shutdown restrictions",
+          "The selected range should cover full production while retaining useful measurement during commissioning, partial production, and single-line operation."
+        ]
+      },
+      {
+        "heading": "Electromagnetic Flowmeter for Conductive Water and Applicable Slurry Lines",
+        "body": [
+          "An Electromagnetic Flowmeter may be relevant for conductive process water, recycle water, and suitable slurry applications when the pipe remains full and the application conditions support the measurement method.",
+          "The application review should include:",
+          "- Fluid conductivity",
+          "- Slurry solids content",
+          "- Slurry density",
+          "- Particle characteristics",
+          "- Abrasion conditions",
+          "- Minimum velocity",
+          "- Normal velocity",
+          "- Peak velocity",
+          "- Liner compatibility",
+          "- Electrode material",
+          "- Pipe diameter",
+          "- Installation orientation",
+          "- Grounding conditions",
+          "- Full-pipe conditions",
+          "For abrasive slurry service, the liner and electrode should be selected according to the actual medium and operating conditions.",
+          "Velocity should be high enough to support slurry transport while remaining within the pipeline and material limits established by the process and piping teams.",
+          "The same meter specification should not be repeated across multiple slurry points unless their solids content, density, velocity, and abrasion conditions are genuinely similar."
+        ]
+      },
+      {
+        "heading": "Ultrasonic Flowmeter for Water-Line Retrofit Assessment",
+        "body": [
+          "An Ultrasonic Flowmeter may support preliminary flow assessment or retrofit measurement on suitable process-water and recycle-water pipelines where cutting the pipe would complicate plant operation.",
+          "Before evaluating the measurement point, teams should prepare:",
+          "- Pipe outside diameter",
+          "- Pipe wall thickness",
+          "- Pipe material",
+          "- Internal lining details",
+          "- Fluid condition",
+          "- Expected minimum flow",
+          "- Expected normal flow",
+          "- Expected peak flow",
+          "- Available mounting position",
+          "- Straight pipe length",
+          "- External pipe surface condition",
+          "- Upstream and downstream fittings",
+          "In this expansion context, the clearest application is normally a suitable water line rather than a highly variable abrasive slurry pipeline.",
+          "A site review should confirm whether the pipe, lining, fluid, installation space, and flow conditions support the intended ultrasonic measurement method."
+        ]
+      },
+      {
+        "heading": "Existing Flowmeters Should Be Reviewed Individually",
+        "body": [
+          "An existing flowmeter does not automatically need replacement because plant capacity is increasing.",
+          "It may remain suitable when the new operating conditions still match its:",
+          "- Flow range",
+          "- Pipe size",
+          "- Velocity range",
+          "- Material configuration",
+          "- Pressure and temperature limits",
+          "- Installation conditions",
+          "- Signal requirements",
+          "- Control purpose",
+          "Each measurement point should be assessed individually.",
+          "The review may lead to different decisions:",
+          "- Retain the existing meter and update the configured range",
+          "- Retain the meter without changes",
+          "- Change the meter size",
+          "- Change the liner or electrode material",
+          "- Move the measurement point",
+          "- Add a separate meter for the new concentrator",
+          "- Add a temporary assessment point on a suitable water line",
+          "- Revise the DCS or PLC scaling",
+          "- Revise totaliser and flow-balance boundaries",
+          "The decision should follow the actual downstream flow envelope."
+        ]
+      },
+      {
+        "heading": "Information Engineers Should Prepare",
+        "body": [
+          "Before requesting flowmeter selection, prepare one application data set for each measurement point.",
+          "The data should include:",
+          "- Measurement point name",
+          "- Measurement purpose",
+          "- Medium name",
+          "- Liquid or slurry composition",
+          "- Solids concentration",
+          "- Density range",
+          "- Particle characteristics",
+          "- Conductivity where applicable",
+          "- Minimum flow",
+          "- Normal flow",
+          "- Peak flow",
+          "- Pipe size",
+          "- Actual pipe internal diameter",
+          "- Pipe schedule",
+          "- Pipe material",
+          "- Internal lining material",
+          "- Pressure",
+          "- Temperature",
+          "- Installation orientation",
+          "- Upstream fittings",
+          "- Downstream fittings",
+          "- Available straight pipe length",
+          "- Pump arrangement",
+          "- Control valve position",
+          "- Required analogue output",
+          "- Pulse or totaliser requirement",
+          "- DCS or PLC communication requirement",
+          "- Power supply",
+          "- Installation restrictions",
+          "- Shutdown availability",
+          "Separate operating data should be provided when the same pipeline will experience materially different conditions during single-line and combined-line operation."
+        ]
+      },
+      {
+        "heading": "What Velomac Usually Reviews",
+        "body": [
+          "Velomac can review the measurement point with EPC, process, instrumentation, maintenance, and procurement teams before flowmeter selection.",
+          "The application review normally covers:",
+          "- Medium",
+          "- Solids content",
+          "- Density",
+          "- Conductivity where applicable",
+          "- Minimum, normal, and peak flow",
+          "- Pipe dimensions",
+          "- Pressure",
+          "- Temperature",
+          "- Installation orientation",
+          "- Available straight pipe length",
+          "- Material conditions",
+          "- Signal output",
+          "- DCS or PLC requirements",
+          "For a concentrator expansion, Velomac can also compare the existing measurement conditions with the proposed downstream flow envelope.",
+          "This helps clarify whether the existing meter can remain in service, whether its configured range should change, or whether the new production line requires a separate measurement point."
+        ]
+      },
+      {
+        "heading": "Practical Checklist",
+        "body": [
+          "Before retaining or specifying a flowmeter for a concentrator expansion, confirm:",
+          "- How ore sorting changes the material entering the wet-process circuit",
+          "- Whether the existing and new concentrators operate independently or together",
+          "- Whether the concentrators share a process-water header",
+          "- Whether the concentrators share a recycle-water system",
+          "- The slurry solids content at each measurement point",
+          "- The minimum and maximum slurry density",
+          "- Pipeline velocity across all operating conditions",
+          "- Pump combinations during normal and peak production",
+          "- Abrasion conditions for liners and electrodes",
+          "- Minimum flow during commissioning",
+          "- Minimum flow during single-line operation",
+          "- Peak flow during combined-line operation",
+          "- Flow-balance boundaries between the old and new facilities",
+          "- Signal and totaliser requirements for DCS or PLC integration",
+          "- Whether installation requires a planned shutdown",
+          "- Whether suitable water lines can be assessed with an Ultrasonic Flowmeter"
+        ]
+      },
+      {
+        "heading": "Common Questions",
+        "body": [
+          "- Does doubling concentrator capacity double every downstream flow?",
+          "The result varies by measurement point.",
+          "Ore sorting, water recovery, solids content, equipment arrangement, storage, shared utilities, and operating schedules can prevent a direct one-to-one relationship between production capacity and pipeline flow.",
+          "- Can the existing Electromagnetic Flowmeter remain in service?",
+          "It may remain suitable when its size, range, materials, full-pipe condition, and velocity range match the expanded operating envelope.",
+          "The review should include minimum flow, normal flow, combined peak flow, solids content, and abrasion conditions.",
+          "- Why should slurry density be reviewed with volumetric flow?",
+          "The same volumetric flow can represent a different solids throughput when slurry density or solids concentration changes.",
+          "Process teams may need flow and density information together when reviewing mass balance, solids transfer, and tailings production.",
+          "- Can an Ultrasonic Flowmeter support an expansion study?",
+          "An Ultrasonic Flowmeter may support non-invasive checks on suitable water pipelines when the pipe material, wall thickness, internal lining, fluid condition, mounting space, and straight pipe length support the measurement method.",
+          "- When should the flow measurement review begin?",
+          "The review should begin while process flow diagrams, pump duties, pipe sizes, water balances, installation locations, and control boundaries can still be adjusted.",
+          "Early review gives engineering teams more options before piping and instrumentation layouts are finalised."
+        ]
+      },
+      {
+        "heading": "Confirm the New Flow Envelope Before Selection",
+        "body": [
+          "A concentrator expansion should translate production targets into real pipeline conditions before existing flowmeter sizes, ranges, materials, and control settings are repeated.",
+          "Velomac provides manufacturer-direct application support for engineers, EPCs, and plant teams reviewing similar measurement points.",
+          "Velomac can help check the medium, solids content, density, pipe conditions, minimum, normal, and peak flow, installation space, materials, and signal requirements before selection."
         ]
       }
     ],
