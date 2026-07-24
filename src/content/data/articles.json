@@ -97,7 +97,10 @@
       "conductive-liquid-measurement"
     ],
     "intro": "A useful flowmeter quote starts with the process condition. Send the fluid, pipe size, flow range, pressure, temperature, installation limits, signal needs and the real operating problem before asking for price.",
-    "estimatedWordCount": 1228
+    "estimatedWordCount": 1228,
+    "categories": [
+      "flowmeter-selection"
+    ]
   },
   {
     "slug": "flowmeter-selection-messy-site-conditions",
@@ -204,7 +207,12 @@
       "gas-flow-measurement"
     ],
     "intro": "Messy site conditions need a field-first selection process. Start from the pipe, fluid, flow range, installation limits and signal needs before choosing between vortex, electromagnetic, thermal mass, turbine, ultrasonic or differential pressure options.",
-    "estimatedWordCount": 1257
+    "estimatedWordCount": 1257,
+    "categories": [
+      "flowmeter-selection",
+      "installation-notes",
+      "application-notes"
+    ]
   },
   {
     "slug": "retrofit-flowmeter-pipe-photos",
@@ -302,7 +310,12 @@
       "energy-loss-visibility"
     ],
     "intro": "Retrofit flowmeter inquiries should include pipe photos early. Photos reveal installation limits that drawings and pipe size alone often miss, including elbows, valves, supports, access space and whether the line can be cut.",
-    "estimatedWordCount": 1077
+    "estimatedWordCount": 1077,
+    "categories": [
+      "installation-notes",
+      "flowmeter-retrofit",
+      "flowmeter-selection"
+    ]
   },
   {
     "slug": "flowmeter-number-proven",
@@ -393,7 +406,10 @@
       "conductive-liquid-measurement"
     ],
     "intro": "Before approving a flowmeter, ask how the number will be proven. The answer depends on selection conditions, calibration context, flow range, installation details and how the plant will use the signal after startup.",
-    "estimatedWordCount": 972
+    "estimatedWordCount": 972,
+    "categories": [
+      "calibration"
+    ]
   },
   {
     "slug": "plant-flow-data-trust",
@@ -486,7 +502,12 @@
       "conductive-liquid-measurement"
     ],
     "intro": "Flow data has value only when the plant trusts the number enough to use it. Selection, calibration context, installation details and signal output all affect whether operators accept the reading after startup.",
-    "estimatedWordCount": 943
+    "estimatedWordCount": 943,
+    "categories": [
+      "application-notes",
+      "calibration",
+      "process-automation"
+    ]
   },
   {
     "slug": "vortex-flowmeter-complex-flow-challenges",
@@ -577,7 +598,11 @@
       "high-vibration-pipelines"
     ],
     "intro": "Vortex flowmeter selection should be reviewed around steam, gas or clean liquid service, flow range, pressure, temperature, straight pipe, vibration and signal output. The meter family is useful only when the site condition supports it.",
-    "estimatedWordCount": 920
+    "estimatedWordCount": 920,
+    "categories": [
+      "steam-flow-measurement",
+      "application-notes"
+    ]
   },
   {
     "slug": "plc-flowmeter-signal-integration",
@@ -668,7 +693,11 @@
       "energy-loss-visibility"
     ],
     "intro": "A flowmeter project is not finished until the PLC, DCS or monitoring system can read the signal cleanly. Output type, power supply, display needs and commissioning context should be confirmed before startup.",
-    "estimatedWordCount": 919
+    "estimatedWordCount": 919,
+    "categories": [
+      "signal-integration",
+      "process-automation"
+    ]
   },
   {
     "slug": "steam-meter-site-conditions",
@@ -766,7 +795,11 @@
       "energy-loss-visibility"
     ],
     "intro": "Before blaming a steam meter, review the steam condition, pressure, temperature, condensate, straight pipe, vibration and installation layout. Many disputed readings begin around the line, not only inside the instrument.",
-    "estimatedWordCount": 960
+    "estimatedWordCount": 960,
+    "categories": [
+      "steam-flow-measurement",
+      "installation-notes"
+    ]
   },
   {
     "slug": "flowmeter-uncertainty-process-conditions",
@@ -866,7 +899,11 @@
       "energy-loss-visibility"
     ],
     "intro": "A flowmeter project should begin with the uncertainty the plant needs to remove. Product category matters, but the better starting point is the process question, site condition and decision that depends on the reading.",
-    "estimatedWordCount": 965
+    "estimatedWordCount": 965,
+    "categories": [
+      "application-notes",
+      "flowmeter-selection"
+    ]
   },
   {
     "slug": "no-cut-retrofit-flowmeter-selection",
@@ -1078,7 +1115,12 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "flowmeter-retrofit",
+      "installation-notes",
+      "flowmeter-selection"
+    ]
   },
   {
     "slug": "steam-flow-meter-measurement-point-review",
@@ -1292,7 +1334,11 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "steam-flow-measurement",
+      "installation-notes"
+    ]
   },
   {
     "slug": "pharma-utility-flow-measurement-precheck",
@@ -1531,7 +1577,11 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "pharmaceutical-utilities",
+      "application-notes"
+    ]
   },
   {
     "slug": "dle-brine-flow-measurement",
@@ -2073,7 +2123,11 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "chemical-process-flow-measurement",
+      "application-notes"
+    ]
   },
   {
     "slug": "cement-carbon-capture-utility-flow",
@@ -2636,7 +2690,11 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "industrial-decarbonization",
+      "application-notes"
+    ]
   },
   {
     "slug": "data-center-commissioning-water-flow-record",
@@ -3189,7 +3247,11 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "data-center-cooling",
+      "application-notes"
+    ]
   },
   {
     "slug": "food-plant-commissioning-flowmeter-sizing",
@@ -3867,7 +3929,11 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "food-and-beverage-flow-measurement",
+      "application-notes"
+    ]
   },
   {
     "slug": "flowmeter-data-quality-measurement-point",
@@ -4338,7 +4404,12 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "process-automation",
+      "signal-integration",
+      "application-notes"
+    ]
   },
   {
     "slug": "concentrator-expansion-slurry-flow",
@@ -4783,6 +4854,10 @@
     "seo": {
       "title": "",
       "description": ""
-    }
+    },
+    "categories": [
+      "mining-mineral-processing",
+      "application-notes"
+    ]
   }
 ]

@@ -9,6 +9,7 @@ export type ResourceArticle = {
   slug: string;
   title: string;
   category: string;
+  categories?: string[];
   status?: "published" | "draft";
   summary: string;
   intro?: string;
