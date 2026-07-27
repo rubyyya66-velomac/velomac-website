@@ -1,0 +1,757 @@
+{
+  "metadata": {
+    "title": "Flow Measurement Technology & Testing | Velomac",
+    "description": "Velomac sensing development, in-house testing and application-focused flow measurement engineering for demanding industrial conditions."
+  },
+  "hero": {
+    "eyebrow": "ENGINEERING CAPABILITY",
+    "title": "Technology",
+    "description": "Engineering developed around real process conditions",
+    "supportingText": "Velomac develops sensing, validation and application-focused flow measurement capabilities for demanding industrial conditions.",
+    "image": {
+      "src": "/images/technology/non-wetted-sensor-main.png",
+      "alt": "Velomac non-wetted piezoelectric vortex sensor waveform comparison",
+      "fit": "contain"
+    }
+  },
+  "categories": [
+    {
+      "id": "product-sensor-innovation",
+      "slug": "sensor-product-development",
+      "eyebrow": "Sensing and Product Design",
+      "title": "Sensor & Product Development",
+      "description": "Proprietary product and sensing developments for demanding measurement environments.",
+      "introduction": "Velomac develops sensing structures and integrated product functions around process heat, vibration, maintenance access and remote operating visibility.",
+      "image": {
+        "src": "/images/technology/non-wetted-sensor-main.png",
+        "alt": "Velomac non-wetted piezoelectric vortex sensor waveform comparison",
+        "fit": "contain"
+      },
+      "seo": {
+        "title": "Sensor & Product Development | Velomac Technology",
+        "description": "Velomac sensor and flowmeter product development for demanding temperature, vibration, maintenance and remote monitoring conditions."
+      }
+    },
+    {
+      "id": "testing-calibration",
+      "slug": "testing-calibration-systems",
+      "eyebrow": "Controlled Validation",
+      "title": "Testing & Calibration Systems",
+      "description": "In-house systems for validation, vibration testing and calibration support.",
+      "introduction": "Controlled test systems help relate meter behavior to defined flow, vibration and reference conditions before a configuration is reviewed for site use.",
+      "image": {
+        "src": "/images/technology/liquid-flow-calibration-bench.jpg",
+        "alt": "Velomac in-house liquid flow calibration workshop",
+        "fit": "cover"
+      },
+      "seo": {
+        "title": "Testing & Calibration Systems | Velomac Technology",
+        "description": "Velomac in-house liquid calibration, vibration testing and coordinated flowmeter validation systems."
+      }
+    },
+    {
+      "id": "application-engineering",
+      "slug": "application-upgrade-projects",
+      "eyebrow": "Process-Based Engineering",
+      "title": "Application Upgrade Projects",
+      "description": "Process-based upgrade cases developed around real installation and operating conditions.",
+      "introduction": "Application upgrade work starts with the existing measurement method, operating range, pressure loss, installation space and the control information required by the plant.",
+      "image": {
+        "src": "/images/applications/chemical-process-lines.png",
+        "alt": "Flow measurement equipment installed on a chemical process line",
+        "fit": "cover"
+      },
+      "seo": {
+        "title": "Application Upgrade Projects | Velomac Technology",
+        "description": "Velomac process-based flow measurement upgrades for chemical, pharmaceutical and industrial utility applications."
+      }
+    }
+  ],
+  "articles": [
+    {
+      "slug": "non-wetted-piezoelectric-vortex-sensor",
+      "categoryId": "product-sensor-innovation",
+      "title": "Non-Wetted Piezoelectric Vortex Sensor",
+      "summary": "Keeps the piezoelectric element outside direct media contact while retaining the vortex signal.",
+      "introduction": "This sensing structure separates the piezoelectric element from direct process contact while preserving the mechanical path used to detect vortex shedding.",
+      "image": {
+        "src": "/images/technology/non-wetted-sensor-main.png",
+        "alt": "Velomac non-wetted piezoelectric vortex sensor waveform comparison",
+        "fit": "contain"
+      },
+      "highlights": [
+        {
+          "label": "Signal retention",
+          "value": ">95%"
+        },
+        {
+          "label": "Process temperature",
+          "value": ">400°C"
+        },
+        {
+          "label": "Comparison point",
+          "value": "DN50 at 4.2 m/s"
+        },
+        {
+          "label": "Service approach",
+          "value": "Replaceable sensor core"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Why It Matters",
+          "paragraphs": [
+            "A vortex sensor must receive a clear mechanical signal while operating close to process heat, pressure and impurities. Direct media contact can increase the service burden in high-temperature or contamination-prone lines.",
+            "Moving the piezoelectric element away from the medium only works when the transmission path still retains a usable vortex signal."
+          ]
+        },
+        {
+          "title": "Velomac Approach",
+          "paragraphs": [
+            "A thin metal diaphragm and rigid tapered coupling path transfer fluid-induced vibration to a removable sensor core outside direct contact with the process medium.",
+            "The protective tube length can be configured to separate the sensing element from the hottest part of the installation."
+          ],
+          "bullets": [
+            "Non-wetted piezoelectric sensing element",
+            "Rigid mechanical signal-transfer path",
+            "Replaceable sensor core"
+          ],
+          "image": {
+            "src": "/images/technology/non-wetted-sensor-structure.png",
+            "alt": "Section view of the removable non-wetted vortex sensor structure",
+            "fit": "contain"
+          }
+        },
+        {
+          "title": "Key Technical Points",
+          "paragraphs": [
+            "The current development supports process temperatures above 400°C and reduces direct exposure of the piezoelectric element to deposits and particles."
+          ],
+          "bullets": [
+            "Process temperature capability above 400°C",
+            "More than 95% signal amplitude retained at the confirmed comparison point",
+            "Sensor-core service without removing the complete meter body",
+            "Field replacement requires the approved isolation and pressure-safety procedure"
+          ]
+        },
+        {
+          "title": "Validation Data",
+          "paragraphs": [
+            "The non-wetted sensor and a traditional medium-contact sensor were compared using the same signal-processing board at one controlled operating point."
+          ],
+          "table": {
+            "columns": [
+              "Test item",
+              "Confirmed value"
+            ],
+            "rows": [
+              [
+                "Ambient temperature",
+                "28°C"
+              ],
+              [
+                "Atmospheric pressure",
+                "101.413 kPa"
+              ],
+              [
+                "Meter size",
+                "DN50"
+              ],
+              [
+                "Flow velocity",
+                "4.2 m/s"
+              ],
+              [
+                "Signal processing",
+                "Identical board for both sensors"
+              ],
+              [
+                "Measured result",
+                "More than 95% of the traditional sensor signal amplitude retained"
+              ]
+            ]
+          }
+        },
+        {
+          "title": "Application Value",
+          "paragraphs": [
+            "The structure is relevant to high-temperature steam, thermal process systems, contamination-prone media and continuous lines where removing the full meter body would create significant service work.",
+            "Selection still depends on medium, flow range, pressure, temperature, pipe size, vibration and the permitted maintenance procedure."
+          ]
+        }
+      ],
+      "relatedSlugs": [
+        "wide-turndown-anti-vibration-vortex-flowmeter",
+        "vibration-measurement-test-system",
+        "smart-vortex-upgrade-chemical-pharmaceutical"
+      ],
+      "seo": {
+        "title": "Non-Wetted Piezoelectric Vortex Sensor | Velomac",
+        "description": "Velomac non-wetted piezoelectric vortex sensor development with online-replaceable structure, high-temperature capability and confirmed waveform comparison data."
+      }
+    },
+    {
+      "slug": "wide-turndown-anti-vibration-vortex-flowmeter",
+      "categoryId": "product-sensor-innovation",
+      "title": "Wide-Turndown Anti-Vibration Vortex Flow Meter",
+      "summary": "Adaptive filtering and wide flow coverage for pipelines affected by changing load and vibration.",
+      "introduction": "This vortex flowmeter development addresses two conditions that often occur together: a wide change in operating flow and mechanical vibration from pumps, compressors or nearby equipment.",
+      "image": {
+        "src": "/images/technology/wide-turndown-vortex-main.png",
+        "alt": "Wide-turndown anti-vibration vortex flowmeter measurement concept",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Maximum turndown",
+          "value": "1:70"
+        },
+        {
+          "label": "Rated flow coverage",
+          "value": "1%–100%"
+        },
+        {
+          "label": "Measurement class",
+          "value": "Class 0.5"
+        },
+        {
+          "label": "Dynamic variation reduction",
+          "value": "Approx. 75%"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "paragraphs": [
+            "The meter combines wide flow coverage with adaptive filtering and digital signal-feature analysis. The objective is to retain low-flow vortex information while reducing interference that is unrelated to actual flow.",
+            "The current configuration is documented with a maximum turndown ratio of 1:70, coverage from 1% to 100% of rated flow and Class 0.5 measurement."
+          ]
+        },
+        {
+          "title": "Flow Range Challenge",
+          "paragraphs": [
+            "A fixed filter can suppress useful vortex signals at low velocity, while at higher velocity the vortex frequency may overlap with mechanical vibration or electrical interference.",
+            "A wider operating range therefore requires signal handling that can follow the process rather than applying one fixed cutoff across every condition."
+          ]
+        },
+        {
+          "title": "Vibration Environment",
+          "paragraphs": [
+            "Pipeline vibration often appears as low-frequency narrow-band interference from a few hertz to several hundred hertz. Motors and electrical systems can add fixed-frequency harmonics.",
+            "At low flow, vibration amplitude can be larger than the real vortex signal and may create a false flow output if it is not separated correctly."
+          ]
+        },
+        {
+          "title": "Technical Design",
+          "paragraphs": [
+            "The signal path combines adaptive filtering with digital feature analysis. Ten anti-vibration modes are available so the processing can be matched to the observed site signal.",
+            "The design is intended to distinguish persistent mechanical interference from the frequency behavior expected from real vortex shedding."
+          ]
+        },
+        {
+          "title": "Test Method",
+          "paragraphs": [
+            "A representative program compared measurement behavior with digital signal-feature analysis disabled and enabled under both static and flowing conditions."
+          ],
+          "table": {
+            "columns": [
+              "Condition",
+              "Confirmed setup"
+            ],
+            "rows": [
+              [
+                "Vibration",
+                "Approximately 1g three-axis acceleration"
+              ],
+              [
+                "Test duration",
+                "Approximately 5 minutes"
+              ],
+              [
+                "Static condition",
+                "No flow"
+              ],
+              [
+                "Dynamic condition",
+                "Low velocity at approximately 5 m/s"
+              ]
+            ]
+          }
+        },
+        {
+          "title": "Test Results",
+          "paragraphs": [
+            "The results below compare the same test condition before and after digital signal-feature analysis was enabled."
+          ],
+          "table": {
+            "columns": [
+              "Measurement",
+              "Feature disabled",
+              "Feature enabled"
+            ],
+            "rows": [
+              [
+                "Static false signal",
+                "33–51 Hz",
+                "0 Hz"
+              ],
+              [
+                "Static flow output",
+                "False flow present",
+                "0.000 m³/h"
+              ],
+              [
+                "Dynamic frequency range",
+                "185–189 Hz",
+                "185–186 Hz"
+              ],
+              [
+                "Dynamic frequency spread",
+                "4 Hz",
+                "1 Hz"
+              ],
+              [
+                "Instantaneous flow peak-to-peak variation",
+                "Approximately 0.20 m³/h",
+                "Approximately 0.05 m³/h"
+              ],
+              [
+                "Recorded change",
+                "Baseline",
+                "Approximately 75% reduction in dynamic variation"
+              ]
+            ]
+          }
+        },
+        {
+          "title": "Suitable Applications",
+          "paragraphs": [
+            "Typical review points include pump areas, compressor lines, utility headers, fluctuating production loads and pipelines with documented mechanical vibration.",
+            "A selection review should include minimum, normal and maximum flow, pipe size, medium, pressure, temperature, vibration information and available straight pipe."
+          ]
+        }
+      ],
+      "relatedSlugs": [
+        "non-wetted-piezoelectric-vortex-sensor",
+        "vibration-measurement-test-system",
+        "smart-vortex-upgrade-chemical-pharmaceutical"
+      ],
+      "seo": {
+        "title": "Wide-Turndown Anti-Vibration Vortex Flow Meter | Velomac",
+        "description": "Wide-turndown vortex flowmeter development with adaptive filtering, digital vibration analysis and confirmed static and dynamic test results."
+      }
+    },
+    {
+      "slug": "electromagnetic-flowmeter-remote-pressure-monitoring",
+      "categoryId": "product-sensor-innovation",
+      "title": "Electromagnetic Flow Meter with Remote Pressure Monitoring",
+      "summary": "Combines electromagnetic flow, pressure sensing and 4G access at one liquid measurement point.",
+      "introduction": "This electromagnetic flowmeter configuration brings flow measurement, pressure sensing and remote communication together at one pipeline location.",
+      "image": {
+        "src": "/images/technology/remote-pressure-electromagnetic-main.png",
+        "alt": "Electromagnetic flowmeter configured with integrated pressure sensing",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Measured variables",
+          "value": "Flow + pressure"
+        },
+        {
+          "label": "Remote connection",
+          "value": "Integrated 4G"
+        },
+        {
+          "label": "Installation",
+          "value": "One pipeline point"
+        },
+        {
+          "label": "Typical media",
+          "value": "Conductive liquids"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "paragraphs": [
+            "Many pump stations, water systems and process skids need both flow and pressure at the same location. A conventional arrangement uses separate instruments, process connections, wiring and data channels.",
+            "The integrated configuration is intended to reduce that installation burden while keeping the two operating variables aligned in time and location."
+          ]
+        },
+        {
+          "title": "Integrated Pressure Monitoring",
+          "paragraphs": [
+            "The pressure-sensing structure is developed for conditions where pulsation from pumps or reciprocating equipment can repeatedly load the sensing diaphragm.",
+            "Pressure range, process connection, material compatibility and pulsation condition must be confirmed for each application."
+          ]
+        },
+        {
+          "title": "Remote Data Access",
+          "paragraphs": [
+            "An integrated 4G connection supports remote access to operating data without adding a separate wireless transmission unit.",
+            "Network coverage, data destination, update interval and protocol requirements should be reviewed during configuration."
+          ]
+        },
+        {
+          "title": "System Structure",
+          "paragraphs": [
+            "The configuration combines an electromagnetic flow sensor, a pressure sensing point, local conversion and display, and a remote communication module."
+          ],
+          "bullets": [
+            "Conductive-liquid flow measurement",
+            "Pressure reading at the same pipeline location",
+            "Local display and electrical output configuration",
+            "Integrated 4G communication for remote monitoring"
+          ]
+        },
+        {
+          "title": "Application Scenarios",
+          "paragraphs": [
+            "Typical scenarios include distributed pump stations, water and wastewater networks, integrated treatment equipment, chemical batching systems and packaged skids with limited installation space.",
+            "The configuration is most useful when both flow and pressure are required for pump review, line condition monitoring or remote operation."
+          ]
+        },
+        {
+          "title": "Operational Value",
+          "paragraphs": [
+            "Co-located readings make it easier to compare pressure and flow behavior at the same point. The integrated arrangement can also reduce separate process openings, wiring runs and field devices.",
+            "Selection still starts with liquid conductivity, lining and electrode compatibility, pipe size, flow range, pressure, temperature, communication and power supply."
+          ]
+        }
+      ],
+      "relatedSlugs": [
+        "in-house-liquid-flow-calibration-bench",
+        "wide-turndown-anti-vibration-vortex-flowmeter",
+        "smart-vortex-upgrade-chemical-pharmaceutical"
+      ],
+      "seo": {
+        "title": "Electromagnetic Flow Meter with Remote Pressure Monitoring | Velomac",
+        "description": "Integrated electromagnetic flow and pressure monitoring with 4G data access for pump stations, water systems and distributed process installations."
+      }
+    },
+    {
+      "slug": "in-house-liquid-flow-calibration-bench",
+      "categoryId": "testing-calibration",
+      "title": "In-House Liquid Flow Calibration Bench",
+      "summary": "Cross-checks displaced liquid volume against measured mass using an in-house dual-reference bench.",
+      "introduction": "Velomac developed an in-house dynamic volume-and-mass calibration bench for checking liquid flowmeters against two connected reference measurements.",
+      "image": {
+        "src": "/images/technology/liquid-flow-calibration-bench.jpg",
+        "alt": "Velomac in-house liquid flow calibration workshop and circulation test lines",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Capability",
+          "value": "In-house"
+        },
+        {
+          "label": "Reference method",
+          "value": "Volume + mass"
+        },
+        {
+          "label": "Working medium",
+          "value": "Liquid"
+        },
+        {
+          "label": "Flow checks",
+          "value": "Accumulated + instantaneous"
+        }
+      ],
+      "sections": [
+        {
+          "title": "System Overview",
+          "paragraphs": [
+            "The self-developed bench combines a stainless steel telescopic volumetric tube, operating as a piston displacement device, with an electronic scale.",
+            "The displacement system establishes a reference liquid volume while the scale records the mass of the discharged liquid. These two measurements provide a connected check of the flowmeter under test."
+          ]
+        },
+        {
+          "title": "Why Velomac Developed It",
+          "paragraphs": [
+            "Liquid is effectively incompressible under the bench operating principle, allowing displaced volume and measured mass to be compared directly.",
+            "Using both references supports cross-checking of accumulated flow and instantaneous flow rather than relying on one measurement method alone."
+          ]
+        },
+        {
+          "title": "Calibration Process",
+          "paragraphs": [
+            "Extending the telescopic tube increases its internal volume and draws in a defined quantity of liquid. Controlled retraction then discharges that reference volume through the flowmeter under test.",
+            "During discharge, the electronic scale measures the actual liquid mass. The displaced volume, measured mass and flowmeter output can then be compared as part of the calibration review."
+          ]
+        },
+        {
+          "title": "Measurement Range",
+          "paragraphs": [
+            "The displacement travel determines the reference liquid volume, while the controlled retraction speed determines the reference flow rate.",
+            "Applicable bench capacity and configured flow points are confirmed for the meter under review rather than presented as one fixed range for every configuration."
+          ]
+        },
+        {
+          "title": "Test Points",
+          "paragraphs": [
+            "Reference points can be established by controlling the displacement travel and retraction speed. This allows the bench to present defined liquid volumes and flow conditions to the meter.",
+            "The required minimum, normal and maximum flow should be provided so suitable test points can be reviewed before calibration."
+          ]
+        },
+        {
+          "title": "Control and Data Collection",
+          "paragraphs": [
+            "Reference volume is derived from the displacement of the telescopic tube and liquid mass is recorded by the scale. The two values can also be used to calculate density using ρ = m / V.",
+            "The calculated reference values are compared with the flowmeter's accumulated and instantaneous flow readings. Report format and any electrical output checks should be confirmed with the quotation requirements."
+          ]
+        },
+        {
+          "title": "Application Value",
+          "paragraphs": [
+            "The volume-and-mass method provides two related references for reviewing liquid flowmeter output and helps keep calibration work close to manufacturing and configuration.",
+            "For a useful review, send the medium, pipe size, minimum and maximum flow, pressure, temperature, connection, power and signal requirements."
+          ]
+        }
+      ],
+      "relatedSlugs": [
+        "vibration-measurement-test-system",
+        "electromagnetic-flowmeter-remote-pressure-monitoring",
+        "wide-turndown-anti-vibration-vortex-flowmeter"
+      ],
+      "seo": {
+        "title": "In-House Liquid Flow Calibration Bench | Velomac",
+        "description": "Velomac in-house liquid flow calibration bench using displaced reference volume and measured liquid mass for flowmeter comparison."
+      }
+    },
+    {
+      "slug": "vibration-measurement-test-system",
+      "categoryId": "testing-calibration",
+      "title": "Vibration Measurement Test System",
+      "summary": "Applies controlled airflow and mechanical vibration while recording the meter response.",
+      "introduction": "The test system combines a controlled airflow path with a vibration motor, vibration sensor and coordinated data collection so meter behavior can be reviewed under flow and vibration at the same time.",
+      "image": {
+        "src": "/images/technology/vibration-test-system-main.png",
+        "alt": "Velomac vibration measurement test system concept",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Test variables",
+          "value": "Flow + vibration"
+        },
+        {
+          "label": "Control",
+          "value": "PLC coordinated"
+        },
+        {
+          "label": "Data",
+          "value": "Real-time collection"
+        },
+        {
+          "label": "Representative test",
+          "value": "Approx. 1g"
+        }
+      ],
+      "sections": [
+        {
+          "title": "System Overview",
+          "paragraphs": [
+            "The system brings an airflow circuit, vibration source and measurement instruments onto one test platform. The arrangement is intended to reproduce a controlled flow condition while mechanical vibration is applied close to the meter.",
+            "This allows the response of an anti-vibration flowmeter to be observed under a condition that a conventional no-vibration flow check does not reproduce."
+          ],
+          "image": {
+            "src": "/images/technology/vibration-test-system-diagram.png",
+            "alt": "Structure diagram of the Velomac vibration measurement test system",
+            "fit": "contain"
+          }
+        },
+        {
+          "title": "Test Purpose",
+          "paragraphs": [
+            "Industrial flowmeters may operate near pumps, motors, compressors and vibrating pipework. A meter can pass a normal flow check yet show false output or increased variation when mechanical disturbance is added.",
+            "The system is used to compare flow signal behavior while the vibration condition is known and recorded."
+          ]
+        },
+        {
+          "title": "Vibration Conditions",
+          "paragraphs": [
+            "A vibration motor applies disturbance near the meter while a vibration sensor records the actual condition around the sensing area.",
+            "One representative anti-vibration test program used approximately 1g three-axis acceleration for about five minutes. Other conditions require a defined test plan."
+          ]
+        },
+        {
+          "title": "Test Procedure",
+          "paragraphs": [
+            "The blower establishes airflow through the sealed line and the electric regulating valve sets the required flow. After the flow stabilizes, the vibration motor is operated and the vibration sensor records the applied condition.",
+            "Meter output and system status are collected at the same time so the effect of vibration can be compared against the controlled flow condition."
+          ],
+          "bullets": [
+            "Establish and stabilize airflow",
+            "Set the regulating valve position",
+            "Apply the defined vibration condition",
+            "Record vibration and meter output together",
+            "Compare static and dynamic behavior"
+          ]
+        },
+        {
+          "title": "Data Collection",
+          "paragraphs": [
+            "The PLC and software interface can collect vibration frequency, instantaneous flow, accumulated flow, regulating valve opening and blower operating status.",
+            "Coordinated collection helps relate an observed meter change to the applied vibration and flow condition."
+          ]
+        },
+        {
+          "title": "Validation Value",
+          "paragraphs": [
+            "The system supports product development, anti-vibration mode comparison and pre-shipment technical review for applications where vibration is a known site condition.",
+            "It does not replace a site assessment. Buyers should still share the source of vibration, approximate frequency or acceleration when known, pipe supports, flow range and installation layout."
+          ]
+        }
+      ],
+      "relatedSlugs": [
+        "wide-turndown-anti-vibration-vortex-flowmeter",
+        "non-wetted-piezoelectric-vortex-sensor",
+        "in-house-liquid-flow-calibration-bench"
+      ],
+      "seo": {
+        "title": "Vibration Measurement Test System | Velomac",
+        "description": "Velomac in-house vibration measurement test system for controlled airflow, applied vibration and coordinated flowmeter data collection."
+      }
+    },
+    {
+      "slug": "smart-vortex-upgrade-chemical-pharmaceutical",
+      "categoryId": "application-engineering",
+      "title": "Smart Vortex Upgrade for Chemical and Pharmaceutical Processes",
+      "summary": "Reviews when a vortex meter can replace an orifice plate in chemical and pharmaceutical utility lines.",
+      "introduction": "This engineering approach evaluates where a vortex flowmeter can reduce the installation and operating burden of an existing orifice plate measurement point in chemical and pharmaceutical utilities.",
+      "image": {
+        "src": "/images/applications/chemical-process-lines.png",
+        "alt": "Vortex flowmeter installed on a chemical or pharmaceutical process utility line",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Upgrade path",
+          "value": "Orifice to vortex"
+        },
+        {
+          "label": "Typical media",
+          "value": "Steam, water, gas"
+        },
+        {
+          "label": "Documented liquid turndown",
+          "value": "1:30"
+        },
+        {
+          "label": "Documented measurement",
+          "value": "Class 0.5"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Operating Challenge",
+          "paragraphs": [
+            "Chemical and pharmaceutical plants often operate across changing batch loads, utility demand and production schedules. A narrow measurement range can reduce low-load visibility, while permanent pressure loss increases the work required from pumps, compressors or boilers.",
+            "Hygiene, impulse-line maintenance, available straight pipe and signal traceability can also affect whether the existing measurement point remains suitable."
+          ]
+        },
+        {
+          "title": "Existing Measurement Method",
+          "paragraphs": [
+            "An orifice plate creates a differential pressure by restricting the flow path. The arrangement normally includes pressure tapping, impulse lines and a differential-pressure transmitter.",
+            "The method remains suitable for many installations, but each upgrade review should consider permanent pressure loss, rangeability, impulse-line maintenance and the available installation geometry."
+          ]
+        },
+        {
+          "title": "Engineering Assessment",
+          "paragraphs": [
+            "The first step is to confirm the real operating envelope rather than selecting a replacement from pipe size alone."
+          ],
+          "bullets": [
+            "Medium and composition",
+            "Minimum, normal and maximum flow",
+            "Operating and design pressure",
+            "Operating and design temperature",
+            "Pipe size and available straight length",
+            "Vibration and flow disturbance",
+            "Sanitary material and surface requirements",
+            "Temperature and pressure compensation needs",
+            "Output, communication and data-recording requirements"
+          ]
+        },
+        {
+          "title": "Vortex Upgrade Approach",
+          "paragraphs": [
+            "A vortex meter measures the frequency generated as the fluid passes a bluff body. The approach removes the separate impulse-line arrangement and can reduce permanent pressure loss compared with an orifice plate.",
+            "Integrated temperature and pressure compensation can be configured when mass or standard-condition reporting is required."
+          ]
+        },
+        {
+          "title": "Installation Considerations",
+          "paragraphs": [
+            "The replacement point must still be reviewed for upstream disturbance, straight pipe, pipe stress, vibration, condensate behavior, orientation and maintenance access.",
+            "For pharmaceutical utilities, wetted material, sanitary connection, surface finish, drainability and cleaning procedure must be confirmed before configuration."
+          ]
+        },
+        {
+          "title": "Comparison Data",
+          "paragraphs": [
+            "The engineering comparison below records the stated basis used for the reviewed upgrade. Results are application-specific and should be checked against the actual orifice design and process condition."
+          ],
+          "table": {
+            "columns": [
+              "Review item",
+              "Recorded comparison basis"
+            ],
+            "rows": [
+              [
+                "Orifice pressure loss",
+                "8–13 times the compared vortex flowmeter"
+              ],
+              [
+                "Reported avoidable energy share",
+                "15%–20% of the related power-system energy"
+              ],
+              [
+                "Conventional orifice accuracy",
+                "±1.5% to ±2.5% of full scale"
+              ],
+              [
+                "Recorded low-load orifice error",
+                "Up to ±4.2%"
+              ],
+              [
+                "Orifice turndown basis",
+                "1:3 nominal; 1:5 stated operating coverage"
+              ],
+              [
+                "Smart vortex measurement",
+                "Class 0.5"
+              ],
+              [
+                "Smart vortex liquid turndown",
+                "1:30"
+              ],
+              [
+                "Orifice straight pipe basis",
+                "20D upstream and 10D downstream"
+              ]
+            ]
+          }
+        },
+        {
+          "title": "Application Value",
+          "paragraphs": [
+            "A suitable upgrade can improve low-load visibility, reduce pressure-loss burden and simplify the measurement assembly. The value depends on the operating range, utility cost, maintenance history and available installation space.",
+            "A recommendation requires the existing orifice data, pipe size, medium, flow range, pressure, temperature, straight pipe, connection and required output."
+          ]
+        }
+      ],
+      "relatedSlugs": [
+        "wide-turndown-anti-vibration-vortex-flowmeter",
+        "non-wetted-piezoelectric-vortex-sensor",
+        "electromagnetic-flowmeter-remote-pressure-monitoring"
+      ],
+      "seo": {
+        "title": "Smart Vortex Upgrade for Chemical and Pharmaceutical Processes | Velomac",
+        "description": "Application engineering for reviewing orifice plate replacement with smart vortex flowmeters in chemical and pharmaceutical process utilities."
+      }
+    }
+  ]
+}
