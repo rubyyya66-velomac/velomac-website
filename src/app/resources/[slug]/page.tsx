@@ -7,6 +7,8 @@ import { Container, Section } from "@/components/Layout";
 import { applications } from "@/content/applications";
 import { getArticleBySlug, resources } from "@/content/resources";
 import { products } from "@/content/products";
+import { legacySectionsToHtml } from "@/lib/articleBody";
+import { sanitizeArticleBodyHtml } from "@/lib/richTextSanitizer";
 
 export function generateStaticParams() {
   return resources.map((resource) => ({ slug: resource.slug }));
@@ -42,6 +44,9 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
   const relatedProducts = products.filter((product) => article.relatedProductSlugs.includes(product.slug));
   const relatedApplications = applications.filter((application) =>
     article.relatedApplicationSlugs.includes(application.slug)
+  );
+  const articleBodyHtml = sanitizeArticleBodyHtml(
+    article.bodyHtml || legacySectionsToHtml(article.sections)
   );
 
   const structuredData = {
@@ -93,18 +98,10 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
             <article className="min-w-0">
               <p className="text-lg leading-8 text-slate-600">{article.excerpt}</p>
 
-              {article.sections.map((section) => (
-                <section key={section.heading} className="mt-10">
-                  <h2 className="text-[1.7rem] font-semibold tracking-normal text-navy-950">{section.heading}</h2>
-                  <div className="mt-5 space-y-5">
-                    {section.body.map((paragraph) => (
-                      <p key={paragraph} className="text-base leading-8 text-slate-600 sm:text-[1.05rem]">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </section>
-              ))}
+              <div
+                className="resource-article-body mt-10"
+                dangerouslySetInnerHTML={{ __html: articleBodyHtml }}
+              />
 
               {article.takeaways.length ? (
                 <section className="mt-10 rounded-[6px] border border-metal-200 bg-metal-50 p-6">

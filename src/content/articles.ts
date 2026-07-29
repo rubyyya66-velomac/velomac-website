@@ -24,7 +24,8 @@ export type ResourceArticle = {
   relatedProductSlugs: string[];
   relatedApplicationSlugs: string[];
   takeaways: string[];
-  sections: ArticleSection[];
+  bodyHtml?: string;
+  sections?: ArticleSection[];
 };
 
 export const editableArticles = articleData as ResourceArticle[];

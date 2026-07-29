@@ -3,7 +3,7 @@ node_modules/
 
 # Next.js build output
 .next/
-.next-preview/
+.next-*/
 out/
 dist/
 build/
@@ -36,6 +36,7 @@ work/
 tmp/
 outputs/
 backups/
+.git-quality/
 
 # Deployment tool state
 .vercel/

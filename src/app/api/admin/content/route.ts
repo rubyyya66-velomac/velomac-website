@@ -3,6 +3,7 @@ import { adminContentFiles } from "@/content/adminContentFiles";
 import { adminSessionCookieName, getAdminAuthFailure, verifyAdminSession } from "@/lib/adminAuth";
 import { AdminContentLoadError, readAdminContent, saveAdminContent } from "@/lib/adminContent";
 import type { AdminContentDiagnostics } from "@/lib/adminContent";
+import { sanitizeArticleCollection } from "@/lib/richTextSanitizer";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -63,9 +64,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "File and content are required." }, { status: 400 });
     }
 
+    const content =
+      body.file === "articles"
+        ? sanitizeArticleCollection(body.content)
+        : body.content;
+
     const result = await saveAdminContent({
       key: body.file,
-      content: body.content,
+      content,
       message: "Update website content from admin"
     });
 

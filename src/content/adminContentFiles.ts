@@ -48,7 +48,7 @@ export const adminContentFiles: AdminContentFile[] = [
   {
     key: "articles",
     label: "Articles / Resources",
-    description: "Article titles, summaries, cover images, body sections, takeaways and related content.",
+    description: "Article titles, summaries, cover images, rich article body, takeaways and related content.",
     path: "src/content/data/articles.json"
   },
   {

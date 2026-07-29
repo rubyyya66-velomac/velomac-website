@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
+import { ResourceArticleRichTextEditor } from "@/components/ResourceArticleRichTextEditor";
 import type { AdminContentFile } from "@/content/adminContentFiles";
+import { getEditableArticleHtml } from "@/lib/articleBody";
 
 type JsonPrimitive = string | number | boolean | null;
 type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
@@ -33,6 +35,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
   const [mediaImages, setMediaImages] = useState<string[]>([]);
   const [mediaMessage, setMediaMessage] = useState("");
   const [mediaState, setMediaState] = useState<UploadState>("idle");
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const activeFile = useMemo(
     () => files.find((file) => file.key === selectedFile),
@@ -84,6 +87,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
           setRawJson(JSON.stringify(responseBody.content, null, 2));
           setState("idle");
           setMessage(responseBody.warning || "");
+          setHasUnsavedChanges(false);
         }
       } catch (error) {
         if (!ignore) {
@@ -99,6 +103,32 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
       ignore = true;
     };
   }, [authState, selectedFile]);
+
+  useEffect(() => {
+    if (!payload) {
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setRawJson(JSON.stringify(payload.content, null, 2));
+    }, 400);
+
+    return () => window.clearTimeout(timeout);
+  }, [payload]);
+
+  useEffect(() => {
+    function warnBeforeUnload(event: BeforeUnloadEvent) {
+      if (!hasUnsavedChanges) {
+        return;
+      }
+
+      event.preventDefault();
+      event.returnValue = "";
+    }
+
+    window.addEventListener("beforeunload", warnBeforeUnload);
+    return () => window.removeEventListener("beforeunload", warnBeforeUnload);
+  }, [hasUnsavedChanges]);
 
   async function checkSession() {
     setAuthState("checking");
@@ -155,11 +185,19 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
   }
 
   async function logout() {
+    if (
+      hasUnsavedChanges &&
+      !window.confirm("You have unsaved changes. Log out without saving them?")
+    ) {
+      return;
+    }
+
     await fetch("/api/admin/session", {
       method: "DELETE",
       credentials: "same-origin"
     });
     setPayload(null);
+    setHasUnsavedChanges(false);
     setAuthState("login");
   }
 
@@ -214,9 +252,22 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
 
   function updateContent(nextContent: JsonValue) {
     setPayload((current) => (current ? { ...current, content: nextContent } : current));
-    setRawJson(JSON.stringify(nextContent, null, 2));
+    setHasUnsavedChanges(true);
     setState("idle");
     setMessage("");
+  }
+
+  function selectContentFile(nextFile: AdminSelectedFile) {
+    if (
+      nextFile !== selectedFile &&
+      hasUnsavedChanges &&
+      !window.confirm("You have unsaved changes. Switch sections without saving them?")
+    ) {
+      return;
+    }
+
+    setSelectedFile(nextFile);
+    setHasUnsavedChanges(false);
   }
 
   function applyRawJson() {
@@ -259,6 +310,8 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
 
       setState("saved");
       setMessage(responseBody.message || "Saved successfully.");
+      setHasUnsavedChanges(false);
+      setRawJson(JSON.stringify(payload.content, null, 2));
     } catch (error) {
       setState("error");
       setMessage(error instanceof Error ? error.message : "Save failed. Please try again.");
@@ -369,7 +422,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
                 }`}
                 key={file.key}
                 type="button"
-                onClick={() => setSelectedFile(file.key)}
+                onClick={() => selectContentFile(file.key)}
               >
                 <span className="block font-semibold">{file.label}</span>
                 <span className="mt-1 block text-xs leading-5">{file.description}</span>
@@ -382,7 +435,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
                   : "border-metal-200 bg-white text-slate-600 hover:border-industrial-300"
               }`}
               type="button"
-              onClick={() => setSelectedFile("media")}
+              onClick={() => selectContentFile("media")}
             >
               <span className="block font-semibold">Media Library</span>
               <span className="mt-1 block text-xs leading-5">Upload images and copy image paths.</span>
@@ -601,12 +654,7 @@ function ArticleManager({
       relatedProductSlugs: [],
       relatedApplicationSlugs: [],
       takeaways: [],
-      sections: [
-        {
-          heading: "Section heading",
-          body: ["Write the article paragraph here."]
-        }
-      ],
+      bodyHtml: "<h2>Section heading</h2><p>Write the article paragraph here.</p>",
       estimatedWordCount: 0,
       seo: {
         title: "",
@@ -731,7 +779,11 @@ function ArticleManager({
               <TextField label="Cover Image Alt Text" value={stringValue(selectedArticle.coverAlt)} onChange={(value) => updateArticle({ ...selectedArticle, coverAlt: value })} />
             </FieldGroup>
 
-            <ArticleSectionsEditor article={selectedArticle} onChange={updateArticle} />
+            <ArticleBodyEditor
+              article={selectedArticle}
+              key={stringValue(selectedArticle.slug) || selectedIndex}
+              onChange={updateArticle}
+            />
 
             <FieldGroup label="Related Products And Applications">
               <div className="grid gap-4">
@@ -761,73 +813,27 @@ function ArticleManager({
   );
 }
 
-function ArticleSectionsEditor({
+function ArticleBodyEditor({
   article,
   onChange
 }: {
   article: JsonObject;
   onChange: (value: JsonObject) => void;
 }) {
-  const sections = Array.isArray(article.sections) ? article.sections : [];
+  const bodyHtml = getEditableArticleHtml(article);
 
   return (
     <FieldGroup label="Article Body">
-      <div className="grid gap-4">
-        {sections.map((section, index) => {
-          const sectionObject = isObject(section) ? section : { heading: "", body: [] };
-          const body = Array.isArray(sectionObject.body) ? sectionObject.body.filter((entry): entry is string => typeof entry === "string") : [];
-
-          return (
-            <details className="border border-metal-200 bg-metal-50 p-4" key={index} open={index === 0}>
-              <summary className="cursor-pointer text-sm font-semibold text-navy-950">{stringValue(sectionObject.heading) || `Section ${index + 1}`}</summary>
-              <div className="mt-4 grid gap-4">
-                <TextField
-                  label="Section Heading"
-                  value={stringValue(sectionObject.heading)}
-                  onChange={(value) => updateArticleSection(article, index, { ...sectionObject, heading: value }, onChange)}
-                />
-                <ListTextarea
-                  label="Paragraphs"
-                  value={body}
-                  onChange={(value) => updateArticleSection(article, index, { ...sectionObject, body: value }, onChange)}
-                />
-                <button
-                  className="w-fit border border-red-200 bg-white px-3 py-2 text-xs font-semibold text-red-700"
-                  type="button"
-                  onClick={() => {
-                    const nextSections = sections.filter((_, sectionIndex) => sectionIndex !== index);
-                    onChange({ ...article, sections: nextSections });
-                  }}
-                >
-                  Remove Section
-                </button>
-              </div>
-            </details>
-          );
-        })}
-        <button
-          className="w-fit border border-navy-950 px-4 py-2 text-sm font-semibold text-navy-950"
-          type="button"
-          onClick={() => onChange({ ...article, sections: [...sections, { heading: "New Section", body: ["Write a paragraph here."] }] })}
-        >
-          Add Section
-        </button>
-      </div>
+      <p className="mb-4 max-w-3xl text-sm leading-6 text-slate-600">
+        Paste the complete article in one step, then format it with the toolbar.
+        Heading 1 is intentionally unavailable because the article title is the page H1.
+      </p>
+      <ResourceArticleRichTextEditor
+        value={bodyHtml}
+        onChange={(value) => onChange({ ...article, bodyHtml: value })}
+      />
     </FieldGroup>
   );
-}
-
-function updateArticleSection(
-  article: JsonObject,
-  index: number,
-  section: JsonObject,
-  onChange: (value: JsonObject) => void
-) {
-  const sections = Array.isArray(article.sections) ? article.sections : [];
-  onChange({
-    ...article,
-    sections: sections.map((currentSection, sectionIndex) => (sectionIndex === index ? section : currentSection))
-  });
 }
 
 function JsonEditor({
