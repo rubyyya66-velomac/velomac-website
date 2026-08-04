@@ -899,5 +899,29 @@
       "title": "",
       "description": ""
     }
+  },
+  {
+    "slug": "new-article",
+    "title": "New Article",
+    "category": "Flowmeter Selection",
+    "status": "draft",
+    "description": "",
+    "excerpt": "",
+    "summary": "",
+    "intro": "",
+    "coverImage": "/images/blog/flowmeter-quote-site-details.png",
+    "coverAlt": "",
+    "publishedDate": "2026-08-04",
+    "relatedProducts": [],
+    "relatedApplications": [],
+    "relatedProductSlugs": [],
+    "relatedApplicationSlugs": [],
+    "takeaways": [],
+    "bodyHtml": "<h2>Section heading</h2><p>Write the article paragraph here.</p>",
+    "estimatedWordCount": 7,
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   }
 ]
