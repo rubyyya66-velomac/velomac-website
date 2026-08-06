@@ -6,12 +6,12 @@
   "hero": {
     "eyebrow": "ENGINEERING CAPABILITY",
     "title": "Technology",
-    "description": "Engineering developed around real process conditions",
-    "supportingText": "Velomac develops sensing, validation and application-focused flow measurement capabilities for demanding industrial conditions.",
+    "description": "From sensing development to calibration, controlled testing and process upgrades.",
+    "supportingText": "Engineering capabilities developed around real operating conditions.",
     "image": {
-      "src": "/images/technology/non-wetted-sensor-main.png",
-      "alt": "Velomac non-wetted piezoelectric vortex sensor waveform comparison",
-      "fit": "contain"
+      "src": "/images/technology/vibration-test-system-main.png",
+      "alt": "Velomac flow measurement test system and instrument",
+      "fit": "cover"
     }
   },
   "categories": [
@@ -47,6 +47,23 @@
       "seo": {
         "title": "Testing & Calibration Systems | Velomac Technology",
         "description": "Velomac in-house liquid calibration, vibration testing and coordinated flowmeter validation systems."
+      }
+    },
+    {
+      "id": "flow-calibration-systems",
+      "slug": "flow-calibration-systems",
+      "eyebrow": "FLOW CALIBRATION",
+      "title": "Flow Calibration Systems",
+      "description": "Gas and liquid calibration methods for different media, meter classes and verification requirements.",
+      "introduction": "Velomac applies controlled gas-flow comparison, liquid master-meter comparison and gravimetric weighing according to the meter and required verification method.",
+      "image": {
+        "src": "/images/technology/calibration/master-meter-liquid-calibration.jpg",
+        "alt": "Liquid flow calibration pipelines and reference-meter installation area",
+        "fit": "cover"
+      },
+      "seo": {
+        "title": "Flow Calibration Systems | Velomac Technology",
+        "description": "Compare Velomac gas, liquid master-meter and gravimetric calibration methods for Accuracy Class 1.0, 0.5 and 0.3 flowmeters."
       }
     },
     {
@@ -420,7 +437,7 @@
         }
       ],
       "relatedSlugs": [
-        "in-house-liquid-flow-calibration-bench",
+        "liquid-flow-calibration-bench",
         "wide-turndown-anti-vibration-vortex-flowmeter",
         "smart-vortex-upgrade-chemical-pharmaceutical"
       ],
@@ -430,32 +447,110 @@
       }
     },
     {
-      "slug": "in-house-liquid-flow-calibration-bench",
-      "categoryId": "testing-calibration",
-      "title": "In-House Liquid Flow Calibration Bench",
-      "summary": "Cross-checks displaced liquid volume against measured mass using an in-house dual-reference bench.",
-      "introduction": "Velomac developed an in-house dynamic volume-and-mass calibration bench for checking liquid flowmeters against two connected reference measurements.",
+      "slug": "gas-flow-calibration",
+      "categoryId": "flow-calibration-systems",
+      "title": "Gas Flow Calibration System",
+      "summary": "Controlled gas-flow comparison across configured operating points.",
+      "introduction": "A controlled gas-flow system for calibration and verification across configured operating points.",
       "image": {
-        "src": "/images/technology/liquid-flow-calibration-bench.jpg",
-        "alt": "Velomac in-house liquid flow calibration workshop and circulation test lines",
+        "src": "/images/technology/calibration/gas-flow-calibration.jpg",
+        "alt": "Gas flow calibration system with controlled comparison lines",
         "fit": "cover"
       },
       "highlights": [
         {
-          "label": "Capability",
-          "value": "In-house"
+          "label": "Medium",
+          "value": "Gas"
         },
         {
-          "label": "Reference method",
-          "value": "Volume + mass"
+          "label": "Supported meter class",
+          "value": "Accuracy Class 1.0"
+        },
+        {
+          "label": "Method",
+          "value": "Controlled gas-flow comparison"
+        },
+        {
+          "label": "Operating approach",
+          "value": "Configured operating points"
+        }
+      ],
+      "sections": [],
+      "relatedSlugs": [
+        "master-meter-liquid-calibration",
+        "gravimetric-liquid-calibration"
+      ],
+      "seo": {
+        "title": "Gas Flow Calibration System | Velomac",
+        "description": "Velomac controlled gas-flow calibration across configured operating points for meters specified at Accuracy Class 1.0."
+      }
+    },
+    {
+      "slug": "master-meter-liquid-calibration",
+      "categoryId": "flow-calibration-systems",
+      "title": "Master-Meter Liquid Calibration Method",
+      "summary": "Liquid circulation and comparison with seven Yokogawa reference flow meters.",
+      "introduction": "Liquid flow calibration through controlled circulation and comparison with reference electromagnetic flow meters.",
+      "image": {
+        "src": "/images/technology/calibration/master-meter-liquid-calibration.jpg",
+        "alt": "Master-meter liquid calibration lines in the Velomac workshop",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Medium",
+          "value": "Liquid"
+        },
+        {
+          "label": "Supported meter class",
+          "value": "Accuracy Class 0.5"
+        },
+        {
+          "label": "Reference meters",
+          "value": "Seven Yokogawa electromagnetic"
+        },
+        {
+          "label": "Repeatability",
+          "value": "Better than 0.08%"
+        }
+      ],
+      "sections": [],
+      "relatedSlugs": [
+        "gravimetric-liquid-calibration",
+        "gas-flow-calibration"
+      ],
+      "seo": {
+        "title": "Master-Meter Liquid Calibration Method | Velomac",
+        "description": "Velomac liquid flow calibration using seven Yokogawa electromagnetic reference meters for meters specified at Accuracy Class 0.5."
+      }
+    },
+    {
+      "slug": "liquid-flow-calibration-bench",
+      "categoryId": "flow-calibration-systems",
+      "title": "Velomac-Developed Liquid Flow Calibration Bench",
+      "summary": "An in-house circulation and control platform supporting the master-meter method.",
+      "introduction": "An in-house developed circulation and control platform supporting liquid flow-point adjustment, reference-meter comparison and recorded verification.",
+      "image": {
+        "src": "/images/technology/calibration/master-meter-pipeline-detail.jpg",
+        "alt": "Velomac-developed liquid flow calibration bench and pipeline connections",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Role",
+          "value": "Master-meter support"
+        },
+        {
+          "label": "Control",
+          "value": "Configured flow points"
         },
         {
           "label": "Working medium",
           "value": "Liquid"
         },
         {
-          "label": "Flow checks",
-          "value": "Accumulated + instantaneous"
+          "label": "Development",
+          "value": "Velomac in-house"
         }
       ],
       "sections": [
@@ -510,13 +605,52 @@
         }
       ],
       "relatedSlugs": [
-        "vibration-measurement-test-system",
-        "electromagnetic-flowmeter-remote-pressure-monitoring",
-        "wide-turndown-anti-vibration-vortex-flowmeter"
+        "master-meter-liquid-calibration",
+        "gravimetric-liquid-calibration",
+        "gas-flow-calibration"
       ],
       "seo": {
-        "title": "In-House Liquid Flow Calibration Bench | Velomac",
-        "description": "Velomac in-house liquid flow calibration bench using displaced reference volume and measured liquid mass for flowmeter comparison."
+        "title": "Velomac-Developed Liquid Flow Calibration Bench",
+        "description": "Velomac in-house circulation and control bench for liquid flow-point adjustment, reference-meter comparison and recorded verification."
+      }
+    },
+    {
+      "slug": "gravimetric-liquid-calibration",
+      "categoryId": "flow-calibration-systems",
+      "title": "Gravimetric Liquid Calibration Method",
+      "summary": "Mass-based liquid calibration using METTLER TOLEDO weighing equipment.",
+      "introduction": "A weighing-based liquid calibration method for meters requiring Accuracy Class 0.3 verification.",
+      "image": {
+        "src": "/images/technology/calibration/gravimetric-liquid-calibration.jpg",
+        "alt": "Gravimetric liquid calibration system with collection and weighing equipment",
+        "fit": "cover"
+      },
+      "highlights": [
+        {
+          "label": "Medium",
+          "value": "Liquid"
+        },
+        {
+          "label": "Supported meter class",
+          "value": "Accuracy Class 0.3"
+        },
+        {
+          "label": "Method",
+          "value": "Gravimetric comparison"
+        },
+        {
+          "label": "Weighing ranges",
+          "value": "10 t to 150 kg"
+        }
+      ],
+      "sections": [],
+      "relatedSlugs": [
+        "master-meter-liquid-calibration",
+        "gas-flow-calibration"
+      ],
+      "seo": {
+        "title": "Gravimetric Liquid Calibration Method | Velomac",
+        "description": "Velomac weighing-based liquid calibration with four METTLER TOLEDO scales for meters requiring Accuracy Class 0.3 verification."
       }
     },
     {
@@ -607,7 +741,7 @@
       "relatedSlugs": [
         "wide-turndown-anti-vibration-vortex-flowmeter",
         "non-wetted-piezoelectric-vortex-sensor",
-        "in-house-liquid-flow-calibration-bench"
+        "liquid-flow-calibration-bench"
       ],
       "seo": {
         "title": "Vibration Measurement Test System | Velomac",

@@ -16,6 +16,7 @@ type NavItem = {
 export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
   const pathname = usePathname();
   const [technologyOpen, setTechnologyOpen] = useState(false);
+  const [technologyHover, setTechnologyHover] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const technologyRef = useRef<HTMLDivElement>(null);
@@ -23,6 +24,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
   const aboutRef = useRef<HTMLDivElement>(null);
   const aboutButtonRef = useRef<HTMLButtonElement>(null);
   const activeTechnologyPath = getActiveTechnologyPath(pathname);
+  const technologyMenuVisible = technologyOpen || technologyHover;
 
   useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
@@ -35,14 +37,16 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
       if (insideTechnology || insideAbout) return;
 
       setTechnologyOpen(false);
+      setTechnologyHover(false);
       setAboutOpen(false);
     }
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
 
-      if (technologyOpen) {
+      if (technologyMenuVisible) {
         setTechnologyOpen(false);
+        setTechnologyHover(false);
         technologyButtonRef.current?.focus();
       }
       if (aboutOpen) {
@@ -58,11 +62,12 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [aboutOpen, mobileOpen, technologyOpen]);
+  }, [aboutOpen, mobileOpen, technologyMenuVisible]);
 
   function closeNavigation() {
     setMobileOpen(false);
     setTechnologyOpen(false);
+    setTechnologyHover(false);
     setAboutOpen(false);
   }
 
@@ -96,43 +101,72 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
       >
         {navItems.map((item) => {
           if (item.href === "/technology") {
+            const technologyActive =
+              pathname === "/technology" || pathname.startsWith("/technology/");
+
             return (
               <div
                 key={item.href}
                 ref={technologyRef}
                 className="relative"
+                onMouseEnter={() => {
+                  if (window.matchMedia("(min-width: 1280px)").matches) {
+                    setTechnologyHover(true);
+                    setAboutOpen(false);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (window.matchMedia("(min-width: 1280px)").matches) {
+                    setTechnologyHover(false);
+                  }
+                }}
                 onBlur={(event) => {
                   if (mobileOpen) return;
 
                   if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
                     setTechnologyOpen(false);
+                    setTechnologyHover(false);
                   }
                 }}
               >
-                <button
-                  ref={technologyButtonRef}
-                  type="button"
-                  className={`${mainItemClass(Boolean(activeTechnologyPath))} inline-flex w-full items-center justify-between gap-1.5 text-left xl:w-auto`}
-                  aria-expanded={technologyOpen}
-                  aria-haspopup="menu"
-                  aria-controls="technology-submenu"
-                  onClick={() => {
-                    setTechnologyOpen((current) => !current);
-                    setAboutOpen(false);
-                  }}
+                <div
+                  className={`flex items-center border-b border-metal-100 transition xl:border-0 ${
+                    technologyActive ? "text-industrial-700" : ""
+                  }`}
                 >
-                  {item.label}
-                  <span
-                    className={`text-[10px] transition ${technologyOpen ? "rotate-180" : ""}`}
-                    aria-hidden="true"
+                  <Link
+                    href={item.href}
+                    aria-current={pathname === "/technology" ? "page" : undefined}
+                    onClick={closeNavigation}
+                    className="focus-ring flex-1 py-3 transition hover:text-industrial-700 xl:py-0"
                   >
-                    v
-                  </span>
-                </button>
+                    {item.label}
+                  </Link>
+                  <button
+                    ref={technologyButtonRef}
+                    type="button"
+                    className="focus-ring flex h-10 w-10 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
+                    aria-label="Toggle Technology menu"
+                    aria-expanded={technologyMenuVisible}
+                    aria-haspopup="menu"
+                    aria-controls="technology-submenu"
+                    onClick={() => {
+                      setTechnologyOpen((current) => !current);
+                      setAboutOpen(false);
+                    }}
+                  >
+                    <span
+                      className={`text-[10px] transition ${technologyMenuVisible ? "rotate-180" : ""}`}
+                      aria-hidden="true"
+                    >
+                      v
+                    </span>
+                  </button>
+                </div>
                 <div
                   id="technology-submenu"
                   className={`z-50 w-full pt-1 transition xl:absolute xl:left-1/2 xl:top-full xl:w-[310px] xl:-translate-x-1/2 xl:pt-3 ${
-                    technologyOpen ? "block visible opacity-100" : "hidden invisible opacity-0"
+                    technologyMenuVisible ? "block visible opacity-100" : "hidden invisible opacity-0"
                   }`}
                   role="menu"
                 >
@@ -145,13 +179,13 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                           key={technologyItem.href}
                           href={technologyItem.href}
                           role="menuitem"
-                          aria-current={active ? "page" : undefined}
+                          aria-current={active ? "location" : undefined}
                           onClick={closeNavigation}
                           className={`focus-ring block px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
                             index > 0 ? "border-t border-metal-100" : ""
                           } ${active ? "bg-metal-50 text-industrial-700" : "text-slate-600"}`}
                         >
-                          {index === 0 ? "Technology Overview" : technologyItem.label}
+                          {technologyItem.label}
                         </Link>
                       );
                     })}

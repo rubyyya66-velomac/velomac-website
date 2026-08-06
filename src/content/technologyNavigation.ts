@@ -6,13 +6,8 @@ export type TechnologyNavigationItem = {
 
 export const technologyNavigationItems: TechnologyNavigationItem[] = [
   {
-    label: "Overview",
-    href: "/technology",
-    matchPaths: ["/technology"]
-  },
-  {
     label: "Sensor & Product Development",
-    href: "/technology/sensor-product-development",
+    href: "/technology#sensor-product-development",
     matchPaths: [
       "/technology/sensor-product-development",
       "/technology/non-wetted-piezoelectric-vortex-sensor",
@@ -21,17 +16,27 @@ export const technologyNavigationItems: TechnologyNavigationItem[] = [
     ]
   },
   {
-    label: "Testing & Calibration Systems",
-    href: "/technology/testing-calibration-systems",
+    label: "Flow Calibration Systems",
+    href: "/technology/flow-calibration-systems",
+    matchPaths: [
+      "/technology/flow-calibration-systems",
+      "/technology/gas-flow-calibration",
+      "/technology/master-meter-liquid-calibration",
+      "/technology/liquid-flow-calibration-bench",
+      "/technology/gravimetric-liquid-calibration"
+    ]
+  },
+  {
+    label: "Testing & Verification Systems",
+    href: "/technology#testing-verification-systems",
     matchPaths: [
       "/technology/testing-calibration-systems",
-      "/technology/in-house-liquid-flow-calibration-bench",
       "/technology/vibration-measurement-test-system"
     ]
   },
   {
     label: "Application Upgrade Projects",
-    href: "/technology/application-upgrade-projects",
+    href: "/technology#application-upgrade-projects",
     matchPaths: [
       "/technology/application-upgrade-projects",
       "/technology/smart-vortex-upgrade-chemical-pharmaceutical"

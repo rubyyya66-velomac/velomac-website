@@ -33,31 +33,39 @@ export function TechnologyDetailExperience({
       <section className="border-b border-metal-200 bg-white">
         <Container className="py-8 sm:py-10 lg:py-14">
           <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
-            <Link href="/" className="focus-ring rounded-sm transition hover:text-industrial-700">
-              Home
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/technology" className="focus-ring rounded-sm transition hover:text-industrial-700">
-              Technology
-            </Link>
-            <span aria-hidden="true">/</span>
-            {category ? (
-              <>
-                <Link
-                  href={`/technology/${category.slug}`}
-                  className="focus-ring rounded-sm transition hover:text-industrial-700"
-                >
-                  {category.title}
-                </Link>
-                <span aria-hidden="true">/</span>
-              </>
-            ) : null}
-            <span className="text-slate-700">{article.title}</span>
+            {(page.breadcrumbs ?? [
+              { label: "Home", href: "/" },
+              { label: "Technology", href: "/technology" },
+              ...(category
+                ? [{ label: category.title, href: `/technology/${category.slug}` }]
+                : []),
+              { label: article.title }
+            ]).map((item, index, items) => (
+              <span key={`${item.label}-${item.href ?? "current"}`} className="contents">
+                {item.href ? (
+                  <Link
+                    href={item.href}
+                    className="focus-ring rounded-sm transition hover:text-industrial-700"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <span className="text-slate-700">{item.label}</span>
+                )}
+                {index < items.length - 1 ? <span aria-hidden="true">/</span> : null}
+              </span>
+            ))}
           </nav>
 
           <div className="mt-8 grid gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
             <div className="max-w-2xl">
-              <TechnologyCategoryLabel categoryId={article.categoryId} />
+              {page.heroLabel ? (
+                <p className="inline-flex border border-blue-300 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">
+                  {page.heroLabel}
+                </p>
+              ) : (
+                <TechnologyCategoryLabel categoryId={article.categoryId} />
+              )}
               <h1 className="mt-5 text-4xl font-semibold leading-[1.08] text-navy-950 sm:text-5xl">
                 {article.title}
               </h1>
@@ -103,7 +111,11 @@ export function TechnologyDetailExperience({
               {page.relatedHeading}
             </h2>
           </div>
-          <div className="mt-9 grid gap-6 md:grid-cols-3">
+          <div
+            className={`mt-9 grid gap-6 ${
+              relatedArticles.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"
+            }`}
+          >
             {relatedArticles.map((related) => (
               <TechnologyCard key={related.slug} article={related} />
             ))}
@@ -128,7 +140,9 @@ function FactStrip({ facts }: { facts: TechnologyDetailFact[] }) {
       ? "sm:grid-cols-2"
       : facts.length === 3
         ? "sm:grid-cols-3"
-        : "sm:grid-cols-2 lg:grid-cols-4";
+        : facts.length === 5
+          ? "sm:grid-cols-2 lg:grid-cols-5"
+          : "sm:grid-cols-2 lg:grid-cols-4";
 
   return (
     <section className="border-b border-metal-200 bg-metal-50" aria-label="Key capabilities">
@@ -224,17 +238,25 @@ function CardsModule({ module, index }: { module: TechnologyDetailModule; index:
 }
 
 function StepsModule({ module, index }: { module: TechnologyDetailModule; index: number }) {
+  const itemCount = module.items?.length ?? 0;
+  const gridClass =
+    itemCount === 3
+      ? "md:grid-cols-3"
+      : itemCount === 4
+        ? "sm:grid-cols-2 lg:grid-cols-4"
+        : "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6";
+  const itemSurface =
+    module.tone === "blue" ? "bg-[#eef3f8]" : module.tone === "soft" ? "bg-metal-50" : "bg-white";
+
   return (
     <ModuleSection module={module}>
       <Container>
         <ModuleHeading module={module} index={index} />
-        <ol className="mt-9 grid gap-0 border-y border-metal-300 sm:grid-cols-2 lg:grid-cols-5">
-          {module.items?.map((item, itemIndex) => (
+        <ol className={`mt-9 grid gap-px border border-metal-300 bg-metal-300 ${gridClass}`}>
+          {module.items?.map((item) => (
             <li
               key={item.title}
-              className={`py-6 sm:px-5 lg:py-7 ${
-                itemIndex > 0 ? "border-t border-metal-300 sm:border-l sm:border-t-0" : ""
-              }`}
+              className={`${itemSurface} px-5 py-6 lg:py-7`}
             >
               <h3 className="text-base font-semibold leading-6 text-navy-950">{item.title}</h3>
               {item.text ? <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p> : null}
@@ -339,7 +361,10 @@ function HighlightModule({ module, index }: { module: TechnologyDetailModule; in
   return (
     <ModuleSection module={{ ...module, tone: "dark" }}>
       <Container className="grid gap-8 lg:grid-cols-[0.7fr_0.3fr] lg:items-end lg:gap-16">
-        <ModuleHeading module={{ ...module, tone: "dark" }} index={index} compact />
+        <div>
+          <ModuleHeading module={{ ...module, tone: "dark" }} index={index} compact />
+          {module.link ? <ModuleLink link={module.link} dark /> : null}
+        </div>
         {module.result ? (
           <div className="border-l-2 border-blue-300 pl-5">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-200">
@@ -397,6 +422,7 @@ function ModuleCopy({ module, index }: { module: TechnologyDetailModule; index: 
     <div className="max-w-2xl">
       <ModuleHeading module={module} index={index} compact />
       {module.bullets?.length ? <BulletList items={module.bullets} className="mt-6" /> : null}
+      {module.link ? <ModuleLink link={module.link} /> : null}
     </div>
   );
 }
@@ -433,7 +459,28 @@ function ModuleHeading({
           {module.description}
         </p>
       ) : null}
+      {module.link && !compact ? <ModuleLink link={module.link} dark={dark} /> : null}
     </div>
+  );
+}
+
+function ModuleLink({
+  link,
+  dark = false
+}: {
+  link: NonNullable<TechnologyDetailModule["link"]>;
+  dark?: boolean;
+}) {
+  return (
+    <Link
+      href={link.href}
+      className={`focus-ring mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold transition ${
+        dark ? "text-blue-200 hover:text-white" : "text-industrial-700 hover:text-navy-950"
+      }`}
+    >
+      {link.label}
+      <span aria-hidden="true">{">"}</span>
+    </Link>
   );
 }
 
@@ -489,4 +536,3 @@ function DetailImage({
     </figure>
   );
 }
-

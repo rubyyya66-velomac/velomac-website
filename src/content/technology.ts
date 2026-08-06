@@ -2,6 +2,7 @@ import technologyData from "./data/technology.json";
 
 export type TechnologyCategoryId =
   | "product-sensor-innovation"
+  | "flow-calibration-systems"
   | "testing-calibration"
   | "application-engineering";
 

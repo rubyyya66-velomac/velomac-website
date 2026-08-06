@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { FlowCalibrationCategoryPage } from "@/components/FlowCalibrationCategoryPage";
+import { FlowCalibrationDetailPage } from "@/components/FlowCalibrationDetailPage";
 import { TechnologyCategoryPage } from "@/components/TechnologyCategoryPage";
 import { TechnologyDetailExperience } from "@/components/TechnologyDetailExperience";
 import { TechnologySubnav } from "@/components/TechnologySubnav";
@@ -76,7 +78,11 @@ export default function TechnologyPageBySlug({ params }: { params: { slug: strin
     return (
       <>
         <TechnologySubnav />
-        <TechnologyCategoryPage category={category} />
+        {category.id === "flow-calibration-systems" ? (
+          <FlowCalibrationCategoryPage />
+        ) : (
+          <TechnologyCategoryPage category={category} />
+        )}
       </>
     );
   }
@@ -91,8 +97,11 @@ export default function TechnologyPageBySlug({ params }: { params: { slug: strin
   return (
     <>
       <TechnologySubnav />
-      <TechnologyDetailExperience article={article} page={detailPage} />
+      {article.categoryId === "flow-calibration-systems" ? (
+        <FlowCalibrationDetailPage article={article} page={detailPage} />
+      ) : (
+        <TechnologyDetailExperience article={article} page={detailPage} />
+      )}
     </>
   );
 }
-

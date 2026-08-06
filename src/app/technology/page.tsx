@@ -8,9 +8,7 @@ import { TechnologySubnav } from "@/components/TechnologySubnav";
 import {
   technologyContent,
   getTechnologyArticle,
-  getTechnologyArticlesByCategory,
-  getTechnologyCategory,
-  type TechnologyCategory
+  getTechnologyArticlesByCategory
 } from "@/content/technology";
 
 export const metadata: Metadata = {
@@ -32,21 +30,60 @@ export const metadata: Metadata = {
   }
 };
 
+const calibrationMethods = [
+  {
+    code: "01",
+    title: "Gas Flow Calibration",
+    image: "/images/technology/calibration/gas-flow-calibration.jpg",
+    imageAlt: "Gas flow calibration system with controlled comparison lines",
+    medium: "Gas",
+    meterClass: "1.0",
+    description: "Controlled gas-flow comparison across configured operating points.",
+    href: "/technology/gas-flow-calibration",
+    linkLabel: "Explore Gas Calibration"
+  },
+  {
+    code: "02",
+    title: "Master-Meter Liquid Calibration",
+    image: "/images/technology/calibration/master-meter-liquid-calibration.jpg",
+    imageAlt: "Master-meter liquid calibration lines in the Velomac workshop",
+    medium: "Liquid",
+    meterClass: "0.5",
+    description: "Liquid circulation and comparison with reference flow meters.",
+    href: "/technology/master-meter-liquid-calibration",
+    linkLabel: "Explore Master-Meter Calibration"
+  },
+  {
+    code: "03",
+    title: "Gravimetric Liquid Calibration",
+    image: "/images/technology/calibration/gravimetric-liquid-calibration.jpg",
+    imageAlt: "Gravimetric liquid calibration equipment using METTLER TOLEDO weighing equipment",
+    medium: "Liquid",
+    meterClass: "0.3",
+    description: "Mass-based liquid calibration using METTLER TOLEDO weighing equipment.",
+    href: "/technology/gravimetric-liquid-calibration",
+    linkLabel: "Explore Gravimetric Calibration"
+  }
+] as const;
+
+const testingCapabilities = [
+  "Vibration measurement test system",
+  "Wide-range vibration testing",
+  "Sensor and signal validation"
+];
+
 export default function TechnologyPage() {
   const { hero } = technologyContent;
-  const sensorCategory = getTechnologyCategory("product-sensor-innovation")!;
-  const testingCategory = getTechnologyCategory("testing-calibration")!;
-  const applicationCategory = getTechnologyCategory("application-engineering")!;
-  const sensorArticles = getTechnologyArticlesByCategory(sensorCategory.id);
-  const calibrationArticle = getTechnologyArticle("in-house-liquid-flow-calibration-bench")!;
+  const sensorArticles = getTechnologyArticlesByCategory("product-sensor-innovation");
   const vibrationArticle = getTechnologyArticle("vibration-measurement-test-system")!;
   const upgradeArticle = getTechnologyArticle("smart-vortex-upgrade-chemical-pharmaceutical")!;
 
   return (
     <>
       <TechnologySubnav />
+
       <section className="border-b border-metal-200 bg-white">
-        <Container className="grid gap-10 py-12 sm:py-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14 lg:py-16">
+        <Container className="grid gap-10 py-12 sm:py-14 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-14 lg:py-16">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {hero.eyebrow}
@@ -61,151 +98,212 @@ export default function TechnologyPage() {
               {hero.supportingText}
             </p>
           </div>
-          <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden bg-navy-950">
+          <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden bg-metal-50">
             <Image
               src={hero.image.src}
               alt={hero.image.alt}
               fill
               priority
-              sizes="(max-width: 1024px) 100vw, 620px"
+              sizes="(max-width: 1024px) 100vw, 640px"
               className={hero.image.fit === "contain" ? "object-contain" : "object-cover object-center"}
             />
           </div>
         </Container>
       </section>
 
-      <Section>
-        <Container className="grid gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              How Velomac Develops
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              From sensing structure to field application
-            </h2>
-          </div>
-          <div className="max-w-3xl">
-            <p className="text-lg leading-8 text-slate-600">
-              Velomac connects product development, controlled validation and application review so a
-              measurement concept can be assessed against the conditions it will meet in the field.
-            </p>
-            <p className="mt-4 text-base leading-7 text-slate-600">
-              Each engineering area below presents a distinct part of that work, with concise case
-              summaries and confirmed technical information.
-            </p>
-          </div>
-        </Container>
-      </Section>
-
-      <Section className="border-y border-metal-200 bg-white">
+      <Section
+        id="sensor-product-development"
+        className="scroll-mt-32 border-b border-metal-200 bg-white lg:scroll-mt-44"
+      >
         <Container>
-          <TechnologySectionHeading number="01" category={sensorCategory} />
+          <TechnologySectionHeading
+            number="01"
+            eyebrow="Sensing and Product Design"
+            title="Sensor & Product Development"
+            description="Product and sensing developments created for demanding flow measurement conditions."
+          />
           <div className="mt-11 grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
             {sensorArticles.map((article) => (
-              <TechnologyCard key={article.slug} article={article} />
+              <TechnologyCard key={article.slug} article={article} showCategoryLabel={false} />
             ))}
           </div>
         </Container>
       </Section>
 
-      <Section className="border-b border-metal-200 bg-[#eef3f8]">
+      <Section
+        id="flow-calibration-systems"
+        className="scroll-mt-32 border-b border-metal-200 bg-[#eef3f8] lg:scroll-mt-44"
+      >
         <Container>
-          <TechnologySectionHeading number="02" category={testingCategory} />
+          <TechnologySectionHeading
+            number="02"
+            eyebrow="Reference Comparison"
+            title="Flow Calibration Systems"
+            description="Gas and liquid calibration matched to the medium and required accuracy class."
+          />
 
-          <div className="mt-11 overflow-hidden border border-blue-100 bg-white">
-            <div className="grid lg:grid-cols-[1.18fr_0.82fr]">
-              <div className="relative aspect-[16/10] min-w-0 bg-metal-100 lg:aspect-auto lg:min-h-[430px]">
+          <div className="mt-11 border-y border-blue-200 bg-white lg:grid lg:grid-cols-3">
+            {calibrationMethods.map((calibration, index) => (
+              <article
+                key={calibration.code}
+                className={`flex min-w-0 flex-col py-7 sm:py-8 lg:px-7 ${
+                  index > 0
+                    ? "border-t border-blue-100 lg:border-l lg:border-t-0"
+                    : ""
+                } ${index === 0 ? "lg:pr-7" : ""} ${index === 2 ? "lg:pl-7" : ""}`}
+              >
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-metal-100">
+                  <Image
+                    src={calibration.image}
+                    alt={calibration.imageAlt}
+                    fill
+                    priority={calibration.code === "02"}
+                    sizes="(min-width: 1024px) 370px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col pt-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">
+                    Method {calibration.code}
+                  </p>
+                  <h3 className="mt-2 text-2xl font-semibold leading-8 text-navy-950 lg:min-h-16">
+                    {calibration.title}
+                  </h3>
+                  <dl className="mt-6 grid grid-cols-2 border-y border-metal-200">
+                    <div className="py-4 pr-4">
+                      <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                        Medium
+                      </dt>
+                      <dd className="mt-1 text-lg font-semibold text-navy-950">{calibration.medium}</dd>
+                    </div>
+                    <div className="border-l border-metal-200 py-4 pl-4">
+                      <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                        Accuracy Class
+                      </dt>
+                      <dd className="mt-1 text-xl font-semibold text-navy-950">{calibration.meterClass}</dd>
+                    </div>
+                  </dl>
+                  <p className="mt-5 text-[15px] leading-7 text-slate-600">
+                    {calibration.description}
+                  </p>
+
+                  <Link
+                    href={calibration.href}
+                    className="focus-ring mt-auto inline-flex w-fit items-center gap-2 pt-7 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
+                  >
+                    {calibration.linkLabel}
+                    <span aria-hidden="true">{">"}</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section
+        id="testing-verification-systems"
+        className="scroll-mt-32 border-b border-navy-800 bg-navy-950 text-white lg:scroll-mt-44"
+      >
+        <Container>
+          <TechnologySectionHeading
+            number="03"
+            eyebrow="Controlled Observation"
+            title="Testing & Verification Systems"
+            description="Controlled testing of meter, sensor and signal behavior under defined conditions."
+            dark
+          />
+
+          <div className="mt-9 grid gap-9 lg:grid-cols-[1.65fr_0.85fr] lg:items-center lg:gap-10">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="relative aspect-[16/10] min-w-0 overflow-hidden bg-white/5">
                 <Image
-                  src={calibrationArticle.image.src}
-                  alt={calibrationArticle.image.alt}
+                  src="/images/technology/vibration-measurement-test-system.jpg"
+                  alt="Velomac vibration measurement test system"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 700px"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 34vw, 360px"
                   className="object-cover"
                 />
               </div>
-              <div className="flex flex-col justify-center p-7 sm:p-9 lg:p-11">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">
-                  Liquid Calibration
-                </p>
-                <h3 className="mt-3 text-2xl font-semibold leading-8 text-navy-950 sm:text-3xl">
-                  {calibrationArticle.title}
-                </h3>
-                <p className="mt-4 text-base leading-7 text-slate-600">{calibrationArticle.summary}</p>
-                <ul className="mt-7 space-y-3 border-t border-metal-200 pt-6 text-sm font-semibold leading-6 text-navy-950">
-                  <li>Volume-and-mass reference method</li>
-                  <li>Liquid accumulated and instantaneous flow checks</li>
-                  <li>Calibration work kept close to manufacturing</li>
-                </ul>
-                <Link
-                  href={`/technology/${calibrationArticle.slug}`}
-                  className="focus-ring mt-7 inline-flex w-fit items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
-                >
-                  View Calibration System
-                  <span aria-hidden="true">{">"}</span>
-                </Link>
+              <div className="relative aspect-[16/10] min-w-0 overflow-hidden border border-white/15 bg-white">
+                <Image
+                  src="/images/technology/anti-vibration-dynamic-enabled.jpg"
+                  alt="Flow signal waveform observed during controlled vibration testing"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 34vw, 360px"
+                  className="object-cover"
+                />
               </div>
             </div>
-          </div>
 
-          <div className="mt-7 grid overflow-hidden border border-blue-100 bg-white lg:grid-cols-[0.82fr_1.18fr]">
-            <div className="flex flex-col justify-center p-7 sm:p-9 lg:p-10">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">
-                Controlled Vibration
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-200">
+                Current capability
               </p>
-              <h3 className="mt-3 text-2xl font-semibold leading-8 text-navy-950">
-                {vibrationArticle.title}
+              <h3 className="mt-3 text-2xl font-semibold leading-8 text-white sm:text-3xl">
+                Observe behavior under controlled conditions
               </h3>
-              <p className="mt-4 text-base leading-7 text-slate-600">{vibrationArticle.summary}</p>
+              <ul className="mt-7 grid gap-3">
+                {testingCapabilities.map((item) => (
+                  <li
+                    key={item}
+                    className="border-l-2 border-blue-400 pl-4 text-sm font-semibold leading-6 text-blue-50"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
               <Link
                 href={`/technology/${vibrationArticle.slug}`}
-                className="focus-ring mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
+                className="focus-ring mt-7 inline-flex w-fit items-center gap-2 text-sm font-semibold text-blue-200 transition hover:text-white"
               >
-                View Test System
+                View Vibration Test System
                 <span aria-hidden="true">{">"}</span>
               </Link>
-            </div>
-            <div className="relative aspect-[16/9] min-w-0 bg-white lg:order-last lg:aspect-auto lg:min-h-[340px]">
-              <Image
-                src={vibrationArticle.image.src}
-                alt={vibrationArticle.image.alt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 700px"
-                className="object-cover"
-              />
             </div>
           </div>
         </Container>
       </Section>
 
-      <Section className="border-b border-metal-200 bg-white">
+      <Section
+        id="application-upgrade-projects"
+        className="scroll-mt-32 border-b border-metal-200 bg-metal-50 lg:scroll-mt-44"
+      >
         <Container>
-          <TechnologySectionHeading number="03" category={applicationCategory} />
+          <TechnologySectionHeading
+            number="04"
+            eyebrow="Process-Based Engineering"
+            title="Application Upgrade Projects"
+            description="Measurement upgrade reviews developed around actual process, installation and operating conditions."
+          />
 
-          <article className="mt-11 grid overflow-hidden border-y border-metal-200 lg:grid-cols-[1.08fr_0.92fr]">
+          <article className="mt-11 grid overflow-hidden border-y border-metal-200 bg-white lg:grid-cols-[1.08fr_0.92fr]">
             <div className="relative aspect-[16/10] min-w-0 bg-navy-950 lg:aspect-auto lg:min-h-[470px]">
               <Image
                 src={upgradeArticle.image.src}
                 alt={upgradeArticle.image.alt}
                 fill
+                priority
                 sizes="(max-width: 1024px) 100vw, 680px"
                 className="object-cover"
               />
             </div>
-            <div className="flex flex-col justify-center bg-metal-50 p-7 sm:p-10 lg:p-12">
+            <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">
                 Featured Upgrade Project
               </p>
               <h3 className="mt-3 text-2xl font-semibold leading-8 text-navy-950 sm:text-3xl">
                 {upgradeArticle.title}
               </h3>
-              <p className="mt-5 text-base leading-7 text-slate-600">{upgradeArticle.summary}</p>
-              <ul className="mt-7 grid gap-3 text-sm font-semibold leading-6 text-navy-950">
-                <li className="border-l-2 border-industrial-600 pl-4">Review existing pressure loss</li>
+              <ul className="mt-7 grid gap-4 text-sm font-semibold leading-6 text-navy-950">
                 <li className="border-l-2 border-industrial-600 pl-4">
-                  Check minimum, normal and maximum flow
+                  Review the existing method and pressure loss.
                 </li>
                 <li className="border-l-2 border-industrial-600 pl-4">
-                  Confirm straight pipe and installation space
+                  Check minimum, normal and maximum flow.
+                </li>
+                <li className="border-l-2 border-industrial-600 pl-4">
+                  Confirm straight pipe and installation space.
                 </li>
               </ul>
               <Link
@@ -223,8 +321,7 @@ export default function TechnologyPage() {
       <CTASection
         title="Discuss the process condition behind the measurement."
         text="Share the medium, flow range, pressure, temperature, pipe size, vibration and installation details for a technical review."
-        imageSrc="/images/technology/vibration-measurement-test-system.jpg"
-        imageAlt="Velomac in-house vibration measurement test system"
+        detailChips={["Medium", "Flow range", "Pressure and temperature", "Installation details"]}
         surfaceClassName="bg-industrial-700"
       />
     </>
@@ -233,29 +330,42 @@ export default function TechnologyPage() {
 
 function TechnologySectionHeading({
   number,
-  category
+  eyebrow,
+  title,
+  description,
+  dark = false
 }: {
   number: string;
-  category: TechnologyCategory;
+  eyebrow: string;
+  title: string;
+  description: string;
+  dark?: boolean;
 }) {
   return (
-    <div className="grid gap-5 sm:grid-cols-[92px_1fr] lg:grid-cols-[108px_1fr_auto] lg:items-end lg:gap-8">
-      <p className="text-5xl font-semibold leading-none text-industrial-200 sm:text-6xl" aria-hidden="true">
+    <div className="grid gap-5 sm:grid-cols-[92px_1fr] lg:grid-cols-[108px_1fr] lg:gap-8">
+      <p
+        className={`text-5xl font-semibold leading-none sm:text-6xl ${
+          dark ? "text-blue-300/55" : "text-industrial-200"
+        }`}
+        aria-hidden="true"
+      >
         {number}
       </p>
-      <div className="max-w-3xl border-l-2 border-industrial-600 pl-5 sm:pl-7">
-        <h2 className="text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-          {category.title}
+      <div className={`max-w-3xl border-l-2 pl-5 sm:pl-7 ${dark ? "border-blue-400" : "border-industrial-600"}`}>
+        <p
+          className={`text-xs font-semibold uppercase tracking-[0.16em] ${
+            dark ? "text-blue-200" : "text-industrial-700"
+          }`}
+        >
+          {eyebrow}
+        </p>
+        <h2 className={`mt-2 text-3xl font-semibold tracking-normal sm:text-4xl ${dark ? "text-white" : "text-navy-950"}`}>
+          {title}
         </h2>
-        <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg">{category.description}</p>
+        <p className={`mt-4 text-base leading-7 sm:text-lg ${dark ? "text-slate-300" : "text-slate-600"}`}>
+          {description}
+        </p>
       </div>
-      <Link
-        href={`/technology/${category.slug}`}
-        className="focus-ring inline-flex w-fit items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950 sm:col-start-2 lg:col-start-auto"
-      >
-        Explore This Area
-        <span aria-hidden="true">{">"}</span>
-      </Link>
     </div>
   );
 }

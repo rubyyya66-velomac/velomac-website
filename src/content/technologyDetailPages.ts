@@ -3,6 +3,7 @@ import type {
   TechnologyImage,
   TechnologyTable
 } from "@/content/technology";
+import { calibrationDetailPages } from "@/content/calibrationDetailPages";
 
 export type TechnologyDetailFact = {
   label: string;
@@ -31,6 +32,10 @@ export type TechnologyDetailModule = {
   images?: TechnologyDetailImage[];
   table?: TechnologyTable;
   result?: TechnologyDetailFact;
+  link?: {
+    label: string;
+    href: string;
+  };
   reverse?: boolean;
   tone?: "white" | "soft" | "blue" | "dark";
 };
@@ -38,6 +43,11 @@ export type TechnologyDetailModule = {
 export type TechnologyDetailPageContent = {
   slug: string;
   categoryId: TechnologyCategoryId;
+  heroLabel?: string;
+  breadcrumbs?: {
+    label: string;
+    href?: string;
+  }[];
   heroIntroduction: string;
   heroImage: TechnologyDetailImage;
   facts: TechnologyDetailFact[];
@@ -846,5 +856,8 @@ const detailPages: TechnologyDetailPageContent[] = [
 ];
 
 export function getTechnologyDetailPage(slug: string) {
-  return detailPages.find((page) => page.slug === slug);
+  return (
+    calibrationDetailPages.find((page) => page.slug === slug) ??
+    detailPages.find((page) => page.slug === slug)
+  );
 }

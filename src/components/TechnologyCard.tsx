@@ -8,6 +8,7 @@ import {
 
 const categoryStyles: Record<TechnologyCategoryId, string> = {
   "product-sensor-innovation": "border-blue-200 bg-blue-50 text-industrial-700",
+  "flow-calibration-systems": "border-blue-200 bg-blue-50 text-industrial-700",
   "testing-calibration": "border-slate-200 bg-slate-100 text-slate-700",
   "application-engineering": "border-teal-200 bg-teal-50 text-teal-800"
 };
@@ -30,7 +31,13 @@ export function TechnologyCategoryLabel({
   );
 }
 
-export function TechnologyCard({ article }: { article: TechnologyArticle }) {
+export function TechnologyCard({
+  article,
+  showCategoryLabel = true
+}: {
+  article: TechnologyArticle;
+  showCategoryLabel?: boolean;
+}) {
   const useContain = article.image.fit === "contain";
 
   return (
@@ -51,8 +58,12 @@ export function TechnologyCard({ article }: { article: TechnologyArticle }) {
         />
       </Link>
       <div className="flex flex-1 flex-col p-6">
-        <TechnologyCategoryLabel categoryId={article.categoryId} />
-        <h3 className="mt-4 text-xl font-semibold leading-7 text-navy-950">{article.title}</h3>
+        {showCategoryLabel ? <TechnologyCategoryLabel categoryId={article.categoryId} /> : null}
+        <h3
+          className={`${showCategoryLabel ? "mt-4" : "lg:min-h-14"} text-xl font-semibold leading-7 text-navy-950`}
+        >
+          {article.title}
+        </h3>
         <p className="mt-3 line-clamp-2 text-[15px] leading-7 text-slate-600">{article.summary}</p>
         <Link
           href={`/technology/${article.slug}`}

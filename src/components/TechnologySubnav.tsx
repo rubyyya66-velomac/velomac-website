@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   getActiveTechnologyPath,
   technologyNavigationItems
@@ -10,6 +11,23 @@ import {
 export function TechnologySubnav() {
   const pathname = usePathname();
   const activePath = getActiveTechnologyPath(pathname);
+  const [activeHref, setActiveHref] = useState(activePath);
+
+  useEffect(() => {
+    function syncActiveSection() {
+      if (pathname === "/technology" && window.location.hash) {
+        setActiveHref(`/technology${window.location.hash}`);
+        return;
+      }
+
+      setActiveHref(activePath);
+    }
+
+    syncActiveSection();
+    window.addEventListener("hashchange", syncActiveSection);
+
+    return () => window.removeEventListener("hashchange", syncActiveSection);
+  }, [activePath, pathname]);
 
   return (
     <div className="border-b border-metal-200 bg-white">
@@ -19,13 +37,14 @@ export function TechnologySubnav() {
           className="flex min-w-max items-center gap-6 text-sm font-semibold text-slate-600 lg:gap-8"
         >
           {technologyNavigationItems.map((item) => {
-            const active = activePath === item.href;
+            const active = activeHref === item.href;
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                aria-current={active ? "page" : undefined}
+                aria-current={active ? "location" : undefined}
+                onClick={() => setActiveHref(item.href)}
                 className={`focus-ring border-b-2 py-3.5 transition ${
                   active
                     ? "border-industrial-600 text-industrial-700"
