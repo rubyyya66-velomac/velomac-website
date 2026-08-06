@@ -15,6 +15,29 @@ import { resources } from "@/content/resources";
 import { site } from "@/content/site";
 import type { Product } from "@/types/content";
 
+const technologyCapabilities = [
+  {
+    number: "01",
+    title: "Sensor & Product Development",
+    description: "Sensing for demanding conditions."
+  },
+  {
+    number: "02",
+    title: "Flow Calibration Systems",
+    description: "Gas and liquid calibration capability."
+  },
+  {
+    number: "03",
+    title: "Testing & Verification",
+    description: "Controlled meter and signal testing."
+  },
+  {
+    number: "04",
+    title: "Application Upgrade Projects",
+    description: "Engineering for real process conditions."
+  }
+] as const;
+
 export const metadata: Metadata = {
   title: homepage.metadata.title,
   description: homepage.metadata.description
@@ -69,6 +92,68 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section
+        id="technology"
+        className="homepage-reveal scroll-mt-28 border-y border-navy-800 bg-navy-950 !py-10 text-white sm:!py-12 lg:!py-12"
+      >
+        <Container className="grid gap-y-7 lg:!max-w-[1280px] lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-8 lg:gap-y-6">
+          <div className="lg:col-start-1 lg:row-start-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
+              Engineering & Validation
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-[1.08]">
+              Technology Behind the Measurement
+            </h2>
+            <p className="mt-4 max-w-lg text-base leading-7 text-blue-100 sm:text-lg sm:leading-8">
+              Development, calibration and controlled testing for real operating conditions.
+            </p>
+          </div>
+
+          <figure className="min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
+            <div className="relative aspect-[1522/1033] w-full overflow-hidden">
+              <Image
+                src="/images/technology/homepage-technology-calibration-capabilities.jpg"
+                alt="Velomac gas and liquid flow calibration systems in two facility views"
+                fill
+                sizes="(max-width: 1024px) 100vw, 620px"
+                className="object-contain"
+              />
+            </div>
+          </figure>
+
+          <div className="lg:col-start-1 lg:row-start-2">
+            <ol className="border-t border-white/15">
+              {technologyCapabilities.map((capability) => (
+                <li
+                  key={capability.number}
+                  className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 border-b border-white/15 py-3.5 sm:grid-cols-[3rem_minmax(0,1fr)]"
+                >
+                  <p className="pt-1 text-xs font-semibold tracking-[0.16em] text-blue-200">
+                    {capability.number}
+                  </p>
+                  <div>
+                    <h3 className="text-lg font-semibold leading-7 text-white">
+                      {capability.title}
+                    </h3>
+                    <p className="mt-0.5 text-base leading-6 text-blue-100">
+                      {capability.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <Link
+              href="/technology"
+              className="focus-ring mt-5 inline-flex w-fit items-center gap-2 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-blue-100 hover:text-industrial-700"
+            >
+              Explore Technology
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </Container>
       </Section>
