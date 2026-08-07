@@ -54,6 +54,56 @@ export default function HomePage() {
       <HeroSection />
       <TrustStrip />
 
+      <Section className="homepage-reveal border-y border-metal-200 bg-metal-50">
+        <Container>
+          <article className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-12 xl:gap-16">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
+                Featured Vortex Solution
+              </p>
+              <h2 className="mt-4 max-w-3xl text-[1.95rem] font-semibold leading-[1.1] tracking-[-0.025em] text-navy-950 sm:text-[2.25rem] lg:text-[2.35rem] xl:text-[2.65rem]">
+                <span className="lg:whitespace-nowrap">
+                  Wide-Turndown <span className="whitespace-nowrap">Anti-Vibration</span>
+                </span>
+                <br className="hidden lg:block" /> Vortex Flowmeter
+              </h2>
+
+              <div className="mt-8 grid grid-cols-3 divide-x divide-metal-300 border-y border-metal-300">
+                <HomepageFeaturedFact value="1:70" label="Turndown" />
+                <HomepageFeaturedFact value="±0.5%" label="Accuracy" />
+                <HomepageFeaturedFact value="4-Level" label="Anti-Vibration Mode" />
+              </div>
+
+              <p className="mt-7 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                Built for variable-flow applications where mechanical vibration can interfere with vortex signal detection.
+              </p>
+
+              <Link
+                href="/products/vortex-flowmeter/wide-turndown-anti-vibration"
+                className="focus-ring mt-8 inline-flex items-center gap-2 bg-navy-950 px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-industrial-700"
+              >
+                Explore the Solution
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+
+            <Link
+              href="/products/vortex-flowmeter/wide-turndown-anti-vibration"
+              aria-label="Explore the Wide-Turndown Anti-Vibration Vortex Flowmeter"
+              className="focus-ring group relative min-h-[340px] sm:min-h-[420px] lg:min-h-[500px]"
+            >
+              <Image
+                src="/images/products/wide-turndown-anti-vibration-vortex-flowmeter.png"
+                alt="Velomac wide-turndown anti-vibration vortex flowmeter with complete transmitter, meter body and flanges"
+                fill
+                sizes="(min-width: 1024px) 46vw, 100vw"
+                className="object-contain transition duration-300 group-hover:scale-[1.025] lg:scale-[1.06] lg:group-hover:scale-[1.085]"
+              />
+            </Link>
+          </article>
+        </Container>
+      </Section>
+
       <Section className="homepage-reveal bg-white">
         <Container className="grid gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <div>
@@ -280,5 +330,18 @@ export default function HomePage() {
         surfaceClassName="velomac-blue-surface"
       />
     </>
+  );
+}
+
+function HomepageFeaturedFact({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="min-w-0 px-3 py-5 first:pl-0 last:pr-0 sm:px-5 sm:py-6">
+      <p className="whitespace-nowrap text-[1.75rem] font-semibold tracking-[-0.03em] text-industrial-700 sm:text-[2rem] lg:text-[2.15rem]">
+        {value}
+      </p>
+      <p className="mt-2 text-[11px] font-semibold uppercase leading-4 tracking-[0.08em] text-slate-500 sm:text-[12px] sm:tracking-[0.1em]">
+        {label}
+      </p>
+    </div>
   );
 }
