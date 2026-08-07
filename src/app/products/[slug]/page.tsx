@@ -147,7 +147,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {relatedApplications.map((application) => (
-                <ChipLink key={application.slug} href={`/applications#${application.slug}`}>
+                <ChipLink key={application.slug} href={`/applications/${application.slug}`}>
                   {application.title}
                 </ChipLink>
               ))}
