@@ -13,17 +13,27 @@ type NavItem = {
   href: string;
 };
 
+const productNavigationItems = [
+  { label: "Flow Measurement", href: "/products#flow-measurement" },
+  { label: "Level Measurement", href: "/products#level-measurement" }
+] as const;
+
 export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
   const pathname = usePathname();
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [productsHover, setProductsHover] = useState(false);
   const [technologyOpen, setTechnologyOpen] = useState(false);
   const [technologyHover, setTechnologyHover] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const productsRef = useRef<HTMLDivElement>(null);
+  const productsButtonRef = useRef<HTMLButtonElement>(null);
   const technologyRef = useRef<HTMLDivElement>(null);
   const technologyButtonRef = useRef<HTMLButtonElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const aboutButtonRef = useRef<HTMLButtonElement>(null);
   const activeTechnologyPath = getActiveTechnologyPath(pathname);
+  const productsMenuVisible = productsOpen || productsHover;
   const technologyMenuVisible = technologyOpen || technologyHover;
 
   useEffect(() => {
@@ -31,11 +41,14 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
       if (mobileOpen) return;
 
       const target = event.target as Node;
+      const insideProducts = productsRef.current?.contains(target);
       const insideTechnology = technologyRef.current?.contains(target);
       const insideAbout = aboutRef.current?.contains(target);
 
-      if (insideTechnology || insideAbout) return;
+      if (insideProducts || insideTechnology || insideAbout) return;
 
+      setProductsOpen(false);
+      setProductsHover(false);
       setTechnologyOpen(false);
       setTechnologyHover(false);
       setAboutOpen(false);
@@ -44,6 +57,11 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
 
+      if (productsMenuVisible) {
+        setProductsOpen(false);
+        setProductsHover(false);
+        productsButtonRef.current?.focus();
+      }
       if (technologyMenuVisible) {
         setTechnologyOpen(false);
         setTechnologyHover(false);
@@ -62,10 +80,12 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [aboutOpen, mobileOpen, technologyMenuVisible]);
+  }, [aboutOpen, mobileOpen, productsMenuVisible, technologyMenuVisible]);
 
   function closeNavigation() {
     setMobileOpen(false);
+    setProductsOpen(false);
+    setProductsHover(false);
     setTechnologyOpen(false);
     setTechnologyHover(false);
     setAboutOpen(false);
@@ -100,6 +120,99 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
         className={`${mobileOpen ? "flex" : "hidden"} flex-col items-stretch gap-1 pt-2 text-[length:var(--editable-header-nav-font-size)] font-semibold text-slate-600 xl:flex xl:flex-row xl:flex-wrap xl:items-center xl:gap-x-5 xl:gap-y-3 xl:pt-0`}
       >
         {navItems.map((item) => {
+          if (item.href === "/products") {
+            const productsActive = pathname === "/products" || pathname.startsWith("/products/");
+
+            return (
+              <div
+                key={item.href}
+                ref={productsRef}
+                className="relative"
+                onMouseEnter={() => {
+                  if (window.matchMedia("(min-width: 1280px)").matches) {
+                    setProductsHover(true);
+                    setTechnologyOpen(false);
+                    setTechnologyHover(false);
+                    setAboutOpen(false);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (window.matchMedia("(min-width: 1280px)").matches) {
+                    setProductsHover(false);
+                  }
+                }}
+                onBlur={(event) => {
+                  if (mobileOpen) return;
+
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    setProductsOpen(false);
+                    setProductsHover(false);
+                  }
+                }}
+              >
+                <div
+                  className={`flex items-center border-b border-metal-100 transition xl:border-0 ${
+                    productsActive ? "text-industrial-700" : ""
+                  }`}
+                >
+                  <Link
+                    href={item.href}
+                    aria-current={pathname === "/products" ? "page" : undefined}
+                    onClick={closeNavigation}
+                    className="focus-ring flex-1 py-3 transition hover:text-industrial-700 xl:py-0"
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    ref={productsButtonRef}
+                    type="button"
+                    className="focus-ring flex h-10 w-10 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
+                    aria-label="Toggle Products menu"
+                    aria-expanded={productsMenuVisible}
+                    aria-haspopup="menu"
+                    aria-controls="products-submenu"
+                    onClick={() => {
+                      setProductsOpen((current) => !current);
+                      setTechnologyOpen(false);
+                      setTechnologyHover(false);
+                      setAboutOpen(false);
+                    }}
+                  >
+                    <span
+                      className={`text-[10px] transition ${productsMenuVisible ? "rotate-180" : ""}`}
+                      aria-hidden="true"
+                    >
+                      v
+                    </span>
+                  </button>
+                </div>
+                <div
+                  id="products-submenu"
+                  className={`z-50 w-full pt-1 transition xl:absolute xl:left-1/2 xl:top-full xl:w-[230px] xl:-translate-x-1/2 xl:pt-3 ${
+                    productsMenuVisible ? "block visible opacity-100" : "hidden invisible opacity-0"
+                  }`}
+                  role="menu"
+                >
+                  <div className="border border-metal-200 bg-white p-2 xl:shadow-soft">
+                    {productNavigationItems.map((productItem, index) => (
+                      <Link
+                        key={productItem.href}
+                        href={productItem.href}
+                        role="menuitem"
+                        onClick={closeNavigation}
+                        className={`focus-ring block px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-metal-50 hover:text-industrial-700 ${
+                          index > 0 ? "border-t border-metal-100" : ""
+                        }`}
+                      >
+                        {productItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
           if (item.href === "/technology") {
             const technologyActive =
               pathname === "/technology" || pathname.startsWith("/technology/");
@@ -112,6 +225,8 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                 onMouseEnter={() => {
                   if (window.matchMedia("(min-width: 1280px)").matches) {
                     setTechnologyHover(true);
+                    setProductsOpen(false);
+                    setProductsHover(false);
                     setAboutOpen(false);
                   }
                 }}
@@ -152,6 +267,8 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                     aria-controls="technology-submenu"
                     onClick={() => {
                       setTechnologyOpen((current) => !current);
+                      setProductsOpen(false);
+                      setProductsHover(false);
                       setAboutOpen(false);
                     }}
                   >
@@ -220,7 +337,10 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                   aria-controls="about-submenu"
                   onClick={() => {
                     setAboutOpen((current) => !current);
+                    setProductsOpen(false);
+                    setProductsHover(false);
                     setTechnologyOpen(false);
+                    setTechnologyHover(false);
                   }}
                 >
                   {item.label}
