@@ -19,16 +19,15 @@ const productNavigationItems = [
 ] as const;
 
 const applicationNavigationItems = [
-  { label: "Application Overview", href: "/applications" },
-  { label: "Steam Measurement", href: "/applications/steam-measurement" },
-  { label: "Gas Flow Measurement", href: "/applications/gas-flow-measurement" },
+  { label: "Steam Measurement", href: "/applications#steam-measurement" },
+  { label: "Gas Flow Measurement", href: "/applications#gas-flow-measurement" },
   {
     label: "Conductive Liquid Measurement",
-    href: "/applications/conductive-liquid-measurement"
+    href: "/applications#conductive-liquid-measurement"
   },
-  { label: "Chemical Process Lines", href: "/applications/chemical-process-lines" },
-  { label: "High Vibration Pipelines", href: "/applications/high-vibration-pipelines" },
-  { label: "Energy Loss Visibility", href: "/applications/energy-loss-visibility" }
+  { label: "Chemical Process Lines", href: "/applications#chemical-process-lines" },
+  { label: "High Vibration Pipelines", href: "/applications#high-vibration-pipelines" },
+  { label: "Energy Loss Visibility", href: "/applications#energy-loss-visibility" }
 ] as const;
 
 export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
@@ -337,24 +336,19 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                   role="menu"
                 >
                   <div className="border border-metal-200 bg-white p-2 xl:shadow-soft">
-                    {applicationNavigationItems.map((applicationItem, index) => {
-                      const active = pathname === applicationItem.href;
-
-                      return (
-                        <Link
-                          key={applicationItem.href}
-                          href={applicationItem.href}
-                          role="menuitem"
-                          aria-current={active ? "page" : undefined}
-                          onClick={closeNavigation}
-                          className={`focus-ring block px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
-                            index > 0 ? "border-t border-metal-100" : ""
-                          } ${active ? "bg-metal-50 text-industrial-700" : "text-slate-600"}`}
-                        >
-                          {applicationItem.label}
-                        </Link>
-                      );
-                    })}
+                    {applicationNavigationItems.map((applicationItem, index) => (
+                      <Link
+                        key={applicationItem.href}
+                        href={applicationItem.href}
+                        role="menuitem"
+                        onClick={closeNavigation}
+                        className={`focus-ring block px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-metal-50 hover:text-industrial-700 ${
+                          index > 0 ? "border-t border-metal-100" : ""
+                        }`}
+                      >
+                        {applicationItem.label}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>

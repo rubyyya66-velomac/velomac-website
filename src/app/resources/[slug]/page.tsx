@@ -144,7 +144,7 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
                     {relatedApplications.map((application) => (
                       <Link
                         key={application.slug}
-                        href={`/applications/${application.slug}`}
+                        href={`/applications#${application.slug}`}
                         className="focus-ring rounded-full border border-metal-200 bg-metal-50 px-3 py-2 text-sm font-semibold leading-5 text-slate-700 transition hover:border-industrial-500 hover:text-industrial-700"
                       >
                         {application.title}
