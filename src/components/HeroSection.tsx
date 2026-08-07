@@ -6,10 +6,10 @@ import { homepage } from "@/content/homepage";
 export function HeroSection() {
   const { hero } = homepage;
   const applicationChips = [
-    { label: "Steam", href: "/applications/steam-measurement" },
-    { label: "Gas", href: "/applications/gas-flow-measurement" },
-    { label: "Liquid", href: "/applications/conductive-liquid-measurement" },
-    { label: "Chemical", href: "/applications/chemical-process-lines" }
+    { label: "Steam", href: "/applications#steam-measurement" },
+    { label: "Gas", href: "/applications#gas-flow-measurement" },
+    { label: "Liquid", href: "/applications#conductive-liquid-measurement" },
+    { label: "Chemical", href: "/applications#chemical-process-lines" }
   ];
 
   return (

@@ -44,7 +44,7 @@ export default function ApplicationsPage() {
               {applications.map((application) => (
                 <Link
                   key={application.slug}
-                  href={`/applications/${application.slug}`}
+                  href={`#${application.slug}`}
                   className="focus-ring rounded-full border border-metal-200/80 bg-metal-50 px-5 py-2.5 text-[15px] font-semibold text-slate-700 transition hover:border-industrial-300 hover:bg-blue-50 hover:text-industrial-700"
                 >
                   {application.title}
@@ -79,10 +79,10 @@ export default function ApplicationsPage() {
                       <TagList title="Site details to prepare" items={application.detailsToSend} />
                     </div>
                     <Link
-                      href={`/applications/${application.slug}`}
+                      href={`/contact?application=${application.slug}`}
                       className="focus-ring mt-6 inline-flex w-fit items-center gap-2 text-[15px] font-semibold text-industrial-600 transition hover:text-navy-950"
                     >
-                      View application details
+                      Discuss this application
                       <span aria-hidden="true">{">"}</span>
                     </Link>
                   </div>

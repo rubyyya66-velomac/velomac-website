@@ -37,7 +37,7 @@ export function Footer() {
         </FooterColumn>
         <FooterColumn title={site.footer.columns.applications}>
           {applicationLinks.map((application) => (
-            <FooterLink key={application.slug} href={`/applications/${application.slug}`}>
+            <FooterLink key={application.slug} href={`/applications#${application.slug}`}>
               {application.title}
             </FooterLink>
           ))}

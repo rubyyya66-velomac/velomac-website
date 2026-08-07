@@ -13,7 +13,7 @@ export function ApplicationCard({
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[6px] border border-metal-200 bg-white transition duration-300 hover:border-industrial-600 hover:shadow-soft">
-      <Link href={`/applications/${application.slug}`} className="focus-ring block border-b border-metal-200 bg-navy-950">
+      <Link href={`/applications#${application.slug}`} className="focus-ring block border-b border-metal-200 bg-navy-950">
         <div
           className={`relative w-full ${isFeatured ? "aspect-[16/9]" : ""}`}
           style={!isFeatured ? { aspectRatio: "var(--editable-card-image-aspect)" } : undefined}
@@ -34,7 +34,7 @@ export function ApplicationCard({
           {application.focus}
         </p>
         <Link
-          href={`/applications/${application.slug}`}
+          href={`/applications#${application.slug}`}
           className="focus-ring mt-5 inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
         >
           Application notes
