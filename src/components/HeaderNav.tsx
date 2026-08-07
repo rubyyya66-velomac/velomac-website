@@ -18,22 +18,40 @@ const productNavigationItems = [
   { label: "Level Measurement", href: "/products#level-measurement" }
 ] as const;
 
+const applicationNavigationItems = [
+  { label: "Application Overview", href: "/applications" },
+  { label: "Steam Measurement", href: "/applications/steam-measurement" },
+  { label: "Gas Flow Measurement", href: "/applications/gas-flow-measurement" },
+  {
+    label: "Conductive Liquid Measurement",
+    href: "/applications/conductive-liquid-measurement"
+  },
+  { label: "Chemical Process Lines", href: "/applications/chemical-process-lines" },
+  { label: "High Vibration Pipelines", href: "/applications/high-vibration-pipelines" },
+  { label: "Energy Loss Visibility", href: "/applications/energy-loss-visibility" }
+] as const;
+
 export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
   const pathname = usePathname();
   const [productsOpen, setProductsOpen] = useState(false);
   const [productsHover, setProductsHover] = useState(false);
+  const [applicationsOpen, setApplicationsOpen] = useState(false);
+  const [applicationsHover, setApplicationsHover] = useState(false);
   const [technologyOpen, setTechnologyOpen] = useState(false);
   const [technologyHover, setTechnologyHover] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
   const productsButtonRef = useRef<HTMLButtonElement>(null);
+  const applicationsRef = useRef<HTMLDivElement>(null);
+  const applicationsButtonRef = useRef<HTMLButtonElement>(null);
   const technologyRef = useRef<HTMLDivElement>(null);
   const technologyButtonRef = useRef<HTMLButtonElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const aboutButtonRef = useRef<HTMLButtonElement>(null);
   const activeTechnologyPath = getActiveTechnologyPath(pathname);
   const productsMenuVisible = productsOpen || productsHover;
+  const applicationsMenuVisible = applicationsOpen || applicationsHover;
   const technologyMenuVisible = technologyOpen || technologyHover;
 
   useEffect(() => {
@@ -42,13 +60,16 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
 
       const target = event.target as Node;
       const insideProducts = productsRef.current?.contains(target);
+      const insideApplications = applicationsRef.current?.contains(target);
       const insideTechnology = technologyRef.current?.contains(target);
       const insideAbout = aboutRef.current?.contains(target);
 
-      if (insideProducts || insideTechnology || insideAbout) return;
+      if (insideProducts || insideApplications || insideTechnology || insideAbout) return;
 
       setProductsOpen(false);
       setProductsHover(false);
+      setApplicationsOpen(false);
+      setApplicationsHover(false);
       setTechnologyOpen(false);
       setTechnologyHover(false);
       setAboutOpen(false);
@@ -61,6 +82,11 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
         setProductsOpen(false);
         setProductsHover(false);
         productsButtonRef.current?.focus();
+      }
+      if (applicationsMenuVisible) {
+        setApplicationsOpen(false);
+        setApplicationsHover(false);
+        applicationsButtonRef.current?.focus();
       }
       if (technologyMenuVisible) {
         setTechnologyOpen(false);
@@ -80,12 +106,14 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [aboutOpen, mobileOpen, productsMenuVisible, technologyMenuVisible]);
+  }, [aboutOpen, applicationsMenuVisible, mobileOpen, productsMenuVisible, technologyMenuVisible]);
 
   function closeNavigation() {
     setMobileOpen(false);
     setProductsOpen(false);
     setProductsHover(false);
+    setApplicationsOpen(false);
+    setApplicationsHover(false);
     setTechnologyOpen(false);
     setTechnologyHover(false);
     setAboutOpen(false);
@@ -131,6 +159,8 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                 onMouseEnter={() => {
                   if (window.matchMedia("(min-width: 1280px)").matches) {
                     setProductsHover(true);
+                    setApplicationsOpen(false);
+                    setApplicationsHover(false);
                     setTechnologyOpen(false);
                     setTechnologyHover(false);
                     setAboutOpen(false);
@@ -173,6 +203,8 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                     aria-controls="products-submenu"
                     onClick={() => {
                       setProductsOpen((current) => !current);
+                      setApplicationsOpen(false);
+                      setApplicationsHover(false);
                       setTechnologyOpen(false);
                       setTechnologyHover(false);
                       setAboutOpen(false);
@@ -213,6 +245,122 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
             );
           }
 
+          if (item.href === "/applications") {
+            const applicationsActive =
+              pathname === "/applications" || pathname.startsWith("/applications/");
+
+            return (
+              <div
+                key={item.href}
+                ref={applicationsRef}
+                className="relative"
+                onMouseEnter={() => {
+                  if (window.matchMedia("(min-width: 1280px)").matches) {
+                    setApplicationsHover(true);
+                    setProductsOpen(false);
+                    setProductsHover(false);
+                    setTechnologyOpen(false);
+                    setTechnologyHover(false);
+                    setAboutOpen(false);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (window.matchMedia("(min-width: 1280px)").matches) {
+                    setApplicationsHover(false);
+                  }
+                }}
+                onFocusCapture={(event) => {
+                  if (
+                    event.target instanceof HTMLAnchorElement &&
+                    window.matchMedia("(min-width: 1280px)").matches
+                  ) {
+                    setApplicationsOpen(true);
+                    setProductsOpen(false);
+                    setProductsHover(false);
+                    setTechnologyOpen(false);
+                    setTechnologyHover(false);
+                    setAboutOpen(false);
+                  }
+                }}
+                onBlur={(event) => {
+                  if (mobileOpen) return;
+
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    setApplicationsOpen(false);
+                    setApplicationsHover(false);
+                  }
+                }}
+              >
+                <div
+                  className={`flex items-center border-b border-metal-100 transition xl:border-0 ${
+                    applicationsActive ? "text-industrial-700" : ""
+                  }`}
+                >
+                  <Link
+                    href={item.href}
+                    aria-current={pathname === "/applications" ? "page" : undefined}
+                    onClick={closeNavigation}
+                    className="focus-ring flex-1 py-3 transition hover:text-industrial-700 xl:py-0"
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    ref={applicationsButtonRef}
+                    type="button"
+                    className="focus-ring flex h-10 w-10 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
+                    aria-label="Toggle Applications menu"
+                    aria-expanded={applicationsMenuVisible}
+                    aria-haspopup="menu"
+                    aria-controls="applications-submenu"
+                    onClick={() => {
+                      setApplicationsOpen((current) => !current);
+                      setProductsOpen(false);
+                      setProductsHover(false);
+                      setTechnologyOpen(false);
+                      setTechnologyHover(false);
+                      setAboutOpen(false);
+                    }}
+                  >
+                    <span
+                      className={`text-[10px] transition ${applicationsMenuVisible ? "rotate-180" : ""}`}
+                      aria-hidden="true"
+                    >
+                      v
+                    </span>
+                  </button>
+                </div>
+                <div
+                  id="applications-submenu"
+                  className={`z-50 w-full pt-1 transition xl:absolute xl:left-1/2 xl:top-full xl:w-[310px] xl:-translate-x-1/2 xl:pt-3 ${
+                    applicationsMenuVisible ? "block visible opacity-100" : "hidden invisible opacity-0"
+                  }`}
+                  role="menu"
+                >
+                  <div className="border border-metal-200 bg-white p-2 xl:shadow-soft">
+                    {applicationNavigationItems.map((applicationItem, index) => {
+                      const active = pathname === applicationItem.href;
+
+                      return (
+                        <Link
+                          key={applicationItem.href}
+                          href={applicationItem.href}
+                          role="menuitem"
+                          aria-current={active ? "page" : undefined}
+                          onClick={closeNavigation}
+                          className={`focus-ring block px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
+                            index > 0 ? "border-t border-metal-100" : ""
+                          } ${active ? "bg-metal-50 text-industrial-700" : "text-slate-600"}`}
+                        >
+                          {applicationItem.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
           if (item.href === "/technology") {
             const technologyActive =
               pathname === "/technology" || pathname.startsWith("/technology/");
@@ -227,6 +375,8 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                     setTechnologyHover(true);
                     setProductsOpen(false);
                     setProductsHover(false);
+                    setApplicationsOpen(false);
+                    setApplicationsHover(false);
                     setAboutOpen(false);
                   }
                 }}
@@ -269,6 +419,8 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                       setTechnologyOpen((current) => !current);
                       setProductsOpen(false);
                       setProductsHover(false);
+                      setApplicationsOpen(false);
+                      setApplicationsHover(false);
                       setAboutOpen(false);
                     }}
                   >
@@ -339,6 +491,8 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                     setAboutOpen((current) => !current);
                     setProductsOpen(false);
                     setProductsHover(false);
+                    setApplicationsOpen(false);
+                    setApplicationsHover(false);
                     setTechnologyOpen(false);
                     setTechnologyHover(false);
                   }}

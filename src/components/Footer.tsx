@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Facebook, Linkedin, Music2 } from "lucide-react";
 import { applications } from "@/content/applications";
 import { products } from "@/content/products";
 import { resourceCategories } from "@/content/resources";
@@ -12,20 +13,20 @@ export function Footer() {
   return (
     <footer className="border-t border-metal-200 bg-white text-navy-950">
       <div className="mx-auto grid w-full max-w-[1200px] gap-x-10 gap-y-9 px-5 py-[var(--editable-footer-spacing)] sm:px-6 lg:grid-cols-[1.25fr_0.95fr_0.95fr_0.85fr_1fr] lg:px-8">
-        <div>
+        <div className="flex h-full flex-col items-start self-start">
           <Link href="/" className="focus-ring inline-flex items-center gap-3 rounded-sm">
             <Image
-              src={site.logos.footer}
+              src={site.logos.header}
               alt={site.logos.alt}
-              width={1254}
-              height={1254}
-              className="h-24 w-auto sm:h-28"
+              width={900}
+              height={638}
+              className="h-[4.25rem] w-auto sm:h-[4.5rem]"
             />
           </Link>
-          <p className="mt-4 max-w-sm text-[15px] leading-7 text-slate-600">
+          <p className="mt-3 max-w-sm text-[15px] leading-7 text-slate-600">
             {site.footer.description}
           </p>
-          <p className="mt-5 text-[15px] leading-6 text-slate-500">Copyright © {new Date().getFullYear()} {site.footer.copyrightName}.</p>
+          <p className="mt-4 text-[15px] leading-6 text-slate-500">Copyright © {new Date().getFullYear()} {site.footer.copyrightName}.</p>
         </div>
         <FooterColumn title={site.footer.columns.products}>
           {flowProducts.map((product) => (
@@ -36,7 +37,7 @@ export function Footer() {
         </FooterColumn>
         <FooterColumn title={site.footer.columns.applications}>
           {applicationLinks.map((application) => (
-            <FooterLink key={application.slug} href={`/applications#${application.slug}`}>
+            <FooterLink key={application.slug} href={`/applications/${application.slug}`}>
               {application.title}
             </FooterLink>
           ))}
@@ -51,6 +52,17 @@ export function Footer() {
         <FooterColumn title={site.footer.columns.contact}>
           <p className="text-[15px] leading-7 text-slate-600">Location: {site.location}</p>
           <FooterLink href="/contact">{site.buttons.requestQuote}</FooterLink>
+          <div className="flex items-center gap-4 pt-1">
+            <SocialLink href="https://www.linkedin.com/company/velomac-flowmeter/" label="Velomac on LinkedIn">
+              <Linkedin aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
+            </SocialLink>
+            <SocialLink href="https://www.facebook.com/VelomacFlowmeter" label="Velomac on Facebook">
+              <Facebook aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
+            </SocialLink>
+            <SocialLink href="https://www.tiktok.com/@velomac_flowmeter" label="Velomac on TikTok">
+              <Music2 aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
+            </SocialLink>
+          </div>
         </FooterColumn>
       </div>
     </footer>
@@ -71,5 +83,27 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
     <Link href={href} className="focus-ring rounded-sm text-[15px] leading-7 text-slate-600 transition hover:text-industrial-700">
       {children}
     </Link>
+  );
+}
+
+function SocialLink({
+  href,
+  label,
+  children
+}: {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="focus-ring rounded-sm text-slate-500 transition hover:text-industrial-700"
+    >
+      {children}
+    </a>
   );
 }
