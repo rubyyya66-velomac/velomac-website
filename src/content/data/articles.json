@@ -1020,7 +1020,7 @@
     "excerpt": "Higher simultaneous demand can shift the utility flow range that an existing fab meter must cover.",
     "summary": "Full utilization reshapes minimum, normal, and peak utility flow.",
     "intro": "Semiconductor utility flowmeter sizing changes when a fab moves into sustained high utilization, because common-header demand can rise while branch flows still drop during maintenance, standby, cleaning, or partial operation.",
-    "coverImage": "/images/blog/flowmeter-quote-site-details.png",
+    "coverImage": "/images/uploads/1787195341008-chatgpt-image-aug-20-2026-11-02-57-am.png",
     "coverAlt": "Semiconductor fab facility utility pipelines showing flow measurement across minimum, normal, and simultaneous peak operating demand.",
     "publishedDate": "2026-08-20",
     "relatedProducts": [],
