@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "title": "Flowmeter Selection & Application Resources | Velomac",
+    "description": "Practical flowmeter selection, installation, calibration, retrofit and application notes for industrial steam, gas, liquid and utility systems.",
+    "openGraphDescription": "Practical flowmeter selection, installation, calibration, retrofit and application notes for industrial steam, gas, liquid and utility systems."
+  },
+  "hero": {
+    "eyebrow": "RESOURCES",
+    "title": "Flow Measurement Resources",
+    "description": "Practical notes for selecting flowmeters by media, site conditions and industrial utility systems."
+  },
+  "cta": {
+    "title": "Send Site Details for a Better Recommendation.",
+    "text": "Share the fluid, pipe size, flow range, pressure, temperature and application background. Velomac will review the conditions and suggest the next step.",
+    "buttonLabel": "Request a Quote",
+    "buttonHref": "/contact"
+  }
+}

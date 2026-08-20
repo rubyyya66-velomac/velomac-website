@@ -3,12 +3,22 @@ import path from "node:path";
 import { getAdminContentFile } from "@/content/adminContentFiles";
 import type { AdminContentFileKey } from "@/content/adminContentFiles";
 import aboutContent from "@/content/data/about.json";
+import applicationsPageContent from "@/content/data/applications-page.json";
 import applicationsContent from "@/content/data/applications.json";
 import articlesContent from "@/content/data/articles.json";
+import calibrationDetailsContent from "@/content/data/calibration-detail-pages.json";
 import contactContent from "@/content/data/contact.json";
+import featuredVortexContent from "@/content/data/featured-vortex-solution.json";
 import homepageContent from "@/content/data/homepage.json";
+import productCatalogContent from "@/content/data/product-catalog.json";
+import productApplicationMediaContent from "@/content/data/product-application-context.json";
 import productsContent from "@/content/data/products.json";
+import qualityContent from "@/content/data/quality-innovation.json";
+import resourceCategoriesContent from "@/content/data/resource-categories.json";
+import resourcesPageContent from "@/content/data/resources-page.json";
 import siteContent from "@/content/data/site.json";
+import technologyDetailsContent from "@/content/data/technology-detail-pages.json";
+import technologyContent from "@/content/data/technology.json";
 
 type SaveContentInput = {
   key: string;
@@ -48,9 +58,19 @@ const bundledAdminContent: Record<AdminContentFileKey, unknown> = {
   site: siteContent,
   homepage: homepageContent,
   about: aboutContent,
+  quality: qualityContent,
+  productCatalog: productCatalogContent,
   products: productsContent,
+  productApplicationMedia: productApplicationMediaContent,
+  featuredVortex: featuredVortexContent,
+  applicationsPage: applicationsPageContent,
   applications: applicationsContent,
+  technology: technologyContent,
+  technologyDetails: technologyDetailsContent,
+  calibrationDetails: calibrationDetailsContent,
+  resourcesPage: resourcesPageContent,
   articles: articlesContent,
+  resourceCategories: resourceCategoriesContent,
   contact: contactContent
 };
 
@@ -63,7 +83,7 @@ export async function readAdminContent(key: string) {
 
   const diagnostics = createContentDiagnostics(key, file.path);
 
-  if (process.env.NODE_ENV !== "production") {
+  if (usesLocalAdminFiles()) {
     try {
       const content = await readLocalJson(file.path);
       diagnostics.mode = "local-fs";
@@ -135,7 +155,7 @@ export async function saveAdminContent(input: SaveContentInput) {
   const formattedContent = JSON.stringify(input.content, null, 2) + "\n";
   JSON.parse(formattedContent);
 
-  if (process.env.NODE_ENV !== "production") {
+  if (usesLocalAdminFiles()) {
     await fs.writeFile(resolveContentPath(file.path), formattedContent, "utf8");
     return {
       mode: "local"
@@ -200,7 +220,7 @@ export async function saveUploadedImage(input: {
     };
   }
 
-  if (process.env.NODE_ENV !== "production") {
+  if (usesLocalAdminFiles()) {
     const uploadDir = path.join(process.cwd(), "public/images/uploads");
     await fs.mkdir(uploadDir, { recursive: true });
     await fs.writeFile(path.join(uploadDir, path.basename(publicPath)), input.bytes);
@@ -216,6 +236,13 @@ export async function saveUploadedImage(input: {
 
 function resolveContentPath(relativePath: string) {
   return path.join(process.cwd(), relativePath);
+}
+
+function usesLocalAdminFiles() {
+  return (
+    process.env.NODE_ENV !== "production" ||
+    process.env.ADMIN_LOCAL_PREVIEW === "true"
+  );
 }
 
 function createContentDiagnostics(key: string, repoPath: string): AdminContentDiagnostics {

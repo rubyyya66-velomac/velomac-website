@@ -225,6 +225,7 @@ function FeaturedArticle({ article }: { article: ResourceListItem }) {
     <article className="grid overflow-hidden rounded-[6px] border border-metal-200 bg-white lg:grid-cols-[1.05fr_0.95fr]">
       <Link
         href={`/resources/${article.slug}`}
+        aria-label={`Read ${article.title}`}
         className="focus-ring relative min-h-[280px] bg-navy-950 sm:min-h-[360px]"
       >
         <Image
@@ -244,7 +245,9 @@ function FeaturedArticle({ article }: { article: ResourceListItem }) {
           {getDisplayCategory(article.category)}
         </p>
         <h2 className="mt-3 text-3xl font-semibold leading-tight text-navy-950 sm:text-4xl">
-          {article.title}
+          <Link className="focus-ring transition hover:text-industrial-700" href={`/resources/${article.slug}`}>
+            {article.title}
+          </Link>
         </h2>
         <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
           {article.summary}
@@ -266,6 +269,7 @@ function ArticleCard({ article }: { article: ResourceListItem }) {
     <article className="flex min-h-full flex-col overflow-hidden rounded-[6px] border border-metal-200 bg-white transition hover:border-industrial-500">
       <Link
         href={`/resources/${article.slug}`}
+        aria-label={`Read ${article.title}`}
         className="focus-ring relative block aspect-[16/9] bg-navy-950"
       >
         <Image
@@ -281,7 +285,9 @@ function ArticleCard({ article }: { article: ResourceListItem }) {
           {getDisplayCategory(article.category)}
         </p>
         <h2 className="mt-3 text-[1.35rem] font-semibold leading-snug text-navy-950">
-          {article.title}
+          <Link className="focus-ring transition hover:text-industrial-700" href={`/resources/${article.slug}`}>
+            {article.title}
+          </Link>
         </h2>
         <p className="mt-3 text-[15px] leading-7 text-slate-600">
           {article.summary}

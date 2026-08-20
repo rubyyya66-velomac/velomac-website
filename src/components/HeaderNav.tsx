@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { applications } from "@/content/applications";
+import { productCatalog } from "@/content/productCatalog";
+import { site } from "@/content/site";
 import {
   getActiveTechnologyPath,
   technologyNavigationItems
@@ -13,22 +16,15 @@ type NavItem = {
   href: string;
 };
 
-const productNavigationItems = [
-  { label: "Flow Measurement", href: "/products#flow-measurement" },
-  { label: "Level Measurement", href: "/products#level-measurement" }
-] as const;
+const productNavigationItems = productCatalog.groups.map((group) => ({
+  label: group.navigationLabel,
+  href: `/products#${group.id}`
+}));
 
-const applicationNavigationItems = [
-  { label: "Steam Measurement", href: "/applications#steam-measurement" },
-  { label: "Gas Flow Measurement", href: "/applications#gas-flow-measurement" },
-  {
-    label: "Conductive Liquid Measurement",
-    href: "/applications#conductive-liquid-measurement"
-  },
-  { label: "Chemical Process Lines", href: "/applications#chemical-process-lines" },
-  { label: "High Vibration Pipelines", href: "/applications#high-vibration-pipelines" },
-  { label: "Energy Loss Visibility", href: "/applications#energy-loss-visibility" }
-] as const;
+const applicationNavigationItems = applications.map((application) => ({
+  label: application.title,
+  href: `/applications/${application.slug}`
+}));
 
 export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
   const pathname = usePathname();
@@ -507,30 +503,20 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                   role="menu"
                 >
                   <div className="border border-metal-200 bg-white p-2 xl:shadow-soft">
-                    <Link
-                      href="/about"
-                      role="menuitem"
-                      aria-current={pathname === "/about" ? "page" : undefined}
-                      onClick={closeNavigation}
-                      className={`focus-ring block px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
-                        pathname === "/about" ? "bg-metal-50 text-industrial-700" : "text-slate-600"
-                      }`}
-                    >
-                      About Velomac
-                    </Link>
-                    <Link
-                      href="/quality-innovation"
-                      role="menuitem"
-                      aria-current={pathname === "/quality-innovation" ? "page" : undefined}
-                      onClick={closeNavigation}
-                      className={`focus-ring block border-t border-metal-100 px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
-                        pathname === "/quality-innovation"
-                          ? "bg-metal-50 text-industrial-700"
-                          : "text-slate-600"
-                      }`}
-                    >
-                      Quality &amp; Innovation
-                    </Link>
+                    {site.aboutNavigation.map((aboutItem, index) => (
+                      <Link
+                        key={aboutItem.href}
+                        href={aboutItem.href}
+                        role="menuitem"
+                        aria-current={pathname === aboutItem.href ? "page" : undefined}
+                        onClick={closeNavigation}
+                        className={`focus-ring block px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
+                          index > 0 ? "border-t border-metal-100" : ""
+                        } ${pathname === aboutItem.href ? "bg-metal-50 text-industrial-700" : "text-slate-600"}`}
+                      >
+                        {aboutItem.label}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>

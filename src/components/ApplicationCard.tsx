@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { homepage } from "@/content/homepage";
 import type { Application } from "@/types/content";
 
 export function ApplicationCard({
@@ -13,7 +14,7 @@ export function ApplicationCard({
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[6px] border border-metal-200 bg-white transition duration-300 hover:border-industrial-600 hover:shadow-soft">
-      <Link href={`/applications#${application.slug}`} className="focus-ring block border-b border-metal-200 bg-navy-950">
+      <Link href={`/applications/${application.slug}`} className="focus-ring block border-b border-metal-200 bg-navy-950">
         <div
           className={`relative w-full ${isFeatured ? "aspect-[16/9]" : ""}`}
           style={!isFeatured ? { aspectRatio: "var(--editable-card-image-aspect)" } : undefined}
@@ -29,15 +30,19 @@ export function ApplicationCard({
       </Link>
       <div className={isFeatured ? "flex flex-1 flex-col p-7" : "flex flex-1 flex-col p-6"}>
         <div className="mb-5 h-1 w-14 bg-industrial-600" />
-        <h3 className={`${isFeatured ? "text-2xl" : "text-lg"} font-semibold text-navy-950`}>{application.title}</h3>
+        <h3 className={`${isFeatured ? "text-2xl" : "text-lg"} font-semibold text-navy-950`}>
+          <Link className="focus-ring transition hover:text-industrial-700" href={`/applications/${application.slug}`}>
+            {application.title}
+          </Link>
+        </h3>
         <p className="mt-3 flex-1 overflow-hidden text-sm leading-6 text-slate-600 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
           {application.focus}
         </p>
         <Link
-          href={`/applications#${application.slug}`}
+          href={`/applications/${application.slug}`}
           className="focus-ring mt-5 inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
         >
-          Application notes
+          {homepage.applicationsPreview.cardCtaLabel}
           <span aria-hidden="true">{">"}</span>
         </Link>
       </div>

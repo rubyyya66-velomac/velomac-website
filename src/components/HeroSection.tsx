@@ -5,12 +5,6 @@ import { homepage } from "@/content/homepage";
 
 export function HeroSection() {
   const { hero } = homepage;
-  const applicationChips = [
-    { label: "Steam", href: "/applications#steam-measurement" },
-    { label: "Gas", href: "/applications#gas-flow-measurement" },
-    { label: "Liquid", href: "/applications#conductive-liquid-measurement" },
-    { label: "Chemical", href: "/applications#chemical-process-lines" }
-  ];
 
   return (
     <section className="homepage-hero relative isolate overflow-hidden bg-navy-950 text-white">
@@ -71,7 +65,7 @@ export function HeroSection() {
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-blue-100/80">
-            {applicationChips.map((chip) => (
+            {hero.applicationChips.map((chip) => (
               <Link
                 key={chip.href}
                 href={chip.href}

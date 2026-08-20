@@ -64,6 +64,9 @@ export const technologyArticles = technologyData.articles as TechnologyArticle[]
 export const technologyContent = {
   metadata: technologyData.metadata,
   hero: technologyData.hero,
+  navigation: technologyData.navigation,
+  overviewSections: technologyData.overviewSections,
+  flowCalibrationOverview: technologyData.flowCalibrationOverview,
   categories: technologyCategories,
   articles: technologyArticles
 };

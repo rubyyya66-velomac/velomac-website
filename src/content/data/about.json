@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "About Velomac Flow Meter | Manufacturer-Direct Industrial Instrumentation",
-    "description": "Velomac Flow Meter is a manufacturer-direct industrial instrumentation brand focused on flow measurement for process industries."
+    "description": "Learn about Velomac, a manufacturer-direct flow measurement company providing in-house calibration, application support and industrial instrumentation manufacturing."
   },
   "hero": {
     "label": "About Velomac",
@@ -92,6 +92,8 @@
     "label": "Calibration",
     "headline": "Calibration Capabilities",
     "description": "Gas and liquid calibration capabilities support flowmeter checking before shipment and help align the meter with intended process conditions.",
+    "linkLabel": "Explore Quality & Innovation",
+    "linkHref": "/quality-innovation",
     "image": {
       "src": "/images/about/about-calibration-final-check.PNG",
       "alt": "Velomac flowmeter wiring and final checking before shipment",

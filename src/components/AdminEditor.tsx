@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { ResourceArticleRichTextEditor } from "@/components/ResourceArticleRichTextEditor";
 import type { AdminContentFile } from "@/content/adminContentFiles";
+import { resourceCategoryConfig } from "@/content/resourceCategories";
 import { getEditableArticleHtml } from "@/lib/articleBody";
 
 type JsonPrimitive = string | number | boolean | null;
@@ -40,6 +41,21 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
   const activeFile = useMemo(
     () => files.find((file) => file.key === selectedFile),
     [files, selectedFile]
+  );
+  const fileGroups = useMemo(
+    () =>
+      files.reduce<Array<{ label: string; files: AdminContentFile[] }>>((groups, file) => {
+        const existing = groups.find((group) => group.label === file.group);
+
+        if (existing) {
+          existing.files.push(file);
+        } else {
+          groups.push({ label: file.group, files: [file] });
+        }
+
+        return groups;
+      }, []),
+    [files]
   );
 
   useEffect(() => {
@@ -412,21 +428,28 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
       <main className="mx-auto grid w-full max-w-[1200px] gap-6 px-5 py-8 sm:px-6 lg:grid-cols-[280px_1fr] lg:px-8">
         <aside className="h-fit border border-metal-200 bg-white p-4">
           <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">Edit Content</h2>
-          <div className="mt-4 grid gap-2">
-            {files.map((file) => (
-              <button
-                className={`rounded-[4px] border px-3 py-3 text-left text-sm transition ${
-                  selectedFile === file.key
-                    ? "border-industrial-600 bg-blue-50 text-navy-950"
-                    : "border-metal-200 bg-white text-slate-600 hover:border-industrial-300"
-                }`}
-                key={file.key}
-                type="button"
-                onClick={() => selectContentFile(file.key)}
-              >
-                <span className="block font-semibold">{file.label}</span>
-                <span className="mt-1 block text-xs leading-5">{file.description}</span>
-              </button>
+          <div className="mt-4 grid gap-5">
+            {fileGroups.map((group) => (
+              <div key={group.label}>
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">{group.label}</p>
+                <div className="grid gap-2">
+                  {group.files.map((file) => (
+                    <button
+                      className={`rounded-[4px] border px-3 py-3 text-left text-sm transition ${
+                        selectedFile === file.key
+                          ? "border-industrial-600 bg-blue-50 text-navy-950"
+                          : "border-metal-200 bg-white text-slate-600 hover:border-industrial-300"
+                      }`}
+                      key={file.key}
+                      type="button"
+                      onClick={() => selectContentFile(file.key)}
+                    >
+                      <span className="block font-semibold">{file.label}</span>
+                      <span className="mt-1 block text-xs leading-5">{file.description}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
             <button
               className={`rounded-[4px] border px-3 py-3 text-left text-sm transition ${
@@ -744,7 +767,26 @@ function ArticleManager({
                     Generate Slug From Title
                   </button>
                 </div>
-                <TextField label="Category" value={stringValue(selectedArticle.category)} onChange={(value) => updateArticle({ ...selectedArticle, category: value })} />
+                <label className="grid gap-2 text-sm font-semibold text-navy-950">
+                  <span>Primary Category</span>
+                  <select
+                    className="rounded-[4px] border border-metal-200 px-3 py-3 text-sm"
+                    value={stringValue(selectedArticle.category)}
+                    onChange={(event) => updateArticle({ ...selectedArticle, category: event.target.value })}
+                  >
+                    {!resourceCategoryConfig.some((category) => category.label === selectedArticle.category) ? (
+                      <option value={stringValue(selectedArticle.category)}>{stringValue(selectedArticle.category) || "Choose a category"}</option>
+                    ) : null}
+                    {resourceCategoryConfig.map((category) => (
+                      <option key={category.slug} value={category.label}>{category.label}</option>
+                    ))}
+                  </select>
+                </label>
+                <ListTextarea
+                  label="Additional Category Slugs"
+                  value={stringArray(selectedArticle.categories)}
+                  onChange={(value) => updateArticle({ ...selectedArticle, categories: value })}
+                />
                 <label className="grid gap-2 text-sm font-semibold text-navy-950">
                   <span>Publishing Status</span>
                   <select
@@ -858,9 +900,10 @@ function JsonEditor({
   if (isObject(value)) {
     return (
       <div className="grid gap-4">
-        {Object.entries(value).map(([key, itemValue]) => (
-          <details className="border border-metal-200 bg-white p-4" key={key} open={path.length === 0}>
+        {Object.entries(value).map(([key, itemValue], index) => (
+          <details className="border border-metal-200 bg-white p-4" key={key} open={path.length === 0 && index === 0}>
             <summary className="cursor-pointer text-sm font-semibold text-navy-950">{labelFromKey(key)}</summary>
+            {sectionHelpText(key) ? <p className="mt-2 text-xs leading-5 text-slate-500">{sectionHelpText(key)}</p> : null}
             <div className="mt-4">
               <JsonEditor
                 value={itemValue}
@@ -915,6 +958,10 @@ function ArrayEditor({
     );
   }
 
+  if (isEditableTable(value)) {
+    return <StringTableEditor value={value} onChange={onChange} />;
+  }
+
   if (value.some(Array.isArray)) {
     return <JsonTextareaEditor value={value} onChange={onChange} />;
   }
@@ -926,6 +973,22 @@ function ArrayEditor({
           <summary className="cursor-pointer text-sm font-semibold text-navy-950">{arrayItemTitle(item, index)}</summary>
           <div className="mt-4 grid gap-4">
             <div className="flex flex-wrap gap-2">
+              <button
+                className="border border-metal-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 disabled:opacity-40"
+                type="button"
+                disabled={index === 0}
+                onClick={() => onChange(moveArrayItem(value, index, index - 1))}
+              >
+                Move Up
+              </button>
+              <button
+                className="border border-metal-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 disabled:opacity-40"
+                type="button"
+                disabled={index === value.length - 1}
+                onClick={() => onChange(moveArrayItem(value, index, index + 1))}
+              >
+                Move Down
+              </button>
               <button
                 className="border border-metal-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700"
                 type="button"
@@ -957,6 +1020,67 @@ function ArrayEditor({
         onClick={() => onChange([...value, value.length ? cloneValue(value[value.length - 1]) : {}])}
       >
         Add Item
+      </button>
+    </div>
+  );
+}
+
+function StringTableEditor({
+  value,
+  onChange
+}: {
+  value: (string | number)[][];
+  onChange: (value: JsonValue) => void;
+}) {
+  const columnCount = Math.max(...value.map((row) => row.length), 1);
+
+  function updateCell(rowIndex: number, columnIndex: number, nextValue: string) {
+    onChange(
+      value.map((row, index) =>
+        index === rowIndex
+          ? Array.from({ length: columnCount }, (_, cellIndex) =>
+              cellIndex === columnIndex ? nextValue : String(row[cellIndex] ?? "")
+            )
+          : row
+      )
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full border-collapse text-sm">
+        <tbody>
+          {value.map((row, rowIndex) => (
+            <tr key={rowIndex} className="border-b border-metal-200">
+              {Array.from({ length: columnCount }, (_, columnIndex) => (
+                <td key={columnIndex} className="min-w-40 p-1.5 align-top">
+                  <input
+                    className="w-full rounded-[3px] border border-metal-200 px-2.5 py-2 text-sm text-navy-950"
+                    value={String(row[columnIndex] ?? "")}
+                    aria-label={`Row ${rowIndex + 1}, column ${columnIndex + 1}`}
+                    onChange={(event) => updateCell(rowIndex, columnIndex, event.target.value)}
+                  />
+                </td>
+              ))}
+              <td className="p-1.5">
+                <button
+                  className="border border-red-200 bg-white px-2.5 py-2 text-xs font-semibold text-red-700"
+                  type="button"
+                  onClick={() => onChange(value.filter((_, index) => index !== rowIndex))}
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button
+        className="mt-3 border border-navy-950 px-3 py-2 text-xs font-semibold text-navy-950"
+        type="button"
+        onClick={() => onChange([...value, Array.from({ length: columnCount }, () => "")])}
+      >
+        Add Row
       </button>
     </div>
   );
@@ -1048,7 +1172,7 @@ function PrimitiveEditor({
     );
   }
 
-  if (isLinkField(fieldKey)) {
+  if (isLinkField(fieldKey) || looksLikeLinkValue(value)) {
     return <LinkField value={value} onChange={onChange} />;
   }
 
@@ -1246,6 +1370,24 @@ function isObject(value: JsonValue): value is JsonObject {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 
+function isEditableTable(value: JsonValue[]): value is (string | number)[][] {
+  return (
+    value.length > 0 &&
+    value.every(
+      (row) =>
+        Array.isArray(row) &&
+        row.every((cell) => typeof cell === "string" || typeof cell === "number")
+    )
+  );
+}
+
+function moveArrayItem<T>(value: T[], from: number, to: number) {
+  const nextValue = [...value];
+  const [item] = nextValue.splice(from, 1);
+  nextValue.splice(to, 0, item);
+  return nextValue;
+}
+
 function isImageField(fieldKey: string, value: string) {
   const lowerKey = fieldKey.toLowerCase();
 
@@ -1264,7 +1406,11 @@ function isImageField(fieldKey: string, value: string) {
 
 function isLinkField(fieldKey: string) {
   const lowerKey = fieldKey.toLowerCase();
-  return lowerKey === "href" || lowerKey === "url" || lowerKey.includes("link");
+  return lowerKey === "href" || lowerKey === "url" || lowerKey.endsWith("href") || lowerKey.includes("link");
+}
+
+function looksLikeLinkValue(value: string) {
+  return value.startsWith("/") || value.startsWith("https://") || value.startsWith("mailto:") || value.startsWith("tel:");
 }
 
 function getLinkType(value: string) {
@@ -1315,6 +1461,19 @@ function labelFromKey(key: string) {
     imageAlt: "Image Alt Text",
     intro: "Intro",
     metadata: "SEO",
+    featuredVortex: "Featured Anti-Vibration Vortex",
+    featuredSolution: "Featured Solution Module",
+    productOrder: "Product Display Order (Slugs)",
+    catalogueDescriptions: "Catalogue Card Descriptions",
+    overviewSections: "Technology Overview Sections",
+    applicationsPage: "Applications Overview",
+    bottomCta: "Bottom CTA",
+    cardLabels: "Application Card Labels",
+    detailChips: "Site Detail Labels",
+    measurementRange: "Measurement Range",
+    engineeringData: "Key Engineering Data",
+    applicationReview: "Application Review CTA",
+    social: "Social Media Links",
     name: "Name",
     navItems: "Navigation Links",
     overview: "Product Description",
@@ -1336,6 +1495,28 @@ function labelFromKey(key: string) {
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replaceAll("-", " ")
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function sectionHelpText(key: string) {
+  const help: Record<string, string> = {
+    hero: "Controls the page hero heading, supporting copy, image and primary links.",
+    metadata: "Search title and description. Existing URL and slug remain controlled by the site.",
+    featuredVortex: "Controls the homepage featured product spotlight without changing its layout.",
+    featuredSolution: "Controls the featured product module shown above the standard Flow Measurement grid.",
+    groups: "Controls the two product groups, their labels, descriptions and product order. Keep existing IDs and data categories unchanged.",
+    overviewSections: "Controls the fixed Technology overview layout: headings, methods, testing proof, upgrade content and CTA.",
+    navigation: "Controlled Technology navigation labels and destinations. Keep existing route structure unless intentionally updating navigation.",
+    modules: "Reusable fixed-layout content modules. Change copy, images, facts and links without changing the module kind.",
+    facts: "Key proof points displayed near the page hero.",
+    relatedSlugs: "Existing page slugs used for related-content links.",
+    seo: "Search title and description for this page.",
+    social: "Footer social profile destinations. Use complete https:// URLs.",
+    measurementRange: "Technical range copy and table rows used by the Liquid/Gas tabs.",
+    applicationReview: "Bottom application-review message, field labels and contact button.",
+    bottomCta: "Final call-to-action copy, labels, destination and supporting details."
+  };
+
+  return help[key] || "";
 }
 
 function arrayItemTitle(value: JsonValue, index: number) {

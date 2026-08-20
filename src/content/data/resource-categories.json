@@ -1,0 +1,16 @@
+[
+  { "label": "Flowmeter Selection", "slug": "flowmeter-selection", "group": "topic", "order": 10 },
+  { "label": "Installation Notes", "slug": "installation-notes", "group": "topic", "order": 20 },
+  { "label": "Calibration", "slug": "calibration", "group": "topic", "order": 30 },
+  { "label": "Application Notes", "slug": "application-notes", "group": "topic", "order": 40 },
+  { "label": "Signal Integration", "slug": "signal-integration", "group": "topic", "order": 50 },
+  { "label": "Flowmeter Retrofit", "slug": "flowmeter-retrofit", "group": "topic", "order": 60 },
+  { "label": "Steam Flow Measurement", "slug": "steam-flow-measurement", "group": "industry", "order": 10, "aliases": ["Steam Measurement"] },
+  { "label": "Pharmaceutical Utilities", "slug": "pharmaceutical-utilities", "group": "industry", "order": 20 },
+  { "label": "Chemical Process Flow Measurement", "slug": "chemical-process-flow-measurement", "group": "industry", "order": 30 },
+  { "label": "Industrial Decarbonization", "slug": "industrial-decarbonization", "group": "industry", "order": 40 },
+  { "label": "Data Center Cooling", "slug": "data-center-cooling", "group": "industry", "order": 50 },
+  { "label": "Food and Beverage Flow Measurement", "slug": "food-and-beverage-flow-measurement", "group": "industry", "order": 60 },
+  { "label": "Process Automation", "slug": "process-automation", "group": "industry", "order": 70 },
+  { "label": "Mining & Mineral Processing", "slug": "mining-mineral-processing", "group": "industry", "order": 80 }
+]

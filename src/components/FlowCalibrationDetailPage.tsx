@@ -5,6 +5,7 @@ import { Container, Section } from "@/components/Layout";
 import type { TechnologyArticle } from "@/content/technology";
 import type {
   TechnologyDetailFact,
+  TechnologyDetailModule,
   TechnologyDetailPageContent
 } from "@/content/technologyDetailPages";
 
@@ -17,47 +18,6 @@ type CalibrationSlug =
 type RelatedLink = {
   label: string;
   href: string;
-};
-
-const relatedLinks: Record<CalibrationSlug, RelatedLink[]> = {
-  "gas-flow-calibration": [
-    {
-      label: "Master-Meter Liquid Calibration",
-      href: "/technology/master-meter-liquid-calibration"
-    },
-    {
-      label: "Gravimetric Liquid Calibration",
-      href: "/technology/gravimetric-liquid-calibration"
-    }
-  ],
-  "master-meter-liquid-calibration": [
-    {
-      label: "Velomac-Developed Calibration Bench",
-      href: "/technology/liquid-flow-calibration-bench"
-    },
-    { label: "Gas Flow Calibration", href: "/technology/gas-flow-calibration" },
-    {
-      label: "Gravimetric Liquid Calibration",
-      href: "/technology/gravimetric-liquid-calibration"
-    }
-  ],
-  "gravimetric-liquid-calibration": [
-    {
-      label: "Master-Meter Liquid Calibration",
-      href: "/technology/master-meter-liquid-calibration"
-    },
-    { label: "Gas Flow Calibration", href: "/technology/gas-flow-calibration" }
-  ],
-  "liquid-flow-calibration-bench": [
-    {
-      label: "Master-Meter Liquid Calibration",
-      href: "/technology/master-meter-liquid-calibration"
-    },
-    {
-      label: "Flow Calibration Systems",
-      href: "/technology/flow-calibration-systems"
-    }
-  ]
 };
 
 const heroAspectRatios: Record<CalibrationSlug, string> = {
@@ -98,19 +58,20 @@ function GasCalibrationPage({
   article: TechnologyArticle;
   page: TechnologyDetailPageContent;
 }) {
+  const coreModule = page.modules[0];
+  const processModule = page.modules[1];
+
   return (
     <>
       <GasCalibrationHero article={article} page={page} />
-      <GasCoreCapability />
-      <GasCalibrationProcess />
-      <GasRelatedMethods links={relatedLinks["gas-flow-calibration"]} />
-
-      <FlowCalibrationCTA
-        title="Define the gas meter and required operating points."
-        text="Share the meter type, connection, operating points and signal / output requirement."
-        detailChips={["Meter type", "Connection", "Operating points", "Signal / output"]}
-        surfaceClassName="bg-industrial-700"
+      <GasCoreCapability module={coreModule} />
+      <GasCalibrationProcess module={processModule} />
+      <GasRelatedMethods
+        eyebrow={page.relatedEyebrow}
+        links={page.relatedLinks ?? []}
       />
+
+      <FlowCalibrationCTA {...page.cta} surfaceClassName="bg-industrial-700" />
     </>
   );
 }
@@ -122,12 +83,7 @@ function GasCalibrationHero({
   article: TechnologyArticle;
   page: TechnologyDetailPageContent;
 }) {
-  const highlights = [
-    { label: "Medium", value: "Gas" },
-    { label: "Supported meter class", value: "Accuracy Class 1.0", emphasized: true },
-    { label: "Method", value: "Controlled gas-flow comparison" },
-    { label: "Operating approach", value: "Configured operating points" }
-  ];
+  const highlights = page.facts;
 
   return (
     <section className="border-b border-metal-200 bg-white">
@@ -136,25 +92,25 @@ function GasCalibrationHero({
         <div className="mt-7 grid gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12">
           <div className="max-w-xl">
             <p className="inline-flex bg-[#eef3f8] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">
-              Gas · Accuracy Class 1.0
+              {page.heroLabel}
             </p>
             <h1 className="mt-5 text-4xl font-semibold leading-[1.06] text-navy-950 sm:text-5xl lg:text-[3.5rem]">
               {article.title}
             </h1>
             <p className="mt-4 max-w-lg text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              Controlled gas-flow comparison across configured operating points.
+              {page.heroIntroduction}
             </p>
 
             <dl className="mt-6 border-y border-metal-200 py-5">
               <div className="flex flex-wrap items-end gap-x-10 gap-y-4">
-                {highlights.slice(0, 2).map((highlight) => (
-                  <div key={highlight.label} className={highlight.emphasized ? "min-w-[220px]" : "min-w-[100px]"}>
+                {highlights.slice(0, 2).map((highlight, index) => (
+                  <div key={highlight.label} className={index === 1 ? "min-w-[220px]" : "min-w-[100px]"}>
                     <dt className="text-xs font-semibold uppercase tracking-[0.13em] text-slate-500">
                       {highlight.label}
                     </dt>
                     <dd
                       className={`mt-1.5 font-semibold leading-tight ${
-                        highlight.emphasized
+                        index === 1
                           ? "text-2xl text-industrial-700 sm:text-3xl"
                           : "text-xl text-navy-950 sm:text-2xl"
                       }`}
@@ -179,10 +135,10 @@ function GasCalibrationHero({
             </dl>
 
             <Link
-              href="/contact"
+              href={page.heroCta?.href ?? "/contact"}
               className="focus-ring mt-6 inline-flex items-center gap-2 bg-industrial-600 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-industrial-700"
             >
-              Request a Quote
+              {page.heroCta?.label ?? "Request a Quote"}
               <span aria-hidden="true">{">"}</span>
             </Link>
           </div>
@@ -205,11 +161,11 @@ function GasCalibrationHero({
                 </figcaption>
               ) : null}
               <Link
-                href="/technology/flow-calibration-systems"
+                href={page.backLink?.href ?? "/technology/flow-calibration-systems"}
                 className="focus-ring inline-flex items-center text-base font-semibold text-industrial-700 transition hover:text-navy-950"
               >
                 <span aria-hidden="true">←&nbsp;</span>
-                Back to Flow Calibration Systems
+                {page.backLink?.label ?? "Back to Flow Calibration Systems"}
               </Link>
             </div>
           </figure>
@@ -219,24 +175,19 @@ function GasCalibrationHero({
   );
 }
 
-function GasCoreCapability() {
-  const items = [
-    ["Controlled gas-flow conditions", "Establish the required test condition."],
-    ["Configured comparison points", "Review meter response at selected flow points."],
-    ["Recorded calibration results", "Keep each result tied to the test point."]
-  ];
-
+function GasCoreCapability({ module }: { module: TechnologyDetailModule }) {
+  const items = module.items ?? [];
   return (
     <section className="border-b border-metal-200 bg-white py-12 sm:py-14 lg:py-16">
       <Container>
         <GasSectionHeading
-          eyebrow="Core Capability"
-          title="Controlled comparison at planned gas-flow points"
+          eyebrow={module.eyebrow ?? ""}
+          title={module.title}
         />
         <ol className="mt-8 border-y border-metal-200">
-          {items.map(([title, text], index) => (
+          {items.map((item, index) => (
             <li
-              key={title}
+              key={item.title}
               className={`grid gap-3 py-5 sm:grid-cols-[60px_0.9fr_1fr] sm:items-center sm:gap-7 ${
                 index > 0 ? "border-t border-metal-200" : ""
               }`}
@@ -244,8 +195,8 @@ function GasCoreCapability() {
               <span className="text-xl font-semibold text-industrial-600">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-lg font-semibold leading-7 text-navy-950 sm:text-xl">{title}</h3>
-              <p className="text-base leading-7 text-slate-600">{text}</p>
+              <h3 className="text-lg font-semibold leading-7 text-navy-950 sm:text-xl">{item.title}</h3>
+              <p className="text-base leading-7 text-slate-600">{item.text}</p>
             </li>
           ))}
         </ol>
@@ -254,33 +205,27 @@ function GasCoreCapability() {
   );
 }
 
-function GasCalibrationProcess() {
-  const stages = [
-    ["Configure", "Set the meter and test point."],
-    ["Establish Flow", "Bring the system to the required condition."],
-    ["Compare", "Capture meter response at the configured point."],
-    ["Record", "Save and review the result."]
-  ];
-
+function GasCalibrationProcess({ module }: { module: TechnologyDetailModule }) {
+  const stages = module.items ?? [];
   return (
     <section className="border-b border-metal-200 bg-[#eef3f8] py-12 sm:py-14 lg:py-16">
       <Container>
-        <GasSectionHeading eyebrow="How the Method Works" title="Four stages from setup to result" />
+        <GasSectionHeading eyebrow={module.eyebrow ?? ""} title={module.title} />
         <div className="relative mt-9">
           <div
             className="absolute left-0 right-0 top-6 hidden h-px bg-blue-300 md:block"
             aria-hidden="true"
           />
           <ol className="relative grid gap-8 sm:grid-cols-2 md:grid-cols-4 md:gap-7">
-            {stages.map(([title, text], index) => (
-              <li key={title} className="relative">
+            {stages.map((stage, index) => (
+              <li key={stage.title} className="relative">
                 <span className="relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-full bg-industrial-600 text-sm font-semibold text-white">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
-                  {title}
+                  {stage.title}
                 </h3>
-                <p className="mt-2 text-base leading-7 text-slate-600">{text}</p>
+                <p className="mt-2 text-base leading-7 text-slate-600">{stage.text}</p>
               </li>
             ))}
           </ol>
@@ -303,12 +248,12 @@ function GasSectionHeading({ eyebrow, title }: { eyebrow: string; title: string 
   );
 }
 
-function GasRelatedMethods({ links }: { links: RelatedLink[] }) {
+function GasRelatedMethods({ eyebrow, links }: { eyebrow: string; links: RelatedLink[] }) {
   return (
     <section className="border-b border-metal-200 bg-white py-10 sm:py-12">
       <Container className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">
-          Related Calibration Methods
+          {eyebrow}
         </p>
         <div className="flex flex-wrap gap-x-8 gap-y-4">
           {links.map((link) => (
@@ -334,20 +279,22 @@ function MasterMeterCalibrationPage({
   article: TechnologyArticle;
   page: TechnologyDetailPageContent;
 }) {
+  const methodModule = page.modules[0];
+  const referenceModule = page.modules[1];
+  const benchModule = page.modules[2];
+
   return (
     <>
       <MasterMeterCalibrationHero article={article} page={page} />
-      <MasterReferenceSystemHighlight />
-      <MasterMeterMethodSection />
-      <MasterMeterBenchSection />
-      <MasterRelatedMethods links={relatedLinks["master-meter-liquid-calibration"].slice(1)} />
-
-      <FlowCalibrationCTA
-        title="Define the liquid meter and planned comparison points."
-        text="Share the liquid medium, meter size / connection, required Accuracy Class and planned flow points."
-        detailChips={["Liquid medium", "Meter size / connection", "Accuracy Class", "Flow points"]}
-        surfaceClassName="bg-industrial-700"
+      <MasterReferenceSystemHighlight module={referenceModule} />
+      <MasterMeterMethodSection module={methodModule} />
+      <MasterMeterBenchSection module={benchModule} />
+      <MasterRelatedMethods
+        eyebrow={page.relatedEyebrow}
+        links={page.relatedLinks ?? []}
       />
+
+      <FlowCalibrationCTA {...page.cta} surfaceClassName="bg-industrial-700" />
     </>
   );
 }
@@ -359,11 +306,7 @@ function MasterMeterCalibrationHero({
   article: TechnologyArticle;
   page: TechnologyDetailPageContent;
 }) {
-  const evidence = [
-    { value: "7 Yokogawa", label: "Reference meters" },
-    { value: "Better than Class 0.2", label: "Reference-meter accuracy" },
-    { value: "Better than 0.08%", label: "Repeatability" }
-  ];
+  const evidence = page.facts.slice(2);
 
   return (
     <section className="border-b border-metal-200 bg-white">
@@ -372,18 +315,19 @@ function MasterMeterCalibrationHero({
         <div className="mt-7 grid gap-9 lg:grid-cols-[0.96fr_1.04fr] lg:items-center lg:gap-12">
           <div className="max-w-2xl">
             <p className="inline-flex bg-[#eef3f8] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">
-              Liquid · Accuracy Class 0.5
+              {page.heroLabel}
             </p>
-            <h1
-              aria-label={article.title}
-              className="mt-4 text-4xl font-semibold leading-[1.06] text-navy-950 sm:text-5xl lg:text-[3.1rem]"
-            >
-              <span className="block xl:whitespace-nowrap">Master-Meter Liquid</span>
-              <span className="block xl:whitespace-nowrap">Calibration Method</span>
+            <h1 className="mt-4 text-4xl font-semibold leading-[1.06] text-navy-950 sm:text-5xl lg:text-[3.1rem]">
+              {page.heroTitleLines?.length
+                ? page.heroTitleLines.map((line) => (
+                    <span key={line} className="block xl:whitespace-nowrap">
+                      {line}
+                    </span>
+                  ))
+                : article.title}
             </h1>
             <p className="mt-3.5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              Liquid flow calibration through controlled circulation and comparison with calibrated
-              electromagnetic reference meters.
+              {page.heroIntroduction}
             </p>
 
             <div className="mt-5 border-y border-metal-200 py-3">
@@ -408,10 +352,10 @@ function MasterMeterCalibrationHero({
             </div>
 
             <Link
-              href="/contact"
+              href={page.heroCta?.href ?? "/contact"}
               className="focus-ring mt-5 inline-flex items-center gap-2 bg-industrial-600 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-industrial-700"
             >
-              Request a Quote
+              {page.heroCta?.label ?? "Request a Quote"}
               <span aria-hidden="true">{">"}</span>
             </Link>
           </div>
@@ -434,11 +378,11 @@ function MasterMeterCalibrationHero({
                 </figcaption>
               ) : null}
               <Link
-                href="/technology/flow-calibration-systems"
+                href={page.backLink?.href ?? "/technology/flow-calibration-systems"}
                 className="focus-ring inline-flex items-center text-[15px] font-semibold leading-6 text-industrial-700 transition hover:text-navy-950"
               >
                 <span aria-hidden="true">←&nbsp;</span>
-                Back to Flow Calibration Systems
+                {page.backLink?.label ?? "Back to Flow Calibration Systems"}
               </Link>
             </div>
           </figure>
@@ -448,35 +392,34 @@ function MasterMeterCalibrationHero({
   );
 }
 
-function MasterReferenceSystemHighlight() {
-  const metrics = [
-    { value: "7", label: "Yokogawa electromagnetic reference flow meters" },
-    { value: "Better than Class 0.2", label: "Reference-meter accuracy" },
-    { value: "Better than 0.08%", label: "Repeatability" }
-  ];
-
+function MasterReferenceSystemHighlight({
+  module
+}: {
+  module: TechnologyDetailModule;
+}) {
+  const metrics = module.items ?? [];
   return (
     <section className="border-b border-navy-800 bg-navy-950 py-10 text-white sm:py-12 lg:py-14">
       <Container>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
-          Reference System
+          {module.eyebrow}
         </p>
         <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-3xl">
-          Confirmed reference-meter performance
+          {module.title}
         </h2>
         <dl className="mt-7 grid border-y border-white/15 lg:grid-cols-3">
           {metrics.map((metric, index) => (
             <div
-              key={metric.label}
+              key={metric.title}
               className={`flex min-h-[138px] flex-col justify-center px-5 py-6 sm:px-6 lg:px-7 ${
                 index > 0 ? "border-t border-white/15 lg:border-l lg:border-t-0" : ""
               }`}
             >
               <dd className="text-[1.75rem] font-semibold leading-tight text-white lg:whitespace-nowrap">
-                {metric.value}
+                {metric.title}
               </dd>
               <dt className="mt-3 max-w-sm text-[15px] font-semibold leading-6 text-blue-100">
-                {metric.label}
+                {metric.text}
               </dt>
             </div>
           ))}
@@ -486,44 +429,48 @@ function MasterReferenceSystemHighlight() {
   );
 }
 
-function MasterMeterMethodSection() {
-  const stages = [
-    ["Circulate & Stabilize", "Establish configured liquid flow."],
-    ["Compare", "Compare the meter under test with the selected reference meter."],
-    ["Record & Review", "Record the configured flow-point result."]
-  ];
-
+function MasterMeterMethodSection({ module }: { module: TechnologyDetailModule }) {
+  const stages = module.items ?? [];
+  const image = module.image;
   return (
     <section className="border-b border-metal-200 bg-[#eef3f8] py-12 sm:py-14 lg:py-16">
       <Container>
-        <MasterSectionHeading eyebrow="How the Method Works" title="Circulate, compare and review" />
+        <MasterSectionHeading eyebrow={module.eyebrow ?? ""} title={module.title} />
         <div className="mt-8 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:gap-14">
           <ol className="border-l-2 border-blue-300">
-            {stages.map(([title, text], index) => (
-              <li key={title} className="relative pb-7 pl-10 last:pb-0">
+            {stages.map((stage, index) => (
+              <li key={stage.title} className="relative pb-7 pl-10 last:pb-0">
                 <span className="absolute -left-[17px] top-0 inline-flex h-8 w-8 items-center justify-center rounded-full bg-industrial-600 text-xs font-semibold text-white">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="text-xl font-semibold leading-7 text-navy-950">{title}</h3>
-                <p className="mt-1.5 text-base leading-7 text-slate-600">{text}</p>
+                <h3 className="text-xl font-semibold leading-7 text-navy-950">{stage.title}</h3>
+                <p className="mt-1.5 text-base leading-7 text-slate-600">{stage.text}</p>
               </li>
             ))}
           </ol>
-          <MasterPurposefulImage
-            src="/images/technology/calibration/liquid-calibration-pipeline-array.jpg"
-            alt="Reference electromagnetic flow-meter lines used for liquid comparison"
-            width={1417}
-            height={514}
-            sizes="(max-width: 1024px) 100vw, 700px"
-            caption="Reference-meter lines selected for the configured comparison point."
-          />
+          {image ? (
+            <MasterPurposefulImage
+              src={image.src}
+              alt={image.alt}
+              width={1417}
+              height={514}
+              sizes="(max-width: 1024px) 100vw, 700px"
+              caption={image.caption ?? ""}
+            />
+          ) : null}
         </div>
       </Container>
     </section>
   );
 }
 
-function MasterMeterBenchSection() {
+function MasterMeterBenchSection({ module }: { module: TechnologyDetailModule }) {
+  const image = module.image;
+
+  if (!image) {
+    return null;
+  }
+
   return (
     <section className="border-b border-metal-200 bg-white py-12 sm:py-14 lg:py-16">
       <Container>
@@ -532,26 +479,26 @@ function MasterMeterBenchSection() {
             <figure className="min-w-0 w-full">
               <div className="relative aspect-[16/9] w-full overflow-hidden bg-metal-100">
                 <Image
-                  src="/images/technology/calibration/velomac-developed-liquid-flow-calibration-bench-11.png"
-                  alt="Velomac-developed liquid flow calibration bench with in-house circulation pipelines"
+                  src={image.src}
+                  alt={image.alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 550px"
                   className="object-cover object-center"
                 />
               </div>
               <figcaption className="mt-3 text-[15px] leading-6 text-slate-600">
-                Velomac-developed equipment used within the master-meter route.
+                {image.caption}
               </figcaption>
             </figure>
           </div>
           <div className="flex flex-col justify-center border-t border-blue-200 p-7 sm:p-9 lg:border-l lg:border-t-0 lg:p-10">
             <MasterSectionHeading
-              eyebrow="Supporting Equipment"
-              title="Velomac-Developed Liquid Flow Calibration Bench"
-              description="Velomac-developed equipment used within the Master-Meter Liquid Calibration route."
+              eyebrow={module.eyebrow ?? ""}
+              title={module.title}
+              description={module.description}
             />
             <ul className="mt-7 grid gap-4">
-              {["Flow-point control", "Reference-meter integration", "Recorded verification"].map(
+              {(module.bullets ?? []).map(
                 (item) => (
                   <li
                     key={item}
@@ -562,8 +509,8 @@ function MasterMeterBenchSection() {
                 )
               )}
             </ul>
-            <PrimaryTextLink href="/technology/liquid-flow-calibration-bench">
-              View Calibration Bench
+            <PrimaryTextLink href={module.link?.href ?? "/technology/liquid-flow-calibration-bench"}>
+              {module.link?.label ?? "View Calibration Bench"}
             </PrimaryTextLink>
           </div>
         </div>
@@ -617,12 +564,12 @@ function MasterPurposefulImage({
   );
 }
 
-function MasterRelatedMethods({ links }: { links: RelatedLink[] }) {
+function MasterRelatedMethods({ eyebrow, links }: { eyebrow: string; links: RelatedLink[] }) {
   return (
     <section className="border-b border-metal-200 bg-white py-10 sm:py-12">
       <Container className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">
-          Related Calibration Methods
+          {eyebrow}
         </p>
         <div className="flex flex-wrap gap-x-8 gap-y-4">
           {links.map((link) => (
@@ -648,25 +595,24 @@ function GravimetricCalibrationPage({
   article: TechnologyArticle;
   page: TechnologyDetailPageContent;
 }) {
+  const processModule = page.modules[0];
+  const evidenceModule = page.modules[1];
+  const capacitiesModule = page.modules[2];
+
   return (
     <>
       <GravimetricCalibrationHero article={article} page={page} />
-      <GravimetricEvidenceSection />
-      <GravimetricProcessSection />
-      <GravimetricRelatedMethods links={relatedLinks["gravimetric-liquid-calibration"]} />
-
-      <FlowCalibrationCTA
-        title="Define the liquid meter and required weighing range."
-        text="Share the meter type, connection / size, required Accuracy Class, flow points and weighing range."
-        detailChips={[
-          "Meter type",
-          "Connection / size",
-          "Accuracy Class 0.3",
-          "Flow points",
-          "Weighing range"
-        ]}
-        surfaceClassName="bg-industrial-700"
+      <GravimetricEvidenceSection
+        module={evidenceModule}
+        capacitiesModule={capacitiesModule}
       />
+      <GravimetricProcessSection module={processModule} />
+      <GravimetricRelatedMethods
+        eyebrow={page.relatedEyebrow}
+        links={page.relatedLinks ?? []}
+      />
+
+      <FlowCalibrationCTA {...page.cta} surfaceClassName="bg-industrial-700" />
     </>
   );
 }
@@ -685,13 +631,13 @@ function GravimetricCalibrationHero({
         <div className="mt-7 grid gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12">
           <div className="max-w-xl">
             <p className="inline-flex bg-[#eef3f8] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">
-              Liquid · Accuracy Class 0.3
+              {page.heroLabel}
             </p>
             <h1 className="mt-5 text-4xl font-semibold leading-[1.06] text-navy-950 sm:text-5xl lg:text-[3.25rem]">
               {article.title}
             </h1>
             <p className="mt-4 max-w-lg text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              Mass-based liquid calibration using METTLER TOLEDO weighing equipment.
+              {page.heroIntroduction}
             </p>
 
             <div className="mt-7 border-y border-metal-200 py-5">
@@ -699,15 +645,15 @@ function GravimetricCalibrationHero({
                 Reference principle
               </p>
               <p className="mt-2 text-xl font-semibold uppercase leading-snug text-industrial-700 sm:text-2xl">
-                Gravimetric / weighing comparison
+                {page.facts.find((fact) => fact.label === "Method")?.value}
               </p>
             </div>
 
             <Link
-              href="/contact"
+              href={page.heroCta?.href ?? "/contact"}
               className="focus-ring mt-6 inline-flex items-center gap-2 bg-industrial-600 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-industrial-700"
             >
-              Request a Quote
+              {page.heroCta?.label ?? "Request a Quote"}
               <span aria-hidden="true">{">"}</span>
             </Link>
           </div>
@@ -729,11 +675,11 @@ function GravimetricCalibrationHero({
                 </figcaption>
               ) : null}
               <Link
-                href="/technology/flow-calibration-systems"
+                href={page.backLink?.href ?? "/technology/flow-calibration-systems"}
                 className="focus-ring inline-flex items-center text-base font-semibold text-industrial-700 transition hover:text-navy-950"
               >
                 <span aria-hidden="true">←&nbsp;</span>
-                Back to Flow Calibration Systems
+                {page.backLink?.label ?? "Back to Flow Calibration Systems"}
               </Link>
             </div>
           </figure>
@@ -743,39 +689,54 @@ function GravimetricCalibrationHero({
   );
 }
 
-function GravimetricEvidenceSection() {
+function GravimetricEvidenceSection({
+  module,
+  capacitiesModule
+}: {
+  module: TechnologyDetailModule;
+  capacitiesModule: TechnologyDetailModule;
+}) {
+  const metrics = module.items ?? [];
+  const image = module.image;
+
+  if (!image) {
+    return null;
+  }
+
   return (
     <section className="border-b border-metal-200 bg-[#eef3f8] py-12 sm:py-14 lg:py-16">
       <Container className="grid gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-14">
         <div>
           <GravimetricSectionHeading
-            eyebrow="METTLER TOLEDO Weighing System"
-            title="Four electronic weighing scales"
+            eyebrow={module.eyebrow ?? ""}
+            title={module.title}
           />
 
           <dl className="mt-8 border-y border-metal-300 sm:grid sm:grid-cols-2">
             <div className="py-5 sm:pr-8">
               <dt className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
-                Weighing scales
+                {metrics[0]?.text}
               </dt>
-              <dd className="mt-2 text-4xl font-semibold leading-none text-navy-950 sm:text-5xl">4</dd>
+              <dd className="mt-2 text-4xl font-semibold leading-none text-navy-950 sm:text-5xl">
+                {metrics[0]?.title}
+              </dd>
             </div>
             <div className="border-t border-metal-300 py-5 sm:border-l sm:border-t-0 sm:pl-8">
               <dt className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
-                Scale accuracy
+                {metrics[1]?.text}
               </dt>
               <dd className="mt-2 text-2xl font-semibold leading-tight text-industrial-700 sm:text-3xl">
-                Better than 1/3000
+                {metrics[1]?.title}
               </dd>
             </div>
           </dl>
 
           <div className="mt-8">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-              Available capacities
+              {capacitiesModule.eyebrow}
             </p>
             <p className="mt-3 text-2xl font-semibold leading-snug text-navy-950 sm:text-3xl">
-              10 t · 5 t · 600 kg · 150 kg
+              {(capacitiesModule.items ?? []).map((item) => item.title).join(" · ")}
             </p>
           </div>
         </div>
@@ -783,15 +744,15 @@ function GravimetricEvidenceSection() {
         <figure className="min-w-0">
           <div className="relative aspect-[5/4] w-full overflow-hidden bg-metal-100">
             <Image
-              src="/images/technology/calibration/gravimetric-system-overview.jpg"
-              alt="Gravimetric liquid collection vessels and METTLER TOLEDO weighing equipment"
+              src={image.src}
+              alt={image.alt}
               fill
               sizes="(max-width: 1024px) 100vw, 560px"
               className="object-cover object-[center_44%]"
             />
           </div>
           <figcaption className="mt-3 text-[15px] leading-6 text-slate-600">
-            Collection and weighing equipment used for the mass reference.
+            {image.caption}
           </figcaption>
         </figure>
       </Container>
@@ -799,28 +760,23 @@ function GravimetricEvidenceSection() {
   );
 }
 
-function GravimetricProcessSection() {
-  const steps = [
-    ["Collect", "Collect liquid over a defined interval."],
-    ["Measure", "Measure the collected mass with the selected scale."],
-    ["Compare", "Compare the mass reference with the meter result."]
-  ];
-
+function GravimetricProcessSection({ module }: { module: TechnologyDetailModule }) {
+  const steps = module.items ?? [];
   return (
     <section className="border-b border-metal-200 bg-white py-12 sm:py-14 lg:py-16">
       <Container>
         <GravimetricSectionHeading
-          eyebrow="How Gravimetric Calibration Works"
-          title="Collect, measure and compare"
+          eyebrow={module.eyebrow ?? ""}
+          title={module.title}
         />
         <ol className="mt-9 grid gap-8 sm:grid-cols-3 sm:gap-0">
-          {steps.map(([title, text], index) => (
-            <li key={title} className="relative border-t border-metal-300 pt-6 sm:pr-8">
+          {steps.map((step, index) => (
+            <li key={step.title} className="relative border-t border-metal-300 pt-6 sm:pr-8">
               <span className="absolute -top-[17px] left-0 flex h-8 w-8 items-center justify-center rounded-full bg-industrial-700 text-xs font-semibold text-white">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-xl font-semibold text-navy-950 sm:text-2xl">{title}</h3>
-              <p className="mt-2 max-w-xs text-base leading-7 text-slate-600">{text}</p>
+              <h3 className="text-xl font-semibold text-navy-950 sm:text-2xl">{step.title}</h3>
+              <p className="mt-2 max-w-xs text-base leading-7 text-slate-600">{step.text}</p>
             </li>
           ))}
         </ol>
@@ -840,12 +796,12 @@ function GravimetricSectionHeading({ eyebrow, title }: { eyebrow: string; title:
   );
 }
 
-function GravimetricRelatedMethods({ links }: { links: RelatedLink[] }) {
+function GravimetricRelatedMethods({ eyebrow, links }: { eyebrow: string; links: RelatedLink[] }) {
   return (
     <section className="border-b border-metal-200 bg-[#f7f9fb] py-10 sm:py-12">
       <Container className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">
-          Related Calibration Methods
+          {eyebrow}
         </p>
         <div className="flex flex-wrap gap-x-8 gap-y-4">
           {links.map((link) => (
@@ -871,6 +827,10 @@ function CalibrationBenchPage({
   article: TechnologyArticle;
   page: TechnologyDetailPageContent;
 }) {
+  const developedModule = page.modules[0];
+  const structureModule = page.modules[1];
+  const roleModule = page.modules[page.modules.length - 1];
+
   return (
     <>
       <CalibrationHero
@@ -878,35 +838,25 @@ function CalibrationBenchPage({
         page={page}
         slug="liquid-flow-calibration-bench"
         facts={page.facts}
-        secondaryHref="/technology/master-meter-liquid-calibration"
-        secondaryLabel="View Master-Meter Calibration"
+        secondaryHref={page.backLink?.href}
+        secondaryLabel={page.backLink?.label}
       />
 
       <TechnicalCards
-        eyebrow="What Velomac Developed"
-        title="An in-house platform for the liquid comparison workflow"
+        eyebrow={developedModule.eyebrow ?? ""}
+        title={developedModule.title}
         columns={4}
-        items={[
-          { title: "Liquid circulation control" },
-          { title: "Flow-point adjustment" },
-          { title: "Reference-meter integration" },
-          { title: "Data recording" }
-        ]}
+        items={developedModule.items ?? []}
       />
 
       <section className="border-b border-metal-200 bg-[#eef3f8] py-14 sm:py-16 lg:py-20">
         <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <SectionHeading
-            eyebrow="System Structure"
-            title="Control, connection and recording in one platform"
+            eyebrow={structureModule.eyebrow ?? ""}
+            title={structureModule.title}
           />
           <ReadableBullets
-            items={[
-              "Controlled liquid circulation",
-              "Configured test-point adjustment",
-              "Reference-meter connection",
-              "Meter and reference data recording"
-            ]}
+            items={structureModule.bullets ?? []}
             columns={2}
           />
         </Container>
@@ -916,35 +866,32 @@ function CalibrationBenchPage({
         <Container className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
-              Role in Master-Meter Calibration
+              {roleModule.eyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-              Supporting equipment, not a fourth calibration method
+              {roleModule.title}
             </h2>
             <p className="mt-5 text-base leading-7 text-blue-50 sm:text-lg">
-              This bench supports the Master-Meter Liquid Calibration Method through controlled
-              liquid circulation, test-point adjustment and reference-meter comparison.
+              {roleModule.description}
             </p>
           </div>
           <Link
-            href="/technology/master-meter-liquid-calibration"
+            href={roleModule.link?.href ?? "/technology/master-meter-liquid-calibration"}
             className="focus-ring inline-flex w-fit items-center gap-2 bg-white px-6 py-3.5 text-base font-semibold text-navy-950 transition hover:bg-metal-100"
           >
-            View Master-Meter Liquid Calibration
+            {roleModule.link?.label ?? "View Master-Meter Liquid Calibration"}
             <span aria-hidden="true">{">"}</span>
           </Link>
         </Container>
       </section>
 
-      <RelatedContent links={relatedLinks["liquid-flow-calibration-bench"]} />
-
-      <FlowCalibrationCTA
-        title="Return to the Master-Meter Liquid Calibration Method."
-        text="See how the bench supports controlled circulation, reference comparison and configured liquid-flow points."
-        buttonLabel="View Master-Meter Liquid Calibration"
-        href="/technology/master-meter-liquid-calibration"
-        surfaceClassName="bg-industrial-700"
+      <RelatedContent
+        eyebrow={page.relatedEyebrow}
+        heading={page.relatedHeading}
+        links={page.relatedLinks ?? []}
       />
+
+      <FlowCalibrationCTA {...page.cta} surfaceClassName="bg-industrial-700" />
     </>
   );
 }
@@ -994,10 +941,10 @@ function CalibrationHero({
             <HeroFacts facts={facts} />
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/contact"
+                href={page.heroCta?.href ?? "/contact"}
                 className="focus-ring inline-flex items-center gap-2 bg-industrial-600 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-industrial-700"
               >
-                Request a Quote
+                {page.heroCta?.label ?? "Request a Quote"}
                 <span aria-hidden="true">{">"}</span>
               </Link>
               <Link
@@ -1278,6 +1225,7 @@ function PrimaryTextLink({ href, children }: { href: string; children: ReactNode
 function FlowCalibrationCTA({
   title,
   text,
+  eyebrow = "Selection support",
   buttonLabel = "Request a Quote",
   href = "/contact",
   detailChips,
@@ -1285,6 +1233,7 @@ function FlowCalibrationCTA({
 }: {
   title: string;
   text: string;
+  eyebrow?: string;
   buttonLabel?: string;
   href?: string;
   detailChips?: string[];
@@ -1295,7 +1244,7 @@ function FlowCalibrationCTA({
       <Container className="grid gap-9 lg:grid-cols-[0.95fr_0.72fr] lg:items-center lg:gap-14">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-100">
-            Selection support
+            {eyebrow}
           </p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{title}</h2>
           <p className="mt-5 text-lg leading-8 text-blue-50">{text}</p>
@@ -1326,15 +1275,23 @@ function FlowCalibrationCTA({
   );
 }
 
-function RelatedContent({ links }: { links: RelatedLink[] }) {
+function RelatedContent({
+  eyebrow,
+  heading,
+  links
+}: {
+  eyebrow: string;
+  heading: string;
+  links: RelatedLink[];
+}) {
   return (
     <section className="border-b border-metal-200 bg-white py-10 sm:py-12">
       <Container className="grid gap-6 lg:grid-cols-[0.34fr_0.66fr] lg:items-center lg:gap-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-            Related Calibration Pages
+            {eyebrow}
           </p>
-          <h2 className="mt-2 text-2xl font-semibold text-navy-950">Continue the calibration review</h2>
+          <h2 className="mt-2 text-2xl font-semibold text-navy-950">{heading}</h2>
         </div>
         <div className={`grid gap-3 ${links.length === 3 ? "md:grid-cols-3" : "sm:grid-cols-2"}`}>
           {links.map((link) => (

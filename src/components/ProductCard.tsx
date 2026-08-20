@@ -45,7 +45,9 @@ export function ProductCard({
           {product.category}
         </p>
         <h3 className={`${isFeatured ? "mt-3 text-2xl" : "mt-2 text-lg"} font-semibold text-navy-950`}>
-          {product.name}
+          <Link className="focus-ring transition hover:text-industrial-700" href={`/products/${product.slug}`}>
+            {product.name}
+          </Link>
         </h3>
         <p className={`${isCompact ? "mt-2" : "mt-3"} flex-1 text-sm leading-6 text-slate-600`}>
           {product.shortDescription}

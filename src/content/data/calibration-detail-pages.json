@@ -1,0 +1,656 @@
+[
+  {
+    "slug": "gas-flow-calibration",
+    "categoryId": "flow-calibration-systems",
+    "heroLabel": "Gas · Accuracy Class 1.0",
+    "breadcrumbs": [
+      {
+        "label": "Technology",
+        "href": "/technology"
+      },
+      {
+        "label": "Flow Calibration Systems",
+        "href": "/technology/flow-calibration-systems"
+      },
+      {
+        "label": "Gas Flow Calibration System"
+      }
+    ],
+    "heroIntroduction": "Controlled gas-flow comparison across configured operating points.",
+    "heroImage": {
+      "src": "/images/technology/calibration/gas-flow-calibration-system.jpg",
+      "alt": "Gas flow calibration system with multiple controlled comparison lines",
+      "fit": "cover",
+      "caption": "Gas-flow calibration system configured for controlled comparison."
+    },
+    "facts": [
+      {
+        "label": "Medium",
+        "value": "Gas"
+      },
+      {
+        "label": "Supported meter class",
+        "value": "Accuracy Class 1.0"
+      },
+      {
+        "label": "Method",
+        "value": "Controlled gas-flow comparison"
+      },
+      {
+        "label": "Operating approach",
+        "value": "Configured operating points"
+      }
+    ],
+    "modules": [
+      {
+        "kind": "cards",
+        "eyebrow": "Core Capability",
+        "title": "Controlled comparison at planned gas-flow points",
+        "items": [
+          {
+            "title": "Controlled gas-flow conditions",
+            "text": "Establish the required test condition."
+          },
+          {
+            "title": "Configured comparison points",
+            "text": "Review meter response at selected flow points."
+          },
+          {
+            "title": "Recorded calibration results",
+            "text": "Keep each result tied to the test point."
+          }
+        ],
+        "tone": "white"
+      },
+      {
+        "kind": "steps",
+        "eyebrow": "How the Method Works",
+        "title": "Four stages from setup to result",
+        "items": [
+          {
+            "title": "Configure",
+            "text": "Set the meter and test point."
+          },
+          {
+            "title": "Establish Flow",
+            "text": "Bring the system to the required condition."
+          },
+          {
+            "title": "Compare",
+            "text": "Capture the meter response at the configured point."
+          },
+          {
+            "title": "Record",
+            "text": "Save and review the result."
+          }
+        ],
+        "tone": "blue"
+      },
+      {
+        "kind": "checklist",
+        "eyebrow": "Operating-Point Control",
+        "title": "Keep every result tied to a planned condition",
+        "description": "The test plan defines the gas-flow conditions and comparison sequence for the meter under review.",
+        "bullets": [
+          "Planned operating points",
+          "Stable comparison condition",
+          "Recorded result for each point"
+        ],
+        "tone": "white"
+      },
+      {
+        "kind": "checklist",
+        "eyebrow": "Selection Considerations",
+        "title": "Define the meter and required operating points",
+        "description": "Final suitability is reviewed against the actual meter setup and test condition.",
+        "bullets": [
+          "Meter type and connection",
+          "Required operating points",
+          "Signal and output",
+          "Test medium and conditions"
+        ],
+        "tone": "soft"
+      }
+    ],
+    "relatedEyebrow": "Related Calibration Methods",
+    "relatedHeading": "Compare the liquid calibration routes",
+    "relatedLinks": [
+      { "label": "Master-Meter Liquid Calibration", "href": "/technology/master-meter-liquid-calibration" },
+      { "label": "Gravimetric Liquid Calibration", "href": "/technology/gravimetric-liquid-calibration" }
+    ],
+    "backLink": {
+      "label": "Back to Flow Calibration Systems",
+      "href": "/technology/flow-calibration-systems"
+    },
+    "heroCta": { "label": "Request a Quote", "href": "/contact" },
+    "cta": {
+      "title": "Define the gas meter and required operating points.",
+      "text": "Share the meter type, connection, operating points and signal / output requirement.",
+      "eyebrow": "Selection support",
+      "buttonLabel": "Request a Quote",
+      "href": "/contact",
+      "detailChips": ["Meter type", "Connection", "Operating points", "Signal / output"]
+    }
+  },
+  {
+    "slug": "master-meter-liquid-calibration",
+    "categoryId": "flow-calibration-systems",
+    "heroLabel": "Liquid · Accuracy Class 0.5",
+    "heroTitleLines": ["Master-Meter Liquid", "Calibration Method"],
+    "breadcrumbs": [
+      {
+        "label": "Technology",
+        "href": "/technology"
+      },
+      {
+        "label": "Flow Calibration Systems",
+        "href": "/technology/flow-calibration-systems"
+      },
+      {
+        "label": "Master-Meter Liquid Calibration Method"
+      }
+    ],
+    "heroIntroduction": "Liquid flow calibration through controlled circulation and comparison with calibrated electromagnetic reference meters.",
+    "heroImage": {
+      "src": "/images/technology/calibration/water-flow-calibration-system.jpg",
+      "alt": "Water flow calibration system with reference-meter lines and circulation equipment",
+      "fit": "cover",
+      "caption": "Complete liquid calibration system and reference-meter lines."
+    },
+    "facts": [
+      {
+        "label": "Medium",
+        "value": "Liquid"
+      },
+      {
+        "label": "Supported meter class",
+        "value": "Accuracy Class 0.5"
+      },
+      {
+        "label": "Reference meters",
+        "value": "7 Yokogawa"
+      },
+      {
+        "label": "Reference-meter accuracy",
+        "value": "Better than Class 0.2"
+      },
+      {
+        "label": "Repeatability",
+        "value": "Better than 0.08%"
+      }
+    ],
+    "modules": [
+      {
+        "kind": "steps",
+        "eyebrow": "How the Method Works",
+        "title": "Circulate, compare and review",
+        "items": [
+          {
+            "title": "Circulate & Stabilize",
+            "text": "Establish the configured liquid-flow condition."
+          },
+          {
+            "title": "Compare",
+            "text": "Compare the meter under test with the selected reference meter."
+          },
+          {
+            "title": "Record & Review",
+            "text": "Record the configured flow-point result."
+          }
+        ],
+        "image": {
+          "src": "/images/technology/calibration/liquid-calibration-pipeline-array.jpg",
+          "alt": "Reference electromagnetic flow-meter lines used for liquid comparison",
+          "fit": "cover",
+          "caption": "Reference-meter lines selected for the configured comparison point."
+        },
+        "tone": "white"
+      },
+      {
+        "kind": "checklist",
+        "eyebrow": "Reference System",
+        "title": "Confirmed reference-meter performance",
+        "description": "Seven Yokogawa electromagnetic flow meters provide the reference system for the liquid comparison method.",
+        "items": [
+          { "title": "7", "text": "Yokogawa electromagnetic reference flow meters" },
+          { "title": "Better than Class 0.2", "text": "Reference-meter accuracy" },
+          { "title": "Better than 0.08%", "text": "Repeatability" }
+        ],
+        "bullets": [
+          "Reference line selected for the test condition",
+          "Reference and test-meter readings captured together",
+          "Comparison reviewed at each planned point"
+        ],
+        "tone": "blue"
+      },
+      {
+        "kind": "split",
+        "eyebrow": "Supporting Equipment",
+        "title": "Velomac-Developed Liquid Flow Calibration Bench",
+        "description": "Velomac-developed equipment used within the Master-Meter Liquid Calibration route.",
+        "bullets": [
+          "Flow-point control",
+          "Reference-meter integration",
+          "Recorded verification"
+        ],
+        "image": {
+          "src": "/images/technology/calibration/velomac-developed-liquid-flow-calibration-bench-11.png",
+          "alt": "Velomac-developed liquid flow calibration bench with in-house circulation pipelines",
+          "fit": "contain",
+          "caption": "Velomac-developed equipment used within the master-meter route."
+        },
+        "link": {
+          "label": "View Calibration Bench",
+          "href": "/technology/liquid-flow-calibration-bench"
+        },
+        "tone": "white"
+      },
+      {
+        "kind": "checklist",
+        "eyebrow": "Selection Considerations",
+        "title": "Define the liquid meter and comparison points",
+        "bullets": [
+          "Liquid medium",
+          "Meter size and connection",
+          "Required Accuracy Class",
+          "Planned flow points",
+          "Output and recording requirement"
+        ],
+        "tone": "soft"
+      }
+    ],
+    "relatedEyebrow": "Related Calibration Methods",
+    "relatedHeading": "Compare the gas and gravimetric routes",
+    "relatedLinks": [
+      { "label": "Gas Flow Calibration", "href": "/technology/gas-flow-calibration" },
+      { "label": "Gravimetric Liquid Calibration", "href": "/technology/gravimetric-liquid-calibration" }
+    ],
+    "backLink": {
+      "label": "Back to Flow Calibration Systems",
+      "href": "/technology/flow-calibration-systems"
+    },
+    "heroCta": { "label": "Request a Quote", "href": "/contact" },
+    "cta": {
+      "title": "Define the liquid meter and planned comparison points.",
+      "text": "Share the liquid medium, meter size / connection, required Accuracy Class and planned flow points.",
+      "eyebrow": "Selection support",
+      "buttonLabel": "Request a Quote",
+      "href": "/contact",
+      "detailChips": ["Liquid medium", "Meter size / connection", "Accuracy Class", "Flow points"]
+    }
+  },
+  {
+    "slug": "liquid-flow-calibration-bench",
+    "categoryId": "flow-calibration-systems",
+    "breadcrumbs": [
+      {
+        "label": "Technology",
+        "href": "/technology"
+      },
+      {
+        "label": "Flow Calibration Systems",
+        "href": "/technology/flow-calibration-systems"
+      },
+      {
+        "label": "Master-Meter Liquid Calibration",
+        "href": "/technology/master-meter-liquid-calibration"
+      },
+      {
+        "label": "Velomac-Developed Liquid Flow Calibration Bench"
+      }
+    ],
+    "heroIntroduction": "An in-house developed circulation and control platform supporting liquid flow-point adjustment, reference-meter comparison and recorded verification.",
+    "heroImage": {
+      "src": "/images/technology/calibration/velomac-developed-liquid-flow-calibration-bench.png",
+      "alt": "Velomac-developed liquid flow calibration bench in the workshop",
+      "fit": "contain",
+      "caption": "Full view of the in-house developed bench used within the master-meter method."
+    },
+    "facts": [
+      {
+        "label": "Position",
+        "value": "Supporting equipment"
+      },
+      {
+        "label": "Method",
+        "value": "Master-meter liquid"
+      },
+      {
+        "label": "Medium",
+        "value": "Liquid"
+      },
+      {
+        "label": "Development",
+        "value": "Velomac in-house"
+      }
+    ],
+    "modules": [
+      {
+        "kind": "cards",
+        "eyebrow": "What Velomac Developed",
+        "title": "An in-house platform for the liquid comparison workflow",
+        "items": [
+          {
+            "title": "Liquid circulation control"
+          },
+          {
+            "title": "Flow-point adjustment"
+          },
+          {
+            "title": "Reference-meter integration"
+          },
+          {
+            "title": "Data recording"
+          }
+        ],
+        "tone": "white"
+      },
+      {
+        "kind": "split",
+        "eyebrow": "System Structure",
+        "title": "Control, connection and recording in one platform",
+        "bullets": [
+          "Liquid circulation control",
+          "Configured test-point adjustment",
+          "Reference-meter integration",
+          "Meter and reference data recording"
+        ],
+        "image": {
+          "src": "/images/technology/calibration/liquid-calibration-pipeline-array.jpg",
+          "alt": "Pipeline array on the Velomac-developed liquid calibration bench",
+          "fit": "cover",
+          "caption": "Circulation and reference-meter pipeline array."
+        },
+        "tone": "blue"
+      },
+      {
+        "kind": "steps",
+        "eyebrow": "Flow-Point Control",
+        "title": "Support the comparison at each configured point",
+        "items": [
+          {
+            "title": "1. Install",
+            "text": "Connect the meter to the selected line."
+          },
+          {
+            "title": "2. Circulate",
+            "text": "Start liquid circulation."
+          },
+          {
+            "title": "3. Adjust",
+            "text": "Set the required flow point."
+          },
+          {
+            "title": "4. Stabilize",
+            "text": "Hold the condition for comparison."
+          },
+          {
+            "title": "5. Capture",
+            "text": "Record meter and reference values."
+          },
+          {
+            "title": "6. Review",
+            "text": "Check the result before continuing."
+          }
+        ],
+        "tone": "white"
+      },
+      {
+        "kind": "split",
+        "eyebrow": "Reference-Meter Connection",
+        "title": "Link the test meter to the selected reference line",
+        "description": "The bench provides the circulation and connection structure used for master-meter comparison.",
+        "bullets": [
+          "Reference line selected for the test setup",
+          "Meter installed at the configured connection point",
+          "Reference and test-meter signals captured together"
+        ],
+        "image": {
+          "src": "/images/technology/calibration/master-meter-installation-area.jpg",
+          "alt": "Reference-meter and test-meter connection area",
+          "fit": "cover",
+          "caption": "Reference and installation area."
+        },
+        "reverse": true,
+        "tone": "soft"
+      },
+      {
+        "kind": "checklist",
+        "eyebrow": "Data Recording",
+        "title": "Keep the operating point and result together",
+        "bullets": [
+          "Meter identification",
+          "Selected reference line",
+          "Configured flow point",
+          "Reference-meter value",
+          "Meter-under-test value",
+          "Result review"
+        ],
+        "tone": "white"
+      },
+      {
+        "kind": "gallery",
+        "eyebrow": "Equipment and Facility Gallery",
+        "title": "Bench details across the workshop",
+        "images": [
+          {
+            "src": "/images/technology/calibration/master-meter-pipeline-detail.jpg",
+            "alt": "Large-diameter pipeline connections on the calibration bench",
+            "fit": "cover",
+            "caption": "Pipeline and installation detail."
+          },
+          {
+            "src": "/images/technology/calibration/liquid-calibration-bench-control-area.jpg",
+            "alt": "Control equipment beside the liquid calibration bench",
+            "fit": "cover",
+            "caption": "Control area."
+          },
+          {
+            "src": "/images/technology/calibration/master-meter-liquid-calibration.jpg",
+            "alt": "Wide view of the master-meter calibration bench",
+            "fit": "cover",
+            "caption": "Bench within the liquid calibration workshop."
+          },
+          {
+            "src": "/images/technology/calibration/water-flow-calibration-system.jpg",
+            "alt": "Full liquid flow calibration system",
+            "fit": "cover",
+            "caption": "Facility overview."
+          }
+        ],
+        "tone": "blue"
+      },
+      {
+        "kind": "highlight",
+        "eyebrow": "Role within Master-Meter Calibration",
+        "title": "Supporting equipment, not a fourth calibration method",
+        "description": "This bench supports the Master-Meter Liquid Calibration Method through controlled liquid circulation, test-point adjustment and reference-meter comparison.",
+        "result": {
+          "label": "Parent method",
+          "value": "Master-Meter Liquid Calibration"
+        },
+        "link": {
+          "label": "View Master-Meter Liquid Calibration",
+          "href": "/technology/master-meter-liquid-calibration"
+        },
+        "tone": "dark"
+      }
+    ],
+    "relatedEyebrow": "Related Calibration Pages",
+    "relatedHeading": "Continue the calibration review",
+    "relatedLinks": [
+      { "label": "Master-Meter Liquid Calibration", "href": "/technology/master-meter-liquid-calibration" },
+      { "label": "Flow Calibration Systems", "href": "/technology/flow-calibration-systems" }
+    ],
+    "backLink": {
+      "label": "View Master-Meter Calibration",
+      "href": "/technology/master-meter-liquid-calibration"
+    },
+    "heroCta": { "label": "Request a Quote", "href": "/contact" },
+    "cta": {
+      "title": "Return to the Master-Meter Liquid Calibration Method.",
+      "text": "See how the bench supports controlled circulation, reference comparison and configured liquid-flow points.",
+      "eyebrow": "Selection support",
+      "buttonLabel": "View Master-Meter Liquid Calibration",
+      "href": "/technology/master-meter-liquid-calibration"
+    }
+  },
+  {
+    "slug": "gravimetric-liquid-calibration",
+    "categoryId": "flow-calibration-systems",
+    "heroLabel": "Liquid · Accuracy Class 0.3",
+    "breadcrumbs": [
+      {
+        "label": "Technology",
+        "href": "/technology"
+      },
+      {
+        "label": "Flow Calibration Systems",
+        "href": "/technology/flow-calibration-systems"
+      },
+      {
+        "label": "Gravimetric Liquid Calibration Method"
+      }
+    ],
+    "heroIntroduction": "Mass-based liquid calibration using METTLER TOLEDO weighing equipment.",
+    "heroImage": {
+      "src": "/images/technology/calibration/gravimetric-piping-detail.jpg",
+      "alt": "Gravimetric liquid calibration collection vessels, piping and weighing displays",
+      "fit": "contain",
+      "caption": "Collection vessels, piping and weighing displays used for gravimetric calibration."
+    },
+    "facts": [
+      {
+        "label": "Medium",
+        "value": "Liquid"
+      },
+      {
+        "label": "Supported meter class",
+        "value": "Accuracy Class 0.3"
+      },
+      {
+        "label": "Method",
+        "value": "Gravimetric / weighing comparison"
+      },
+      {
+        "label": "Scale accuracy",
+        "value": "Better than 1/3000"
+      }
+    ],
+    "modules": [
+      {
+        "kind": "steps",
+        "eyebrow": "How Gravimetric Calibration Works",
+        "title": "Collect, measure and compare",
+        "items": [
+          {
+            "title": "Collect",
+            "text": "Collect liquid over a defined interval."
+          },
+          {
+            "title": "Measure",
+            "text": "Measure the collected mass with the selected scale."
+          },
+          {
+            "title": "Compare",
+            "text": "Compare the mass reference with the meter result."
+          }
+        ],
+        "tone": "white"
+      },
+      {
+        "kind": "split",
+        "eyebrow": "METTLER TOLEDO Weighing Equipment",
+        "title": "Four electronic weighing scales",
+        "description": "The selected scale provides the mass reference for the configured collection interval.",
+        "items": [
+          { "title": "4", "text": "Weighing scales" },
+          { "title": "Better than 1/3000", "text": "Scale accuracy" }
+        ],
+        "bullets": [
+          "Scale accuracy better than 1/3000",
+          "10 t, 5 t, 600 kg and 150 kg capacities",
+          "Integrated collection, timing and data recording"
+        ],
+        "image": {
+          "src": "/images/technology/calibration/gravimetric-system-overview.jpg",
+          "alt": "Gravimetric liquid collection vessels and METTLER TOLEDO weighing equipment",
+          "fit": "cover",
+          "caption": "Collection and weighing equipment used for the mass reference."
+        },
+        "tone": "blue"
+      },
+      {
+        "kind": "cards",
+        "eyebrow": "Available capacities",
+        "title": "Four available capacities",
+        "items": [
+          {
+            "title": "10 t"
+          },
+          {
+            "title": "5 t"
+          },
+          {
+            "title": "600 kg"
+          },
+          {
+            "title": "150 kg"
+          }
+        ],
+        "tone": "soft"
+      },
+      {
+        "kind": "gallery",
+        "eyebrow": "Facility Evidence",
+        "title": "Distinct views of collection and weighing equipment",
+        "images": [
+          {
+            "src": "/images/technology/calibration/gravimetric-weighing-vessel.jpg",
+            "alt": "Individual gravimetric collection and weighing vessel",
+            "fit": "cover",
+            "caption": "Individual collection and weighing vessel."
+          },
+          {
+            "src": "/images/technology/calibration/gravimetric-collection-system.jpg",
+            "alt": "Controlled collection arrangement above the gravimetric vessel",
+            "fit": "cover",
+            "caption": "Controlled collection arrangement."
+          }
+        ],
+        "tone": "white"
+      },
+      {
+        "kind": "checklist",
+        "eyebrow": "When This Method Is Selected",
+        "title": "Match the mass reference to the meter requirement",
+        "bullets": [
+          "Liquid medium",
+          "Accuracy Class 0.3 requirement",
+          "Mass-based reference required",
+          "Suitable weighing range available"
+        ],
+        "tone": "soft"
+      }
+    ],
+    "relatedEyebrow": "Related Calibration Methods",
+    "relatedHeading": "Compare the gas and master-meter routes",
+    "relatedLinks": [
+      { "label": "Master-Meter Liquid Calibration", "href": "/technology/master-meter-liquid-calibration" },
+      { "label": "Gas Flow Calibration", "href": "/technology/gas-flow-calibration" }
+    ],
+    "backLink": {
+      "label": "Back to Flow Calibration Systems",
+      "href": "/technology/flow-calibration-systems"
+    },
+    "heroCta": { "label": "Request a Quote", "href": "/contact" },
+    "cta": {
+      "title": "Define the liquid meter and required weighing range.",
+      "text": "Share the meter type, connection / size, required Accuracy Class, flow points and weighing range.",
+      "eyebrow": "Selection support",
+      "buttonLabel": "Request a Quote",
+      "href": "/contact",
+      "detailChips": ["Meter type", "Connection / size", "Accuracy Class 0.3", "Flow points", "Weighing range"]
+    }
+  }
+]

@@ -3,11 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container, Section } from "@/components/Layout";
 import { aboutContent } from "@/content/about";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: aboutContent.metadata.title,
-  description: aboutContent.metadata.description
-};
+  description: aboutContent.metadata.description,
+  path: "/about",
+  image: aboutContent.hero.image.src,
+  imageAlt: aboutContent.hero.image.alt
+});
 
 export default function AboutPage() {
   const { hero, companyProfile, processContext, capabilities, calibration, finalCta } = aboutContent;
@@ -150,10 +154,10 @@ export default function AboutPage() {
               ))}
             </div>
             <Link
-              href="/quality-innovation"
+              href={calibration.linkHref}
               className="focus-ring mt-7 inline-flex w-fit items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
             >
-              Explore Quality &amp; Innovation
+              {calibration.linkLabel}
               <span aria-hidden="true">{">"}</span>
             </Link>
           </div>

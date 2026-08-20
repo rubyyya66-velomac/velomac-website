@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "title": "Flowmeter Applications by Site Condition | Velomac",
+    "description": "Explore flowmeter selection for steam, gas, conductive liquids, chemical process lines, high-vibration pipelines and industrial utility measurement."
+  },
+  "hero": {
+    "eyebrow": "APPLICATIONS",
+    "title": "Flowmeter Applications by Site Condition",
+    "description": "Industrial flow measurement starts with the operating condition. Review common application scenarios before selecting a meter."
+  },
+  "introduction": {
+    "title": "Match Meter to Site Conditions",
+    "description": "Use media, installation limits and output needs as the starting point before sending site details."
+  },
+  "cardLabels": {
+    "whereItFits": "Where it fits",
+    "recommendedMeters": "Recommended meters",
+    "siteDetails": "Site details to prepare",
+    "ctaLabel": "Discuss this application"
+  },
+  "bottomCta": {
+    "eyebrow": "Selection support",
+    "title": "Send Site Details for Selection",
+    "text": "Share the fluid, pipe size, flow range, pressure, temperature, quantity and application background.",
+    "buttonLabel": "Request a Quote",
+    "buttonHref": "/contact"
+  }
+}

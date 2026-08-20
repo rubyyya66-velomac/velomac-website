@@ -1,0 +1,103 @@
+{
+  "slug": "wide-turndown-anti-vibration",
+  "parentProductSlug": "vortex-flowmeter",
+  "metadata": {
+    "title": "Wide-Turndown Anti-Vibration Vortex Flowmeter | Velomac",
+    "description": "A Velomac vortex flowmeter configuration for applications with substantial flow variation and mechanical vibration, with up to 1:70 turndown and 4-level anti-vibration processing."
+  },
+  "hero": {
+    "eyebrow": "Engineered for Variable Flow + Vibration",
+    "title": "Wide-Turndown Anti-Vibration Vortex Flowmeter",
+    "lead": "Industrial flow rarely stays at one operating point.",
+    "description": "Designed for substantial flow variation where mechanical vibration can interfere with vortex detection.",
+    "image": {
+      "src": "/images/products/wide-turndown-anti-vibration-vortex-flowmeter.png",
+      "alt": "Velomac wide-turndown anti-vibration vortex flowmeter with complete transmitter, sensor neck, meter body and flanges"
+    },
+    "metrics": [
+      { "value": "1:70", "label": "Turndown Ratio" },
+      { "value": "±0.5%", "label": "Accuracy" },
+      { "value": "4-Level", "label": "Anti-Vibration Mode" }
+    ],
+    "primaryCta": { "label": "Check Your Flow Range", "href": "#application-check" },
+    "secondaryCta": { "label": "View Technical Range", "href": "#full-measurement-range" }
+  },
+  "operatingConditions": {
+    "eyebrow": "The Site Condition",
+    "title": "One Pipeline. Several Operating Conditions.",
+    "description": "Startup, reduced load and peak demand can place the same measurement point across a much wider flow range than its normal operating condition.",
+    "stages": ["Startup", "Low Load", "Normal Operation", "Peak Demand"],
+    "conclusion": "The meter has to stay usable across the actual operating envelope."
+  },
+  "flowEnvelope": {
+    "eyebrow": "Wide Turndown",
+    "value": "1:70",
+    "valueLabel": "Up to 1:70 turndown ratio",
+    "title": "A Wider Usable Flow Envelope",
+    "description": "The wider turndown extends the usable range between minimum and maximum operating flow, allowing the same measurement point to cover more of the actual process cycle.",
+    "applications": ["Steam Distribution", "Energy Metering", "Variable Process Loads"]
+  },
+  "engineering": {
+    "eyebrow": "Flow Physics + Signal Detection",
+    "title": "The Engineering Behind the Wider Range",
+    "mechanisms": [
+      { "number": "01", "title": "Optimized Bluff Body", "text": "Vortex-generator geometry maintains detectable vortex behavior across a broader flow range." },
+      { "number": "02", "title": "Adaptive Signal Filtering", "text": "Adaptive filtering and digital noise processing extract smaller signals as flow velocity decreases." },
+      { "number": "03", "title": "High-Sensitivity Sensing", "text": "High-sensitivity sensing improves response under low-flow operating conditions." }
+    ]
+  },
+  "vibration": {
+    "eyebrow": "Mechanical Disturbance",
+    "title": "When Pipe Vibration Looks Like Flow",
+    "description": "Mechanical vibration from pumps, compressors and piping can enter the vortex signal environment. Digital signal analysis is used to separate vortex behavior from mechanical disturbance.",
+    "modeValue": "4-Level",
+    "modeLabel": "Anti-Vibration Mode",
+    "modes": [
+      { "title": "Adaptive Filter Mode", "text": "For normal and relatively stable operating environments." },
+      { "title": "Anti-Vibration Analysis Mode", "text": "For installations affected by stronger mechanical vibration." }
+    ]
+  },
+  "engineeringData": {
+    "eyebrow": "Technical Summary",
+    "title": "Key Engineering Data",
+    "metrics": [
+      { "value": "1:70", "label": "Turndown" },
+      { "value": "±0.5%", "label": "Accuracy" },
+      { "value": "≤0.2%", "label": "Repeatability" },
+      { "value": "DN15–DN300", "label": "Size Range" }
+    ],
+    "mediaLabel": "Media",
+    "media": ["Liquid", "Gas", "Saturated Steam", "Superheated Steam"]
+  },
+  "measurementRange": {
+    "eyebrow": "Technical Range",
+    "title": "Measurement Range by Size",
+    "description": "Check the available flow and velocity range by nominal size and medium.",
+    "sizeRange": "DN15–DN300",
+    "sizeCountLabel": "14 nominal sizes",
+    "rows": [
+      ["DN15", "0.15–5.0", "0.2–8.0", "2.0–30", "3.3–50"],
+      ["DN20", "0.2–9.0", "0.2–8.0", "2.8–70", "2.5–65"],
+      ["DN25", "0.4–15", "0.2–8.0", "4.0–140", "2.2–80"],
+      ["DN32", "0.6–23", "0.2–8.0", "6.37–231", "2.2–80"],
+      ["DN40", "0.9–36", "0.19–8", "9–362", "2.2–80"],
+      ["DN50", "1.4–56", "0.19–8", "10–850", "1.5–120"],
+      ["DN65", "2.2–85", "0.19–8", "18–1430", "1.5–120"],
+      ["DN80", "3.4–145", "0.19–8", "27–2170", "1.5–120"],
+      ["DN100", "5.4–220", "0.19–8", "42–3300", "1.5–120"],
+      ["DN125", "8.4–350", "0.19–8", "66–5300", "1.5–120"],
+      ["DN150", "12–500", "0.19–8", "95–7630", "1.5–120"],
+      ["DN200", "22–900", "0.19–8", "170–9000", "1.5–80"],
+      ["DN250", "34–1400", "0.19–8", "265–14000", "1.5–80"],
+      ["DN300", "48–2000", "0.19–8", "382–20000", "1.5–80"]
+    ]
+  },
+  "applicationReview": {
+    "eyebrow": "Application Review",
+    "title": "Can One Meter Cover Your Full Flow Range?",
+    "description": "Send us your actual operating conditions and we can evaluate the usable measurement range for the application.",
+    "buttonLabel": "Check My Application",
+    "buttonHref": "/contact?product=Vortex%20Flowmeter",
+    "details": ["Pipe size", "Medium", "Minimum flow", "Normal flow", "Maximum flow", "Operating pressure", "Operating temperature", "Vibration source, if applicable"]
+  }
+}

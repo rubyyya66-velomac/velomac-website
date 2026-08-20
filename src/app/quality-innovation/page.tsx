@@ -4,25 +4,15 @@ import Link from "next/link";
 import { Container, Section } from "@/components/Layout";
 import type { QualityDocumentGroup } from "@/content/qualityInnovation";
 import { qualityInnovationContent } from "@/content/qualityInnovation";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: qualityInnovationContent.metadata.title,
   description: qualityInnovationContent.metadata.description,
-  alternates: {
-    canonical: "/quality-innovation"
-  },
-  openGraph: {
-    title: qualityInnovationContent.metadata.title,
-    description: qualityInnovationContent.metadata.description,
-    url: "/quality-innovation",
-    images: [
-      {
-        url: qualityInnovationContent.hero.image.src,
-        alt: qualityInnovationContent.hero.image.alt
-      }
-    ]
-  }
-};
+  path: "/quality-innovation",
+  image: qualityInnovationContent.hero.image.src,
+  imageAlt: qualityInnovationContent.hero.image.alt
+});
 
 export default function QualityInnovationPage() {
   const {

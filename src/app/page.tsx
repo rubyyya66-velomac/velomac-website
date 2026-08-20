@@ -13,35 +13,16 @@ import { featuredProducts, getProductBySlug } from "@/content/products";
 import { homepage } from "@/content/homepage";
 import { resources } from "@/content/resources";
 import { site } from "@/content/site";
+import { buildPageMetadata } from "@/lib/seo";
 import type { Product } from "@/types/content";
 
-const technologyCapabilities = [
-  {
-    number: "01",
-    title: "Sensor & Product Development",
-    description: "Sensing for demanding conditions."
-  },
-  {
-    number: "02",
-    title: "Flow Calibration Systems",
-    description: "Gas and liquid calibration capability."
-  },
-  {
-    number: "03",
-    title: "Testing & Verification",
-    description: "Controlled meter and signal testing."
-  },
-  {
-    number: "04",
-    title: "Application Upgrade Projects",
-    description: "Engineering for real process conditions."
-  }
-] as const;
-
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: homepage.metadata.title,
-  description: homepage.metadata.description
-};
+  description: homepage.metadata.description,
+  path: "/",
+  image: homepage.hero.image.src,
+  imageAlt: homepage.hero.image.alt
+});
 
 export default function HomePage() {
   const primaryProducts = homepage.productsPreview.featuredProductSlugs
@@ -59,42 +40,39 @@ export default function HomePage() {
           <article className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-12 xl:gap-16">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-                Featured Vortex Solution
+                {homepage.featuredVortex.eyebrow}
               </p>
               <h2 className="mt-4 max-w-3xl text-[1.95rem] font-semibold leading-[1.1] tracking-[-0.025em] text-navy-950 sm:text-[2.25rem] lg:text-[2.35rem] xl:text-[2.65rem]">
-                <span className="lg:whitespace-nowrap">
-                  Wide-Turndown <span className="whitespace-nowrap">Anti-Vibration</span>
-                </span>
-                <br className="hidden lg:block" /> Vortex Flowmeter
+                {homepage.featuredVortex.title}
               </h2>
 
               <div className="mt-8 grid grid-cols-3 divide-x divide-metal-300 border-y border-metal-300">
-                <HomepageFeaturedFact value="1:70" label="Turndown" />
-                <HomepageFeaturedFact value="±0.5%" label="Accuracy" />
-                <HomepageFeaturedFact value="4-Level" label="Anti-Vibration Mode" />
+                {homepage.featuredVortex.facts.map((fact) => (
+                  <HomepageFeaturedFact key={fact.label} value={fact.value} label={fact.label} />
+                ))}
               </div>
 
               <p className="mt-7 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-                Built for variable-flow applications where mechanical vibration can interfere with vortex signal detection.
+                {homepage.featuredVortex.description}
               </p>
 
               <Link
-                href="/products/vortex-flowmeter/wide-turndown-anti-vibration"
+                href={homepage.featuredVortex.ctaHref}
                 className="focus-ring mt-8 inline-flex items-center gap-2 bg-navy-950 px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-industrial-700"
               >
-                Explore the Solution
+                {homepage.featuredVortex.ctaLabel}
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
 
             <Link
-              href="/products/vortex-flowmeter/wide-turndown-anti-vibration"
-              aria-label="Explore the Wide-Turndown Anti-Vibration Vortex Flowmeter"
+              href={homepage.featuredVortex.ctaHref}
+              aria-label={`${homepage.featuredVortex.ctaLabel}: ${homepage.featuredVortex.title}`}
               className="focus-ring group relative min-h-[340px] sm:min-h-[420px] lg:min-h-[500px]"
             >
               <Image
-                src="/images/products/wide-turndown-anti-vibration-vortex-flowmeter.png"
-                alt="Velomac wide-turndown anti-vibration vortex flowmeter with complete transmitter, meter body and flanges"
+                src={homepage.featuredVortex.image.src}
+                alt={homepage.featuredVortex.image.alt}
                 fill
                 sizes="(min-width: 1024px) 46vw, 100vw"
                 className="object-contain transition duration-300 group-hover:scale-[1.025] lg:scale-[1.06] lg:group-hover:scale-[1.085]"
@@ -124,12 +102,12 @@ export default function HomePage() {
             </div>
           </div>
           <div className="lg:self-stretch lg:content-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">Site details that shape meter selection</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">{homepage.siteConditions.detailLabel}</p>
             <div className="mt-6 grid gap-x-12 border-y border-metal-200 sm:grid-cols-2">
               {homepage.siteConditions.inputs.map((item, index) => (
                 <Link
                   key={item}
-                  href="/contact"
+                  href={homepage.siteConditions.detailHref}
                   className={`focus-ring group flex items-center justify-between gap-7 border-t border-metal-200 py-7 text-xl font-semibold leading-7 text-navy-950 transition hover:text-industrial-700 sm:text-[1.35rem] ${
                     index === 0 ? "border-t-0" : ""
                   } ${index === 1 ? "sm:border-t-0" : ""}`}
@@ -153,21 +131,21 @@ export default function HomePage() {
         <Container className="grid gap-y-7 lg:!max-w-[1280px] lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-8 lg:gap-y-6">
           <div className="lg:col-start-1 lg:row-start-1">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
-              Engineering & Validation
+              {homepage.technology.eyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-[1.08]">
-              Technology Behind the Measurement
+              {homepage.technology.title}
             </h2>
             <p className="mt-4 max-w-lg text-base leading-7 text-blue-100 sm:text-lg sm:leading-8">
-              Development, calibration and controlled testing for real operating conditions.
+              {homepage.technology.description}
             </p>
           </div>
 
           <figure className="min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
             <div className="relative aspect-[1522/1033] w-full overflow-hidden">
               <Image
-                src="/images/technology/homepage-technology-calibration-capabilities.jpg"
-                alt="Velomac gas and liquid flow calibration systems in two facility views"
+                src={homepage.technology.image.src}
+                alt={homepage.technology.image.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 620px"
                 className="object-contain"
@@ -177,7 +155,7 @@ export default function HomePage() {
 
           <div className="lg:col-start-1 lg:row-start-2">
             <ol className="border-t border-white/15">
-              {technologyCapabilities.map((capability) => (
+              {homepage.technology.capabilities.map((capability) => (
                 <li
                   key={capability.number}
                   className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 border-b border-white/15 py-3.5 sm:grid-cols-[3rem_minmax(0,1fr)]"
@@ -198,10 +176,10 @@ export default function HomePage() {
             </ol>
 
             <Link
-              href="/technology"
+              href={homepage.technology.ctaHref}
               className="focus-ring mt-5 inline-flex w-fit items-center gap-2 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-blue-100 hover:text-industrial-700"
             >
-              Explore Technology
+              {homepage.technology.ctaLabel}
               <span aria-hidden="true">→</span>
             </Link>
           </div>
@@ -217,7 +195,7 @@ export default function HomePage() {
               description={homepage.productsPreview.description}
             />
             <Link
-              href="/products"
+              href={homepage.productsPreview.buttonHref}
               className="focus-ring inline-flex w-fit items-center gap-2 border border-navy-950 bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:border-industrial-600 hover:bg-industrial-700"
             >
               {homepage.productsPreview.buttonLabel}
@@ -273,20 +251,7 @@ export default function HomePage() {
         title={homepage.whyVelomac.title}
         description={site.timelineLine}
         stats={homepage.whyVelomac.stats}
-        notes={[
-          {
-            title: "In-House Calibration",
-            text: "Meters are checked before shipment to support stable field measurement."
-          },
-          {
-            title: "Factory-Close Configuration",
-            text: "Product configuration stays close to production and technical support."
-          },
-          {
-            title: "Application-Based Model Selection",
-            text: "Selection starts with media, flow range, pressure, temperature and installation details."
-          }
-        ]}
+        notes={homepage.whyVelomac.notes}
       />
 
       <Section className="homepage-reveal bg-white">
@@ -298,7 +263,7 @@ export default function HomePage() {
               description={homepage.resourcesPreview.description}
             />
             <Link
-              href="/resources"
+              href={homepage.resourcesPreview.buttonHref}
               className="focus-ring inline-flex w-fit items-center gap-2 border border-navy-950 bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:border-industrial-600 hover:bg-industrial-700"
             >
               {homepage.resourcesPreview.buttonLabel}
@@ -309,12 +274,16 @@ export default function HomePage() {
             {resources.slice(0, 3).map((resource) => (
               <article key={resource.slug} className="py-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">{resource.category}</p>
-                <h3 className="mt-3 text-xl font-semibold text-navy-950">{resource.title}</h3>
+                <h3 className="mt-3 text-xl font-semibold text-navy-950">
+                  <Link className="focus-ring transition hover:text-industrial-700" href={`/resources/${resource.slug}`}>
+                    {resource.title}
+                  </Link>
+                </h3>
                 <Link
                   href={`/resources/${resource.slug}`}
                   className="focus-ring mt-5 inline-flex items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
                 >
-                  Read article
+                  {site.buttons.readArticle}
                   <span aria-hidden="true">{">"}</span>
                 </Link>
               </article>
@@ -326,7 +295,9 @@ export default function HomePage() {
       <CTASection
         title={homepage.bottomCta.title}
         text={homepage.bottomCta.text}
-        detailChips={["Media", "Pipe size", "Flow range", "Pressure / temperature", "Installation photo", "Process vibration"]}
+        buttonLabel={homepage.bottomCta.buttonLabel}
+        href={homepage.bottomCta.buttonHref}
+        detailChips={homepage.bottomCta.detailChips}
         surfaceClassName="velomac-blue-surface"
       />
     </>
@@ -339,7 +310,7 @@ function HomepageFeaturedFact({ value, label }: { value: string; label: string }
       <p className="whitespace-nowrap text-[1.75rem] font-semibold tracking-[-0.03em] text-industrial-700 sm:text-[2rem] lg:text-[2.15rem]">
         {value}
       </p>
-      <p className="mt-2 text-[11px] font-semibold uppercase leading-4 tracking-[0.08em] text-slate-500 sm:text-[12px] sm:tracking-[0.1em]">
+      <p className="mt-2 text-[11px] font-semibold uppercase leading-4 tracking-[0.08em] text-slate-600 sm:text-[12px] sm:tracking-[0.1em]">
         {label}
       </p>
     </div>

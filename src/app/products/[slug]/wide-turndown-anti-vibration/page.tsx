@@ -4,93 +4,72 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Container } from "@/components/Layout";
+import { JsonLd } from "@/components/JsonLd";
+import { featuredVortexSolution } from "@/content/featuredVortexSolution";
+import { getProductBySlug } from "@/content/products";
+import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
+import { breadcrumbStructuredData, productStructuredData } from "@/lib/structuredData";
 import { MeasurementRangeTabs } from "./MeasurementRangeTabs";
 
-const productImage = "/images/products/wide-turndown-anti-vibration-vortex-flowmeter.png";
-
-const measurementRanges = [
-  ["DN15", "0.15–5.0", "0.2–8.0", "2.0–30", "3.3–50"],
-  ["DN20", "0.2–9.0", "0.2–8.0", "2.8–70", "2.5–65"],
-  ["DN25", "0.4–15", "0.2–8.0", "4.0–140", "2.2–80"],
-  ["DN32", "0.6–23", "0.2–8.0", "6.37–231", "2.2–80"],
-  ["DN40", "0.9–36", "0.19–8", "9–362", "2.2–80"],
-  ["DN50", "1.4–56", "0.19–8", "10–850", "1.5–120"],
-  ["DN65", "2.2–85", "0.19–8", "18–1430", "1.5–120"],
-  ["DN80", "3.4–145", "0.19–8", "27–2170", "1.5–120"],
-  ["DN100", "5.4–220", "0.19–8", "42–3300", "1.5–120"],
-  ["DN125", "8.4–350", "0.19–8", "66–5300", "1.5–120"],
-  ["DN150", "12–500", "0.19–8", "95–7630", "1.5–120"],
-  ["DN200", "22–900", "0.19–8", "170–9000", "1.5–80"],
-  ["DN250", "34–1400", "0.19–8", "265–14000", "1.5–80"],
-  ["DN300", "48–2000", "0.19–8", "382–20000", "1.5–80"]
-] as const;
-
-const engineeringMechanisms = [
-  {
-    number: "01",
-    title: "Optimized Bluff Body",
-    text: "Vortex-generator geometry maintains detectable vortex behavior across a broader flow range."
-  },
-  {
-    number: "02",
-    title: "Adaptive Signal Filtering",
-    text: "Adaptive filtering and digital noise processing extract smaller signals as flow velocity decreases."
-  },
-  {
-    number: "03",
-    title: "High-Sensitivity Sensing",
-    text: "High-sensitivity sensing improves response under low-flow operating conditions."
-  }
-] as const;
-
-const applicationDetails = [
-  "Pipe size",
-  "Medium",
-  "Minimum flow",
-  "Normal flow",
-  "Maximum flow",
-  "Operating pressure",
-  "Operating temperature",
-  "Vibration source, if applicable"
-] as const;
-
 export function generateStaticParams() {
-  return [{ slug: "vortex-flowmeter" }];
+  return [{ slug: featuredVortexSolution.parentProductSlug }];
 }
 
-export const metadata: Metadata = {
-  title: "Wide-Turndown Anti-Vibration Vortex Flowmeter | Velomac",
-  description:
-    "A Velomac vortex flowmeter configuration for applications with substantial flow variation and mechanical vibration, with up to 1:70 turndown and 4-level anti-vibration processing."
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: featuredVortexSolution.metadata.title,
+  description: featuredVortexSolution.metadata.description,
+  path: `/products/${featuredVortexSolution.parentProductSlug}/${featuredVortexSolution.slug}`,
+  image: featuredVortexSolution.hero.image.src,
+  imageAlt: featuredVortexSolution.hero.image.alt
+});
 
 export default function WideTurndownAntiVibrationPage({ params }: { params: { slug: string } }) {
-  if (params.slug !== "vortex-flowmeter") {
+  if (params.slug !== featuredVortexSolution.parentProductSlug) {
     notFound();
   }
 
+  const parentProduct = getProductBySlug(featuredVortexSolution.parentProductSlug)!;
+  const pagePath = `/products/${featuredVortexSolution.parentProductSlug}/${featuredVortexSolution.slug}`;
+
   return (
     <>
+      <JsonLd
+        data={{
+          ...productStructuredData(parentProduct),
+          "@id": `${absoluteUrl(pagePath)}#product`,
+          name: featuredVortexSolution.hero.title,
+          description: featuredVortexSolution.metadata.description,
+          image: absoluteUrl(featuredVortexSolution.hero.image.src),
+          url: absoluteUrl(pagePath)
+        }}
+      />
+      <JsonLd
+        data={breadcrumbStructuredData([
+          { name: "Home", path: "/" },
+          { name: "Products", path: "/products" },
+          { name: parentProduct.name, path: `/products/${parentProduct.slug}` },
+          { name: featuredVortexSolution.hero.title, path: pagePath }
+        ])}
+      />
       <section className="overflow-hidden border-b border-metal-200 bg-metal-50">
         <Container className="grid gap-x-10 gap-y-8 py-12 sm:py-16 lg:grid-cols-[1.28fr_0.72fr] lg:grid-rows-[auto_auto_auto] lg:items-center lg:py-20">
           <div className="lg:col-start-1 lg:row-start-1">
-            <p className={technicalLabelClass}>Engineered for Variable Flow + Vibration</p>
+            <p className={technicalLabelClass}>{featuredVortexSolution.hero.eyebrow}</p>
             <h1 className="mt-4 text-[2.55rem] font-semibold leading-[1.06] tracking-[-0.025em] text-navy-950 sm:text-5xl lg:text-[2.8rem] xl:text-[3.1rem]">
-              <span className="xl:whitespace-nowrap">Wide-Turndown <span className="whitespace-nowrap">Anti-Vibration</span></span>{" "}
-              <span className="xl:block xl:whitespace-nowrap">Vortex Flowmeter</span>
+              {featuredVortexSolution.hero.title}
             </h1>
             <p className="mt-6 text-xl font-semibold leading-8 text-navy-950">
-              Industrial flow rarely stays at one operating point.
+              {featuredVortexSolution.hero.lead}
             </p>
             <p className="mt-3 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
-              Designed for substantial flow variation where mechanical vibration can interfere with vortex detection.
+              {featuredVortexSolution.hero.description}
             </p>
           </div>
 
           <div className="relative mx-auto aspect-[4/5] w-full max-w-[520px] lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:max-w-none">
             <Image
-              src={productImage}
-              alt="Velomac wide-turndown anti-vibration vortex flowmeter with complete transmitter, sensor neck, meter body and flanges"
+              src={featuredVortexSolution.hero.image.src}
+              alt={featuredVortexSolution.hero.image.alt}
               fill
               priority
               sizes="(max-width: 1024px) 92vw, 520px"
@@ -99,28 +78,28 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
           </div>
 
           <div className="grid grid-cols-3 divide-x divide-metal-200 border-y border-metal-200 lg:col-start-1 lg:row-start-2">
-            <EngineeringNumber value="1:70" label="Turndown Ratio" />
-            <EngineeringNumber value="±0.5%" label="Accuracy" />
-            <EngineeringNumber value="4-Level" label="Anti-Vibration Mode" />
+            {featuredVortexSolution.hero.metrics.map((metric) => (
+              <EngineeringNumber key={metric.label} value={metric.value} label={metric.label} />
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-3 lg:col-start-1 lg:row-start-3">
-            <PrimaryLink href="#application-check">Check Your Flow Range</PrimaryLink>
-            <SecondaryLink href="#full-measurement-range">View Technical Range</SecondaryLink>
+            <PrimaryLink href={featuredVortexSolution.hero.primaryCta.href}>{featuredVortexSolution.hero.primaryCta.label}</PrimaryLink>
+            <SecondaryLink href={featuredVortexSolution.hero.secondaryCta.href}>{featuredVortexSolution.hero.secondaryCta.label}</SecondaryLink>
           </div>
         </Container>
       </section>
 
       <PageSection compact>
         <SectionHeading
-          eyebrow="The Site Condition"
-          title="One Pipeline. Several Operating Conditions."
-          description="Startup, reduced load and peak demand can place the same measurement point across a much wider flow range than its normal operating condition."
+          eyebrow={featuredVortexSolution.operatingConditions.eyebrow}
+          title={featuredVortexSolution.operatingConditions.title}
+          description={featuredVortexSolution.operatingConditions.description}
         />
 
         <div className="mt-8 border-y border-metal-200 py-6">
           <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-1 sm:gap-3">
-            {["Startup", "Low Load", "Normal Operation", "Peak Demand"].map((stage, index) => (
+            {featuredVortexSolution.operatingConditions.stages.map((stage, index) => (
               <div key={stage} className="contents">
                 <p className="text-center text-[11px] font-semibold uppercase leading-4 tracking-[0.08em] text-navy-950 sm:text-sm sm:leading-5 sm:tracking-[0.12em]">
                   {stage}
@@ -132,25 +111,25 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
         </div>
 
         <p className="mt-6 text-lg font-semibold leading-8 text-navy-950">
-          The meter has to stay usable across the actual operating envelope.
+          {featuredVortexSolution.operatingConditions.conclusion}
         </p>
       </PageSection>
 
       <section className="bg-navy-950 py-16 text-white sm:py-20 lg:py-24">
         <Container className="grid gap-12 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">Wide Turndown</p>
-            <p className="mt-5 text-[5rem] font-semibold leading-none tracking-[-0.05em] text-white sm:text-[7rem]">1:70</p>
-            <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-blue-200">Up to 1:70 turndown ratio</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{featuredVortexSolution.flowEnvelope.eyebrow}</p>
+            <p className="mt-5 text-[5rem] font-semibold leading-none tracking-[-0.05em] text-white sm:text-[7rem]">{featuredVortexSolution.flowEnvelope.value}</p>
+            <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-blue-200">{featuredVortexSolution.flowEnvelope.valueLabel}</p>
           </div>
           <div>
             <SectionHeading
               dark
-              title="A Wider Usable Flow Envelope"
-              description="The wider turndown extends the usable range between minimum and maximum operating flow, allowing the same measurement point to cover more of the actual process cycle."
+              title={featuredVortexSolution.flowEnvelope.title}
+              description={featuredVortexSolution.flowEnvelope.description}
             />
             <div className="mt-9 grid border-y border-white/15 sm:grid-cols-3 sm:divide-x sm:divide-white/15">
-              {["Steam Distribution", "Energy Metering", "Variable Process Loads"].map((example) => (
+              {featuredVortexSolution.flowEnvelope.applications.map((example) => (
                 <h3 key={example} className="border-b border-white/15 py-5 text-xl font-semibold leading-7 text-white last:border-b-0 sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:pr-0">
                   {example}
                 </h3>
@@ -162,13 +141,13 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
 
       <PageSection>
         <SectionHeading
-          eyebrow="Flow Physics + Signal Detection"
-          title="The Engineering Behind the Wider Range"
+          eyebrow={featuredVortexSolution.engineering.eyebrow}
+          title={featuredVortexSolution.engineering.title}
         />
         <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <VortexEngineeringVisual />
           <div className="divide-y divide-metal-200 border-y border-metal-200">
-            {engineeringMechanisms.map((mechanism) => (
+            {featuredVortexSolution.engineering.mechanisms.map((mechanism) => (
               <div key={mechanism.number} className="grid grid-cols-[3rem_1fr] gap-4 py-6 sm:grid-cols-[4rem_1fr]">
                 <p className="pt-1 text-xs font-semibold tracking-[0.16em] text-industrial-700">{mechanism.number}</p>
                 <div>
@@ -182,53 +161,56 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
       </PageSection>
 
       <PageSection className="bg-metal-50">
-        <SectionHeading eyebrow="Mechanical Disturbance" title="When Pipe Vibration Looks Like Flow" />
+        <SectionHeading eyebrow={featuredVortexSolution.vibration.eyebrow} title={featuredVortexSolution.vibration.title} />
         <div className="mt-10 grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16">
           <div>
             <p className="max-w-xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Mechanical vibration from pumps, compressors and piping can enter the vortex signal environment. Digital signal analysis is used to separate vortex behavior from mechanical disturbance.
+              {featuredVortexSolution.vibration.description}
             </p>
             <div className="mt-9 border-l-2 border-industrial-600 pl-6">
-              <p className="text-5xl font-semibold leading-none tracking-[-0.04em] text-industrial-700 sm:text-6xl">4-Level</p>
-              <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-navy-950">Anti-Vibration Mode</p>
+              <p className="text-5xl font-semibold leading-none tracking-[-0.04em] text-industrial-700 sm:text-6xl">{featuredVortexSolution.vibration.modeValue}</p>
+              <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-navy-950">{featuredVortexSolution.vibration.modeLabel}</p>
             </div>
           </div>
           <SignalProcessingVisual />
         </div>
 
         <div className="mt-12 grid gap-x-12 border-y border-metal-200 md:grid-cols-2">
-          <EditorialRow title="Adaptive Filter Mode" text="For normal and relatively stable operating environments." />
-          <EditorialRow title="Anti-Vibration Analysis Mode" text="For installations affected by stronger mechanical vibration." />
+          {featuredVortexSolution.vibration.modes.map((mode) => (
+            <EditorialRow key={mode.title} title={mode.title} text={mode.text} />
+          ))}
         </div>
       </PageSection>
 
       <PageSection>
-        <SectionHeading eyebrow="Technical Summary" title="Key Engineering Data" />
+        <SectionHeading eyebrow={featuredVortexSolution.engineeringData.eyebrow} title={featuredVortexSolution.engineeringData.title} />
         <div className="mt-10 grid grid-cols-2 border-y border-metal-300 lg:grid-cols-4 lg:divide-x lg:divide-metal-200">
-          <MetricStripItem value="1:70" label="Turndown" />
-          <MetricStripItem value="±0.5%" label="Accuracy" />
-          <MetricStripItem value="≤0.2%" label="Repeatability" />
-          <MetricStripItem value="DN15–DN300" label="Size Range" />
+          {featuredVortexSolution.engineeringData.metrics.map((metric) => (
+            <MetricStripItem key={metric.label} value={metric.value} label={metric.label} />
+          ))}
         </div>
         <p className="border-b border-metal-200 py-6 text-lg leading-8 text-slate-600">
-          <span className="font-semibold text-navy-950">Media:</span> Liquid · Gas · Saturated Steam · Superheated Steam
+          <span className="font-semibold text-navy-950">{featuredVortexSolution.engineeringData.mediaLabel}:</span>{" "}
+          {featuredVortexSolution.engineeringData.media.join(" · ")}
         </p>
       </PageSection>
 
       <PageSection className="bg-metal-50">
         <div id="full-measurement-range" className="scroll-mt-56 lg:scroll-mt-32">
-          <SectionHeading eyebrow="Technical Range" title="Measurement Range by Size" />
+          <SectionHeading eyebrow={featuredVortexSolution.measurementRange.eyebrow} title={featuredVortexSolution.measurementRange.title} />
           <div className="mt-10 grid gap-10 lg:grid-cols-[0.3fr_0.7fr] lg:items-start lg:gap-16">
             <div>
               <p className="text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
-                Check the available flow and velocity range by nominal size and medium.
+                {featuredVortexSolution.measurementRange.description}
               </p>
               <div className="mt-8 border-l-2 border-industrial-600 pl-5">
-                <p className="text-3xl font-semibold tracking-[-0.03em] text-navy-950">DN15–DN300</p>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">14 nominal sizes</p>
+                <p className="text-3xl font-semibold tracking-[-0.03em] text-navy-950">{featuredVortexSolution.measurementRange.sizeRange}</p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{featuredVortexSolution.measurementRange.sizeCountLabel}</p>
               </div>
             </div>
-            <MeasurementRangeTabs rows={measurementRanges} />
+            <MeasurementRangeTabs
+              rows={featuredVortexSolution.measurementRange.rows as [string, string, string, string, string][]}
+            />
           </div>
         </div>
       </PageSection>
@@ -236,19 +218,19 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
       <section id="application-check" className="scroll-mt-56 bg-industrial-700 py-16 text-white sm:py-20 lg:scroll-mt-28">
         <Container className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-end lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Application Review</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">{featuredVortexSolution.applicationReview.eyebrow}</p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]">
-              Can One Meter Cover Your Full Flow Range?
+              {featuredVortexSolution.applicationReview.title}
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-blue-50 sm:text-lg">
-              Send us your actual operating conditions and we can evaluate the usable measurement range for the application.
+              {featuredVortexSolution.applicationReview.description}
             </p>
-            <PrimaryLink href="/contact?product=Vortex%20Flowmeter" inverse>
-              Check My Application
+            <PrimaryLink href={featuredVortexSolution.applicationReview.buttonHref} inverse>
+              {featuredVortexSolution.applicationReview.buttonLabel}
             </PrimaryLink>
           </div>
           <div className="grid grid-cols-2 gap-x-8 border-t border-white/25 sm:grid-cols-3">
-            {applicationDetails.map((detail) => (
+            {featuredVortexSolution.applicationReview.details.map((detail) => (
               <p key={detail} className="border-b border-white/20 py-5 text-base font-semibold leading-7 text-white">
                 {detail}
               </p>

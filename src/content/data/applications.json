@@ -21,7 +21,20 @@
       "Pressure",
       "Temperature",
       "Flow range"
-    ]
+    ],
+    "detailPage": {
+      "metadata": {
+        "title": "Industrial Steam Flow Measurement | Velomac",
+        "description": "Review steam flow measurement conditions, vortex meter direction, operating details and site information for boiler and steam distribution systems."
+      },
+      "eyebrow": "Steam Flow Application",
+      "h1": "Industrial Steam Flow Measurement",
+      "introduction": "Steam meter selection begins with the steam state, real flow range, pressure, temperature and available installation space—not pipe size alone.",
+      "measurementTitle": "Define the steam condition and operating range",
+      "measurementText": "Review the steam type, minimum-to-maximum flow, pressure and temperature together so the measurement direction matches the working line.",
+      "relatedProductSlugs": ["vortex-flowmeter"],
+      "ctaTitle": "Discuss a Steam Measurement Application"
+    }
   },
   {
     "slug": "gas-flow-measurement",
@@ -46,7 +59,20 @@
       "Pressure",
       "Temperature",
       "Flow range"
-    ]
+    ],
+    "detailPage": {
+      "metadata": {
+        "title": "Industrial Gas Flow Measurement Applications | Velomac",
+        "description": "Compare industrial gas flow measurement directions for compressed air, natural gas and process gases using actual line and operating conditions."
+      },
+      "eyebrow": "Gas Flow Application",
+      "h1": "Industrial Gas Flow Measurement Applications",
+      "introduction": "Gas composition, pressure, temperature, required output and whether mass or volumetric flow is needed all influence the meter direction.",
+      "measurementTitle": "Clarify the gas and required measurement basis",
+      "measurementText": "Prepare the gas type, operating range and pressure-temperature condition before comparing thermal mass, turbine or vortex options.",
+      "relatedProductSlugs": ["thermal-mass-flowmeter", "gas-turbine-flowmeter", "vortex-flowmeter"],
+      "ctaTitle": "Discuss a Gas Flow Measurement Application"
+    }
   },
   {
     "slug": "conductive-liquid-measurement",
@@ -70,7 +96,20 @@
       "Lining",
       "Electrode",
       "Flow range"
-    ]
+    ],
+    "detailPage": {
+      "metadata": {
+        "title": "Conductive Liquid Flow Measurement | Velomac",
+        "description": "Review electromagnetic flowmeter selection for water, wastewater and conductive chemical liquids using conductivity, material and installation details."
+      },
+      "eyebrow": "Liquid Flow Application",
+      "h1": "Conductive Liquid Flow Measurement",
+      "introduction": "Conductivity, lining and electrode compatibility, grounding and the actual flow range should be reviewed together for conductive liquid service.",
+      "measurementTitle": "Confirm conductivity and material compatibility",
+      "measurementText": "Define the liquid, conductivity, temperature, lining and electrode direction before the electromagnetic meter configuration is selected.",
+      "relatedProductSlugs": ["electromagnetic-flowmeter"],
+      "ctaTitle": "Discuss a Conductive Liquid Application"
+    }
   },
   {
     "slug": "chemical-process-lines",
@@ -96,7 +135,20 @@
       "Pressure",
       "Materials",
       "Connection"
-    ]
+    ],
+    "detailPage": {
+      "metadata": {
+        "title": "Chemical Process Flow Measurement | Velomac",
+        "description": "Review chemical process flow measurement using media concentration, material compatibility, temperature, pressure and connection requirements."
+      },
+      "eyebrow": "Chemical Process Application",
+      "h1": "Chemical Process Flow Measurement",
+      "introduction": "Chemical flow measurement starts with the actual chemical, concentration and wetted-material requirements before a meter family or connection is chosen.",
+      "measurementTitle": "Match the measurement direction to the chemical",
+      "measurementText": "Review corrosion, solids, concentration, pressure and temperature together with lining, electrode and connection requirements.",
+      "relatedProductSlugs": ["electromagnetic-flowmeter", "v-cone-flowmeter"],
+      "ctaTitle": "Discuss a Chemical Process Application"
+    }
   },
   {
     "slug": "high-vibration-pipelines",
@@ -121,7 +173,20 @@
       "Flow range",
       "Pressure",
       "Temperature"
-    ]
+    ],
+    "detailPage": {
+      "metadata": {
+        "title": "Flow Measurement for High-Vibration Pipelines | Velomac",
+        "description": "Review flow measurement near pumps, compressors and unstable pipe supports where mechanical vibration can interfere with signal stability."
+      },
+      "eyebrow": "High-Vibration Application",
+      "h1": "Flow Measurement for High-Vibration Pipelines",
+      "introduction": "Vibration source, pipe support, flow range and meter position should be reviewed together before selecting a meter for a vibration-prone line.",
+      "measurementTitle": "Separate process flow from mechanical vibration",
+      "measurementText": "Document the vibration source and pipe layout along with the media and operating range so signal stability and installation limits can be reviewed.",
+      "relatedProductSlugs": ["vortex-flowmeter", "swirl-flowmeter"],
+      "ctaTitle": "Discuss a High-Vibration Pipeline"
+    }
   },
   {
     "slug": "energy-loss-visibility",
@@ -147,6 +212,19 @@
       "Pipe size",
       "Expected operating range",
       "Data output requirements"
-    ]
+    ],
+    "detailPage": {
+      "metadata": {
+        "title": "Industrial Utility & Energy Flow Visibility | Velomac",
+        "description": "Plan flow measurement points for steam, compressed air, cooling water and process utilities to make usage and potential losses more visible."
+      },
+      "eyebrow": "Utility Measurement Application",
+      "h1": "Industrial Utility and Energy Flow Visibility",
+      "introduction": "Useful utility measurement starts by defining which line, user or process needs to become visible and how the resulting flow data will be used.",
+      "measurementTitle": "Define the utility boundary and metering point",
+      "measurementText": "Identify the utility, expected operating range, measurement location and data output before selecting the meter technology.",
+      "relatedProductSlugs": ["vortex-flowmeter", "thermal-mass-flowmeter", "electromagnetic-flowmeter", "ultrasonic-flowmeter"],
+      "ctaTitle": "Discuss Utility Flow Visibility"
+    }
   }
 ]

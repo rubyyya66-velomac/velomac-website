@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "title": "Industrial Flow Meters & Level Instruments | Velomac",
+    "description": "Explore vortex, electromagnetic, turbine, thermal mass, ultrasonic and differential-pressure flow meters, plus industrial level instruments from Velomac."
+  },
+  "hero": {
+    "eyebrow": "Products",
+    "title": "Industrial Flow Meters & Level Instruments",
+    "description": "Flow and level instrumentation for industrial applications."
+  },
+  "groups": [
+    {
+      "id": "flow-measurement",
+      "navigationLabel": "Flow Measurement",
+      "title": "Flow Measurement",
+      "description": "Flow measurement technologies for steam, gas, liquids, water and industrial process applications.",
+      "dataCategory": "Flowmeters",
+      "productOrder": [
+        "vortex-flowmeter",
+        "electromagnetic-flowmeter",
+        "liquid-turbine-flowmeter",
+        "gas-turbine-flowmeter",
+        "thermal-mass-flowmeter",
+        "ultrasonic-flowmeter",
+        "v-cone-flowmeter",
+        "balanced-differential-pressure-flowmeter",
+        "swirl-flowmeter"
+      ]
+    },
+    {
+      "id": "level-measurement",
+      "navigationLabel": "Level Measurement",
+      "title": "Level Measurement",
+      "description": "Level measurement and local level indication for industrial vessels and tanks.",
+      "dataCategory": "Level Instruments",
+      "productOrder": [
+        "radar-level-transmitter",
+        "magnetic-level-gauge"
+      ]
+    }
+  ],
+  "catalogueDescriptions": {
+    "vortex-flowmeter": "Steam, gas and liquid flow measurement across changing process conditions.",
+    "electromagnetic-flowmeter": "For conductive liquids, water, wastewater and chemical applications.",
+    "liquid-turbine-flowmeter": "For clean liquid applications with stable flow conditions.",
+    "gas-turbine-flowmeter": "For natural gas, industrial gases and compatible gas applications.",
+    "thermal-mass-flowmeter": "Direct mass flow measurement for compressed air and industrial gases.",
+    "v-cone-flowmeter": "Differential-pressure flow measurement for larger process lines.",
+    "swirl-flowmeter": "Gas and steam measurement where compact installation is important.",
+    "balanced-differential-pressure-flowmeter": "Differential-pressure flow measurement across process and duct applications.",
+    "ultrasonic-flowmeter": "Closed-pipe, clamp-on and other liquid flow measurement applications.",
+    "radar-level-transmitter": "Non-contact level measurement for industrial tanks and process vessels.",
+    "magnetic-level-gauge": "Direct local level indication for industrial tanks and vessels."
+  },
+  "featuredSolution": {
+    "eyebrow": "Featured Vortex Solution",
+    "title": "Wide-Turndown Anti-Vibration Vortex Flowmeter",
+    "description": "Variable flow and mechanical vibration can challenge the same measurement point. This configuration is developed around both operating conditions.",
+    "image": {
+      "src": "/images/products/wide-turndown-anti-vibration-vortex-flowmeter.png",
+      "alt": "Velomac wide-turndown anti-vibration vortex flowmeter with complete transmitter, meter body and flanges"
+    },
+    "facts": [
+      { "value": "1:70", "label": "Turndown" },
+      { "value": "±0.5%", "label": "Accuracy" },
+      { "value": "4-Level", "label": "Anti-Vibration Mode" }
+    ],
+    "ctaLabel": "Explore the Solution",
+    "ctaHref": "/products/vortex-flowmeter/wide-turndown-anti-vibration"
+  },
+  "detailPage": {
+    "requestQuoteLabel": "Request a Quote",
+    "viewApplicationsLabel": "View Applications",
+    "applicationEyebrow": "Where It Is Used",
+    "applicationTitle": "Application Context",
+    "selectionEyebrow": "Selection Notes",
+    "selectionTitle": "Conditions to Confirm",
+    "selectionText": "A useful quotation starts with the real operating condition, not only the model name.",
+    "relatedApplicationsEyebrow": "Typical Applications",
+    "relatedApplicationsTitle": "Related Site Conditions",
+    "relatedApplicationsText": "Compare the product with nearby application scenarios before sending site details.",
+    "configurationTitle": "Available configurations",
+    "quotationEyebrow": "Before Quotation",
+    "quotationTitle": "What to Send",
+    "quotationText": "These details help Velomac recommend a suitable meter configuration and avoid a model-only quotation.",
+    "resourcesEyebrow": "Related Resources",
+    "resourcesTitle": "Selection Notes to Review",
+    "technicalEyebrow": "Technical Data",
+    "technicalTitle": "Data for Configuration Review",
+    "ctaTitle": "Send site details for a better recommendation.",
+    "ctaText": "Share the fluid, pipe size, flow range, pressure, temperature, quantity, installation details and signal output needs."
+  }
+}

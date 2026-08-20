@@ -26,6 +26,11 @@
       "applications": "Applications",
       "resources": "Resources",
       "contact": "Contact"
+    },
+    "social": {
+      "linkedin": "https://www.linkedin.com/company/velomac-flowmeter/",
+      "facebook": "https://www.facebook.com/VelomacFlowmeter",
+      "tiktok": "https://www.tiktok.com/@velomac_flowmeter"
     }
   },
   "facts": [
@@ -37,6 +42,10 @@
     "In-house calibration"
   ],
   "timelineLine": "Founded in 2006, with decades of flow measurement manufacturing experience.",
+  "aboutNavigation": [
+    { "label": "About Velomac", "href": "/about" },
+    { "label": "Quality & Innovation", "href": "/quality-innovation" }
+  ],
   "navItems": [
     {
       "label": "Products",

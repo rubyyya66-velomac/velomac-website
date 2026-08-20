@@ -5,75 +5,24 @@ import { CTASection } from "@/components/CTASection";
 import { Container, Section } from "@/components/Layout";
 import { TechnologyCard } from "@/components/TechnologyCard";
 import { TechnologySubnav } from "@/components/TechnologySubnav";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   technologyContent,
   getTechnologyArticle,
   getTechnologyArticlesByCategory
 } from "@/content/technology";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: technologyContent.metadata.title,
   description: technologyContent.metadata.description,
-  alternates: {
-    canonical: "/technology"
-  },
-  openGraph: {
-    title: technologyContent.metadata.title,
-    description: technologyContent.metadata.description,
-    url: "/technology",
-    images: [
-      {
-        url: technologyContent.hero.image.src,
-        alt: technologyContent.hero.image.alt
-      }
-    ]
-  }
-};
-
-const calibrationMethods = [
-  {
-    code: "01",
-    title: "Gas Flow Calibration",
-    image: "/images/technology/calibration/gas-flow-calibration.jpg",
-    imageAlt: "Gas flow calibration system with controlled comparison lines",
-    medium: "Gas",
-    meterClass: "1.0",
-    description: "Controlled gas-flow comparison across configured operating points.",
-    href: "/technology/gas-flow-calibration",
-    linkLabel: "Explore Gas Calibration"
-  },
-  {
-    code: "02",
-    title: "Master-Meter Liquid Calibration",
-    image: "/images/technology/calibration/master-meter-liquid-calibration.jpg",
-    imageAlt: "Master-meter liquid calibration lines in the Velomac workshop",
-    medium: "Liquid",
-    meterClass: "0.5",
-    description: "Liquid circulation and comparison with reference flow meters.",
-    href: "/technology/master-meter-liquid-calibration",
-    linkLabel: "Explore Master-Meter Calibration"
-  },
-  {
-    code: "03",
-    title: "Gravimetric Liquid Calibration",
-    image: "/images/technology/calibration/gravimetric-liquid-calibration.jpg",
-    imageAlt: "Gravimetric liquid calibration equipment using METTLER TOLEDO weighing equipment",
-    medium: "Liquid",
-    meterClass: "0.3",
-    description: "Mass-based liquid calibration using METTLER TOLEDO weighing equipment.",
-    href: "/technology/gravimetric-liquid-calibration",
-    linkLabel: "Explore Gravimetric Calibration"
-  }
-] as const;
-
-const testingCapabilities = [
-  "Vibration measurement test system",
-  "Wide-range vibration testing",
-  "Sensor and signal validation"
-];
+  path: "/technology",
+  image: technologyContent.hero.image.src,
+  imageAlt: technologyContent.hero.image.alt
+});
 
 export default function TechnologyPage() {
   const { hero } = technologyContent;
+  const overview = technologyContent.overviewSections;
   const sensorArticles = getTechnologyArticlesByCategory("product-sensor-innovation");
   const vibrationArticle = getTechnologyArticle("vibration-measurement-test-system")!;
   const upgradeArticle = getTechnologyArticle("smart-vortex-upgrade-chemical-pharmaceutical")!;
@@ -117,10 +66,10 @@ export default function TechnologyPage() {
       >
         <Container>
           <TechnologySectionHeading
-            number="01"
-            eyebrow="Sensing and Product Design"
-            title="Sensor & Product Development"
-            description="Product and sensing developments created for demanding flow measurement conditions."
+            number={overview.sensor.number}
+            eyebrow={overview.sensor.eyebrow}
+            title={overview.sensor.title}
+            description={overview.sensor.description}
           />
           <div className="mt-11 grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
             {sensorArticles.map((article) => (
@@ -136,14 +85,14 @@ export default function TechnologyPage() {
       >
         <Container>
           <TechnologySectionHeading
-            number="02"
-            eyebrow="Reference Comparison"
-            title="Flow Calibration Systems"
-            description="Gas and liquid calibration matched to the medium and required accuracy class."
+            number={overview.calibration.number}
+            eyebrow={overview.calibration.eyebrow}
+            title={overview.calibration.title}
+            description={overview.calibration.description}
           />
 
           <div className="mt-11 border-y border-blue-200 bg-white lg:grid lg:grid-cols-3">
-            {calibrationMethods.map((calibration, index) => (
+            {overview.calibration.methods.map((calibration, index) => (
               <article
                 key={calibration.code}
                 className={`flex min-w-0 flex-col py-7 sm:py-8 lg:px-7 ${
@@ -154,8 +103,8 @@ export default function TechnologyPage() {
               >
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-metal-100">
                   <Image
-                    src={calibration.image}
-                    alt={calibration.imageAlt}
+                    src={calibration.image.src}
+                    alt={calibration.image.alt}
                     fill
                     priority={calibration.code === "02"}
                     sizes="(min-width: 1024px) 370px, 100vw"
@@ -207,10 +156,10 @@ export default function TechnologyPage() {
       >
         <Container>
           <TechnologySectionHeading
-            number="03"
-            eyebrow="Controlled Observation"
-            title="Testing & Verification Systems"
-            description="Controlled testing of meter, sensor and signal behavior under defined conditions."
+            number={overview.testing.number}
+            eyebrow={overview.testing.eyebrow}
+            title={overview.testing.title}
+            description={overview.testing.description}
             dark
           />
 
@@ -218,8 +167,8 @@ export default function TechnologyPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="relative aspect-[16/10] min-w-0 overflow-hidden bg-white/5">
                 <Image
-                  src="/images/technology/vibration-measurement-test-system.jpg"
-                  alt="Velomac vibration measurement test system"
+                  src={overview.testing.images[0].src}
+                  alt={overview.testing.images[0].alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 34vw, 360px"
                   className="object-cover"
@@ -227,8 +176,8 @@ export default function TechnologyPage() {
               </div>
               <div className="relative aspect-[16/10] min-w-0 overflow-hidden border border-white/15 bg-white">
                 <Image
-                  src="/images/technology/anti-vibration-dynamic-enabled.jpg"
-                  alt="Flow signal waveform observed during controlled vibration testing"
+                  src={overview.testing.images[1].src}
+                  alt={overview.testing.images[1].alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 34vw, 360px"
                   className="object-cover"
@@ -238,13 +187,13 @@ export default function TechnologyPage() {
 
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-200">
-                Current capability
+                {overview.testing.capabilityEyebrow}
               </p>
               <h3 className="mt-3 text-2xl font-semibold leading-8 text-white sm:text-3xl">
-                Observe behavior under controlled conditions
+                {overview.testing.capabilityTitle}
               </h3>
               <ul className="mt-7 grid gap-3">
-                {testingCapabilities.map((item) => (
+                {overview.testing.capabilities.map((item) => (
                   <li
                     key={item}
                     className="border-l-2 border-blue-400 pl-4 text-sm font-semibold leading-6 text-blue-50"
@@ -257,7 +206,7 @@ export default function TechnologyPage() {
                 href={`/technology/${vibrationArticle.slug}`}
                 className="focus-ring mt-7 inline-flex w-fit items-center gap-2 text-sm font-semibold text-blue-200 transition hover:text-white"
               >
-                View Vibration Test System
+                {overview.testing.linkLabel}
                 <span aria-hidden="true">{">"}</span>
               </Link>
             </div>
@@ -271,10 +220,10 @@ export default function TechnologyPage() {
       >
         <Container>
           <TechnologySectionHeading
-            number="04"
-            eyebrow="Process-Based Engineering"
-            title="Application Upgrade Projects"
-            description="Measurement upgrade reviews developed around actual process, installation and operating conditions."
+            number={overview.upgrade.number}
+            eyebrow={overview.upgrade.eyebrow}
+            title={overview.upgrade.title}
+            description={overview.upgrade.description}
           />
 
           <article className="mt-11 grid overflow-hidden border-y border-metal-200 bg-white lg:grid-cols-[1.08fr_0.92fr]">
@@ -290,27 +239,21 @@ export default function TechnologyPage() {
             </div>
             <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">
-                Featured Upgrade Project
+                {overview.upgrade.featureEyebrow}
               </p>
               <h3 className="mt-3 text-2xl font-semibold leading-8 text-navy-950 sm:text-3xl">
                 {upgradeArticle.title}
               </h3>
               <ul className="mt-7 grid gap-4 text-sm font-semibold leading-6 text-navy-950">
-                <li className="border-l-2 border-industrial-600 pl-4">
-                  Review the existing method and pressure loss.
-                </li>
-                <li className="border-l-2 border-industrial-600 pl-4">
-                  Check minimum, normal and maximum flow.
-                </li>
-                <li className="border-l-2 border-industrial-600 pl-4">
-                  Confirm straight pipe and installation space.
-                </li>
+                {overview.upgrade.points.map((point) => (
+                  <li key={point} className="border-l-2 border-industrial-600 pl-4">{point}</li>
+                ))}
               </ul>
               <Link
                 href={`/technology/${upgradeArticle.slug}`}
                 className="focus-ring mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
               >
-                View Project
+                {overview.upgrade.linkLabel}
                 <span aria-hidden="true">{">"}</span>
               </Link>
             </div>
@@ -319,9 +262,9 @@ export default function TechnologyPage() {
       </Section>
 
       <CTASection
-        title="Discuss the process condition behind the measurement."
-        text="Share the medium, flow range, pressure, temperature, pipe size, vibration and installation details for a technical review."
-        detailChips={["Medium", "Flow range", "Pressure and temperature", "Installation details"]}
+        title={overview.cta.title}
+        text={overview.cta.text}
+        detailChips={overview.cta.detailChips}
         surfaceClassName="bg-industrial-700"
       />
     </>

@@ -28,42 +28,44 @@ export function Footer() {
           </p>
           <p className="mt-4 text-[15px] leading-6 text-slate-500">Copyright © {new Date().getFullYear()} {site.footer.copyrightName}.</p>
         </div>
-        <FooterColumn title={site.footer.columns.products}>
-          {flowProducts.map((product) => (
-            <FooterLink key={product.slug} href={`/products/${product.slug}`}>
-              {product.name}
-            </FooterLink>
-          ))}
-        </FooterColumn>
-        <FooterColumn title={site.footer.columns.applications}>
-          {applicationLinks.map((application) => (
-            <FooterLink key={application.slug} href={`/applications#${application.slug}`}>
-              {application.title}
-            </FooterLink>
-          ))}
-        </FooterColumn>
-        <FooterColumn title={site.footer.columns.resources}>
-          {resourceCategories.slice(0, 4).map((category) => (
-            <FooterLink key={category} href="/resources">
-              {category}
-            </FooterLink>
-          ))}
-        </FooterColumn>
-        <FooterColumn title={site.footer.columns.contact}>
-          <p className="text-[15px] leading-7 text-slate-600">Location: {site.location}</p>
-          <FooterLink href="/contact">{site.buttons.requestQuote}</FooterLink>
-          <div className="flex items-center gap-4 pt-1">
-            <SocialLink href="https://www.linkedin.com/company/velomac-flowmeter/" label="Velomac on LinkedIn">
-              <Linkedin aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
-            </SocialLink>
-            <SocialLink href="https://www.facebook.com/VelomacFlowmeter" label="Velomac on Facebook">
-              <Facebook aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
-            </SocialLink>
-            <SocialLink href="https://www.tiktok.com/@velomac_flowmeter" label="Velomac on TikTok">
-              <Music2 aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
-            </SocialLink>
-          </div>
-        </FooterColumn>
+        <nav aria-label="Footer navigation" className="contents">
+          <FooterColumn title={site.footer.columns.products}>
+            {flowProducts.map((product) => (
+              <FooterLink key={product.slug} href={`/products/${product.slug}`}>
+                {product.name}
+              </FooterLink>
+            ))}
+          </FooterColumn>
+          <FooterColumn title={site.footer.columns.applications}>
+            {applicationLinks.map((application) => (
+              <FooterLink key={application.slug} href={`/applications/${application.slug}`}>
+                {application.title}
+              </FooterLink>
+            ))}
+          </FooterColumn>
+          <FooterColumn title={site.footer.columns.resources}>
+            {resourceCategories.slice(0, 4).map((category) => (
+              <FooterLink key={category} href="/resources">
+                {category}
+              </FooterLink>
+            ))}
+          </FooterColumn>
+          <FooterColumn title={site.footer.columns.contact}>
+            <p className="text-[15px] leading-7 text-slate-600">Location: {site.location}</p>
+            <FooterLink href="/contact">{site.buttons.requestQuote}</FooterLink>
+            <div className="flex items-center gap-4 pt-1">
+              <SocialLink href={site.footer.social.linkedin} label="Velomac on LinkedIn">
+                <Linkedin aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
+              </SocialLink>
+              <SocialLink href={site.footer.social.facebook} label="Velomac on Facebook">
+                <Facebook aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
+              </SocialLink>
+              <SocialLink href={site.footer.social.tiktok} label="Velomac on TikTok">
+                <Music2 aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />
+              </SocialLink>
+            </div>
+          </FooterColumn>
+        </nav>
       </div>
     </footer>
   );
@@ -72,7 +74,7 @@ export function Footer() {
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">{title}</h2>
+      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">{title}</p>
       <div className="mt-5 flex flex-col gap-3.5">{children}</div>
     </div>
   );

@@ -3,12 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
+import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
-import { applications } from "@/content/applications";
+import { getApplicationsByRelatedSlugs } from "@/content/applications";
 import { getArticleBySlug, resources } from "@/content/resources";
 import { products } from "@/content/products";
 import { legacySectionsToHtml } from "@/lib/articleBody";
 import { sanitizeArticleBodyHtml } from "@/lib/richTextSanitizer";
+import { buildPageMetadata } from "@/lib/seo";
+import { articleStructuredData, breadcrumbStructuredData } from "@/lib/structuredData";
 
 export function generateStaticParams() {
   return resources.map((resource) => ({ slug: resource.slug }));
@@ -21,15 +24,21 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     return {};
   }
 
-  return {
+  const metadata = buildPageMetadata({
     title: `${article.title} | Velomac Flow Meter`,
     description: article.description,
+    path: `/resources/${article.slug}`,
+    image: article.coverImage,
+    imageAlt: article.coverAlt,
+    type: "article"
+  });
+
+  return {
+    ...metadata,
     openGraph: {
-      title: article.title,
-      description: article.description,
+      ...metadata.openGraph,
       type: "article",
-      publishedTime: article.publishedDate,
-      images: [article.coverImage]
+      publishedTime: article.publishedDate
     }
   };
 }
@@ -42,34 +51,30 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
   }
 
   const relatedProducts = products.filter((product) => article.relatedProductSlugs.includes(product.slug));
-  const relatedApplications = applications.filter((application) =>
-    article.relatedApplicationSlugs.includes(application.slug)
-  );
+  const relatedApplications = getApplicationsByRelatedSlugs(article.relatedApplicationSlugs);
   const articleBodyHtml = sanitizeArticleBodyHtml(
     article.bodyHtml || legacySectionsToHtml(article.sections)
   );
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.description,
-    datePublished: article.publishedDate,
-    image: article.coverImage,
-    publisher: {
-      "@type": "Organization",
-      name: "Velomac Flow Meter"
-    }
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      <JsonLd data={articleStructuredData(article)} />
+      <JsonLd
+        data={breadcrumbStructuredData([
+          { name: "Home", path: "/" },
+          { name: "Resources", path: "/resources" },
+          { name: article.title, path: `/resources/${article.slug}` }
+        ])}
       />
       <section className="velomac-blue-surface text-white">
         <Container className="py-14 sm:py-16 lg:py-20">
+          <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-2 text-sm text-blue-100">
+            <Link href="/" className="focus-ring transition hover:text-white">Home</Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/resources" className="focus-ring transition hover:text-white">Resources</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-white">{article.title}</span>
+          </nav>
           <div className="grid gap-9 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">{article.category}</p>
@@ -144,7 +149,7 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
                     {relatedApplications.map((application) => (
                       <Link
                         key={application.slug}
-                        href={`/applications#${application.slug}`}
+                        href={`/applications/${application.slug}`}
                         className="focus-ring rounded-full border border-metal-200 bg-metal-50 px-3 py-2 text-sm font-semibold leading-5 text-slate-700 transition hover:border-industrial-500 hover:text-industrial-700"
                       >
                         {application.title}

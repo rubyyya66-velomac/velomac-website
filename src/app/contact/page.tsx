@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { Container, PageIntro, Section } from "@/components/Layout";
 import { QuoteForm } from "@/components/QuoteForm";
 import { contactContent } from "@/content/contact";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: contactContent.metadata.title,
-  description: contactContent.metadata.description
-};
+  description: contactContent.metadata.description,
+  path: "/contact"
+});
 
 export default function ContactPage() {
   const { intro, sidebar, contactInfo } = contactContent;

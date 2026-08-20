@@ -4,13 +4,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { CTASection } from "@/components/CTASection";
+import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
 import { SpecTable } from "@/components/SpecTable";
 import { applications } from "@/content/applications";
 import { articles } from "@/content/resources";
 import { getProductBySlug, products } from "@/content/products";
+import { productCatalog } from "@/content/productCatalog";
 import { getProductApplicationImage } from "@/data/productApplicationImages";
 import type { Product } from "@/types/content";
+import { buildPageMetadata } from "@/lib/seo";
+import { breadcrumbStructuredData, productStructuredData } from "@/lib/structuredData";
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -23,10 +27,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     return {};
   }
 
-  return {
+  return buildPageMetadata({
     title: product.seo.title,
-    description: product.seo.description
-  };
+    description: product.seo.description,
+    path: `/products/${product.slug}`,
+    image: product.image,
+    imageAlt: product.imageAlt
+  });
 }
 
 export default function ProductDetailPage({ params }: { params: { slug: string } }) {
@@ -46,8 +53,23 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
 
   return (
     <>
+      <JsonLd data={productStructuredData(product)} />
+      <JsonLd
+        data={breadcrumbStructuredData([
+          { name: "Home", path: "/" },
+          { name: "Products", path: "/products" },
+          { name: product.name, path: `/products/${product.slug}` }
+        ])}
+      />
       <section className="border-b border-metal-200 bg-gradient-to-br from-white via-white to-blue-50/70">
         <Container className="grid gap-10 py-14 sm:py-16 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-20">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-slate-500 lg:col-span-2">
+            <Link href="/" className="focus-ring transition hover:text-industrial-700">Home</Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/products" className="focus-ring transition hover:text-industrial-700">Products</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-slate-700">{product.name}</span>
+          </nav>
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {product.category}
@@ -62,14 +84,14 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 href="/contact"
                 className="focus-ring inline-flex items-center justify-center gap-2 bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700"
               >
-                Request a Quote
+                {productCatalog.detailPage.requestQuoteLabel}
                 <span aria-hidden="true">{">"}</span>
               </Link>
               <Link
                 href="/applications"
                 className="focus-ring inline-flex items-center justify-center border border-metal-200 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:border-industrial-600 hover:text-industrial-700"
               >
-                View Applications
+                {productCatalog.detailPage.viewApplicationsLabel}
               </Link>
             </div>
           </div>
@@ -99,10 +121,10 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              Where It Is Used
+              {productCatalog.detailPage.applicationEyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              Application Context
+              {productCatalog.detailPage.applicationTitle}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">{applicationImage.summary}</p>
             <div className="mt-7 divide-y divide-metal-200 border-y border-metal-200">
@@ -120,13 +142,13 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              Selection Notes
+              {productCatalog.detailPage.selectionEyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              Conditions to Confirm
+              {productCatalog.detailPage.selectionTitle}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">
-              A useful quotation starts with the real operating condition, not only the model name.
+              {productCatalog.detailPage.selectionText}
             </p>
           </div>
           <RowList items={selectionNotes} />
@@ -137,24 +159,24 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         <Container className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              Typical Applications
+              {productCatalog.detailPage.relatedApplicationsEyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              Related Site Conditions
+              {productCatalog.detailPage.relatedApplicationsTitle}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">
-              Compare the product with nearby application scenarios before sending site details.
+              {productCatalog.detailPage.relatedApplicationsText}
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {relatedApplications.map((application) => (
-                <ChipLink key={application.slug} href={`/applications#${application.slug}`}>
+                <ChipLink key={application.slug} href={`/applications/${application.slug}`}>
                   {application.title}
                 </ChipLink>
               ))}
             </div>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-navy-950">Available configurations</h3>
+            <h3 className="text-xl font-semibold text-navy-950">{productCatalog.detailPage.configurationTitle}</h3>
             <div className="mt-5 flex flex-wrap gap-2">
               {product.availableTypes.map((type) => (
                 <span key={type} className="border border-metal-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700">
@@ -178,13 +200,13 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              Before Quotation
+              {productCatalog.detailPage.quotationEyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              What to Send
+              {productCatalog.detailPage.quotationTitle}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">
-              These details help Velomac recommend a suitable meter configuration and avoid a model-only quotation.
+              {productCatalog.detailPage.quotationText}
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -202,10 +224,10 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           <Container>
             <div className="max-w-3xl">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-                Related Resources
+                {productCatalog.detailPage.resourcesEyebrow}
               </p>
               <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-                Selection Notes to Review
+                {productCatalog.detailPage.resourcesTitle}
               </h2>
             </div>
             <div className="mt-8 divide-y divide-metal-200 border-y border-metal-200">
@@ -231,10 +253,10 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         <Container className="grid gap-8">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              Technical Data
+              {productCatalog.detailPage.technicalEyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              Data for Configuration Review
+              {productCatalog.detailPage.technicalTitle}
             </h2>
           </div>
           <div className="grid gap-10">
@@ -245,8 +267,8 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
       </Section>
 
       <CTASection
-        title="Send site details for a better recommendation."
-        text="Share the fluid, pipe size, flow range, pressure, temperature, quantity, installation details and signal output needs."
+        title={productCatalog.detailPage.ctaTitle}
+        text={productCatalog.detailPage.ctaText}
         imageSrc={applicationImage.src}
         imageAlt={applicationImage.alt}
         surfaceClassName="bg-industrial-700"

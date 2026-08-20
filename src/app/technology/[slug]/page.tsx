@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FlowCalibrationCategoryPage } from "@/components/FlowCalibrationCategoryPage";
 import { FlowCalibrationDetailPage } from "@/components/FlowCalibrationDetailPage";
+import { JsonLd } from "@/components/JsonLd";
 import { TechnologyCategoryPage } from "@/components/TechnologyCategoryPage";
 import { TechnologyDetailExperience } from "@/components/TechnologyDetailExperience";
 import { TechnologySubnav } from "@/components/TechnologySubnav";
@@ -12,6 +13,8 @@ import {
   technologyCategories
 } from "@/content/technology";
 import { getTechnologyDetailPage } from "@/content/technologyDetailPages";
+import { buildPageMetadata } from "@/lib/seo";
+import { breadcrumbStructuredData } from "@/lib/structuredData";
 
 export function generateStaticParams() {
   return [
@@ -24,24 +27,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const category = getTechnologyCategoryBySlug(params.slug);
 
   if (category) {
-    return {
+    return buildPageMetadata({
       title: category.seo.title,
       description: category.seo.description,
-      alternates: {
-        canonical: `/technology/${category.slug}`
-      },
-      openGraph: {
-        title: category.seo.title,
-        description: category.seo.description,
-        url: `/technology/${category.slug}`,
-        images: [
-          {
-            url: category.image.src,
-            alt: category.image.alt
-          }
-        ]
-      }
-    };
+      path: `/technology/${category.slug}`,
+      image: category.image.src,
+      imageAlt: category.image.alt
+    });
   }
 
   const article = getTechnologyArticle(params.slug);
@@ -51,32 +43,29 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     return {};
   }
 
-  return {
+  return buildPageMetadata({
     title: article.seo.title,
     description: article.seo.description,
-    alternates: {
-      canonical: `/technology/${article.slug}`
-    },
-    openGraph: {
-      title: article.seo.title,
-      description: article.seo.description,
-      url: `/technology/${article.slug}`,
-      images: [
-        {
-          url: detailPage.heroImage.src,
-          alt: detailPage.heroImage.alt
-        }
-      ]
-    }
-  };
+    path: `/technology/${article.slug}`,
+    image: detailPage.heroImage.src,
+    imageAlt: detailPage.heroImage.alt
+  });
 }
 
 export default function TechnologyPageBySlug({ params }: { params: { slug: string } }) {
   const category = getTechnologyCategoryBySlug(params.slug);
 
   if (category) {
+    const path = `/technology/${category.slug}`;
     return (
       <>
+        <JsonLd
+          data={breadcrumbStructuredData([
+            { name: "Home", path: "/" },
+            { name: "Technology", path: "/technology" },
+            { name: category.title, path }
+          ])}
+        />
         <TechnologySubnav />
         {category.id === "flow-calibration-systems" ? (
           <FlowCalibrationCategoryPage />
@@ -96,6 +85,13 @@ export default function TechnologyPageBySlug({ params }: { params: { slug: strin
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbStructuredData([
+          { name: "Home", path: "/" },
+          { name: "Technology", path: "/technology" },
+          { name: article.title, path: `/technology/${article.slug}` }
+        ])}
+      />
       <TechnologySubnav />
       {article.categoryId === "flow-calibration-systems" ? (
         <FlowCalibrationDetailPage article={article} page={detailPage} />

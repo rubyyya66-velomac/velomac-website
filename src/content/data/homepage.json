@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Velomac Flowmeter | Industrial Flow Measurement for Steam, Gas and Liquids",
-    "description": "Velomac Flowmeter provides industrial flow measurement for steam, gas, liquid, chemical and water applications with manufacturer-direct support."
+    "title": "Industrial Flow Meter Manufacturer | Velomac",
+    "description": "Manufacturer-direct industrial flow meters for steam, gas, liquid, water and chemical applications, with in-house calibration and site-condition-based selection support."
   },
   "hero": {
     "label": "Industrial Flow Measurement",
@@ -18,7 +18,13 @@
     "secondaryCta": {
       "label": "Explore Products",
       "href": "/products"
-    }
+    },
+    "applicationChips": [
+      { "label": "Steam", "href": "/applications/steam-measurement" },
+      { "label": "Gas", "href": "/applications/gas-flow-measurement" },
+      { "label": "Liquid", "href": "/applications/conductive-liquid-measurement" },
+      { "label": "Chemical", "href": "/applications/chemical-process-lines" }
+    ]
   },
   "trustPoints": [
     {
@@ -34,9 +40,27 @@
       "text": "Model selection starts with media, flow range and process conditions."
     }
   ],
+  "featuredVortex": {
+    "eyebrow": "Featured Vortex Solution",
+    "title": "Wide-Turndown Anti-Vibration Vortex Flowmeter",
+    "facts": [
+      { "value": "1:70", "label": "Turndown" },
+      { "value": "±0.5%", "label": "Accuracy" },
+      { "value": "4-Level", "label": "Anti-Vibration Mode" }
+    ],
+    "description": "Built for variable-flow applications where mechanical vibration can interfere with vortex signal detection.",
+    "image": {
+      "src": "/images/products/wide-turndown-anti-vibration-vortex-flowmeter.png",
+      "alt": "Velomac wide-turndown anti-vibration vortex flowmeter with complete transmitter, meter body and flanges"
+    },
+    "ctaLabel": "Explore the Solution",
+    "ctaHref": "/products/vortex-flowmeter/wide-turndown-anti-vibration"
+  },
   "siteConditions": {
     "title": "Built Around Real Site Conditions",
     "description": "Flowmeter selection starts with the process. Media, flow range, pressure, temperature, pipe size and installation details shape the meter configuration.",
+    "detailLabel": "Site details that shape meter selection",
+    "detailHref": "/contact",
     "image": {
       "src": "/images/applications/high-vibration-pipelines.png",
       "alt": "Industrial pipeline condition used for flowmeter selection"
@@ -55,6 +79,7 @@
     "title": "Flowmeters and Level Instruments",
     "description": "Core product families for steam, gas, liquid, chemical and water applications.",
     "buttonLabel": "View all products",
+    "buttonHref": "/products",
     "featuredProductSlugs": [
       "vortex-flowmeter",
       "electromagnetic-flowmeter",
@@ -78,7 +103,25 @@
   "applicationsPreview": {
     "eyebrow": "Applications",
     "title": "Application-Based Selection",
-    "description": "Start with the process condition, then match the meter type, materials and installation configuration."
+    "description": "Start with the process condition, then match the meter type, materials and installation configuration.",
+    "cardCtaLabel": "Application notes"
+  },
+  "technology": {
+    "eyebrow": "Engineering & Validation",
+    "title": "Technology Behind the Measurement",
+    "description": "Development, calibration and controlled testing for real operating conditions.",
+    "image": {
+      "src": "/images/technology/homepage-technology-calibration-capabilities.jpg",
+      "alt": "Velomac gas and liquid flow calibration systems in two facility views"
+    },
+    "capabilities": [
+      { "number": "01", "title": "Sensor & Product Development", "description": "Sensing for demanding conditions." },
+      { "number": "02", "title": "Flow Calibration Systems", "description": "Gas and liquid calibration capability." },
+      { "number": "03", "title": "Testing & Verification", "description": "Controlled meter and signal testing." },
+      { "number": "04", "title": "Application Upgrade Projects", "description": "Engineering for real process conditions." }
+    ],
+    "ctaLabel": "Explore Technology",
+    "ctaHref": "/technology"
   },
   "whyVelomac": {
     "eyebrow": "Why Velomac",
@@ -100,17 +143,35 @@
         "value": "50+",
         "label": "Industry specialists"
       }
+    ],
+    "notes": [
+      {
+        "title": "In-House Calibration",
+        "text": "Meters are checked before shipment to support stable field measurement."
+      },
+      {
+        "title": "Factory-Close Configuration",
+        "text": "Product configuration stays close to production and technical support."
+      },
+      {
+        "title": "Application-Based Model Selection",
+        "text": "Selection starts with media, flow range, pressure, temperature and installation details."
+      }
     ]
   },
   "resourcesPreview": {
     "eyebrow": "Resources",
     "title": "Selection Notes for Industrial Buyers",
     "description": "Article topics for selection and quotation work.",
-    "buttonLabel": "View resources"
+    "buttonLabel": "View resources",
+    "buttonHref": "/resources"
   },
   "bottomCta": {
     "title": "Send Site Details. Get a Better Recommendation.",
     "text": "Share the fluid, pipe size, flow range, pressure, temperature and application background. Velomac will review the conditions and suggest the next step.",
+    "buttonLabel": "Request a Quote",
+    "buttonHref": "/contact",
+    "detailChips": ["Media", "Pipe size", "Flow range", "Pressure / temperature", "Installation photo", "Process vibration"],
     "image": {
       "src": "/images/applications/quote-support.png",
       "alt": "Industrial process line used as quotation support context"

@@ -1,17 +1,233 @@
 {
   "metadata": {
-    "title": "Flow Measurement Technology & Testing | Velomac",
-    "description": "Velomac sensing development, in-house testing and application-focused flow measurement engineering for demanding industrial conditions."
+    "title": "Flowmeter Technology, Calibration & Testing | Velomac",
+    "description": "Explore Velomac sensing development, flow calibration systems, vibration testing and application engineering for industrial flow measurement."
   },
   "hero": {
     "eyebrow": "ENGINEERING CAPABILITY",
-    "title": "Technology",
+    "title": "Flow Measurement Technology & Testing",
     "description": "From sensing development to calibration, controlled testing and process upgrades.",
     "supportingText": "Engineering capabilities developed around real operating conditions.",
     "image": {
       "src": "/images/technology/vibration-test-system-main.png",
       "alt": "Velomac flow measurement test system and instrument",
       "fit": "cover"
+    }
+  },
+  "navigation": [
+    {
+      "label": "Sensor & Product Development",
+      "href": "/technology#sensor-product-development",
+      "matchPaths": [
+        "/technology/sensor-product-development",
+        "/technology/non-wetted-piezoelectric-vortex-sensor",
+        "/technology/wide-turndown-anti-vibration-vortex-flowmeter",
+        "/technology/electromagnetic-flowmeter-remote-pressure-monitoring"
+      ]
+    },
+    {
+      "label": "Flow Calibration Systems",
+      "href": "/technology/flow-calibration-systems",
+      "matchPaths": [
+        "/technology/flow-calibration-systems",
+        "/technology/gas-flow-calibration",
+        "/technology/master-meter-liquid-calibration",
+        "/technology/liquid-flow-calibration-bench",
+        "/technology/gravimetric-liquid-calibration"
+      ]
+    },
+    {
+      "label": "Testing & Verification Systems",
+      "href": "/technology#testing-verification-systems",
+      "matchPaths": [
+        "/technology/testing-calibration-systems",
+        "/technology/vibration-measurement-test-system"
+      ]
+    },
+    {
+      "label": "Application Upgrade Projects",
+      "href": "/technology#application-upgrade-projects",
+      "matchPaths": [
+        "/technology/application-upgrade-projects",
+        "/technology/smart-vortex-upgrade-chemical-pharmaceutical"
+      ]
+    }
+  ],
+  "overviewSections": {
+    "sensor": {
+      "number": "01",
+      "eyebrow": "Sensing and Product Design",
+      "title": "Sensor & Product Development",
+      "description": "Product and sensing developments created for demanding flow measurement conditions."
+    },
+    "calibration": {
+      "number": "02",
+      "eyebrow": "Reference Comparison",
+      "title": "Flow Calibration Systems",
+      "description": "Gas and liquid calibration matched to the medium and required accuracy class.",
+      "methods": [
+        {
+          "code": "01",
+          "title": "Gas Flow Calibration",
+          "image": { "src": "/images/technology/calibration/gas-flow-calibration.jpg", "alt": "Gas flow calibration system with controlled comparison lines" },
+          "medium": "Gas",
+          "meterClass": "1.0",
+          "description": "Controlled gas-flow comparison across configured operating points.",
+          "href": "/technology/gas-flow-calibration",
+          "linkLabel": "Explore Gas Calibration"
+        },
+        {
+          "code": "02",
+          "title": "Master-Meter Liquid Calibration",
+          "image": { "src": "/images/technology/calibration/master-meter-liquid-calibration.jpg", "alt": "Master-meter liquid calibration lines in the Velomac workshop" },
+          "medium": "Liquid",
+          "meterClass": "0.5",
+          "description": "Liquid circulation and comparison with reference flow meters.",
+          "href": "/technology/master-meter-liquid-calibration",
+          "linkLabel": "Explore Master-Meter Calibration"
+        },
+        {
+          "code": "03",
+          "title": "Gravimetric Liquid Calibration",
+          "image": { "src": "/images/technology/calibration/gravimetric-liquid-calibration.jpg", "alt": "Gravimetric liquid calibration equipment using METTLER TOLEDO weighing equipment" },
+          "medium": "Liquid",
+          "meterClass": "0.3",
+          "description": "Mass-based liquid calibration using METTLER TOLEDO weighing equipment.",
+          "href": "/technology/gravimetric-liquid-calibration",
+          "linkLabel": "Explore Gravimetric Calibration"
+        }
+      ]
+    },
+    "testing": {
+      "number": "03",
+      "eyebrow": "Controlled Observation",
+      "title": "Testing & Verification Systems",
+      "description": "Controlled testing of meter, sensor and signal behavior under defined conditions.",
+      "images": [
+        { "src": "/images/technology/vibration-measurement-test-system.jpg", "alt": "Velomac vibration measurement test system" },
+        { "src": "/images/technology/anti-vibration-dynamic-enabled.jpg", "alt": "Flow signal waveform observed during controlled vibration testing" }
+      ],
+      "capabilityEyebrow": "Current capability",
+      "capabilityTitle": "Observe behavior under controlled conditions",
+      "capabilities": [
+        "Vibration measurement test system",
+        "Wide-range vibration testing",
+        "Sensor and signal validation"
+      ],
+      "linkLabel": "View Vibration Test System"
+    },
+    "upgrade": {
+      "number": "04",
+      "eyebrow": "Process-Based Engineering",
+      "title": "Application Upgrade Projects",
+      "description": "Measurement upgrade reviews developed around actual process, installation and operating conditions.",
+      "featureEyebrow": "Featured Upgrade Project",
+      "points": [
+        "Review the existing method and pressure loss.",
+        "Check minimum, normal and maximum flow.",
+        "Confirm straight pipe and installation space."
+      ],
+      "linkLabel": "View Project"
+    },
+    "cta": {
+      "title": "Discuss the process condition behind the measurement.",
+      "text": "Share the medium, flow range, pressure, temperature, pipe size, vibration and installation details for a technical review.",
+      "detailChips": ["Medium", "Flow range", "Pressure and temperature", "Installation details"]
+    }
+  },
+  "flowCalibrationOverview": {
+    "breadcrumb": {
+      "parentLabel": "Technology",
+      "parentHref": "/technology",
+      "currentLabel": "Flow Calibration Systems"
+    },
+    "hero": {
+      "eyebrow": "Flow Calibration",
+      "title": "Flow Calibration Systems",
+      "description": "Three calibration routes selected by medium and required meter class.",
+      "image": {
+        "src": "/images/technology/calibration/flow-calibration-systems-overview.jpg",
+        "alt": "Combined overview of Velomac gas, master-meter liquid and gravimetric calibration systems",
+        "caption": "Gas, master-meter liquid and gravimetric calibration systems within the facility."
+      }
+    },
+    "selection": {
+      "eyebrow": "Selection Summary",
+      "title": "Choose by Medium and Meter Class",
+      "routeLabel": "Route",
+      "methodLabel": "Method"
+    },
+    "methods": [
+      {
+        "number": "01",
+        "title": "Gas Flow Calibration",
+        "medium": "Gas",
+        "meterClass": "Accuracy Class 1.0",
+        "classLabel": "Gas · Accuracy Class 1.0",
+        "summaryMethod": "Controlled gas-flow comparison",
+        "description": "Controlled gas-flow comparison across configured operating points.",
+        "points": ["Controlled gas-flow conditions", "Configured comparison points", "Recorded calibration results"],
+        "image": {
+          "src": "/images/technology/calibration/gas-flow-calibration-system.jpg",
+          "alt": "Gas flow calibration system with configured comparison lines",
+          "caption": "Gas-flow comparison lines configured for controlled operating points."
+        },
+        "href": "/technology/gas-flow-calibration",
+        "linkLabel": "Explore Gas Calibration"
+      },
+      {
+        "number": "02",
+        "title": "Master-Meter Liquid Calibration",
+        "medium": "Liquid",
+        "meterClass": "Accuracy Class 0.5",
+        "classLabel": "Liquid · Accuracy Class 0.5",
+        "summaryMethod": "Reference-meter comparison",
+        "description": "Liquid circulation and comparison with calibrated electromagnetic reference meters.",
+        "points": ["Liquid circulation system", "Reference-meter comparison", "Configured flow-point verification"],
+        "image": {
+          "src": "/images/technology/calibration/liquid-calibration-pipeline-array.jpg",
+          "alt": "Master-meter liquid calibration reference lines and circulation pipelines",
+          "caption": "Liquid circulation lines used for reference-meter comparison."
+        },
+        "href": "/technology/master-meter-liquid-calibration",
+        "linkLabel": "Explore Master-Meter Calibration"
+      },
+      {
+        "number": "03",
+        "title": "Gravimetric Liquid Calibration",
+        "medium": "Liquid",
+        "meterClass": "Accuracy Class 0.3",
+        "classLabel": "Liquid · Accuracy Class 0.3",
+        "summaryMethod": "METTLER TOLEDO weighing method",
+        "description": "Mass-based liquid calibration using METTLER TOLEDO weighing equipment.",
+        "points": ["Gravimetric / weighing comparison", "METTLER TOLEDO weighing equipment", "Mass and flow result comparison"],
+        "image": {
+          "src": "/images/technology/calibration/gravimetric-system-overview.jpg",
+          "alt": "Gravimetric liquid calibration collection and weighing system",
+          "caption": "Collection and METTLER TOLEDO weighing equipment used in the gravimetric method."
+        },
+        "href": "/technology/gravimetric-liquid-calibration",
+        "linkLabel": "Explore Gravimetric Calibration"
+      }
+    ],
+    "supportingEquipment": {
+      "eyebrow": "Supporting Equipment",
+      "title": "Velomac-Developed Liquid Flow Calibration Bench",
+      "description": "An in-house developed platform for flow-point control, reference-meter integration and recorded verification.",
+      "image": {
+        "src": "/images/technology/calibration/velomac-developed-liquid-flow-calibration-bench-11.png",
+        "alt": "Velomac-developed liquid flow calibration bench with in-house circulation pipelines"
+      },
+      "href": "/technology/liquid-flow-calibration-bench",
+      "linkLabel": "View Calibration Bench"
+    },
+    "cta": {
+      "eyebrow": "Selection Support",
+      "title": "Select the calibration route by medium and required meter class.",
+      "text": "Share the medium, meter type and verification requirement for a calibration review.",
+      "buttonLabel": "Request a Quote",
+      "href": "/contact",
+      "detailChips": ["Medium", "Meter type", "Required class", "Verification method"]
     }
   },
   "categories": [

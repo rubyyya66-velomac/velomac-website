@@ -47,6 +47,16 @@ export type Application = {
   challenge: string;
   suitableMeters: string[];
   detailsToSend: string[];
+  detailPage: {
+    metadata: Seo;
+    eyebrow: string;
+    h1: string;
+    introduction: string;
+    measurementTitle: string;
+    measurementText: string;
+    relatedProductSlugs: string[];
+    ctaTitle: string;
+  };
 };
 
 export type ResourceCard = {

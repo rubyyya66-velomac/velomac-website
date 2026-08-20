@@ -183,7 +183,7 @@ a {
 
 @keyframes homepage-reveal {
   from {
-    opacity: 0.01;
+    opacity: 1;
     transform: translateY(28px);
   }
 
