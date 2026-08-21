@@ -38,7 +38,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     openGraph: {
       ...metadata.openGraph,
       type: "article",
-      publishedTime: article.publishedDate
+      publishedTime: article.publishedDate,
+      modifiedTime: article.modifiedDate
     }
   };
 }
@@ -78,21 +79,32 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
           <div className="grid gap-9 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">{article.category}</p>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-blue-100">
+                <time dateTime={article.publishedDate}>Published {formatResourceDate(article.publishedDate)}</time>
+                {article.modifiedDate && article.modifiedDate !== article.publishedDate ? (
+                  <time dateTime={article.modifiedDate}>Updated {formatResourceDate(article.modifiedDate)}</time>
+                ) : null}
+              </div>
               <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-normal text-white sm:text-5xl">
                 {article.title}
               </h1>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-50">{article.intro || article.summary}</p>
             </div>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-[6px] bg-white/10">
-              <Image
-                src={article.coverImage}
-                alt={article.coverAlt}
-                fill
-                sizes="(min-width: 1024px) 460px, 100vw"
-                className="object-cover"
-                priority
-              />
-            </div>
+            <figure>
+              <div className="relative aspect-[16/9] overflow-hidden rounded-[6px] bg-white/10">
+                <Image
+                  src={article.coverImage}
+                  alt={article.coverAlt}
+                  fill
+                  sizes="(min-width: 1024px) 460px, 100vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              {article.coverCaption ? (
+                <figcaption className="mt-3 text-sm leading-6 text-blue-100">{article.coverCaption}</figcaption>
+              ) : null}
+            </figure>
           </div>
         </Container>
       </section>
@@ -170,4 +182,13 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
       />
     </>
   );
+}
+
+function formatResourceDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC"
+  }).format(new Date(`${value}T00:00:00Z`));
 }

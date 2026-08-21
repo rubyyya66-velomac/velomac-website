@@ -48,8 +48,10 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
   const relatedArticles = articles
     .filter((article) => article.relatedProductSlugs.includes(product.slug))
     .slice(0, 3);
+  const relatedTechnology = getRelatedTechnology(product.slug);
   const selectionNotes = getSelectionNotes(product);
   const quoteDetails = getQuoteDetails(product);
+  const productArticle = getIndefiniteArticle(product.name);
 
   return (
     <>
@@ -126,7 +128,20 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {productCatalog.detailPage.applicationTitle}
             </h2>
-            <p className="mt-5 text-base leading-7 text-slate-600">{applicationImage.summary}</p>
+            <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
+              Where is {productArticle} {product.name} typically used?
+            </h3>
+            <p className="mt-3 text-base leading-7 text-slate-600">{applicationImage.summary}</p>
+            <dl className="mt-6 grid gap-4 border-l-2 border-industrial-600 pl-5 text-sm leading-6">
+              <div>
+                <dt className="font-semibold text-navy-950">Typical media</dt>
+                <dd className="mt-1 text-slate-600">{product.typicalMedia.slice(0, 4).join(", ")}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-navy-950">Selection basis</dt>
+                <dd className="mt-1 text-slate-600">{getSelectionBasis(product)}</dd>
+              </div>
+            </dl>
             <div className="mt-7 divide-y divide-metal-200 border-y border-metal-200">
               {product.typicalApplications.slice(0, 5).map((item) => (
                 <p key={item} className="py-3 text-sm font-semibold leading-6 text-navy-950">
@@ -147,7 +162,10 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {productCatalog.detailPage.selectionTitle}
             </h2>
-            <p className="mt-5 text-base leading-7 text-slate-600">
+            <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
+              What should be checked before selecting {productArticle} {product.name}?
+            </h3>
+            <p className="mt-3 text-base leading-7 text-slate-600">
               {productCatalog.detailPage.selectionText}
             </p>
           </div>
@@ -192,6 +210,18 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 </div>
               ))}
             </div>
+            {relatedTechnology.length ? (
+              <div className="mt-8 border-t border-metal-200 pt-6">
+                <h3 className="text-base font-semibold text-navy-950">Related engineering and calibration</h3>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {relatedTechnology.map((item) => (
+                    <ChipLink key={item.slug} href={`/technology/${item.slug}`}>
+                      {item.label}
+                    </ChipLink>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         </Container>
       </Section>
@@ -205,7 +235,10 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {productCatalog.detailPage.quotationTitle}
             </h2>
-            <p className="mt-5 text-base leading-7 text-slate-600">
+            <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
+              What site details should be sent for {productArticle} {product.name} review?
+            </h3>
+            <p className="mt-3 text-base leading-7 text-slate-600">
               {productCatalog.detailPage.quotationText}
             </p>
           </div>
@@ -282,6 +315,53 @@ function getRelatedApplications(slug: string) {
   return slugs
     .map((applicationSlug) => applications.find((application) => application.slug === applicationSlug))
     .filter((application): application is (typeof applications)[number] => Boolean(application));
+}
+
+function getSelectionBasis(product: Product) {
+  return product.category === "Level Instruments"
+    ? "Medium, level range, pressure, temperature, mounting position and required output."
+    : "Minimum, normal and maximum flow, pressure, temperature, pipe size and installation conditions.";
+}
+
+function getIndefiniteArticle(name: string) {
+  return /^[aeiou]/i.test(name) ? "an" : "a";
+}
+
+const relatedTechnologyByProduct: Record<string, { slug: string; label: string }[]> = {
+  "vortex-flowmeter": [
+    { slug: "wide-turndown-anti-vibration-vortex-flowmeter", label: "Wide-Turndown Anti-Vibration Vortex Flowmeter" },
+    { slug: "vibration-measurement-test-system", label: "Vibration Measurement Test System" },
+    { slug: "flow-calibration-systems", label: "Flow Calibration Systems" }
+  ],
+  "electromagnetic-flowmeter": [
+    { slug: "master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" },
+    { slug: "gravimetric-liquid-calibration", label: "Gravimetric Liquid Calibration" }
+  ],
+  "liquid-turbine-flowmeter": [
+    { slug: "master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" }
+  ],
+  "gas-turbine-flowmeter": [
+    { slug: "gas-flow-calibration", label: "Gas Flow Calibration" }
+  ],
+  "thermal-mass-flowmeter": [
+    { slug: "gas-flow-calibration", label: "Gas Flow Calibration" }
+  ],
+  "v-cone-flowmeter": [
+    { slug: "flow-calibration-systems", label: "Flow Calibration Systems" }
+  ],
+  "swirl-flowmeter": [
+    { slug: "gas-flow-calibration", label: "Gas Flow Calibration" }
+  ],
+  "balanced-differential-pressure-flowmeter": [
+    { slug: "flow-calibration-systems", label: "Flow Calibration Systems" }
+  ],
+  "ultrasonic-flowmeter": [
+    { slug: "master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" }
+  ]
+};
+
+function getRelatedTechnology(slug: string) {
+  return relatedTechnologyByProduct[slug] || [];
 }
 
 function getSelectionNotes(product: Product) {

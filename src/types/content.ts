@@ -52,6 +52,8 @@ export type Application = {
     eyebrow: string;
     h1: string;
     introduction: string;
+    question: string;
+    directAnswer: string;
     measurementTitle: string;
     measurementText: string;
     relatedProductSlugs: string[];

@@ -98,7 +98,9 @@ export default function ApplicationDetailPage({ params }: { params: { slug: stri
         <Container className="grid gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16">
           <SectionHeading eyebrow="What Needs to Be Measured" title={application.detailPage.measurementTitle} />
           <div>
-            <p className="text-lg leading-8 text-slate-600">{application.detailPage.measurementText}</p>
+            <h3 className="text-xl font-semibold leading-8 text-navy-950">{application.detailPage.question}</h3>
+            <p className="mt-3 text-lg font-medium leading-8 text-navy-950">{application.detailPage.directAnswer}</p>
+            <p className="mt-5 text-base leading-7 text-slate-600">{application.detailPage.measurementText}</p>
             <p className="mt-5 border-l-2 border-industrial-600 pl-5 text-base font-semibold leading-7 text-navy-950">
               {application.focus}
             </p>

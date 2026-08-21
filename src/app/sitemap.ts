@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const publishedResourcePages = resources.map((resource) => ({
     url: absoluteUrl(`/resources/${resource.slug}`),
-    ...(resource.publishedDate ? { lastModified: new Date(resource.publishedDate) } : {}),
+    lastModified: new Date(resource.modifiedDate || resource.publishedDate),
     changeFrequency: "monthly" as const,
     priority: 0.6
   }));

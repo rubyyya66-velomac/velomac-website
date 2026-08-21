@@ -75,7 +75,7 @@ export function articleStructuredData(article: ResourceArticle) {
     description: article.description,
     image: absoluteUrl(article.coverImage),
     datePublished: article.publishedDate,
-    dateModified: article.publishedDate,
+    dateModified: article.modifiedDate || article.publishedDate,
     author: {
       "@id": absoluteUrl("/#organization")
     },

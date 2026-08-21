@@ -17,7 +17,9 @@ export type ResourceArticle = {
   excerpt: string;
   coverImage: string;
   coverAlt: string;
-  publishedDate?: string;
+  coverCaption?: string;
+  publishedDate: string;
+  modifiedDate?: string;
   estimatedWordCount?: number;
   relatedProducts: string[];
   relatedApplications: string[];
