@@ -5,8 +5,18 @@ export const products = productsData as Product[];
 
 export const featuredProducts = products;
 
+const productSlugAliases: Record<string, string> = {
+  "balanced-dp-flowmeter": "balanced-differential-pressure-flowmeter"
+};
+
 export function getProductBySlug(slug: string) {
-  return products.find((product) => product.slug === slug);
+  const canonicalSlug = productSlugAliases[slug] || slug;
+  return products.find((product) => product.slug === canonicalSlug);
+}
+
+export function getProductsByRelatedSlugs(slugs: string[]) {
+  const canonicalSlugs = new Set(slugs.map((slug) => productSlugAliases[slug] || slug));
+  return products.filter((product) => canonicalSlugs.has(product.slug));
 }
 
 export function getProductsByCategory(category: Product["category"]) {

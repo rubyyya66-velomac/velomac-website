@@ -23,6 +23,7 @@ export default function QualityInnovationPage() {
     patentsSection,
     technicalAreas,
     patents,
+    evidenceSection,
     cta
   } = qualityInnovationContent;
 
@@ -151,6 +152,32 @@ export default function QualityInnovationPage() {
           </div>
         </Container>
       </section>
+
+      <Section className="border-b border-metal-200 bg-metal-50">
+        <Container className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:gap-16">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
+              {evidenceSection.eyebrow}
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+              {evidenceSection.headline}
+            </h2>
+            <p className="mt-5 text-base leading-7 text-slate-600">{evidenceSection.description}</p>
+          </div>
+          <div className="divide-y divide-metal-200 border-y border-metal-200">
+            {evidenceSection.links.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="focus-ring flex items-center justify-between gap-4 py-4 text-base font-semibold leading-6 text-navy-950 transition hover:text-industrial-700"
+              >
+                {item.label}
+                <span aria-hidden="true">→</span>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </Section>
 
       <section className="bg-industrial-700 py-12 text-white sm:py-14">
         <Container className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">

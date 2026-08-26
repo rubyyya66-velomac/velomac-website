@@ -14,6 +14,8 @@ export function organizationStructuredData() {
     "@type": "Organization",
     "@id": absoluteUrl("/#organization"),
     name: site.name,
+    legalName: site.legalName,
+    foundingDate: site.foundingDate,
     url: absoluteUrl("/"),
     logo: absoluteUrl(site.logos.header),
     email: site.email,
@@ -31,6 +33,20 @@ export function organizationStructuredData() {
   };
 }
 
+export function websiteStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": absoluteUrl("/#website"),
+    name: site.name,
+    url: absoluteUrl("/"),
+    publisher: {
+      "@id": absoluteUrl("/#organization")
+    },
+    inLanguage: "en"
+  };
+}
+
 export function breadcrumbStructuredData(items: BreadcrumbItem[]) {
   return {
     "@context": "https://schema.org",
@@ -45,7 +61,7 @@ export function breadcrumbStructuredData(items: BreadcrumbItem[]) {
 }
 
 export function productStructuredData(product: Product) {
-  return {
+  const data = {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": absoluteUrl(`/products/${product.slug}#product`),
@@ -60,8 +76,20 @@ export function productStructuredData(product: Product) {
     },
     manufacturer: {
       "@id": absoluteUrl("/#organization")
-    }
+    },
+    mainEntityOfPage: absoluteUrl(`/products/${product.slug}`)
   };
+
+  if (product.slug === "vortex-flowmeter") {
+    return {
+      ...data,
+      hasVariant: {
+        "@id": absoluteUrl("/products/vortex-flowmeter/wide-turndown-anti-vibration#product")
+      }
+    };
+  }
+
+  return data;
 }
 
 export function articleStructuredData(article: ResourceArticle) {

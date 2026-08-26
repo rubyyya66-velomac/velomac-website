@@ -10,6 +10,7 @@ import { SpecTable } from "@/components/SpecTable";
 import { applications } from "@/content/applications";
 import { articles } from "@/content/resources";
 import { getProductBySlug, products } from "@/content/products";
+import { featuredVortexSolution } from "@/content/featuredVortexSolution";
 import { productCatalog } from "@/content/productCatalog";
 import { getProductApplicationImage } from "@/data/productApplicationImages";
 import type { Product } from "@/types/content";
@@ -45,9 +46,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
 
   const applicationImage = getProductApplicationImage(product.slug);
   const relatedApplications = getRelatedApplications(product.slug);
-  const relatedArticles = articles
-    .filter((article) => article.relatedProductSlugs.includes(product.slug))
-    .slice(0, 3);
+  const relatedArticles = getRelatedArticles(product.slug);
   const relatedTechnology = getRelatedTechnology(product.slug);
   const selectionNotes = getSelectionNotes(product);
   const quoteDetails = getQuoteDetails(product);
@@ -109,6 +108,28 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           </div>
         </Container>
       </section>
+
+      {product.slug === featuredVortexSolution.parentProductSlug ? (
+        <section className="border-b border-metal-200 bg-navy-950 text-white" aria-labelledby="vortex-family-solution">
+          <Container className="grid gap-5 py-7 sm:grid-cols-[1fr_auto] sm:items-center sm:py-8">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-200">Featured vortex configuration</p>
+              <h2 id="vortex-family-solution" className="mt-2 text-2xl font-semibold leading-8 text-white">
+                {featuredVortexSolution.hero.title}
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-300">
+                For variable-flow applications where mechanical vibration can interfere with vortex signal detection.
+              </p>
+            </div>
+            <Link
+              href={`/products/${featuredVortexSolution.parentProductSlug}/${featuredVortexSolution.slug}`}
+              className="focus-ring inline-flex w-fit items-center gap-2 border border-blue-300 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white hover:text-navy-950"
+            >
+              Explore this configuration <span aria-hidden="true">→</span>
+            </Link>
+          </Container>
+        </section>
+      ) : null}
 
       <Section>
         <Container className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -215,7 +236,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 <h3 className="text-base font-semibold text-navy-950">Related engineering and calibration</h3>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {relatedTechnology.map((item) => (
-                    <ChipLink key={item.slug} href={`/technology/${item.slug}`}>
+                    <ChipLink key={item.href} href={item.href}>
                       {item.label}
                     </ChipLink>
                   ))}
@@ -327,38 +348,76 @@ function getIndefiniteArticle(name: string) {
   return /^[aeiou]/i.test(name) ? "an" : "a";
 }
 
-const relatedTechnologyByProduct: Record<string, { slug: string; label: string }[]> = {
+const relatedTechnologyByProduct: Record<string, { href: string; label: string }[]> = {
   "vortex-flowmeter": [
-    { slug: "wide-turndown-anti-vibration-vortex-flowmeter", label: "Wide-Turndown Anti-Vibration Vortex Flowmeter" },
-    { slug: "vibration-measurement-test-system", label: "Vibration Measurement Test System" },
-    { slug: "flow-calibration-systems", label: "Flow Calibration Systems" }
+    { href: "/technology/vibration-measurement-test-system", label: "Vibration Measurement Test System" },
+    { href: "/technology/flow-calibration-systems", label: "Flow Calibration Systems" },
+    { href: "/quality-innovation", label: "Vortex Certification & Patent Evidence" }
   ],
   "electromagnetic-flowmeter": [
-    { slug: "master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" },
-    { slug: "gravimetric-liquid-calibration", label: "Gravimetric Liquid Calibration" }
+    { href: "/technology/master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" },
+    { href: "/technology/gravimetric-liquid-calibration", label: "Gravimetric Liquid Calibration" },
+    { href: "/quality-innovation", label: "Electromagnetic Certification Evidence" }
   ],
   "liquid-turbine-flowmeter": [
-    { slug: "master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" }
+    { href: "/technology/master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" }
   ],
   "gas-turbine-flowmeter": [
-    { slug: "gas-flow-calibration", label: "Gas Flow Calibration" }
+    { href: "/technology/gas-flow-calibration", label: "Gas Flow Calibration" }
   ],
   "thermal-mass-flowmeter": [
-    { slug: "gas-flow-calibration", label: "Gas Flow Calibration" }
+    { href: "/technology/gas-flow-calibration", label: "Gas Flow Calibration" }
   ],
   "v-cone-flowmeter": [
-    { slug: "flow-calibration-systems", label: "Flow Calibration Systems" }
+    { href: "/technology/flow-calibration-systems", label: "Flow Calibration Systems" }
   ],
   "swirl-flowmeter": [
-    { slug: "gas-flow-calibration", label: "Gas Flow Calibration" }
+    { href: "/technology/gas-flow-calibration", label: "Gas Flow Calibration" }
   ],
   "balanced-differential-pressure-flowmeter": [
-    { slug: "flow-calibration-systems", label: "Flow Calibration Systems" }
+    { href: "/technology/flow-calibration-systems", label: "Flow Calibration Systems" }
   ],
   "ultrasonic-flowmeter": [
-    { slug: "master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" }
+    { href: "/technology/master-meter-liquid-calibration", label: "Master-Meter Liquid Calibration" }
   ]
 };
+
+const curatedResourceSlugsByProduct: Record<string, string[]> = {
+  "vortex-flowmeter": [
+    "vortex-flowmeter-steam-selection",
+    "pharma-utility-flow-measurement-precheck",
+    "cement-carbon-capture-utility-flow"
+  ],
+  "electromagnetic-flowmeter": [
+    "flowmeter-data-quality-measurement-point",
+    "semiconductor-water-flow-boundaries",
+    "concentrator-expansion-slurry-flow"
+  ],
+  "ultrasonic-flowmeter": [
+    "data-center-commissioning-water-flow-record",
+    "data-center-water-recovery-flow-measurement",
+    "temporary-wastewater-flow-measurement-brownfield-upgrade"
+  ],
+  "thermal-mass-flowmeter": [
+    "cement-carbon-capture-utility-flow",
+    "semiconductor-utility-flowmeter-sizing-full-utilization",
+    "blast-furnace-gas-flow-measurement"
+  ]
+};
+
+function getRelatedArticles(productSlug: string) {
+  const curatedSlugs = curatedResourceSlugsByProduct[productSlug];
+
+  if (curatedSlugs) {
+    return curatedSlugs
+      .map((slug) => articles.find((article) => article.slug === slug))
+      .filter((article): article is (typeof articles)[number] => Boolean(article));
+  }
+
+  return articles
+    .filter((article) => article.relatedProductSlugs.includes(productSlug))
+    .slice(0, 3);
+}
 
 function getRelatedTechnology(slug: string) {
   return relatedTechnologyByProduct[slug] || [];
@@ -373,6 +432,50 @@ function getSelectionNotes(product: Product) {
       { label: "Connection", value: "Confirm vessel connection, mounting style and access space." },
       { label: "Media compatibility", value: "Review wetted materials against the liquid or solid medium." },
       { label: "Signal / display", value: "Confirm local indication, switch, analog or digital output needs." }
+    ];
+  }
+
+  if (product.slug === "vortex-flowmeter") {
+    return [
+      { label: "Media condition", value: "Confirm steam, gas or clean-liquid service and the actual operating state." },
+      { label: "Flow envelope", value: "Share minimum, normal and maximum flow before sizing the meter." },
+      { label: "Pressure / temperature", value: "Confirm operating values and whether compensation is required." },
+      { label: "Pipe layout", value: "Send DN, connection type, upstream fittings and available straight pipe." },
+      { label: "Vibration", value: "Describe nearby pumps, compressors, pipe movement or other vibration sources." },
+      { label: "Signal / display", value: "Confirm local display, output and receiving-system requirements." }
+    ];
+  }
+
+  if (product.slug === "electromagnetic-flowmeter") {
+    return [
+      { label: "Conductivity", value: "Confirm that the liquid is conductive and describe its composition." },
+      { label: "Flow range", value: "Share minimum, normal and maximum flow before sizing." },
+      { label: "Full pipe", value: "Review whether the selected location can remain completely filled." },
+      { label: "Materials", value: "Check liner and electrode compatibility with the process liquid." },
+      { label: "Installation", value: "Confirm grounding, pipe arrangement and nearby disturbances." },
+      { label: "Signal / display", value: "Confirm local indication and control-system output requirements." }
+    ];
+  }
+
+  if (product.slug === "gas-turbine-flowmeter") {
+    return [
+      { label: "Gas composition", value: "Describe the gas and whether the service is clean and dry." },
+      { label: "Flow range", value: "Share minimum, normal and maximum operating flow." },
+      { label: "Pressure / temperature", value: "Confirm conditions used for density and volume review." },
+      { label: "Pipe layout", value: "Send DN, upstream fittings and available straight pipe." },
+      { label: "Installation", value: "Note filtration, access and maintenance conditions." },
+      { label: "Signal / display", value: "Confirm totalization, local display and output needs." }
+    ];
+  }
+
+  if (product.slug === "thermal-mass-flowmeter") {
+    return [
+      { label: "Gas composition", value: "Confirm the gas or gas mixture used at the measurement point." },
+      { label: "Gas condition", value: "Share pressure, temperature and any moisture or contamination concerns." },
+      { label: "Flow range", value: "Provide minimum, normal and maximum flow for application review." },
+      { label: "Pipe / duct", value: "Confirm size, geometry and insertion or inline arrangement." },
+      { label: "Installation", value: "Review upstream disturbances, access and sensor position." },
+      { label: "Signal / display", value: "Confirm local display, totalization and control-system output." }
     ];
   }
 
@@ -398,6 +501,22 @@ function getQuoteDetails(product: Product) {
       "Quantity",
       "Signal output"
     ];
+  }
+
+  if (product.slug === "vortex-flowmeter") {
+    return ["Medium and steam condition", "Pipe size / DN", "Minimum / normal / maximum flow", "Pressure and temperature", "Available straight pipe", "Vibration source", "Compensation requirement", "Signal output"];
+  }
+
+  if (product.slug === "electromagnetic-flowmeter") {
+    return ["Liquid and conductivity", "Pipe size / DN", "Minimum / normal / maximum flow", "Pressure and temperature", "Liner / electrode requirement", "Pipe-full condition", "Grounding details", "Signal output"];
+  }
+
+  if (product.slug === "gas-turbine-flowmeter") {
+    return ["Gas composition", "Pipe size / DN", "Minimum / normal / maximum flow", "Pressure and temperature", "Cleanliness / filtration", "Available straight pipe", "Quantity", "Signal output"];
+  }
+
+  if (product.slug === "thermal-mass-flowmeter") {
+    return ["Gas composition", "Pipe or duct size", "Minimum / normal / maximum flow", "Pressure and temperature", "Moisture / contamination", "Insertion or inline arrangement", "Quantity", "Signal output"];
   }
 
   return [

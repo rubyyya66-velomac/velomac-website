@@ -6,8 +6,10 @@ import { CTASection } from "@/components/CTASection";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
 import { getApplicationsByRelatedSlugs } from "@/content/applications";
+import { getResourceEnhancement } from "@/content/resourceEnhancements";
 import { getArticleBySlug, resources } from "@/content/resources";
-import { products } from "@/content/products";
+import { getProductsByRelatedSlugs } from "@/content/products";
+import { getTechnologyArticle } from "@/content/technology";
 import { legacySectionsToHtml } from "@/lib/articleBody";
 import { sanitizeArticleBodyHtml } from "@/lib/richTextSanitizer";
 import { buildPageMetadata } from "@/lib/seo";
@@ -51,8 +53,15 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
     notFound();
   }
 
-  const relatedProducts = products.filter((product) => article.relatedProductSlugs.includes(product.slug));
+  const relatedProducts = getProductsByRelatedSlugs(article.relatedProductSlugs);
   const relatedApplications = getApplicationsByRelatedSlugs(article.relatedApplicationSlugs);
+  const enhancement = getResourceEnhancement(article.slug);
+  const relatedTechnology = (enhancement?.relatedTechnologySlugs || [])
+    .map(getTechnologyArticle)
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
+  const relatedResources = (enhancement?.relatedResourceSlugs || [])
+    .map(getArticleBySlug)
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
   const articleBodyHtml = sanitizeArticleBodyHtml(
     article.bodyHtml || legacySectionsToHtml(article.sections)
   );
@@ -115,8 +124,23 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
             <article className="min-w-0">
               <p className="text-lg leading-8 text-slate-600">{article.excerpt}</p>
 
+              {enhancement ? (
+                <section className="mt-9 border-y border-metal-200 py-7" aria-labelledby="quick-answer-heading">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">Direct answer</p>
+                  <h2 id="quick-answer-heading" className="mt-2 text-2xl font-semibold text-navy-950">Quick Answer</h2>
+                  <p className="mt-4 text-base leading-7 text-slate-600">{enhancement.quickAnswer}</p>
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {enhancement.keyConditions.map((condition) => (
+                      <p key={condition} className="border-l-2 border-industrial-600 pl-4 text-sm font-semibold leading-6 text-navy-950">
+                        {condition}
+                      </p>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
               <div
-                className="resource-article-body mt-10"
+                className={`resource-article-body ${enhancement ? "mt-8" : "mt-10"}`}
                 dangerouslySetInnerHTML={{ __html: articleBodyHtml }}
               />
 
@@ -165,6 +189,32 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
                         className="focus-ring rounded-full border border-metal-200 bg-metal-50 px-3 py-2 text-sm font-semibold leading-5 text-slate-700 transition hover:border-industrial-500 hover:text-industrial-700"
                       >
                         {application.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {relatedTechnology.length ? (
+                <div className="mt-7">
+                  <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-navy-950">Engineering evidence</h2>
+                  <div className="mt-3 grid gap-2">
+                    {relatedTechnology.map((item) => (
+                      <Link key={item.slug} href={`/technology/${item.slug}`} className="focus-ring text-sm font-semibold leading-6 text-industrial-700 transition hover:text-navy-950">
+                        {item.title} <span aria-hidden="true">→</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {relatedResources.length ? (
+                <div className="mt-7 border-t border-metal-200 pt-6">
+                  <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-navy-950">Continue the review</h2>
+                  <div className="mt-3 grid gap-3">
+                    {relatedResources.map((resource) => (
+                      <Link key={resource.slug} href={`/resources/${resource.slug}`} className="focus-ring text-sm font-semibold leading-6 text-slate-700 transition hover:text-industrial-700">
+                        {resource.title}
                       </Link>
                     ))}
                   </div>

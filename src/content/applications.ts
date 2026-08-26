@@ -8,7 +8,9 @@ const applicationSlugAliases: Record<string, string> = {
   "compressed-air-flow-measurement": "gas-flow-measurement",
   "conductive-liquid-flow-measurement": "conductive-liquid-measurement",
   "chemical-process-flow-measurement": "chemical-process-lines",
-  "energy-management-flow-measurement": "energy-loss-visibility"
+  "energy-management-flow-measurement": "energy-loss-visibility",
+  "water-treatment-flow-measurement": "conductive-liquid-measurement",
+  "hvac-chilled-water-flow-measurement": "conductive-liquid-measurement"
 };
 
 export function resolveApplicationSlug(slug: string) {

@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/content/site";
-import { organizationStructuredData } from "@/lib/structuredData";
+import { organizationStructuredData, websiteStructuredData } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -46,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <JsonLd data={organizationStructuredData()} />
+        <JsonLd data={websiteStructuredData()} />
         <Header />
         <main>{children}</main>
         <Footer />

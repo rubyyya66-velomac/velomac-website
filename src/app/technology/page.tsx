@@ -160,6 +160,8 @@ export default function TechnologyPage() {
             eyebrow={overview.testing.eyebrow}
             title={overview.testing.title}
             description={overview.testing.description}
+            href="/technology/testing-calibration-systems"
+            linkLabel="View testing system overview"
             dark
           />
 
@@ -224,6 +226,8 @@ export default function TechnologyPage() {
             eyebrow={overview.upgrade.eyebrow}
             title={overview.upgrade.title}
             description={overview.upgrade.description}
+            href="/technology/application-upgrade-projects"
+            linkLabel="View upgrade project overview"
           />
 
           <article className="mt-11 grid overflow-hidden border-y border-metal-200 bg-white lg:grid-cols-[1.08fr_0.92fr]">
@@ -276,12 +280,16 @@ function TechnologySectionHeading({
   eyebrow,
   title,
   description,
+  href,
+  linkLabel,
   dark = false
 }: {
   number: string;
   eyebrow: string;
   title: string;
   description: string;
+  href?: string;
+  linkLabel?: string;
   dark?: boolean;
 }) {
   return (
@@ -308,6 +316,16 @@ function TechnologySectionHeading({
         <p className={`mt-4 text-base leading-7 sm:text-lg ${dark ? "text-slate-300" : "text-slate-600"}`}>
           {description}
         </p>
+        {href && linkLabel ? (
+          <Link
+            href={href}
+            className={`focus-ring mt-5 inline-flex items-center gap-2 text-sm font-semibold transition ${
+              dark ? "text-blue-200 hover:text-white" : "text-industrial-700 hover:text-navy-950"
+            }`}
+          >
+            {linkLabel} <span aria-hidden="true">→</span>
+          </Link>
+        ) : null}
       </div>
     </div>
   );

@@ -40,7 +40,10 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
           name: featuredVortexSolution.hero.title,
           description: featuredVortexSolution.metadata.description,
           image: absoluteUrl(featuredVortexSolution.hero.image.src),
-          url: absoluteUrl(pagePath)
+          url: absoluteUrl(pagePath),
+          isVariantOf: {
+            "@id": absoluteUrl(`/products/${parentProduct.slug}#product`)
+          }
         }}
       />
       <JsonLd
@@ -86,6 +89,7 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
           <div className="flex flex-wrap gap-3 lg:col-start-1 lg:row-start-3">
             <PrimaryLink href={featuredVortexSolution.hero.primaryCta.href}>{featuredVortexSolution.hero.primaryCta.label}</PrimaryLink>
             <SecondaryLink href={featuredVortexSolution.hero.secondaryCta.href}>{featuredVortexSolution.hero.secondaryCta.label}</SecondaryLink>
+            <SecondaryLink href={`/products/${parentProduct.slug}`}>View the Vortex Flowmeter family</SecondaryLink>
           </div>
         </Container>
       </section>

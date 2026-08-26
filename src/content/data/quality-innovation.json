@@ -259,6 +259,33 @@
       "publicDisplayApproved": true
     }
   ],
+  "evidenceSection": {
+    "eyebrow": "RELATED ENGINEERING EVIDENCE",
+    "headline": "Connect Documents to Product and Test Context",
+    "description": "Continue from the published records to the relevant product family, calibration capability and application-focused test work.",
+    "links": [
+      {
+        "label": "Vortex Flowmeter",
+        "href": "/products/vortex-flowmeter"
+      },
+      {
+        "label": "Wide-Turndown Anti-Vibration Vortex Flowmeter",
+        "href": "/products/vortex-flowmeter/wide-turndown-anti-vibration"
+      },
+      {
+        "label": "Vibration Measurement Test System",
+        "href": "/technology/vibration-measurement-test-system"
+      },
+      {
+        "label": "Electromagnetic Flowmeter",
+        "href": "/products/electromagnetic-flowmeter"
+      },
+      {
+        "label": "Flow Calibration Systems",
+        "href": "/technology/flow-calibration-systems"
+      }
+    ]
+  },
   "cta": {
     "headline": "Supporting Documents for Project Review",
     "description": "Additional certificates and supporting documents can be shared based on product, application and project requirements.",
