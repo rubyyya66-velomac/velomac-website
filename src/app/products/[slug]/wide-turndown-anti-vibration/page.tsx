@@ -7,8 +7,8 @@ import { Container } from "@/components/Layout";
 import { JsonLd } from "@/components/JsonLd";
 import { featuredVortexSolution } from "@/content/featuredVortexSolution";
 import { getProductBySlug } from "@/content/products";
-import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
-import { breadcrumbStructuredData, productStructuredData } from "@/lib/structuredData";
+import { buildPageMetadata } from "@/lib/seo";
+import { breadcrumbStructuredData, productVariantStructuredData } from "@/lib/structuredData";
 import { MeasurementRangeTabs } from "./MeasurementRangeTabs";
 
 export function generateStaticParams() {
@@ -34,17 +34,13 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
   return (
     <>
       <JsonLd
-        data={{
-          ...productStructuredData(parentProduct),
-          "@id": `${absoluteUrl(pagePath)}#product`,
+        data={productVariantStructuredData({
+          parentProduct,
+          path: pagePath,
           name: featuredVortexSolution.hero.title,
           description: featuredVortexSolution.metadata.description,
-          image: absoluteUrl(featuredVortexSolution.hero.image.src),
-          url: absoluteUrl(pagePath),
-          isVariantOf: {
-            "@id": absoluteUrl(`/products/${parentProduct.slug}#product`)
-          }
-        }}
+          image: featuredVortexSolution.hero.image.src
+        })}
       />
       <JsonLd
         data={breadcrumbStructuredData([

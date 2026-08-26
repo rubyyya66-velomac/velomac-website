@@ -1,5 +1,5 @@
 # Dependencies
-node_modules/
+node_modules
 
 # Next.js build output
 .next/
@@ -12,6 +12,7 @@ build/
 .cache/
 .turbo/
 coverage/
+reports/
 *.tsbuildinfo
 
 # Environment files
@@ -37,6 +38,10 @@ tmp/
 outputs/
 backups/
 .git-quality/
+CONTENT_EDITOR_AUDIT.md
+GEO_QA_REPORT.md
+QUALITY_DOCUMENT_INVENTORY.md
+SEO_QA_REPORT.md
 
 # Deployment tool state
 .vercel/

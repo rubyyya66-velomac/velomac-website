@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "audit:phase2": "node scripts/phase2-audit.mjs",
+    "audit:seo": "node scripts/seo-audit.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {

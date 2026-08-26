@@ -48,6 +48,7 @@ for (const route of routes) {
   }
 
   const schema = parseJsonLd(html);
+  const schemaEntities = schema.values.flatMap(schemaEntitiesFromValue);
   const imageAlts = extractImageAlts(html);
   pages.push({
     route,
@@ -62,8 +63,75 @@ for (const route of routes) {
     missingImageAltCount: imageAlts.filter((alt) => alt === null).length,
     emptyImageAltCount: imageAlts.filter((alt) => alt === "").length,
     invalidJsonLdCount: schema.invalid,
-    schemaTypes: schema.values.flatMap(schemaTypesFromValue)
+    schemaTypes: schema.values.flatMap(schemaTypesFromValue),
+    schemaEntities
   });
+}
+
+const schemaEntityTypes = new Map();
+for (const page of pages) {
+  for (const entity of page.schemaEntities) {
+    if (!entity.id) continue;
+    const types = schemaEntityTypes.get(entity.id) || new Set();
+    entity.types.forEach((type) => types.add(type));
+    schemaEntityTypes.set(entity.id, types);
+  }
+}
+
+const schemaRelationshipProblems = [];
+for (const page of pages) {
+  for (const entity of page.schemaEntities) {
+    if (entity.types.some((type) => ["Product", "ProductGroup"].includes(type))) {
+      if (entity.mainEntityOfPage.length !== 1 || entity.mainEntityOfPage[0] !== page.canonical) {
+        schemaRelationshipProblems.push({
+          route: page.route,
+          entity: entity.id,
+          property: "mainEntityOfPage",
+          issue: `expected ${page.canonical}; found ${entity.mainEntityOfPage.join(", ") || "no value"}`
+        });
+      }
+    }
+    if (entity.hasVariant.length > 0 && !entity.types.includes("ProductGroup")) {
+      schemaRelationshipProblems.push({
+        route: page.route,
+        entity: entity.id,
+        property: "hasVariant",
+        issue: `domain must be ProductGroup; found ${entity.types.join(", ") || "no type"}`
+      });
+    }
+    for (const target of entity.hasVariant) {
+      const targetTypes = [...(schemaEntityTypes.get(target) || [])];
+      if (!targetTypes.includes("Product")) {
+        schemaRelationshipProblems.push({
+          route: page.route,
+          entity: entity.id,
+          property: "hasVariant",
+          target,
+          issue: `range must be Product; found ${targetTypes.join(", ") || "unresolved target"}`
+        });
+      }
+    }
+    if (entity.isVariantOf.length > 0 && !entity.types.some((type) => ["Product", "ProductModel"].includes(type))) {
+      schemaRelationshipProblems.push({
+        route: page.route,
+        entity: entity.id,
+        property: "isVariantOf",
+        issue: `domain must be Product or ProductModel; found ${entity.types.join(", ") || "no type"}`
+      });
+    }
+    for (const target of entity.isVariantOf) {
+      const targetTypes = [...(schemaEntityTypes.get(target) || [])];
+      if (!targetTypes.some((type) => ["ProductGroup", "ProductModel"].includes(type))) {
+        schemaRelationshipProblems.push({
+          route: page.route,
+          entity: entity.id,
+          property: "isVariantOf",
+          target,
+          issue: `range must be ProductGroup or ProductModel; found ${targetTypes.join(", ") || "unresolved target"}`
+        });
+      }
+    }
+  }
 }
 
 const targetChecks = [];
@@ -114,6 +182,7 @@ const result = {
   duplicateCanonicals: duplicateByField(pages, "canonical"),
   pagesWithMissingAlt: pages.filter((page) => page.missingImageAltCount > 0 || page.emptyImageAltCount > 0),
   pagesWithInvalidJsonLd: pages.filter((page) => page.invalidJsonLdCount > 0),
+  schemaRelationshipProblems,
   redirectChecks,
   pages
 };
@@ -124,6 +193,7 @@ await fs.writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, "utf8");
 console.log(`Architecture-audited ${pages.length} pages and ${targetChecks.length} internal targets.`);
 console.log(`Broken links: ${result.brokenInternalLinks.length}; orphan pages: ${result.orphanPages.length}; weak pages: ${result.weaklyLinkedPages.length}.`);
 console.log(`Missing/empty image ALT pages: ${result.pagesWithMissingAlt.length}; invalid JSON-LD pages: ${result.pagesWithInvalidJsonLd.length}.`);
+console.log(`Schema relationship problems: ${result.schemaRelationshipProblems.length}.`);
 console.log(`Report: ${outputPath}`);
 
 async function readJson(filename) {
@@ -168,6 +238,39 @@ function schemaTypesFromValue(value) {
   if (!value || typeof value !== "object") return [];
   if (Array.isArray(value["@graph"])) return value["@graph"].flatMap(schemaTypesFromValue);
   return Array.isArray(value["@type"]) ? value["@type"] : value["@type"] ? [value["@type"]] : [];
+}
+
+function schemaEntitiesFromValue(value) {
+  if (Array.isArray(value)) return value.flatMap(schemaEntitiesFromValue);
+  if (!value || typeof value !== "object") return [];
+
+  const types = Array.isArray(value["@type"])
+    ? value["@type"]
+    : value["@type"]
+      ? [value["@type"]]
+      : [];
+  const current = types.length > 0
+    ? [{
+        id: typeof value["@id"] === "string" ? value["@id"] : null,
+        types,
+        mainEntityOfPage: schemaReferenceIds(value.mainEntityOfPage),
+        hasVariant: schemaReferenceIds(value.hasVariant),
+        isVariantOf: schemaReferenceIds(value.isVariantOf)
+      }]
+    : [];
+
+  return [
+    ...current,
+    ...Object.values(value).flatMap(schemaEntitiesFromValue)
+  ];
+}
+
+function schemaReferenceIds(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.flatMap(schemaReferenceIds);
+  if (typeof value === "string") return [value];
+  if (typeof value === "object" && typeof value["@id"] === "string") return [value["@id"]];
+  return [];
 }
 
 function tagText(html, tag) {

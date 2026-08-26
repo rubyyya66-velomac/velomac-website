@@ -15,6 +15,7 @@ export function organizationStructuredData() {
     "@id": absoluteUrl("/#organization"),
     name: site.name,
     legalName: site.legalName,
+    alternateName: "Velomac",
     foundingDate: site.foundingDate,
     url: absoluteUrl("/"),
     logo: absoluteUrl(site.logos.header),
@@ -61,10 +62,11 @@ export function breadcrumbStructuredData(items: BreadcrumbItem[]) {
 }
 
 export function productStructuredData(product: Product) {
+  const isProductGroup = product.slug === "vortex-flowmeter";
   const data = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": absoluteUrl(`/products/${product.slug}#product`),
+    "@type": isProductGroup ? "ProductGroup" : "Product",
+    "@id": productEntityId(product),
     name: product.name,
     description: product.seo.description,
     image: absoluteUrl(product.image),
@@ -80,7 +82,7 @@ export function productStructuredData(product: Product) {
     mainEntityOfPage: absoluteUrl(`/products/${product.slug}`)
   };
 
-  if (product.slug === "vortex-flowmeter") {
+  if (isProductGroup) {
     return {
       ...data,
       hasVariant: {
@@ -90,6 +92,47 @@ export function productStructuredData(product: Product) {
   }
 
   return data;
+}
+
+export function productVariantStructuredData({
+  parentProduct,
+  path,
+  name,
+  description,
+  image
+}: {
+  parentProduct: Product;
+  path: string;
+  name: string;
+  description: string;
+  image: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${absoluteUrl(path)}#product`,
+    name,
+    description,
+    image: absoluteUrl(image),
+    url: absoluteUrl(path),
+    category: parentProduct.category,
+    brand: {
+      "@type": "Brand",
+      name: "Velomac"
+    },
+    manufacturer: {
+      "@id": absoluteUrl("/#organization")
+    },
+    mainEntityOfPage: absoluteUrl(path),
+    isVariantOf: {
+      "@id": productEntityId(parentProduct)
+    }
+  };
+}
+
+function productEntityId(product: Product) {
+  const fragment = product.slug === "vortex-flowmeter" ? "product-group" : "product";
+  return absoluteUrl(`/products/${product.slug}#${fragment}`);
 }
 
 export function articleStructuredData(article: ResourceArticle) {
