@@ -4,7 +4,8 @@ import { sendSmtpMail } from "@/lib/smtp";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const subject = "New Quote Request from Velomac Website";
+const quoteSubject = "New Quote Request from Velomac Website";
+const applicationReviewSubject = "New Flowmeter Application Review from Velomac Website";
 
 type QuotePayload = Record<string, unknown>;
 
@@ -14,6 +15,7 @@ export async function POST(request: Request) {
     const name = readString(payload.name);
     const email = readString(payload.email);
     const message = readString(payload.requirements);
+    const isApplicationReview = readString(payload["inquiry-type"]) === "Flowmeter Application Review";
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -43,11 +45,13 @@ export async function POST(request: Request) {
       pass: smtpPass,
       to: quoteToEmail,
       replyTo: email,
-      subject,
-      text: buildEmailBody(payload)
+      subject: isApplicationReview ? applicationReviewSubject : quoteSubject,
+      text: isApplicationReview ? buildApplicationReviewEmailBody(payload) : buildEmailBody(payload)
     });
 
-    return NextResponse.json({ message: "Quote request received." });
+    return NextResponse.json({
+      message: isApplicationReview ? "Application review received." : "Quote request received."
+    });
   } catch (error) {
     console.error("Quote form submission failed", error);
     return NextResponse.json({ message: "Quote request could not be sent." }, { status: 500 });
@@ -92,6 +96,34 @@ function buildEmailBody(payload: QuotePayload) {
     "A new quote request was submitted through the Velomac website.",
     "",
     ...rows.map(([label, value]) => `${label}: ${value || "-"}`)
+  ].join("\n");
+}
+
+function buildApplicationReviewEmailBody(payload: QuotePayload) {
+  const applicationData = readString(payload.requirements);
+
+  return [
+    "Flowmeter Application Review",
+    "",
+    `Product: ${readString(payload["product-interest"]) || "-"}`,
+    `Product slug: ${readString(payload["product-slug"]) || "-"}`,
+    `Product category: ${readString(payload["product-category"]) || "-"}`,
+    `Source page: ${readString(payload["source-page"]) || "-"}`,
+    `Page path: ${readString(payload["page-path"]) || "-"}`,
+    `Page URL: ${readString(payload["page-url"]) || "-"}`,
+    `Source type: ${readString(payload["source-type"]) || "-"}`,
+    `Source section: ${readString(payload["source-section"]) || "-"}`,
+    `Source origin path: ${readString(payload["source-origin-path"]) || "-"}`,
+    `Application type: ${readString(payload["application-type"]) || "-"}`,
+    "",
+    applicationData,
+    "",
+    "Contact:",
+    `Name: ${readString(payload.name) || "-"}`,
+    `Work email: ${readString(payload.email) || "-"}`,
+    `Company: ${readString(payload.company) || "-"}`,
+    `Country / Region: ${readString(payload["country-region"]) || "-"}`,
+    `Phone / WhatsApp: ${readString(payload["whatsapp-phone"]) || "-"}`
   ].join("\n");
 }
 

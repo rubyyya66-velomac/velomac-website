@@ -54,6 +54,7 @@ export default function ApplicationDetailPage({ params }: { params: { slug: stri
     { name: "Applications", path: "/applications" },
     { name: application.title, path: `/applications/${application.slug}` }
   ];
+  const reviewMediumType = getApplicationReviewMediumType(application.slug);
 
   return (
     <>
@@ -219,12 +220,26 @@ export default function ApplicationDetailPage({ params }: { params: { slug: stri
       <CTASection
         title={application.detailPage.ctaTitle}
         text="Share the media, pipe size, flow range, pressure, temperature and installation details for an application review."
-        href={`/contact?application=${application.slug}`}
-        buttonLabel="Request a Quote"
+        href="/application-review"
+        buttonLabel="Review This Application"
+        reviewCtaContext={{
+          sourceType: "application_page",
+          sourceSection: "bottom-application-review",
+          sourcePath: `/applications/${application.slug}`,
+          applicationType: application.slug,
+          mediumType: reviewMediumType
+        }}
         surfaceClassName="velomac-blue-surface"
       />
     </>
   );
+}
+
+function getApplicationReviewMediumType(slug: string): "liquid" | "gas" | "steam" | "not-sure" {
+  if (slug === "steam-measurement") return "steam";
+  if (slug === "gas-flow-measurement") return "gas";
+  if (slug === "conductive-liquid-measurement" || slug === "chemical-process-lines") return "liquid";
+  return "not-sure";
 }
 
 function Breadcrumb({ items }: { items: { name: string; path: string }[] }) {

@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import { ApplicationReview } from "@/components/ApplicationReview";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container } from "@/components/Layout";
 import { JsonLd } from "@/components/JsonLd";
 import { featuredVortexSolution } from "@/content/featuredVortexSolution";
@@ -83,7 +85,17 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
           </div>
 
           <div className="flex flex-wrap gap-3 lg:col-start-1 lg:row-start-3">
-            <PrimaryLink href={featuredVortexSolution.hero.primaryCta.href}>{featuredVortexSolution.hero.primaryCta.label}</PrimaryLink>
+            <ApplicationReviewLink
+              href={featuredVortexSolution.hero.primaryCta.href}
+              sourceType="product"
+              sourceSection="product-hero"
+              sourcePath={pagePath}
+              productSlug={featuredVortexSolution.slug}
+              className="focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700"
+            >
+              {featuredVortexSolution.hero.primaryCta.label}
+              <span aria-hidden="true">→</span>
+            </ApplicationReviewLink>
             <SecondaryLink href={featuredVortexSolution.hero.secondaryCta.href}>{featuredVortexSolution.hero.secondaryCta.label}</SecondaryLink>
             <SecondaryLink href={`/products/${parentProduct.slug}`}>View the Vortex Flowmeter family</SecondaryLink>
           </div>
@@ -215,29 +227,13 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
         </div>
       </PageSection>
 
-      <section id="application-check" className="scroll-mt-56 bg-industrial-700 py-16 text-white sm:py-20 lg:scroll-mt-28">
-        <Container className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-end lg:gap-16">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">{featuredVortexSolution.applicationReview.eyebrow}</p>
-            <h2 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]">
-              {featuredVortexSolution.applicationReview.title}
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-7 text-blue-50 sm:text-lg">
-              {featuredVortexSolution.applicationReview.description}
-            </p>
-            <PrimaryLink href={featuredVortexSolution.applicationReview.buttonHref} inverse>
-              {featuredVortexSolution.applicationReview.buttonLabel}
-            </PrimaryLink>
-          </div>
-          <div className="grid grid-cols-2 gap-x-8 border-t border-white/25 sm:grid-cols-3">
-            {featuredVortexSolution.applicationReview.details.map((detail) => (
-              <p key={detail} className="border-b border-white/20 py-5 text-base font-semibold leading-7 text-white">
-                {detail}
-              </p>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <ApplicationReview
+        productName={featuredVortexSolution.hero.title}
+        productSlug={featuredVortexSolution.slug}
+        productCategory="Flowmeters"
+        sourcePath={pagePath}
+        anchorId="application-review"
+      />
     </>
   );
 }
@@ -291,18 +287,6 @@ function EditorialRow({ title, text }: { title: string; text: string }) {
       <h3 className="text-xl font-semibold leading-7 text-navy-950">{title}</h3>
       <p className="mt-2 text-lg leading-8 text-slate-600">{text}</p>
     </div>
-  );
-}
-
-function PrimaryLink({ href, children, inverse = false }: { href: string; children: ReactNode; inverse?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={`focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 px-5 py-3 text-sm font-semibold transition ${inverse ? "bg-white text-navy-950 hover:bg-blue-100" : "bg-navy-950 text-white hover:bg-industrial-700"}`}
-    >
-      {children}
-      <span aria-hidden="true">→</span>
-    </Link>
   );
 }
 

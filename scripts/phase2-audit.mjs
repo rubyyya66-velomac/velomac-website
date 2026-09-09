@@ -15,6 +15,7 @@ const routes = [...new Set([
   "/",
   "/products",
   "/applications",
+  "/application-review",
   "/technology",
   "/resources",
   "/about",

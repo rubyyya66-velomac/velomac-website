@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import { ApplicationReview } from "@/components/ApplicationReview";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { CTASection } from "@/components/CTASection";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
@@ -49,7 +51,6 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
   const relatedArticles = getRelatedArticles(product.slug);
   const relatedTechnology = getRelatedTechnology(product.slug);
   const selectionNotes = getSelectionNotes(product);
-  const quoteDetails = getQuoteDetails(product);
   const productArticle = getIndefiniteArticle(product.name);
 
   return (
@@ -88,12 +89,25 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 {productCatalog.detailPage.requestQuoteLabel}
                 <span aria-hidden="true">{">"}</span>
               </Link>
-              <Link
-                href="/applications"
-                className="focus-ring inline-flex items-center justify-center border border-metal-200 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:border-industrial-600 hover:text-industrial-700"
-              >
-                {productCatalog.detailPage.viewApplicationsLabel}
-              </Link>
+              {product.category === "Flowmeters" ? (
+                <ApplicationReviewLink
+                  href="#application-review"
+                  sourceType="product"
+                  sourceSection="product-hero"
+                  sourcePath={`/products/${product.slug}`}
+                  productSlug={product.slug}
+                  className="focus-ring inline-flex items-center justify-center border border-metal-200 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:border-industrial-600 hover:text-industrial-700"
+                >
+                  Review Application
+                </ApplicationReviewLink>
+              ) : (
+                <Link
+                  href="/applications"
+                  className="focus-ring inline-flex items-center justify-center border border-metal-200 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:border-industrial-600 hover:text-industrial-700"
+                >
+                  {productCatalog.detailPage.viewApplicationsLabel}
+                </Link>
+              )}
             </div>
           </div>
           <div className="relative bg-white">
@@ -247,31 +261,59 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         </Container>
       </Section>
 
-      <Section className="bg-metal-50">
-        <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
+      {product.category === "Level Instruments" ? (
+        <Section className="bg-metal-50">
+          <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
+                {productCatalog.detailPage.quotationEyebrow}
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+                {productCatalog.detailPage.quotationTitle}
+              </h2>
+              <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
+                What site details should be sent for {productArticle} {product.name} review?
+              </h3>
+              <p className="mt-3 text-base leading-7 text-slate-600">
+                {productCatalog.detailPage.quotationText}
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {levelQuoteDetails.map((item) => (
+                <div key={item} className="border-l-2 border-industrial-600 bg-white px-4 py-3 text-sm font-semibold text-navy-950">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+
+      <Section className="bg-white">
+        <Container className="grid gap-8">
+          <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              {productCatalog.detailPage.quotationEyebrow}
+              {productCatalog.detailPage.technicalEyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              {productCatalog.detailPage.quotationTitle}
+              {productCatalog.detailPage.technicalTitle}
             </h2>
-            <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
-              What site details should be sent for {productArticle} {product.name} review?
-            </h3>
-            <p className="mt-3 text-base leading-7 text-slate-600">
-              {productCatalog.detailPage.quotationText}
-            </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {quoteDetails.map((item) => (
-              <div key={item} className="border-l-2 border-industrial-600 bg-white px-4 py-3 text-sm font-semibold text-navy-950">
-                {item}
-              </div>
-            ))}
+          <div className="grid gap-10">
+            <SpecTable table={product.technicalData} />
+            {product.flowRange ? <SpecTable table={{ ...product.flowRange, title: product.flowRange.title || "Flow Range" }} /> : null}
           </div>
         </Container>
       </Section>
+
+      {product.category === "Flowmeters" ? (
+        <ApplicationReview
+          productName={product.name}
+          productSlug={product.slug}
+          productCategory={product.category}
+          sourcePath={`/products/${product.slug}`}
+        />
+      ) : null}
 
       {relatedArticles.length ? (
         <Section>
@@ -302,23 +344,6 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           </Container>
         </Section>
       ) : null}
-
-      <Section className="bg-white">
-        <Container className="grid gap-8">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
-              {productCatalog.detailPage.technicalEyebrow}
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              {productCatalog.detailPage.technicalTitle}
-            </h2>
-          </div>
-          <div className="grid gap-10">
-            <SpecTable table={product.technicalData} />
-            {product.flowRange ? <SpecTable table={{ ...product.flowRange, title: product.flowRange.title || "Flow Range" }} /> : null}
-          </div>
-        </Container>
-      </Section>
 
       <CTASection
         title={productCatalog.detailPage.ctaTitle}
@@ -489,47 +514,16 @@ function getSelectionNotes(product: Product) {
   ];
 }
 
-function getQuoteDetails(product: Product) {
-  if (product.category === "Level Instruments") {
-    return [
-      "Medium",
-      "Tank or vessel type",
-      "Measurement range",
-      "Pressure",
-      "Temperature",
-      "Connection type",
-      "Quantity",
-      "Signal output"
-    ];
-  }
-
-  if (product.slug === "vortex-flowmeter") {
-    return ["Medium and steam condition", "Pipe size / DN", "Minimum / normal / maximum flow", "Pressure and temperature", "Available straight pipe", "Vibration source", "Compensation requirement", "Signal output"];
-  }
-
-  if (product.slug === "electromagnetic-flowmeter") {
-    return ["Liquid and conductivity", "Pipe size / DN", "Minimum / normal / maximum flow", "Pressure and temperature", "Liner / electrode requirement", "Pipe-full condition", "Grounding details", "Signal output"];
-  }
-
-  if (product.slug === "gas-turbine-flowmeter") {
-    return ["Gas composition", "Pipe size / DN", "Minimum / normal / maximum flow", "Pressure and temperature", "Cleanliness / filtration", "Available straight pipe", "Quantity", "Signal output"];
-  }
-
-  if (product.slug === "thermal-mass-flowmeter") {
-    return ["Gas composition", "Pipe or duct size", "Minimum / normal / maximum flow", "Pressure and temperature", "Moisture / contamination", "Insertion or inline arrangement", "Quantity", "Signal output"];
-  }
-
-  return [
-    "Fluid / media",
-    "Pipe size / DN",
-    "Flow range",
-    "Pressure",
-    "Temperature",
-    "Quantity",
-    "Installation details",
-    "Signal output"
-  ];
-}
+const levelQuoteDetails = [
+  "Medium",
+  "Tank or vessel type",
+  "Measurement range",
+  "Pressure",
+  "Temperature",
+  "Connection type",
+  "Quantity",
+  "Signal output"
+];
 
 function RowList({ items }: { items: { label: string; value: string }[] }) {
   return (

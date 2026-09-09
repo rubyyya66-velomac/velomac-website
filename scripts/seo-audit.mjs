@@ -14,6 +14,7 @@ const routes = [
   "/",
   "/products",
   "/applications",
+  "/application-review",
   "/technology",
   "/resources",
   "/about",

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ApplicationReviewLink, type ApplicationReviewSourceType } from "@/components/ApplicationReviewLink";
 import { site } from "@/content/site";
 
 export function CTASection({
@@ -10,6 +11,7 @@ export function CTASection({
   imageSrc,
   imageAlt,
   detailChips,
+  reviewCtaContext,
   surfaceClassName = "bg-navy-950 blueprint-surface dark-technical-grid"
 }: {
   title: string;
@@ -19,6 +21,14 @@ export function CTASection({
   imageSrc?: string;
   imageAlt?: string;
   detailChips?: string[];
+  reviewCtaContext?: {
+    sourceType: ApplicationReviewSourceType;
+    sourceSection: string;
+    sourcePath?: string;
+    productSlug?: string;
+    applicationType?: string;
+    mediumType?: "liquid" | "gas" | "steam" | "not-sure";
+  };
   surfaceClassName?: string;
 }) {
   const hasSideContent = Boolean(imageSrc || detailChips?.length);
@@ -35,13 +45,24 @@ export function CTASection({
           <h2 className="mt-3 text-3xl font-semibold tracking-normal sm:text-4xl">{title}</h2>
           <p className="mt-5 text-base leading-7 text-slate-300 sm:text-lg">{text}</p>
           {hasSideContent ? (
-            <Link
-              href={href}
-              className="focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
-            >
-              {buttonLabel}
-              <span aria-hidden="true">{">"}</span>
-            </Link>
+            reviewCtaContext ? (
+              <ApplicationReviewLink
+                href={href}
+                {...reviewCtaContext}
+                className="focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
+              >
+                {buttonLabel}
+                <span aria-hidden="true">{">"}</span>
+              </ApplicationReviewLink>
+            ) : (
+              <Link
+                href={href}
+                className="focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
+              >
+                {buttonLabel}
+                <span aria-hidden="true">{">"}</span>
+              </Link>
+            )
           ) : null}
         </div>
         {imageSrc ? (
@@ -67,13 +88,24 @@ export function CTASection({
             ))}
           </div>
         ) : (
-          <Link
-            href={href}
-            className="focus-ring inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
-          >
-            {buttonLabel}
-            <span aria-hidden="true">{">"}</span>
-          </Link>
+          reviewCtaContext ? (
+            <ApplicationReviewLink
+              href={href}
+              {...reviewCtaContext}
+              className="focus-ring inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
+            >
+              {buttonLabel}
+              <span aria-hidden="true">{">"}</span>
+            </ApplicationReviewLink>
+          ) : (
+            <Link
+              href={href}
+              className="focus-ring inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
+            >
+              {buttonLabel}
+              <span aria-hidden="true">{">"}</span>
+            </Link>
+          )
         )}
       </div>
     </section>

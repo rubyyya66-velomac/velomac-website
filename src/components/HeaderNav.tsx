@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { applications } from "@/content/applications";
 import { productCatalog } from "@/content/productCatalog";
 import { site } from "@/content/site";
@@ -234,6 +235,15 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                         {productItem.label}
                       </Link>
                     ))}
+                    <ApplicationReviewLink
+                      sourceType="navigation"
+                      sourceSection="products-submenu"
+                      role="menuitem"
+                      onNavigate={closeNavigation}
+                      className="focus-ring mt-1 block border-t border-metal-200 px-3 py-2.5 text-sm font-semibold text-industrial-700 transition hover:bg-blue-50 hover:text-navy-950"
+                    >
+                      Review Your Application
+                    </ApplicationReviewLink>
                   </div>
                 </div>
               </div>

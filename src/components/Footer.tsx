@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Linkedin, Music2 } from "lucide-react";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { applications } from "@/content/applications";
 import { products } from "@/content/products";
 import { resourceCategories } from "@/content/resources";
@@ -53,6 +54,13 @@ export function Footer() {
           <FooterColumn title={site.footer.columns.contact}>
             <p className="text-[15px] leading-7 text-slate-600">Location: {site.location}</p>
             <FooterLink href="/contact">{site.buttons.requestQuote}</FooterLink>
+            <ApplicationReviewLink
+              sourceType="footer"
+              sourceSection="contact-column"
+              className="focus-ring w-fit rounded-sm text-sm leading-6 text-slate-500 transition hover:text-industrial-700"
+            >
+              Review an application
+            </ApplicationReviewLink>
             <div className="flex items-center gap-4 pt-1">
               <SocialLink href={site.footer.social.linkedin} label="Velomac on LinkedIn">
                 <Linkedin aria-hidden="true" className="h-[25px] w-[25px]" strokeWidth={1.8} />

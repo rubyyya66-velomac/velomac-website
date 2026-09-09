@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ApplicationCard } from "@/components/ApplicationCard";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container, Section, SectionHeader } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { CTASection } from "@/components/CTASection";
@@ -105,9 +106,11 @@ export default function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">{homepage.siteConditions.detailLabel}</p>
             <div className="mt-6 grid gap-x-12 border-y border-metal-200 sm:grid-cols-2">
               {homepage.siteConditions.inputs.map((item, index) => (
-                <Link
+                <ApplicationReviewLink
                   key={item}
                   href={homepage.siteConditions.detailHref}
+                  sourceType="homepage"
+                  sourceSection="site-conditions"
                   className={`focus-ring group flex items-center justify-between gap-7 border-t border-metal-200 py-7 text-xl font-semibold leading-7 text-navy-950 transition hover:text-industrial-700 sm:text-[1.35rem] ${
                     index === 0 ? "border-t-0" : ""
                   } ${index === 1 ? "sm:border-t-0" : ""}`}
@@ -117,7 +120,7 @@ export default function HomePage() {
                     aria-hidden="true"
                     className="h-px w-14 shrink-0 bg-industrial-600 transition group-hover:w-20"
                   />
-                </Link>
+                </ApplicationReviewLink>
               ))}
             </div>
           </div>

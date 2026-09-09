@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container } from "@/components/Layout";
 import { getProductsByCategory } from "@/content/products";
 import { productCatalog } from "@/content/productCatalog";
@@ -68,6 +69,27 @@ export default function ProductsPage() {
           </Container>
         </section>
       ))}
+
+      <section className="border-t border-metal-200 bg-white py-12 sm:py-14">
+        <Container className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-center">
+          <div>
+            <p className={eyebrowClass}>Application Review</p>
+            <h2 className="mt-2 text-2xl font-semibold leading-tight text-navy-950 sm:text-3xl">
+              Start with the operating conditions first.
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              Share the medium, flow range, pressure, temperature and pipe size before choosing a meter family.
+            </p>
+          </div>
+          <ApplicationReviewLink
+            sourceType="products_overview"
+            sourceSection="bottom-selection-support"
+            className="focus-ring inline-flex w-fit items-center gap-2 bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700"
+          >
+            Review My Application <span aria-hidden="true">→</span>
+          </ApplicationReviewLink>
+        </Container>
+      </section>
     </>
   );
 }

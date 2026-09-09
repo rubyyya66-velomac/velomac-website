@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
 import { getApplicationsByRelatedSlugs } from "@/content/applications";
@@ -136,6 +137,15 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
                       </p>
                     ))}
                   </div>
+                  <ApplicationReviewLink
+                    sourceType="resource"
+                    sourceSection="quick-answer"
+                    sourcePath={`/resources/${article.slug}`}
+                    applicationType={article.relatedApplicationSlugs[0]}
+                    className="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
+                  >
+                    Review these operating conditions <span aria-hidden="true">→</span>
+                  </ApplicationReviewLink>
                 </section>
               ) : null}
 

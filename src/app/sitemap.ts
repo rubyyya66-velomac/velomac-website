@@ -6,7 +6,7 @@ import { technologyArticles, technologyCategories } from "@/content/technology";
 import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ["", "/products", "/applications", "/technology", "/resources", "/about", "/quality-innovation", "/contact"];
+  const staticPages = ["", "/products", "/applications", "/application-review", "/technology", "/resources", "/about", "/quality-innovation", "/contact"];
   const productPages = products.map((product) => `/products/${product.slug}`);
   const featuredProductPages = ["/products/vortex-flowmeter/wide-turndown-anti-vibration"];
   const applicationPages = applications.map((application) => `/applications/${application.slug}`);

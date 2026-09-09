@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container, PageIntro, Section } from "@/components/Layout";
 import { QuoteForm } from "@/components/QuoteForm";
 import { contactContent } from "@/content/contact";
@@ -35,6 +36,17 @@ export default function ContactPage() {
               <p className="mt-3 text-sm leading-6 text-slate-300">
                 {sidebar.helpfulDetailsText}
               </p>
+            </div>
+            <div className="mt-6 border-t border-white/15 pt-6">
+              <p className="text-sm leading-6 text-slate-300">Review the application before requesting a quotation.</p>
+              <ApplicationReviewLink
+                sourceType="navigation"
+                sourceSection="contact-alternative"
+                sourcePath="/contact"
+                className="focus-ring mt-3 inline-flex items-center gap-2 text-sm font-semibold text-blue-100 transition hover:text-white"
+              >
+                Start Application Review <span aria-hidden="true">→</span>
+              </ApplicationReviewLink>
             </div>
           </aside>
           <div className="rounded-[6px] border border-metal-200 bg-white p-6 shadow-sm sm:p-8">

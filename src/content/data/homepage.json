@@ -60,7 +60,7 @@
     "title": "Built Around Real Site Conditions",
     "description": "Flowmeter selection starts with the process. Media, flow range, pressure, temperature, pipe size and installation details shape the meter configuration.",
     "detailLabel": "Site details that shape meter selection",
-    "detailHref": "/contact",
+    "detailHref": "/application-review",
     "image": {
       "src": "/images/applications/high-vibration-pipelines.png",
       "alt": "Industrial pipeline condition used for flowmeter selection"

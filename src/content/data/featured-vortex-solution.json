@@ -19,7 +19,7 @@
       { "value": "±0.5%", "label": "Accuracy" },
       { "value": "4-Level", "label": "Anti-Vibration Mode" }
     ],
-    "primaryCta": { "label": "Check Your Flow Range", "href": "#application-check" },
+    "primaryCta": { "label": "Check Your Flow Range", "href": "#application-review" },
     "secondaryCta": { "label": "View Technical Range", "href": "#full-measurement-range" }
   },
   "operatingConditions": {
