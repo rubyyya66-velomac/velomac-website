@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
+import { FloatingApplicationReview } from "@/components/FloatingApplicationReview";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/content/site";
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={websiteStructuredData()} />
         <Header />
         <main>{children}</main>
+        <FloatingApplicationReview />
         <Footer />
       </body>
     </html>

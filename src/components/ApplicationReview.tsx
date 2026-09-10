@@ -83,6 +83,26 @@ export function ApplicationReview({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    function resetApplicationReview() {
+      setMediumType(normalizeMediumType(initialMediumType));
+      setSelectedProductSlug(
+        allowProductSelection
+          ? getApplicationReviewProductOption(initialProductSlug || "")?.value || "not-sure-yet"
+          : productSlug
+      );
+      setMoreDetailsOpen(false);
+      setContactOpen(false);
+      setSummary([]);
+      setQuickError("");
+      setSubmissionState("idle");
+      hasStarted.current = false;
+    }
+
+    window.addEventListener("velomac:application-review-reset", resetApplicationReview);
+    return () => window.removeEventListener("velomac:application-review-reset", resetApplicationReview);
+  }, [allowProductSelection, initialMediumType, initialProductSlug, productSlug]);
+
   function markStarted() {
     if (hasStarted.current) return;
     hasStarted.current = true;
@@ -167,6 +187,12 @@ export function ApplicationReview({
       }
 
       setSubmissionState("success");
+      try {
+        sessionStorage.setItem("velomac-application-review-session-state", "submitted");
+      } catch {
+        // Submission success is not dependent on session storage availability.
+      }
+      window.dispatchEvent(new Event("velomac:application-review-submitted"));
       trackApplicationReview("application_review_success", activeProductSlug, productCategory, mediumType, sourcePath, sourceContext);
     } catch {
       setSubmissionState("error");

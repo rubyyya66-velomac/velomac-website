@@ -22,7 +22,8 @@ const sourceSections = new Set([
   "quick-answer",
   "contact-alternative",
   "contact-column",
-  "products-submenu"
+  "products-submenu",
+  "floating_application_review"
 ]);
 const applicationTypes = new Set([
   "steam-measurement",
