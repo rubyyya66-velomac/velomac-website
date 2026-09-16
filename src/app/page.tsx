@@ -34,6 +34,7 @@ export default function HomePage() {
       !homepage.productsPreview.featuredProductSlugs.includes(product.slug) &&
       product.category === "Level Instruments"
   );
+  const homepageProducts = [...primaryProducts, ...secondaryProducts];
   const featuredApplications = applications.slice(0, 3);
   const additionalApplications = applications.slice(3);
 
@@ -212,8 +213,8 @@ export default function HomePage() {
               <span aria-hidden="true">{">"}</span>
             </Link>
           </div>
-          <div className="mt-10 grid gap-5 lg:grid-cols-4">
-            {primaryProducts.map((product) => (
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {homepageProducts.map((product) => (
               <ProductCard
                 key={product.slug}
                 product={{
@@ -221,19 +222,6 @@ export default function HomePage() {
                   shortDescription: homepage.productsPreview.cardSummaries[product.slug] || product.shortDescription
                 }}
                 variant="featured"
-                imageScale="large"
-              />
-            ))}
-          </div>
-          <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {secondaryProducts.map((product) => (
-              <ProductCard
-                key={product.slug}
-                product={{
-                  ...product,
-                  shortDescription: homepage.productsPreview.cardSummaries[product.slug] || product.shortDescription
-                }}
-                variant="compact"
                 imageScale="large"
               />
             ))}

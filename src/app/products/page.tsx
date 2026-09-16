@@ -104,7 +104,7 @@ function CategoryHeader({
   return (
     <header className="border-b border-metal-300 pb-7">
       <h2 className={categoryTitleClass}>{category}</h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{description}</p>
+      <p className="mt-4 max-w-5xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{description}</p>
     </header>
   );
 }

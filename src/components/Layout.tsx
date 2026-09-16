@@ -38,7 +38,7 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div className={`max-w-3xl ${className}`}>
+    <div className={`max-w-4xl ${className}`}>
       {eyebrow ? (
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
           {eyebrow}
@@ -75,7 +75,7 @@ export function PageIntro({
           <h1 className="mt-4 text-4xl font-semibold tracking-normal text-white sm:text-5xl lg:text-6xl">
             {title}
           </h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">{description}</p>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-300 sm:text-xl">{description}</p>
         </div>
       </Container>
     </div>
