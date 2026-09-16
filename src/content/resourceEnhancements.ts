@@ -16,14 +16,14 @@ const resourceEnhancements: Record<string, ResourceEnhancement> = {
       "A useful flowmeter quote needs the medium, pipe size, minimum/normal/maximum flow, pressure, temperature, installation conditions and required signal. Pipe size or a model name alone is not enough for application review.",
     keyConditions: ["Medium and composition", "Minimum, normal and maximum flow", "Pressure and temperature", "Pipe layout and signal requirement"],
     relatedTechnologySlugs: ["flow-calibration-systems"],
-    relatedResourceSlugs: ["flowmeter-selection-messy-site-conditions", "retrofit-flowmeter-pipe-photos"]
+    relatedResourceSlugs: ["flowmeter-selection-messy-site-conditions", "retrofit-flowmeter-pipe-photos", "gas-flow-measurement-commissioning-commercial-delivery"]
   },
   "flowmeter-selection-messy-site-conditions": {
     quickAnswer:
       "When site conditions are complicated, start with the process and installation limits rather than a preferred meter model. Flow range, media behavior, straight pipe, vibration, access and signal needs should be reviewed together.",
     keyConditions: ["Actual flow range", "Media behavior", "Straight-pipe availability", "Vibration and access limits"],
     relatedTechnologySlugs: ["vibration-measurement-test-system"],
-    relatedResourceSlugs: ["flowmeter-quote-site-details", "flowmeter-uncertainty-process-conditions"]
+    relatedResourceSlugs: ["flowmeter-quote-site-details", "flowmeter-uncertainty-process-conditions", "slurry-flowmeter-selection-precipitation"]
   },
   "retrofit-flowmeter-pipe-photos": {
     quickAnswer:
@@ -37,7 +37,7 @@ const resourceEnhancements: Record<string, ResourceEnhancement> = {
       "Before approving a flowmeter, confirm how the reading will be checked and how the proposed range relates to the real process. Calibration context, operating conditions and signal use need to be reviewed as one measurement chain.",
     keyConditions: ["Calibration context", "Operating flow range", "Process pressure and temperature", "Signal use and commissioning"],
     relatedTechnologySlugs: ["flow-calibration-systems"],
-    relatedResourceSlugs: ["flowmeter-uncertainty-process-conditions", "plant-flow-data-trust"]
+    relatedResourceSlugs: ["flowmeter-uncertainty-process-conditions", "plant-flow-data-trust", "shared-ccs-co2-measurement-basis"]
   },
   "plant-flow-data-trust": {
     quickAnswer:
@@ -65,14 +65,14 @@ const resourceEnhancements: Record<string, ResourceEnhancement> = {
       "Before replacing a disputed steam meter, review the steam condition, flow range, condensate, straight pipe, vibration and compensation requirements. The installation may be the source of the problem even when the meter itself is operating.",
     keyConditions: ["Steam pressure and temperature", "Condensate condition", "Straight pipe", "Vibration and compensation"],
     relatedTechnologySlugs: ["vibration-measurement-test-system", "gas-flow-calibration"],
-    relatedResourceSlugs: ["vortex-flowmeter-steam-selection", "vortex-flowmeter-complex-flow-challenges"]
+    relatedResourceSlugs: ["vortex-flowmeter-steam-selection", "vortex-flowmeter-complex-flow-challenges", "waste-to-energy-steam-flow"]
   },
   "flowmeter-uncertainty-process-conditions": {
     quickAnswer:
       "Start flowmeter selection with the process uncertainty the plant needs to remove. Then define the medium, flow range, pressure, temperature, installation limits and intended use before comparing meter families.",
     keyConditions: ["Process question", "Medium", "Flow and operating range", "Installation and intended use"],
     relatedTechnologySlugs: ["flow-calibration-systems"],
-    relatedResourceSlugs: ["flowmeter-selection-messy-site-conditions", "flowmeter-data-quality-measurement-point"]
+    relatedResourceSlugs: ["flowmeter-selection-messy-site-conditions", "flowmeter-data-quality-measurement-point", "multi-product-chemical-flowmeter-sizing"]
   }
 };
 

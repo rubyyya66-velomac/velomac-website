@@ -20,8 +20,9 @@ export function generateStaticParams() {
   return resources.map((resource) => ({ slug: resource.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const article = getArticleBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     return {};
@@ -47,8 +48,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function ResourceArticlePage({ params }: { params: { slug: string } }) {
-  const article = getArticleBySlug(params.slug);
+export default async function ResourceArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
@@ -63,8 +65,8 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
   const relatedResources = (enhancement?.relatedResourceSlugs || [])
     .map(getArticleBySlug)
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
-  const articleBodyHtml = sanitizeArticleBodyHtml(
-    article.bodyHtml || legacySectionsToHtml(article.sections)
+  const preparedArticle = addArticleHeadingAnchors(
+    sanitizeArticleBodyHtml(article.bodyHtml || legacySectionsToHtml(article.sections))
   );
 
   return (
@@ -125,6 +127,29 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
             <article className="min-w-0">
               <p className="text-lg leading-8 text-slate-600">{article.excerpt}</p>
 
+              {preparedArticle.headings.length >= 3 ? (
+                <details className="group mt-8 border-y border-metal-200 bg-metal-50 px-5 py-4">
+                  <summary className="focus-ring cursor-pointer list-none text-sm font-semibold text-navy-950 marker:content-none">
+                    <span className="flex items-center justify-between gap-4">
+                      On this page
+                      <span aria-hidden="true" className="text-industrial-700 transition group-open:rotate-45">+</span>
+                    </span>
+                  </summary>
+                  <nav aria-label="Article contents" className="mt-4 border-t border-metal-200 pt-4">
+                    <ol className="grid gap-x-7 gap-y-2 sm:grid-cols-2">
+                      {preparedArticle.headings.map((heading, index) => (
+                        <li key={heading.id}>
+                          <a className="focus-ring text-sm leading-6 text-slate-600 transition hover:text-industrial-700" href={`#${heading.id}`}>
+                            <span className="mr-2 text-xs font-semibold text-industrial-700">{String(index + 1).padStart(2, "0")}</span>
+                            {heading.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  </nav>
+                </details>
+              ) : null}
+
               {enhancement ? (
                 <section className="mt-9 border-y border-metal-200 py-7" aria-labelledby="quick-answer-heading">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">Direct answer</p>
@@ -151,7 +176,7 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
 
               <div
                 className={`resource-article-body ${enhancement ? "mt-8" : "mt-10"}`}
-                dangerouslySetInnerHTML={{ __html: articleBodyHtml }}
+                dangerouslySetInnerHTML={{ __html: preparedArticle.html }}
               />
 
               {article.takeaways.length ? (
@@ -171,7 +196,7 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
             <aside className="rounded-[6px] border border-metal-200 bg-white p-5">
               {relatedProducts.length ? (
                 <div>
-                  <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-navy-950">Related products</h2>
+                  <p className="text-base font-semibold text-navy-950">Related products</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {relatedProducts.map((product) => (
                       <Link
@@ -188,9 +213,9 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
 
               {relatedApplications.length ? (
                 <div className="mt-7">
-                  <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-navy-950">
+                  <p className="text-base font-semibold text-navy-950">
                     Related applications
-                  </h2>
+                  </p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {relatedApplications.map((application) => (
                       <Link
@@ -207,7 +232,7 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
 
               {relatedTechnology.length ? (
                 <div className="mt-7">
-                  <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-navy-950">Engineering evidence</h2>
+                  <p className="text-base font-semibold text-navy-950">Engineering evidence</p>
                   <div className="mt-3 grid gap-2">
                     {relatedTechnology.map((item) => (
                       <Link key={item.slug} href={`/technology/${item.slug}`} className="focus-ring text-sm font-semibold leading-6 text-industrial-700 transition hover:text-navy-950">
@@ -220,7 +245,7 @@ export default function ResourceArticlePage({ params }: { params: { slug: string
 
               {relatedResources.length ? (
                 <div className="mt-7 border-t border-metal-200 pt-6">
-                  <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-navy-950">Continue the review</h2>
+                  <p className="text-base font-semibold text-navy-950">Continue the review</p>
                   <div className="mt-3 grid gap-3">
                     {relatedResources.map((resource) => (
                       <Link key={resource.slug} href={`/resources/${resource.slug}`} className="focus-ring text-sm font-semibold leading-6 text-slate-700 transition hover:text-industrial-700">
@@ -251,4 +276,43 @@ function formatResourceDate(value: string) {
     day: "numeric",
     timeZone: "UTC"
   }).format(new Date(`${value}T00:00:00Z`));
+}
+
+function addArticleHeadingAnchors(html: string) {
+  const headings: Array<{ id: string; label: string }> = [];
+  const usedIds = new Set<string>();
+  const transformedHtml = html.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (_match, attributes: string, content: string) => {
+    const label = decodeHtmlText(content.replace(/<[^>]*>/g, "").trim());
+    const baseId = slugifyHeading(label) || `section-${headings.length + 1}`;
+    let id = baseId;
+    let suffix = 2;
+    while (usedIds.has(id)) {
+      id = `${baseId}-${suffix}`;
+      suffix += 1;
+    }
+    usedIds.add(id);
+    headings.push({ id, label });
+    const cleanAttributes = attributes.replace(/\s+id=("[^"]*"|'[^']*')/i, "");
+    return `<h2${cleanAttributes} id="${id}" class="scroll-mt-28">${content}</h2>`;
+  });
+
+  return { html: transformedHtml, headings };
+}
+
+function slugifyHeading(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/&amp;/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 72);
+}
+
+function decodeHtmlText(value: string) {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
 }

@@ -29,7 +29,13 @@ export default function HomePage() {
   const primaryProducts = homepage.productsPreview.featuredProductSlugs
     .map((slug) => getProductBySlug(slug))
     .filter((product): product is Product => Boolean(product));
-  const secondaryProducts = featuredProducts.filter((product) => !homepage.productsPreview.featuredProductSlugs.includes(product.slug));
+  const secondaryProducts = featuredProducts.filter(
+    (product) =>
+      !homepage.productsPreview.featuredProductSlugs.includes(product.slug) &&
+      product.category === "Level Instruments"
+  );
+  const featuredApplications = applications.slice(0, 3);
+  const additionalApplications = applications.slice(3);
 
   return (
     <>
@@ -96,6 +102,7 @@ export default function HomePage() {
                   src={homepage.siteConditions.image.src}
                   alt={homepage.siteConditions.image.alt}
                   fill
+                  loading="eager"
                   sizes="(min-width: 1024px) 520px, 100vw"
                   className="object-cover"
                 />
@@ -242,10 +249,22 @@ export default function HomePage() {
             description={homepage.applicationsPreview.description}
           />
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {applications.map((application, index) => (
-              <ApplicationCard key={application.slug} application={application} variant={index < 3 ? "featured" : "default"} />
+            {featuredApplications.map((application) => (
+              <ApplicationCard key={application.slug} application={application} variant="featured" />
             ))}
           </div>
+          <nav aria-label="More application guides" className="mt-6 grid border-y border-metal-200 sm:grid-cols-3 sm:divide-x sm:divide-metal-200">
+            {additionalApplications.map((application) => (
+              <Link
+                key={application.slug}
+                href={`/applications/${application.slug}`}
+                className="focus-ring flex min-h-14 items-center justify-between gap-4 border-t border-metal-200 px-4 py-3 text-sm font-semibold text-navy-950 transition first:border-t-0 hover:bg-metal-50 hover:text-industrial-700 sm:border-t-0"
+              >
+                {application.title}
+                <span aria-hidden="true">→</span>
+              </Link>
+            ))}
+          </nav>
         </Container>
       </Section>
 

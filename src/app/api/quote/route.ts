@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendSmtpMail } from "@/lib/smtp";
+import { consumeRateLimit, hasOversizedBody, isTrustedRequestOrigin } from "@/lib/requestSecurity";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -9,9 +10,37 @@ const applicationReviewSubject = "New Flowmeter Application Review from Velomac 
 
 type QuotePayload = Record<string, unknown>;
 
+const maximumRequestBytes = 64 * 1024;
+const minimumCompletionTimeMs = 1_500;
+
 export async function POST(request: Request) {
+  if (!isTrustedRequestOrigin(request)) {
+    return NextResponse.json({ message: "Request origin is not allowed." }, { status: 403 });
+  }
+
+  if (hasOversizedBody(request, maximumRequestBytes)) {
+    return NextResponse.json({ message: "Request is too large." }, { status: 413 });
+  }
+
+  const rateLimit = consumeRateLimit(request, "quote", 6, 10 * 60 * 1000);
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { message: "Too many requests. Please try again shortly." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfter) } }
+    );
+  }
+
   try {
     const payload = await readPayload(request);
+
+    if (JSON.stringify(payload).length > maximumRequestBytes) {
+      return NextResponse.json({ message: "Request is too large." }, { status: 413 });
+    }
+
+    if (isLikelyAutomatedSubmission(payload)) {
+      return NextResponse.json({ message: "Quote request received." });
+    }
+
     const name = readString(payload.name);
     const email = readString(payload.email);
     const message = readString(payload.requirements);
@@ -133,4 +162,11 @@ function readString(value: unknown) {
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function isLikelyAutomatedSubmission(payload: QuotePayload) {
+  if (readString(payload.website)) return true;
+
+  const startedAt = Number(readString(payload["started-at"]));
+  return Number.isFinite(startedAt) && startedAt > 0 && Date.now() - startedAt < minimumCompletionTimeMs;
 }

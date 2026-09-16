@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { ClipboardCheck, X } from "lucide-react";
 
 type ProductContext = {
   name: string;
@@ -49,6 +49,7 @@ export function FloatingApplicationReview() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [reviewVisible, setReviewVisible] = useState(false);
+  const [inlineEntryVisible, setInlineEntryVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const desktopTriggerRef = useRef<HTMLButtonElement>(null);
   const mobileTriggerRef = useRef<HTMLButtonElement>(null);
@@ -67,6 +68,7 @@ export function FloatingApplicationReview() {
   useEffect(() => {
     setOpen(false);
     setReviewVisible(false);
+    setInlineEntryVisible(false);
 
     try {
       setSubmitted(sessionStorage.getItem(sessionStateKey) === "submitted");
@@ -87,20 +89,36 @@ export function FloatingApplicationReview() {
   }, [applicationContext, hiddenRoute, pageType, pathname, productContext]);
 
   useEffect(() => {
-    if (!productContext) return;
     const reviewSection = document.getElementById("application-review");
-    if (!reviewSection) return;
+    const inlineEntries = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        "main [data-application-review-entry], main a[href='/contact']"
+      )
+    );
+    const visibleEntries = new Set<Element>();
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setReviewVisible(entry.isIntersecting);
-        if (entry.isIntersecting) setOpen(false);
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === reviewSection) {
+            setReviewVisible(entry.isIntersecting);
+          } else if (entry.isIntersecting) {
+            visibleEntries.add(entry.target);
+          } else {
+            visibleEntries.delete(entry.target);
+          }
+        });
+        const hasVisibleEntry = visibleEntries.size > 0;
+        setInlineEntryVisible(hasVisibleEntry);
+        if (entries.some((entry) => entry.isIntersecting)) setOpen(false);
       },
-      { threshold: 0.18 }
+      { threshold: 0.18, rootMargin: "-64px 0px 0px" }
     );
-    observer.observe(reviewSection);
+
+    if (reviewSection) observer.observe(reviewSection);
+    inlineEntries.forEach((entry) => observer.observe(entry));
     return () => observer.disconnect();
-  }, [pathname, productContext]);
+  }, [pathname]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -126,7 +144,7 @@ export function FloatingApplicationReview() {
     (desktop ? desktopCloseRef : mobileCloseRef).current?.focus();
   }, [open]);
 
-  if (hiddenRoute || reviewVisible) return null;
+  if (hiddenRoute || reviewVisible || inlineEntryVisible) return null;
 
   const tabLabel = submitted ? "Application Submitted" : "Application Review →";
 
@@ -205,9 +223,10 @@ export function FloatingApplicationReview() {
         aria-expanded={open}
         aria-controls={`${panelId}-mobile`}
         onClick={openPanel}
-        className={`focus-ring fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-30 inline-flex min-h-11 items-center rounded-full border border-industrial-700 bg-white px-4 py-2.5 text-sm font-semibold text-navy-950 shadow-[0_8px_22px_rgba(7,26,45,0.14)] transition hover:bg-blue-50 hover:text-industrial-700 lg:hidden ${open ? "pointer-events-none translate-y-3 opacity-0" : "translate-y-0 opacity-100"}`}
+        className={`focus-ring fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] right-3 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full border border-industrial-700 bg-white text-navy-950 shadow-[0_8px_22px_rgba(7,26,45,0.14)] transition hover:bg-blue-50 hover:text-industrial-700 lg:hidden ${open ? "pointer-events-none translate-y-3 opacity-0" : "translate-y-0 opacity-100"}`}
       >
-        {submitted ? "Application Submitted" : "Application Review"}
+        <ClipboardCheck size={18} strokeWidth={1.9} aria-hidden="true" />
+        <span className="sr-only">{submitted ? "Application submitted" : "Application review"}</span>
       </button>
 
       <button

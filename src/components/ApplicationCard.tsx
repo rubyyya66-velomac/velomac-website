@@ -23,6 +23,7 @@ export function ApplicationCard({
             src={application.image.src}
             alt={application.image.alt}
             fill
+            loading="eager"
             sizes={isFeatured ? "(min-width: 1024px) 33vw, 100vw" : "(min-width: 768px) 50vw, 100vw"}
             className="object-cover object-[center_58%] transition duration-300 group-hover:scale-[1.03]"
           />

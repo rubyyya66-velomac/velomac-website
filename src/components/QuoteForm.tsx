@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { contactContent } from "@/content/contact";
 import { products } from "@/content/products";
 
@@ -10,11 +10,24 @@ function fieldName(label: string) {
 
 export function QuoteForm() {
   const [submissionState, setSubmissionState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const startedAt = useRef(Date.now());
+  const hasStarted = useRef(false);
   const { form } = contactContent;
+
+  useEffect(() => {
+    trackQuoteForm("quote_form_view");
+  }, []);
+
+  function markStarted() {
+    if (hasStarted.current) return;
+    hasStarted.current = true;
+    trackQuoteForm("quote_form_start");
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmissionState("submitting");
+    trackQuoteForm("quote_form_submit");
 
     const formElement = event.currentTarget;
     const formData = new FormData(formElement);
@@ -40,9 +53,13 @@ export function QuoteForm() {
       }
 
       formElement.reset();
+      startedAt.current = Date.now();
+      hasStarted.current = false;
       setSubmissionState("success");
+      trackQuoteForm("quote_form_success");
     } catch {
       setSubmissionState("error");
+      trackQuoteForm("quote_form_error");
     }
   }
 
@@ -50,7 +67,10 @@ export function QuoteForm() {
     <form
       className="grid gap-5"
       onSubmit={handleSubmit}
+      onFocusCapture={markStarted}
     >
+      <input className="hidden" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+      <input type="hidden" name="started-at" value={startedAt.current} readOnly />
       <p className="border-l-2 border-industrial-600 bg-metal-50 px-4 py-3 text-sm leading-6 text-slate-600">
         {form.helperText}
       </p>
@@ -123,6 +143,15 @@ export function QuoteForm() {
       ) : null}
     </form>
   );
+}
+
+function trackQuoteForm(event: string) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event,
+    form_type: "quote_request",
+    page_path: window.location.pathname
+  });
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {

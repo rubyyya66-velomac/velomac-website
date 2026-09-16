@@ -7,6 +7,7 @@ import {
   validateAdminCredentials,
   verifyAdminSession
 } from "@/lib/adminAuth";
+import { consumeRateLimit, hasOversizedBody, isTrustedRequestOrigin } from "@/lib/requestSecurity";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,6 +24,22 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  if (!isTrustedRequestOrigin(request)) {
+    return NextResponse.json({ message: "Request origin is not allowed." }, { status: 403 });
+  }
+
+  if (hasOversizedBody(request, 8 * 1024)) {
+    return NextResponse.json({ message: "Request is too large." }, { status: 413 });
+  }
+
+  const rateLimit = consumeRateLimit(request, "admin-login", 10, 15 * 60 * 1000);
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { message: "Too many login attempts. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfter) } }
+    );
+  }
+
   const config = getAdminConfigStatus();
 
   if (!config.configured) {
@@ -34,10 +51,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const body = (await request.json()) as {
-    username?: string;
-    password?: string;
-  };
+  let body: { username?: string; password?: string };
+  try {
+    body = (await request.json()) as { username?: string; password?: string };
+  } catch {
+    return NextResponse.json({ message: "Invalid request." }, { status: 400 });
+  }
 
   if (!validateAdminCredentials(body.username || "", body.password || "")) {
     return NextResponse.json({ message: "Authentication failed. Please check the username and password." }, { status: 401 });

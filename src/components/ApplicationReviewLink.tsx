@@ -70,6 +70,7 @@ export function ApplicationReviewLink({
   return (
     <Link
       href={destination}
+      data-application-review-entry
       className={className}
       aria-label={ariaLabel}
       role={role}

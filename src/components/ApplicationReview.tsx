@@ -62,6 +62,7 @@ export function ApplicationReview({
   const formRef = useRef<HTMLFormElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const hasStarted = useRef(false);
+  const startedAt = useRef(Date.now());
   const [mediumType, setMediumType] = useState<MediumType>(() => normalizeMediumType(initialMediumType));
   const [selectedProductSlug, setSelectedProductSlug] = useState(() => {
     if (!allowProductSelection) return productSlug;
@@ -97,6 +98,7 @@ export function ApplicationReview({
       setQuickError("");
       setSubmissionState("idle");
       hasStarted.current = false;
+      startedAt.current = Date.now();
     }
 
     window.addEventListener("velomac:application-review-reset", resetApplicationReview);
@@ -168,6 +170,8 @@ export function ApplicationReview({
       "source-section": sourceContext?.sourceSection || "application-review",
       "source-origin-path": sourceContext?.sourcePath || sourcePath,
       "application-type": sourceContext?.applicationType || "",
+      website: readValue(formData, "website"),
+      "started-at": String(startedAt.current),
       "medium-fluid": currentSummary.find((item) => item.label === "Medium")?.value || "Not provided",
       "pipe-size": currentSummary.find((item) => item.label === "Pipe")?.value || "Not provided",
       "flow-range": currentSummary.find((item) => item.label === "Flow")?.value || "Not provided",
@@ -244,6 +248,7 @@ export function ApplicationReview({
               }}
               className="bg-white px-5 shadow-sm sm:px-8"
             >
+              <input className="hidden" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               {allowProductSelection ? (
                 <div className="border-t border-metal-200 py-7">
                   <Field label="Flowmeter technology (optional)">

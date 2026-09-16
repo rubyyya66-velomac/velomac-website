@@ -23,8 +23,9 @@ export function generateStaticParams() {
   ];
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const category = getTechnologyCategoryBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const category = getTechnologyCategoryBySlug(slug);
 
   if (category) {
     return buildPageMetadata({
@@ -36,8 +37,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     });
   }
 
-  const article = getTechnologyArticle(params.slug);
-  const detailPage = getTechnologyDetailPage(params.slug);
+  const article = getTechnologyArticle(slug);
+  const detailPage = getTechnologyDetailPage(slug);
 
   if (!article || !detailPage) {
     return {};
@@ -52,8 +53,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function TechnologyPageBySlug({ params }: { params: { slug: string } }) {
-  const category = getTechnologyCategoryBySlug(params.slug);
+export default async function TechnologyPageBySlug({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const category = getTechnologyCategoryBySlug(slug);
 
   if (category) {
     const path = `/technology/${category.slug}`;
@@ -76,8 +78,8 @@ export default function TechnologyPageBySlug({ params }: { params: { slug: strin
     );
   }
 
-  const article = getTechnologyArticle(params.slug);
-  const detailPage = getTechnologyDetailPage(params.slug);
+  const article = getTechnologyArticle(slug);
+  const detailPage = getTechnologyDetailPage(slug);
 
   if (!article || !detailPage) {
     notFound();

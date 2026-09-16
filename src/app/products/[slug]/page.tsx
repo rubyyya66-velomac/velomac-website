@@ -7,6 +7,7 @@ import { ApplicationReview } from "@/components/ApplicationReview";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { CTASection } from "@/components/CTASection";
 import { JsonLd } from "@/components/JsonLd";
+import { InPageNav } from "@/components/InPageNav";
 import { Container, Section } from "@/components/Layout";
 import { SpecTable } from "@/components/SpecTable";
 import { applications } from "@/content/applications";
@@ -23,8 +24,9 @@ export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const product = getProductBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
 
   if (!product) {
     return {};
@@ -39,8 +41,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = getProductBySlug(params.slug);
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
 
   if (!product) {
     notFound();
@@ -145,7 +148,20 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         </section>
       ) : null}
 
-      <Section>
+      <InPageNav
+        label={`${product.name} page sections`}
+        items={[
+          { href: "#applications", label: "Applications" },
+          { href: "#selection", label: "Selection" },
+          { href: "#configuration", label: "Configuration" },
+          { href: "#technical-data", label: "Technical data" },
+          product.category === "Flowmeters"
+            ? { href: "#application-review", label: "Application review" }
+            : { href: "#quote-details", label: "Quote details" }
+        ]}
+      />
+
+      <Section id="applications" className="scroll-mt-28">
         <Container className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="relative overflow-hidden rounded-[6px] bg-navy-950">
             <Image
@@ -188,7 +204,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         </Container>
       </Section>
 
-      <Section className="bg-metal-50">
+      <Section id="selection" className="scroll-mt-28 bg-metal-50">
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
@@ -208,7 +224,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         </Container>
       </Section>
 
-      <Section>
+      <Section id="configuration" className="scroll-mt-28">
         <Container className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
@@ -262,7 +278,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
       </Section>
 
       {product.category === "Level Instruments" ? (
-        <Section className="bg-metal-50">
+        <Section id="quote-details" className="scroll-mt-28 bg-metal-50">
           <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
@@ -289,7 +305,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         </Section>
       ) : null}
 
-      <Section className="bg-white">
+      <Section id="technical-data" className="scroll-mt-28 bg-white">
         <Container className="grid gap-8">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
@@ -316,7 +332,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
       ) : null}
 
       {relatedArticles.length ? (
-        <Section>
+        <Section id="resources" className="scroll-mt-28">
           <Container>
             <div className="max-w-3xl">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">

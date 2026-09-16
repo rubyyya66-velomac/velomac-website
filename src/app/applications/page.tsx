@@ -72,6 +72,7 @@ export default function ApplicationsPage() {
                       src={application.image.src}
                       alt={application.image.alt}
                       fill
+                      loading="eager"
                       sizes="(min-width: 1024px) 560px, 100vw"
                       className="object-cover"
                     />

@@ -34,14 +34,15 @@ const applicationTypes = new Set([
   "energy-loss-visibility"
 ]);
 
-export default function FlowmeterApplicationReviewPage({ searchParams }: { searchParams: SearchParams }) {
-  const initialProductSlug = getApplicationReviewProductOption(readParam(searchParams.product_slug))?.value;
-  const initialMediumType = normalizeMediumParam(readParam(searchParams.mediumType));
+export default async function FlowmeterApplicationReviewPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const resolvedSearchParams = await searchParams;
+  const initialProductSlug = getApplicationReviewProductOption(readParam(resolvedSearchParams.product_slug))?.value;
+  const initialMediumType = normalizeMediumParam(readParam(resolvedSearchParams.mediumType));
   const sourceContext = {
-    sourceType: readAllowedParam(searchParams.source_type, sourceTypes),
-    sourceSection: readAllowedParam(searchParams.source_section, sourceSections),
-    sourcePath: normalizeSourcePath(readParam(searchParams.source_path)),
-    applicationType: readAllowedParam(searchParams.application_type, applicationTypes)
+    sourceType: readAllowedParam(resolvedSearchParams.source_type, sourceTypes),
+    sourceSection: readAllowedParam(resolvedSearchParams.source_section, sourceSections),
+    sourcePath: normalizeSourcePath(readParam(resolvedSearchParams.source_path)),
+    applicationType: readAllowedParam(resolvedSearchParams.application_type, applicationTypes)
   };
 
   return (

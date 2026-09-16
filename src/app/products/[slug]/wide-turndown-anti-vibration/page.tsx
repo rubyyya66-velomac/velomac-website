@@ -7,6 +7,7 @@ import { ApplicationReview } from "@/components/ApplicationReview";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container } from "@/components/Layout";
 import { JsonLd } from "@/components/JsonLd";
+import { InPageNav } from "@/components/InPageNav";
 import { featuredVortexSolution } from "@/content/featuredVortexSolution";
 import { getProductBySlug } from "@/content/products";
 import { buildPageMetadata } from "@/lib/seo";
@@ -25,8 +26,9 @@ export const metadata: Metadata = buildPageMetadata({
   imageAlt: featuredVortexSolution.hero.image.alt
 });
 
-export default function WideTurndownAntiVibrationPage({ params }: { params: { slug: string } }) {
-  if (params.slug !== featuredVortexSolution.parentProductSlug) {
+export default async function WideTurndownAntiVibrationPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  if (slug !== featuredVortexSolution.parentProductSlug) {
     notFound();
   }
 
@@ -102,7 +104,20 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
         </Container>
       </section>
 
-      <PageSection compact>
+      <InPageNav
+        label="Wide-turndown vortex page sections"
+        items={[
+          { href: "#operating-range", label: "Operating range" },
+          { href: "#flow-envelope", label: "Flow envelope" },
+          { href: "#engineering", label: "Engineering" },
+          { href: "#vibration", label: "Vibration" },
+          { href: "#engineering-data", label: "Engineering data" },
+          { href: "#full-measurement-range", label: "Range table" },
+          { href: "#application-review", label: "Application review" }
+        ]}
+      />
+
+      <PageSection id="operating-range" compact>
         <SectionHeading
           eyebrow={featuredVortexSolution.operatingConditions.eyebrow}
           title={featuredVortexSolution.operatingConditions.title}
@@ -127,7 +142,7 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
         </p>
       </PageSection>
 
-      <section className="bg-navy-950 py-16 text-white sm:py-20 lg:py-24">
+      <section id="flow-envelope" className="scroll-mt-28 bg-navy-950 py-16 text-white sm:py-20 lg:py-24">
         <Container className="grid gap-12 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-16">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{featuredVortexSolution.flowEnvelope.eyebrow}</p>
@@ -151,7 +166,7 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
         </Container>
       </section>
 
-      <PageSection>
+      <PageSection id="engineering">
         <SectionHeading
           eyebrow={featuredVortexSolution.engineering.eyebrow}
           title={featuredVortexSolution.engineering.title}
@@ -172,7 +187,7 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
         </div>
       </PageSection>
 
-      <PageSection className="bg-metal-50">
+      <PageSection id="vibration" className="bg-metal-50">
         <SectionHeading eyebrow={featuredVortexSolution.vibration.eyebrow} title={featuredVortexSolution.vibration.title} />
         <div className="mt-10 grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16">
           <div>
@@ -194,7 +209,7 @@ export default function WideTurndownAntiVibrationPage({ params }: { params: { sl
         </div>
       </PageSection>
 
-      <PageSection>
+      <PageSection id="engineering-data">
         <SectionHeading eyebrow={featuredVortexSolution.engineeringData.eyebrow} title={featuredVortexSolution.engineeringData.title} />
         <div className="mt-10 grid grid-cols-2 border-y border-metal-300 lg:grid-cols-4 lg:divide-x lg:divide-metal-200">
           {featuredVortexSolution.engineeringData.metrics.map((metric) => (
@@ -242,9 +257,9 @@ const technicalLabelClass = "text-xs font-semibold uppercase tracking-[0.18em] t
 const bodyClass = "text-lg leading-8 text-slate-600";
 const h3Class = "text-xl font-semibold leading-7 text-navy-950";
 
-function PageSection({ children, className = "", compact = false }: { children: ReactNode; className?: string; compact?: boolean }) {
+function PageSection({ children, className = "", compact = false, id }: { children: ReactNode; className?: string; compact?: boolean; id?: string }) {
   return (
-    <section className={`${compact ? "py-14 sm:py-16 lg:py-[4.5rem]" : "py-16 sm:py-20 lg:py-24"} ${className}`}>
+    <section id={id} className={`scroll-mt-28 ${compact ? "py-14 sm:py-16 lg:py-[4.5rem]" : "py-16 sm:py-20 lg:py-24"} ${className}`}>
       <Container>{children}</Container>
     </section>
   );

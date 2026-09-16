@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container, PageIntro, Section } from "@/components/Layout";
 import { QuoteForm } from "@/components/QuoteForm";
+import { TrackedContactLink } from "@/components/TrackedContactLink";
 import { contactContent } from "@/content/contact";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -27,8 +28,28 @@ export default function ContactPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{sidebar.label}</p>
             <h2 className="mt-3 text-2xl font-semibold text-white">{sidebar.headline}</h2>
             <div className="mt-5 grid gap-3 text-sm leading-6 text-slate-300">
-              <p>Email: {contactInfo.email}</p>
-              <p>WhatsApp: {contactInfo.whatsapp}</p>
+              <p>
+                Email:{" "}
+                <TrackedContactLink
+                  href={`mailto:${contactInfo.email}`}
+                  channel="email"
+                  className="focus-ring rounded-sm underline decoration-white/30 underline-offset-4 transition hover:text-white"
+                >
+                  {contactInfo.email}
+                </TrackedContactLink>
+              </p>
+              <p>
+                WhatsApp:{" "}
+                <TrackedContactLink
+                  href="https://wa.me/8613326311877"
+                  channel="whatsapp"
+                  newTab
+                  ariaLabel="Contact Velomac on WhatsApp"
+                  className="focus-ring rounded-sm underline decoration-white/30 underline-offset-4 transition hover:text-white"
+                >
+                  {contactInfo.whatsapp}
+                </TrackedContactLink>
+              </p>
               <p>Location: {contactInfo.location}</p>
             </div>
             <div className="mt-8 border-t border-white/15 pt-6">

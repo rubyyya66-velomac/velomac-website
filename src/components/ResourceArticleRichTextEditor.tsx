@@ -139,7 +139,7 @@ export function ResourceArticleRichTextEditor({
       return;
     }
 
-    editor.commands.setContent(value || "<p></p>", false);
+    editor.commands.setContent(value || "<p></p>", { emitUpdate: false });
     setCounts(countEditorText(editor.getText()));
   }, [editor, value]);
 

@@ -15,8 +15,9 @@ export function generateStaticParams() {
   return applications.map((application) => ({ slug: application.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const application = applications.find((item) => item.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const application = applications.find((item) => item.slug === slug);
 
   if (!application) {
     return {};
@@ -31,8 +32,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function ApplicationDetailPage({ params }: { params: { slug: string } }) {
-  const application = applications.find((item) => item.slug === params.slug);
+export default async function ApplicationDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const application = applications.find((item) => item.slug === slug);
 
   if (!application) {
     notFound();

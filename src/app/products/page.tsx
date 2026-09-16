@@ -77,7 +77,7 @@ export default function ProductsPage() {
             <h2 className="mt-2 text-2xl font-semibold leading-tight text-navy-950 sm:text-3xl">
               Start with the operating conditions first.
             </h2>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+            <p className="mt-3 text-base leading-7 text-slate-600 lg:whitespace-nowrap">
               Share the medium, flow range, pressure, temperature and pipe size before choosing a meter family.
             </p>
           </div>

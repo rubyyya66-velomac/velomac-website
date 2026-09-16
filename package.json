@@ -2,6 +2,7 @@
   "name": "velomac-flow-meter-mvp",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.19.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,22 +10,23 @@
     "lint": "next lint",
     "audit:phase2": "node scripts/phase2-audit.mjs",
     "audit:seo": "node scripts/seo-audit.mjs",
+    "audit:images": "node scripts/image-audit.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
-    "@tiptap/core": "2.27.2",
-    "@tiptap/extension-highlight": "2.27.2",
-    "@tiptap/extension-link": "2.27.2",
-    "@tiptap/extension-underline": "2.27.2",
-    "@tiptap/pm": "2.27.2",
-    "@tiptap/react": "2.27.2",
-    "@tiptap/starter-kit": "2.27.2",
+    "@tiptap/core": "3.31.3",
+    "@tiptap/extension-highlight": "3.31.3",
+    "@tiptap/extension-link": "3.31.3",
+    "@tiptap/extension-underline": "3.31.3",
+    "@tiptap/pm": "3.31.3",
+    "@tiptap/react": "3.31.3",
+    "@tiptap/starter-kit": "3.31.3",
     "lucide-react": "0.468.0",
-    "next": "14.2.35",
+    "next": "15.5.25",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "sanitize-html": "2.17.0",
-    "sharp": "0.35.3"
+    "sanitize-html": "2.17.7",
+    "sharp": "0.35.4"
   },
   "devDependencies": {
     "@types/node": "22.10.7",
@@ -33,8 +35,8 @@
     "@types/sanitize-html": "2.13.0",
     "autoprefixer": "10.4.20",
     "eslint": "8.57.1",
-    "eslint-config-next": "14.2.35",
-    "postcss": "8.5.1",
+    "eslint-config-next": "15.5.25",
+    "postcss": "8.5.28",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3"
   }

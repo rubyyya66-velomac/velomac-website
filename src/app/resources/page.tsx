@@ -19,15 +19,16 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 type ResourcesPageProps = {
-  searchParams?: {
+  searchParams?: Promise<{
     category?: string | string[];
-  };
+  }>;
 };
 
-export default function ResourcesPage({ searchParams }: ResourcesPageProps) {
-  const requestedCategory = Array.isArray(searchParams?.category)
-    ? searchParams?.category[0]
-    : searchParams?.category;
+export default async function ResourcesPage({ searchParams }: ResourcesPageProps) {
+  const resolvedSearchParams = await searchParams;
+  const requestedCategory = Array.isArray(resolvedSearchParams?.category)
+    ? resolvedSearchParams?.category[0]
+    : resolvedSearchParams?.category;
   const initialCategorySlug =
     getResourceCategoryBySlug(requestedCategory)?.slug || null;
   const resourceItems: ResourceListItem[] = articles.map((article) => ({
