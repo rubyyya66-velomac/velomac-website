@@ -20,16 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...technologyCategoryPages,
     ...technologyPages
   ].map((path) => ({
-    url: absoluteUrl(path),
-    changeFrequency: (path === "" ? "weekly" : "monthly") as "weekly" | "monthly",
-    priority: path === "" ? 1 : path.startsWith("/products") || path.startsWith("/applications/") ? 0.8 : 0.6
+    url: absoluteUrl(path)
   }));
 
   const publishedResourcePages = resources.map((resource) => ({
     url: absoluteUrl(`/resources/${resource.slug}`),
-    lastModified: new Date(resource.modifiedDate || resource.publishedDate),
-    changeFrequency: "monthly" as const,
-    priority: 0.6
+    lastModified: new Date(resource.modifiedDate || resource.publishedDate)
   }));
 
   return [...standardPages, ...publishedResourcePages];

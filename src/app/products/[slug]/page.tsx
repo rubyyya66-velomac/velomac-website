@@ -427,17 +427,26 @@ const curatedResourceSlugsByProduct: Record<string, string[]> = {
   "vortex-flowmeter": [
     "vortex-flowmeter-steam-selection",
     "pharma-utility-flow-measurement-precheck",
-    "cement-carbon-capture-utility-flow"
+    "cement-carbon-capture-utility-flow",
+    "steam-flowmeter-sizing-production-expansion"
   ],
   "electromagnetic-flowmeter": [
     "flowmeter-data-quality-measurement-point",
     "semiconductor-water-flow-boundaries",
-    "concentrator-expansion-slurry-flow"
+    "concentrator-expansion-slurry-flow",
+    "reclaimed-water-flowmeter-selection-conductivity",
+    "ro-train-flow-measurement"
   ],
   "ultrasonic-flowmeter": [
     "data-center-commissioning-water-flow-record",
     "data-center-water-recovery-flow-measurement",
-    "temporary-wastewater-flow-measurement-brownfield-upgrade"
+    "temporary-wastewater-flow-measurement-brownfield-upgrade",
+    "ro-train-flow-measurement"
+  ],
+  "gas-turbine-flowmeter": [
+    "lng-feed-gas-composition-flow-measurement-review",
+    "gas-flow-measurement-commissioning-commercial-delivery",
+    "semiconductor-gas-flow-boundaries"
   ],
   "thermal-mass-flowmeter": [
     "cement-carbon-capture-utility-flow",

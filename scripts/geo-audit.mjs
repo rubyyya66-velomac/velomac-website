@@ -9,6 +9,10 @@ const products = await readJson("products.json");
 const applications = await readJson("applications.json");
 const technology = await readJson("technology.json");
 const articles = (await readJson("articles.json")).filter((article) => article.status !== "draft");
+const sitemapResponse = await fetch(`${baseUrl}/sitemap.xml`);
+const sitemapText = await sitemapResponse.text();
+const sitemapUrls = [...sitemapText.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+const sitemapRoutes = sitemapUrls.map((url) => new URL(url).pathname);
 
 const routes = [...new Set([
   "/",
@@ -24,7 +28,8 @@ const routes = [...new Set([
   ...applications.map((application) => `/applications/${application.slug}`),
   ...technology.categories.map((category) => `/technology/${category.slug}`),
   ...technology.articles.map((article) => `/technology/${article.slug}`),
-  ...articles.map((article) => `/resources/${article.slug}`)
+  ...articles.map((article) => `/resources/${article.slug}`),
+  ...sitemapRoutes
 ])];
 
 const pages = [];
@@ -62,8 +67,8 @@ for (const route of routes) {
   if (!page.serverRendered) addProblem(route, "main content is not present in server HTML");
   if (!page.schemaTypes.includes("Organization")) addProblem(route, "missing Organization schema");
 
-  if (/^\/products\/[^/]+$/.test(route) && !page.schemaTypes.includes("Product")) {
-    addProblem(route, "missing Product schema");
+  if (/^\/products\/[^/]+$/.test(route) && !page.schemaTypes.some((type) => type === "Product" || type === "ProductGroup")) {
+    addProblem(route, "missing Product or ProductGroup schema");
   }
   if (/^\/resources\/[^/]+$/.test(route)) {
     if (!page.schemaTypes.includes("Article")) addProblem(route, "missing Article schema");
@@ -118,10 +123,6 @@ const restrictedChecks = await Promise.all([
   checkRestricted("/api/admin/content")
 ]);
 const indexNowKeyResponse = await fetch(`${baseUrl}/indexnow-key.txt`);
-const sitemapResponse = await fetch(`${baseUrl}/sitemap.xml`);
-const sitemapText = await sitemapResponse.text();
-const sitemapUrls = [...sitemapText.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-
 const duplicateTitles = duplicateValues(pages, "title");
 const duplicateDescriptions = duplicateValues(pages, "description");
 if (duplicateTitles.length) addProblem("sitewide", `${duplicateTitles.length} duplicate title groups`);
@@ -147,7 +148,7 @@ const result = {
   sitemap: {
     status: sitemapResponse.status,
     urlCount: sitemapUrls.length,
-    allAuditedRoutesPresent: pages.every((page) => sitemapUrls.includes(new URL(page.route, "https://www.velomacflowmeter.com").href))
+    allAuditedRoutesPresent: pages.every((page) => sitemapRoutes.includes(page.route))
   },
   duplicateTitles,
   duplicateDescriptions,
