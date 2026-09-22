@@ -128,7 +128,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
     <div className="w-full xl:w-auto">
       <button
         type="button"
-        className="focus-ring flex w-full items-center justify-between border-y border-metal-200 py-3 text-sm font-semibold text-navy-950 xl:hidden"
+        className="focus-ring flex min-h-11 w-full items-center justify-between border-y border-metal-200 py-2.5 text-sm font-semibold text-navy-950 xl:hidden"
         aria-expanded={mobileOpen}
         aria-controls="mobile-main-navigation"
         onClick={() => setMobileOpen((current) => !current)}
@@ -192,7 +192,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                   <button
                     ref={productsButtonRef}
                     type="button"
-                    className="focus-ring flex h-10 w-10 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
+                    className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
                     aria-label="Toggle Products menu"
                     aria-expanded={productsMenuVisible}
                     aria-haspopup="menu"
@@ -228,7 +228,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                         href={productItem.href}
                         role="menuitem"
                         onClick={closeNavigation}
-                        className={`focus-ring block px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-metal-50 hover:text-industrial-700 ${
+                        className={`focus-ring flex min-h-11 items-center px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-metal-50 hover:text-industrial-700 ${
                           index > 0 ? "border-t border-metal-100" : ""
                         }`}
                       >
@@ -240,7 +240,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                       sourceSection="products-submenu"
                       role="menuitem"
                       onNavigate={closeNavigation}
-                      className="focus-ring mt-1 block border-t border-metal-200 px-3 py-2.5 text-sm font-semibold text-industrial-700 transition hover:bg-blue-50 hover:text-navy-950"
+                      className="focus-ring mt-1 flex min-h-11 items-center border-t border-metal-200 px-3 py-2.5 text-sm font-semibold text-industrial-700 transition hover:bg-blue-50 hover:text-navy-950"
                     >
                       Review Your Application
                     </ApplicationReviewLink>
@@ -312,7 +312,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                   <button
                     ref={applicationsButtonRef}
                     type="button"
-                    className="focus-ring flex h-10 w-10 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
+                    className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
                     aria-label="Toggle Applications menu"
                     aria-expanded={applicationsMenuVisible}
                     aria-haspopup="menu"
@@ -348,7 +348,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                         href={applicationItem.href}
                         role="menuitem"
                         onClick={closeNavigation}
-                        className={`focus-ring block px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-metal-50 hover:text-industrial-700 ${
+                        className={`focus-ring flex min-h-11 items-center px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-metal-50 hover:text-industrial-700 ${
                           index > 0 ? "border-t border-metal-100" : ""
                         }`}
                       >
@@ -410,7 +410,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                   <button
                     ref={technologyButtonRef}
                     type="button"
-                    className="focus-ring flex h-10 w-10 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
+                    className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center text-slate-500 transition hover:text-industrial-700 xl:h-8 xl:w-8"
                     aria-label="Toggle Technology menu"
                     aria-expanded={technologyMenuVisible}
                     aria-haspopup="menu"
@@ -450,7 +450,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                           role="menuitem"
                           aria-current={active ? "location" : undefined}
                           onClick={closeNavigation}
-                          className={`focus-ring block px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
+                          className={`focus-ring flex min-h-11 items-center px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
                             index > 0 ? "border-t border-metal-100" : ""
                           } ${active ? "bg-metal-50 text-industrial-700" : "text-slate-600"}`}
                         >
@@ -520,7 +520,7 @@ export function HeaderNav({ navItems }: { navItems: NavItem[] }) {
                         role="menuitem"
                         aria-current={pathname === aboutItem.href ? "page" : undefined}
                         onClick={closeNavigation}
-                        className={`focus-ring block px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
+                        className={`focus-ring flex min-h-11 items-center px-3 py-2.5 text-sm font-semibold transition hover:bg-metal-50 hover:text-industrial-700 ${
                           index > 0 ? "border-t border-metal-100" : ""
                         } ${pathname === aboutItem.href ? "bg-metal-50 text-industrial-700" : "text-slate-600"}`}
                       >

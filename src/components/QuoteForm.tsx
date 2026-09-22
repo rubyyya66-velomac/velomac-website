@@ -78,7 +78,7 @@ export function QuoteForm() {
         {form.fields.map((field) => (
           <Field key={field.name} label={field.label}>
             <input
-              className="focus-ring w-full rounded-[4px] border border-metal-200 bg-white px-3 py-3 text-sm text-navy-950 transition focus-visible:border-industrial-600"
+              className="focus-ring min-h-11 w-full rounded-[4px] border border-metal-200 bg-white px-3 py-3 text-base text-navy-950 transition focus-visible:border-industrial-600 sm:text-sm"
               name={field.name || fieldName(field.label)}
               type={field.type}
               required={field.required}
@@ -87,7 +87,7 @@ export function QuoteForm() {
           </Field>
         ))}
         <Field label={form.productInterestLabel}>
-          <select className="focus-ring w-full rounded-[4px] border border-metal-200 bg-white px-3 py-3 text-sm text-navy-950 transition focus-visible:border-industrial-600" name={form.productInterestName}>
+          <select className="focus-ring min-h-11 w-full rounded-[4px] border border-metal-200 bg-white px-3 py-3 text-base text-navy-950 transition focus-visible:border-industrial-600 sm:text-sm" name={form.productInterestName}>
             <option value="">{form.productInterestPlaceholder}</option>
             {products.map((product) => (
               <option key={product.slug} value={product.name}>
@@ -99,7 +99,7 @@ export function QuoteForm() {
         {form.processFields.map((field) => (
           <Field key={field.name} label={field.label}>
             <input
-              className="focus-ring w-full rounded-[4px] border border-metal-200 bg-white px-3 py-3 text-sm text-navy-950 transition focus-visible:border-industrial-600"
+              className="focus-ring min-h-11 w-full rounded-[4px] border border-metal-200 bg-white px-3 py-3 text-base text-navy-950 transition focus-visible:border-industrial-600 sm:text-sm"
               name={field.name || fieldName(field.label)}
               type={field.type}
               required={field.required}
@@ -110,19 +110,19 @@ export function QuoteForm() {
       </div>
       <Field label={form.requirementsLabel}>
         <textarea
-          className="focus-ring min-h-44 w-full rounded-[4px] border border-metal-200 px-3 py-3 text-sm text-navy-950 transition focus-visible:border-industrial-600"
+          className="focus-ring min-h-44 w-full rounded-[4px] border border-metal-200 px-3 py-3 text-base text-navy-950 transition focus-visible:border-industrial-600 sm:text-sm"
           name={form.requirementsName}
           placeholder={form.requirementsPlaceholder || undefined}
           required
         />
       </Field>
       <Field label={form.attachmentLabel}>
-        <input className="focus-ring w-full rounded-[4px] border border-dashed border-metal-200 px-3 py-3 text-sm text-slate-600 transition focus-visible:border-industrial-600" type="file" name={form.attachmentName} />
+        <input className="focus-ring min-h-11 w-full rounded-[4px] border border-dashed border-metal-200 px-3 py-3 text-base text-slate-600 transition focus-visible:border-industrial-600 sm:text-sm" type="file" name={form.attachmentName} />
       </Field>
       <button
         type="submit"
         disabled={submissionState === "submitting"}
-        className="focus-ring inline-flex w-fit items-center justify-center gap-2 bg-navy-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700 disabled:cursor-not-allowed disabled:opacity-70"
+        className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 bg-navy-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700 disabled:cursor-not-allowed disabled:opacity-70 sm:w-fit"
       >
         {submissionState === "submitting" ? "Submitting..." : form.submitLabel}
         <span aria-hidden="true">{">"}</span>

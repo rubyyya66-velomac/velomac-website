@@ -353,7 +353,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     {article.category}
                   </span>
                   <span className="text-lg font-semibold text-navy-950">{article.title}</span>
-                  <span className="text-sm font-semibold text-industrial-700">Read article {">"}</span>
+                  <span className="text-sm font-semibold text-industrial-700">Read {article.category} {">"}</span>
                 </Link>
               ))}
             </div>

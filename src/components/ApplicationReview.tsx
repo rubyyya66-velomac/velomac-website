@@ -638,7 +638,7 @@ function StraightRunFields() {
         <Field label="Upstream"><span className="relative"><input name="upstream-straight-run" type="number" min="0" step="any" className={`${inputClass} pr-10`} /><span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-slate-500">D</span></span></Field>
         <Field label="Downstream"><span className="relative"><input name="downstream-straight-run" type="number" min="0" step="any" className={`${inputClass} pr-10`} /><span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-slate-500">D</span></span></Field>
       </div>
-      <label className="mt-3 inline-flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" name="straight-run-not-sure" value="Not sure" className="h-4 w-4 accent-blue-700" /> Not sure</label>
+      <label className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm text-slate-600"><input type="checkbox" name="straight-run-not-sure" value="Not sure" className="h-4 w-4 accent-blue-700" /> Not sure</label>
     </fieldset>
   );
 }
@@ -656,7 +656,7 @@ function ChipOptions({ name, options, value, onChange }: { name: string; options
             onChange={onChange ? () => onChange(option) : undefined}
             className="peer sr-only"
           />
-          <span className="focus-ring inline-flex min-h-10 items-center border border-metal-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600 transition hover:border-industrial-500 hover:text-navy-950 peer-checked:border-industrial-700 peer-checked:bg-blue-50 peer-checked:text-navy-950 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-industrial-600">
+          <span className="focus-ring inline-flex min-h-11 items-center border border-metal-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600 transition hover:border-industrial-500 hover:text-navy-950 peer-checked:border-industrial-700 peer-checked:bg-blue-50 peer-checked:text-navy-950 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-industrial-600">
             {option}
           </span>
         </label>
@@ -671,7 +671,7 @@ function CheckboxGroup({ name, label, options }: { name: string; label: string; 
       <legend className={labelClass}>{label}</legend>
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-3">
         {options.map((option) => (
-          <label key={option} className="inline-flex min-h-9 items-center gap-2 text-sm text-slate-600">
+          <label key={option} className="inline-flex min-h-11 items-center gap-2 text-sm text-slate-600">
             <input type="checkbox" name={name} value={option} className="h-4 w-4 accent-blue-700" />
             {option}
           </label>

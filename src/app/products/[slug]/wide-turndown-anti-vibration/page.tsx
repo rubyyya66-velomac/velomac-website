@@ -58,7 +58,7 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
         <Container className="grid gap-x-10 gap-y-8 py-12 sm:py-16 lg:grid-cols-[1.28fr_0.72fr] lg:grid-rows-[auto_auto_auto] lg:items-center lg:py-20">
           <div className="lg:col-start-1 lg:row-start-1">
             <p className={technicalLabelClass}>{featuredVortexSolution.hero.eyebrow}</p>
-            <h1 className="mt-4 text-[2.55rem] font-semibold leading-[1.06] tracking-[-0.025em] text-navy-950 sm:text-5xl lg:text-[2.8rem] xl:text-[3.1rem]">
+            <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-[-0.025em] text-navy-950 sm:text-5xl lg:text-[2.8rem] xl:text-[3.1rem]">
               {featuredVortexSolution.hero.title}
             </h1>
             <p className="mt-6 text-xl font-semibold leading-8 text-navy-950">
@@ -124,14 +124,22 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
           description={featuredVortexSolution.operatingConditions.description}
         />
 
-        <div className="mt-8 border-y border-metal-200 py-6">
-          <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-1 sm:gap-3">
+        <div className="mt-8 border-y border-metal-200 py-4 sm:py-6">
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[4px] bg-metal-200 sm:hidden">
+            {featuredVortexSolution.operatingConditions.stages.map((stage, index) => (
+              <p key={stage} className="bg-white px-3 py-4 text-center text-[13px] font-semibold uppercase leading-5 tracking-[0.09em] text-navy-950">
+                <span className="mr-2 text-industrial-600">{String(index + 1).padStart(2, "0")}</span>
+                {stage}
+              </p>
+            ))}
+          </div>
+          <div className="hidden grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-3 sm:grid">
             {featuredVortexSolution.operatingConditions.stages.map((stage, index) => (
               <div key={stage} className="contents">
-                <p className="text-center text-[11px] font-semibold uppercase leading-4 tracking-[0.08em] text-navy-950 sm:text-sm sm:leading-5 sm:tracking-[0.12em]">
+                <p className="text-center text-sm font-semibold uppercase leading-5 tracking-[0.12em] text-navy-950">
                   {stage}
                 </p>
-                {index < 3 ? <span aria-hidden="true" className="text-xl font-medium text-industrial-600 sm:text-3xl">→</span> : null}
+                {index < 3 ? <span aria-hidden="true" className="text-3xl font-medium text-industrial-600">→</span> : null}
               </div>
             ))}
           </div>
@@ -371,7 +379,7 @@ function VortexEngineeringVisual() {
 function MetricStripItem({ label, value }: { label: string; value: string }) {
   return (
     <div className="border-b border-metal-200 px-0 py-6 odd:pr-5 even:pl-5 lg:border-b-0 lg:px-7 lg:first:pl-0 lg:last:pr-0">
-      <p className="whitespace-nowrap text-3xl font-semibold tracking-[-0.035em] text-industrial-700 sm:text-4xl">{value}</p>
+      <p className="whitespace-nowrap text-2xl font-semibold tracking-[-0.035em] text-industrial-700 sm:text-4xl">{value}</p>
       <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
     </div>
   );

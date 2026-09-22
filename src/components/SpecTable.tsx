@@ -4,7 +4,15 @@ export function SpecTable({ table }: { table: TableBlock }) {
   return (
     <div className="min-w-0">
       {table.title ? <h3 className="text-xl font-semibold text-navy-950">{table.title}</h3> : null}
-      <div className="mt-4 w-full max-w-full overflow-x-auto rounded-[6px] border border-metal-200 bg-white">
+      <p className="mt-4 text-xs font-semibold text-slate-500 sm:hidden" aria-hidden="true">
+        Swipe horizontally to view all columns →
+      </p>
+      <div
+        className="mt-2 w-full max-w-full overflow-x-auto overscroll-x-contain rounded-[6px] border border-metal-200 bg-white sm:mt-4"
+        role="region"
+        aria-label={`${table.title || "Specification"} table; scroll horizontally to view all columns`}
+        tabIndex={0}
+      >
         <table className="min-w-[720px] w-full border-collapse bg-white text-left text-sm">
           <thead className="bg-navy-950 text-white">
             <tr>

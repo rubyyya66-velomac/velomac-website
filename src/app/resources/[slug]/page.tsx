@@ -80,15 +80,15 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
         ])}
       />
       <section className="velomac-blue-surface text-white">
-        <Container className="py-14 sm:py-16 lg:py-20">
-          <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-2 text-sm text-blue-100">
+        <Container className="py-10 sm:py-16 lg:py-20">
+          <nav aria-label="Breadcrumb" className="mb-5 flex min-w-0 items-center gap-2 text-sm text-blue-100 sm:mb-8 sm:flex-wrap">
             <Link href="/" className="focus-ring transition hover:text-white">Home</Link>
             <span aria-hidden="true">/</span>
             <Link href="/resources" className="focus-ring transition hover:text-white">Resources</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-white">{article.title}</span>
+            <span aria-current="page" className="min-w-0 flex-1 truncate whitespace-nowrap text-white sm:overflow-visible sm:text-clip sm:whitespace-normal" title={article.title}>{article.title}</span>
           </nav>
-          <div className="grid gap-9 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
+          <div className="grid gap-7 sm:gap-9 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">{article.category}</p>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-blue-100">
@@ -97,7 +97,7 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
                   <time dateTime={article.modifiedDate}>Updated {formatResourceDate(article.modifiedDate)}</time>
                 ) : null}
               </div>
-              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-normal text-white sm:text-5xl">
+              <h1 className="mt-4 text-[2rem] font-semibold leading-[1.14] tracking-normal text-white sm:text-5xl sm:leading-tight">
                 {article.title}
               </h1>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-50">{article.intro || article.summary}</p>
@@ -126,6 +126,43 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
           <div className="grid gap-8 lg:grid-cols-[1fr_280px] lg:items-start">
             <article className="min-w-0">
               <p className="text-lg leading-8 text-slate-600">{article.excerpt}</p>
+
+              {relatedApplications.length || relatedProducts.length ? (
+                <aside
+                  data-application-review-entry
+                  className="mt-7 border-y border-metal-200 bg-metal-50 px-5 py-5 lg:hidden"
+                  aria-label="Continue from this resource"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">Continue the application review</p>
+                  <div className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
+                    {relatedApplications[0] ? (
+                      <Link
+                        href={`/applications/${relatedApplications[0].slug}`}
+                        className="focus-ring text-sm font-semibold leading-6 text-navy-950 transition hover:text-industrial-700"
+                      >
+                        Application: {relatedApplications[0].title} <span aria-hidden="true">→</span>
+                      </Link>
+                    ) : null}
+                    {relatedProducts[0] ? (
+                      <Link
+                        href={`/products/${relatedProducts[0].slug}`}
+                        className="focus-ring text-sm font-semibold leading-6 text-navy-950 transition hover:text-industrial-700"
+                      >
+                        Product: {relatedProducts[0].name} <span aria-hidden="true">→</span>
+                      </Link>
+                    ) : null}
+                  </div>
+                  <ApplicationReviewLink
+                    sourceType="resource"
+                    sourceSection="mobile-resource-path"
+                    sourcePath={`/resources/${article.slug}`}
+                    applicationType={article.relatedApplicationSlugs[0]}
+                    className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
+                  >
+                    Review my operating conditions <span aria-hidden="true" className="ml-2">→</span>
+                  </ApplicationReviewLink>
+                </aside>
+              ) : null}
 
               {preparedArticle.headings.length >= 3 ? (
                 <details className="group mt-8 border-y border-metal-200 bg-metal-50 px-5 py-4">
@@ -193,7 +230,7 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
               ) : null}
             </article>
 
-            <aside className="rounded-[6px] border border-metal-200 bg-white p-5">
+            <aside className="hidden rounded-[6px] border border-metal-200 bg-white p-5 lg:block">
               {relatedProducts.length ? (
                 <div>
                   <p className="text-base font-semibold text-navy-950">Related products</p>

@@ -23,7 +23,7 @@ export function Header() {
           </TrackedContactLink>
         </div>
       </div>
-      <div className="mx-auto grid w-full max-w-[1200px] grid-cols-[auto_1fr_auto] items-center gap-x-3 gap-y-2 px-5 py-2.5 sm:px-6 lg:px-8 xl:flex xl:justify-between xl:gap-6 xl:py-4">
+      <div className="mx-auto grid w-full max-w-[1200px] grid-cols-[auto_1fr_auto] items-center gap-x-2 gap-y-1 px-5 py-2 sm:gap-x-3 sm:px-6 sm:py-2.5 lg:px-8 xl:flex xl:justify-between xl:gap-6 xl:py-4">
         <Link href="/" className="focus-ring flex w-fit items-center rounded-sm xl:min-w-[225px]" aria-label={`${site.name} home`}>
           <Image
             src={site.logos.header}
@@ -31,7 +31,7 @@ export function Header() {
             width={211}
             height={140}
             priority
-            className="h-12 w-auto sm:h-14 xl:h-[72px]"
+            className="h-10 w-auto sm:h-12 xl:h-[72px]"
           />
         </Link>
         <TrackedContactLink
@@ -39,13 +39,13 @@ export function Header() {
           channel="whatsapp"
           newTab
           ariaLabel={`Contact ${site.name} on WhatsApp`}
-          className="focus-ring justify-self-end rounded-sm text-xs font-semibold text-slate-600 transition hover:text-industrial-700 sm:text-sm xl:hidden"
+          className="focus-ring inline-flex min-h-11 items-center justify-self-end rounded-sm px-1 text-xs font-semibold text-slate-600 transition hover:text-industrial-700 sm:text-sm xl:hidden"
         >
           WhatsApp
         </TrackedContactLink>
         <Link
           href="/contact"
-          className="focus-ring inline-flex w-fit items-center justify-center border border-industrial-600 bg-industrial-600 px-3 py-2 text-[13px] font-semibold text-white transition hover:border-industrial-700 hover:bg-industrial-700 sm:px-4 sm:py-2.5 sm:text-[15px] xl:order-3"
+          className="focus-ring inline-flex min-h-11 w-fit items-center justify-center border border-industrial-600 bg-industrial-600 px-3 py-2 text-[13px] font-semibold text-white transition hover:border-industrial-700 hover:bg-industrial-700 sm:px-4 sm:py-2.5 sm:text-[15px] xl:order-3"
           aria-label={`Request a quote from ${site.name}`}
         >
           {site.buttons.requestQuote}

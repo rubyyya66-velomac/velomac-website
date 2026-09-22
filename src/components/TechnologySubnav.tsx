@@ -30,12 +30,13 @@ export function TechnologySubnav() {
   }, [activePath, pathname]);
 
   return (
-    <div className="border-b border-metal-200 bg-white">
-      <div className="mx-auto w-full max-w-[1200px] overflow-x-auto px-5 [scrollbar-width:none] sm:px-6 lg:px-8 [&::-webkit-scrollbar]:hidden">
-        <nav
-          aria-label="Technology sections"
-          className="flex min-w-max items-center gap-6 text-sm font-semibold text-slate-600 lg:gap-8"
-        >
+    <div className="overflow-hidden border-b border-metal-200 bg-white">
+      <div className="relative mx-auto w-full max-w-[1200px]">
+        <div className="overflow-x-auto overscroll-x-contain px-5 [scrollbar-width:none] sm:px-6 lg:px-8 [&::-webkit-scrollbar]:hidden">
+          <nav
+            aria-label="Technology sections"
+            className="flex min-w-max items-center gap-6 pr-7 text-sm font-semibold text-slate-600 lg:gap-8 lg:pr-0"
+          >
           {technologyNavigationItems.map((item) => {
             const active = activeHref === item.href;
 
@@ -54,8 +55,10 @@ export function TechnologySubnav() {
                 {item.label}
               </Link>
             );
-          })}
-        </nav>
+            })}
+          </nav>
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent lg:hidden" aria-hidden="true" />
       </div>
     </div>
   );

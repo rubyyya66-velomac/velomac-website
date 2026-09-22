@@ -223,10 +223,10 @@ export function FloatingApplicationReview() {
         aria-expanded={open}
         aria-controls={`${panelId}-mobile`}
         onClick={openPanel}
-        className={`focus-ring fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] right-3 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full border border-industrial-700 bg-white text-navy-950 shadow-[0_8px_22px_rgba(7,26,45,0.14)] transition hover:bg-blue-50 hover:text-industrial-700 lg:hidden ${open ? "pointer-events-none translate-y-3 opacity-0" : "translate-y-0 opacity-100"}`}
+        className={`focus-ring fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] right-3 z-30 inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-industrial-700 bg-white px-3.5 text-navy-950 shadow-[0_8px_22px_rgba(7,26,45,0.14)] transition hover:bg-blue-50 hover:text-industrial-700 lg:hidden ${open ? "pointer-events-none translate-y-3 opacity-0" : "translate-y-0 opacity-100"}`}
       >
         <ClipboardCheck size={18} strokeWidth={1.9} aria-hidden="true" />
-        <span className="sr-only">{submitted ? "Application submitted" : "Application review"}</span>
+        <span className="text-xs font-semibold">{submitted ? "Submitted" : "Review application"}</span>
       </button>
 
       <button

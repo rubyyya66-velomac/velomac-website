@@ -208,7 +208,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                 >
                   <span className="text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">{article.category}</span>
                   <span className="text-lg font-semibold text-navy-950">{article.title}</span>
-                  <span className="text-sm font-semibold text-industrial-700">Read article →</span>
+                  <span className="text-sm font-semibold text-industrial-700">Read {article.category} →</span>
                 </Link>
               ))}
             </div>
