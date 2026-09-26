@@ -28,7 +28,7 @@
   --editable-hero-image-panel-aspect: 1 / 1;
 
   /* General section spacing. These match the current responsive section rhythm. */
-  --editable-section-spacing-mobile: 3.5rem;
+  --editable-section-spacing-mobile: 2.25rem;
   --editable-section-spacing-tablet: 4rem;
   --editable-section-spacing-desktop: 5rem;
 
@@ -40,4 +40,11 @@
 
   /* Footer vertical spacing. */
   --editable-footer-spacing: 3.5rem;
+}
+
+@media (max-width: 639px) {
+  :root {
+    --editable-hero-headline-size: 1.875rem;
+    --editable-hero-section-padding: 2.5rem;
+  }
 }

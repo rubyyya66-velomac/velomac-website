@@ -211,23 +211,23 @@ export function ApplicationReview({
       data-product-slug={activeProductSlug}
       data-product-category={productCategory}
       data-page-path={sourcePath}
-      className="scroll-mt-28 border-y border-metal-200 bg-metal-50 py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-28 border-y border-metal-200 bg-metal-50 py-10 sm:py-20 lg:py-24"
     >
-      <Container className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 xl:gap-20">
+      <Container className="grid gap-7 sm:gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 xl:gap-20">
         <div className="lg:pt-2">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">Application Review</p>
-          <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.015em] text-navy-950 sm:text-4xl lg:text-[2.5rem]">
+          <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.015em] text-navy-950 sm:text-4xl lg:text-[2.5rem]">
             Choose the Meter From the Application, Not the Pipe Size
           </h2>
-          <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+          <p className="mt-3 max-w-xl text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
             A few operating details are enough to start an application review.
           </p>
-          <p className="mt-7 border-y border-metal-200 py-4 text-sm font-semibold tracking-[0.04em] text-navy-950 sm:text-base">
+          <p className="mt-5 border-y border-metal-200 py-3 text-sm font-semibold tracking-[0.04em] text-navy-950 sm:mt-7 sm:py-4 sm:text-base">
             Medium <span className="px-1 text-industrial-600">→</span> Flow <span className="px-1 text-industrial-600">→</span> P/T <span className="px-1 text-industrial-600">→</span> Pipe <span className="px-1 text-industrial-600">→</span> Purpose
           </p>
           <p className="mt-4 text-sm leading-6 text-slate-500">Installation and project details can be added if available.</p>
 
-          <div className="mt-10 border-l-2 border-industrial-600 pl-5">
+          <div className="mt-6 border-l-2 border-industrial-600 pl-4 sm:mt-10 sm:pl-5">
             <h3 className="text-base font-semibold text-navy-950">What information is useful for flowmeter selection?</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">
               Flowmeter selection usually starts with the medium, operating flow range, pressure, temperature, pipe size and measurement purpose. Additional properties such as conductivity, viscosity, gas composition or installation conditions can be reviewed where relevant.
@@ -250,7 +250,7 @@ export function ApplicationReview({
             >
               <input className="hidden" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               {allowProductSelection ? (
-                <div className="border-t border-metal-200 py-7">
+                <div className="border-t border-metal-200 py-5 sm:py-7">
                   <Field label="Flowmeter technology (optional)">
                     <select
                       name="review-product"
@@ -291,7 +291,7 @@ export function ApplicationReview({
               ) : null}
 
               {!contactOpen ? (
-                <div className="border-t border-metal-200 py-7">
+                <div className="border-t border-metal-200 py-5 sm:py-7">
                   <button
                     type="button"
                     onClick={openContactStep}
@@ -305,7 +305,7 @@ export function ApplicationReview({
                   {quickError ? <p className="mt-3 text-sm font-semibold text-red-700" role="alert">{quickError}</p> : null}
                 </div>
               ) : (
-                <div ref={contactRef} className="border-t border-metal-200 py-8">
+                <div ref={contactRef} className="border-t border-metal-200 py-6 sm:py-8">
                   <ApplicationSummary items={summary} />
                   <ContactStep submissionState={submissionState} />
                 </div>
@@ -328,7 +328,7 @@ function QuickReviewFields({
   return (
     <>
       <FormSection number="01" title="What is flowing?">
-        <div className="grid gap-5">
+        <div className="grid gap-4 sm:gap-5">
           <Field label="Medium name">
             <input name="medium-name" placeholder="Water, steam, compressed air, wastewater..." className={inputClass} />
           </Field>
@@ -388,7 +388,7 @@ function OptionalApplicationDetails({
   const focusFields = productConfig?.fields || [];
 
   return (
-    <div id={id} className="mt-7 border-t border-metal-200 pb-8">
+    <div id={id} className="mt-5 border-t border-metal-200 pb-6 sm:mt-7 sm:pb-8">
       {productConfig ? (
         <OptionalSection title={productConfig.heading} description="A few checks relevant to this product page.">
           <ProductSpecificFields fields={productConfig.fields} />
@@ -496,10 +496,10 @@ function MediumSpecificFields({ mediumType, excludedFields }: { mediumType: Medi
 
 function ContactStep({ submissionState }: { submissionState: SubmissionState }) {
   return (
-    <div className="mt-8">
+    <div className="mt-6 sm:mt-8">
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">Contact step</p>
       <h3 className="mt-2 text-2xl font-semibold text-navy-950">Where should we send the review follow-up?</h3>
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+      <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-5">
         <Field label="Name"><input name="name" className={inputClass} required autoComplete="name" /></Field>
         <Field label="Work Email"><input name="email" type="email" className={inputClass} required autoComplete="email" /></Field>
         <Field label="Company"><input name="company" className={inputClass} autoComplete="organization" /></Field>
@@ -544,7 +544,7 @@ function SuccessState({ sourcePath }: { sourcePath: string }) {
   return (
     <div className="border-y border-industrial-600 bg-white px-6 py-10 shadow-sm sm:px-9 sm:py-12" role="status">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">Application received</p>
-      <h3 className="mt-3 text-3xl font-semibold leading-tight text-navy-950">Thank you. We will review the operating conditions and selection details you provided.</h3>
+      <h3 className="mt-3 text-2xl font-semibold leading-tight text-navy-950 sm:text-3xl">Thank you. We will review the operating conditions and selection details you provided.</h3>
       <p className="mt-5 text-base leading-7 text-slate-600">If another value is needed, we can follow up with the specific point to confirm.</p>
       <div className="mt-7 flex flex-wrap gap-3">
         <Link href={sourcePath} className="focus-ring inline-flex min-h-11 items-center bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700">Back to Product</Link>
@@ -556,11 +556,11 @@ function SuccessState({ sourcePath }: { sourcePath: string }) {
 
 function FormSection({ number, title, children }: { number: string; title: string; children: ReactNode }) {
   return (
-    <section className="grid gap-4 py-6 sm:grid-cols-[3rem_1fr] sm:gap-5 sm:py-7">
+    <section className="grid gap-3 py-4 sm:grid-cols-[3rem_1fr] sm:gap-5 sm:py-7">
       <p className="pt-0.5 text-xs font-semibold tracking-[0.16em] text-industrial-700">{number}</p>
       <div>
         <h3 className="text-lg font-semibold text-navy-950">{title}</h3>
-        <div className="mt-4">{children}</div>
+        <div className="mt-3 sm:mt-4">{children}</div>
       </div>
     </section>
   );
@@ -568,10 +568,10 @@ function FormSection({ number, title, children }: { number: string; title: strin
 
 function OptionalSection({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return (
-    <section className="border-b border-metal-200 py-7">
+    <section className="border-b border-metal-200 py-5 sm:py-7">
       <h3 className="text-lg font-semibold text-navy-950">{title}</h3>
       <p className="mt-1 text-sm leading-6 text-slate-500">{description}</p>
-      <div className="mt-5">{children}</div>
+      <div className="mt-4 sm:mt-5">{children}</div>
     </section>
   );
 }

@@ -17,7 +17,7 @@ export function FlowCalibrationCategoryPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {overview.hero.eyebrow}
               </p>
-              <h1 className="mt-4 text-4xl font-semibold leading-[1.08] text-navy-950 sm:text-5xl">
+              <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.08]">
                 {overview.hero.title}
               </h1>
               <p className="mt-5 max-w-xl text-xl font-semibold leading-8 text-navy-950 sm:text-[1.4rem]">
@@ -48,12 +48,12 @@ export function FlowCalibrationCategoryPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {overview.selection.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold leading-tight text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold leading-tight text-navy-950 sm:text-4xl">
               {overview.selection.title}
             </h2>
           </div>
 
-          <div className="mt-9 grid gap-px bg-blue-200 lg:grid-cols-3">
+          <div className="mt-6 grid gap-px bg-blue-200 sm:mt-9 lg:grid-cols-3">
             {methods.map((method, index) => (
               <article
                 key={method.number}
@@ -88,7 +88,7 @@ export function FlowCalibrationCategoryPage() {
       <Section className="border-b border-metal-200 bg-white">
         <Container>
           <MethodHeading method={methods[0]} />
-          <div className="mt-10 grid gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
+          <div className="mt-7 grid gap-6 sm:mt-10 sm:gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
             <figure>
               <Image
                 src={methods[0].image.src}
@@ -110,7 +110,7 @@ export function FlowCalibrationCategoryPage() {
       <Section className="border-b border-blue-200 bg-[#eef3f8]">
         <Container>
           <MethodHeading method={methods[1]} />
-          <div className="mt-10 grid gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
+          <div className="mt-7 grid gap-6 sm:mt-10 sm:gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
             <figure>
               <Image
                 src={methods[1].image.src}
@@ -162,7 +162,7 @@ export function FlowCalibrationCategoryPage() {
       <Section className="border-b border-metal-200 bg-white">
         <Container>
           <MethodHeading method={methods[2]} />
-          <div className="mt-10 grid gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
+          <div className="mt-7 grid gap-6 sm:mt-10 sm:gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
             <figure className="w-full max-w-[340px] justify-self-center">
               <Image
                 src={methods[2].image.src}
@@ -208,7 +208,7 @@ function MethodHeading({ method }: { method: (typeof methods)[number] }) {
         <p className="inline-flex border border-blue-300 bg-white px-3 py-1.5 text-sm font-semibold uppercase tracking-[0.12em] text-industrial-700">
           {method.classLabel}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold text-navy-950 sm:text-4xl">{method.title}</h2>
+        <h2 className="mt-3 text-2xl font-semibold text-navy-950 sm:text-4xl">{method.title}</h2>
         <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg">{method.description}</p>
       </div>
     </div>
@@ -252,14 +252,14 @@ function SelectionCTA({
   detailChips
 }: typeof overview.cta) {
   return (
-    <section className="bg-industrial-700 py-16 text-white sm:py-20">
+    <section className="bg-industrial-700 py-10 text-white sm:py-20">
       <Container className="grid gap-9 lg:grid-cols-[0.95fr_0.72fr] lg:items-center lg:gap-14">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-100">
             {eyebrow}
           </p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{title}</h2>
-          <p className="mt-5 text-lg leading-8 text-blue-50">{text}</p>
+          <h2 className="mt-3 text-2xl font-semibold leading-tight sm:text-4xl">{title}</h2>
+          <p className="mt-3 text-lg leading-8 text-blue-50 sm:mt-5">{text}</p>
           <Link
             href={href}
             className="focus-ring mt-8 inline-flex items-center gap-2 bg-white px-6 py-3.5 text-base font-semibold text-navy-950 transition hover:bg-metal-100 sm:text-lg"

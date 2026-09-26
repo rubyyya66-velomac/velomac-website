@@ -30,12 +30,12 @@ export default function QualityInnovationPage() {
   return (
     <>
       <section className="border-b border-metal-200 bg-white">
-        <Container className="grid gap-9 py-12 sm:py-14 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-14 lg:py-16">
+        <Container className="grid gap-7 py-9 sm:gap-9 sm:py-14 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-14 lg:py-16">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {hero.eyebrow}
             </p>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-normal text-navy-950 sm:text-5xl">
+            <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] tracking-normal text-navy-950 sm:text-5xl sm:leading-[1.08]">
               {hero.headline}
             </h1>
             <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">{hero.description}</p>
@@ -75,7 +75,7 @@ export default function QualityInnovationPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {standardsSection.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {standardsSection.headline}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">{standardsSection.description}</p>
@@ -99,13 +99,13 @@ export default function QualityInnovationPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
               {patentsSection.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-white sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-white sm:text-4xl">
               {patentsSection.headline}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-300 sm:text-lg">{patentsSection.description}</p>
           </div>
 
-          <div className="mt-12 grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+          <div className="mt-7 grid gap-7 sm:mt-12 sm:gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
             <div>
               <p className="text-[72px] font-semibold leading-none text-white sm:text-[92px] lg:text-[112px]">
                 {patentsSection.count}
@@ -159,7 +159,7 @@ export default function QualityInnovationPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {evidenceSection.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {evidenceSection.headline}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">{evidenceSection.description}</p>
@@ -182,7 +182,7 @@ export default function QualityInnovationPage() {
       <section className="bg-industrial-700 py-12 text-white sm:py-14">
         <Container className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
-            <h2 className="text-3xl font-semibold text-white">{cta.headline}</h2>
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">{cta.headline}</h2>
             <p className="mt-4 max-w-3xl text-sm leading-6 text-blue-50">{cta.description}</p>
           </div>
           <Link

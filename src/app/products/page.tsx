@@ -39,13 +39,13 @@ export default function ProductsPage() {
   return (
     <>
       <section className="velomac-blue-surface text-white">
-        <Container className="py-12 sm:py-14 lg:py-16">
+        <Container className="py-9 sm:py-14 lg:py-16">
           <div className="max-w-4xl">
             <p className={darkEyebrowClass}>{productCatalog.hero.eyebrow}</p>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] tracking-[-0.015em] text-white sm:text-5xl sm:leading-[1.08] sm:tracking-[-0.02em] lg:text-[3.5rem]">
               {productCatalog.hero.title}
             </h1>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-50 sm:text-xl">
+            <p className="mt-3 max-w-3xl text-lg leading-8 text-blue-50 sm:mt-5 sm:text-xl">
               {productCatalog.hero.description}
             </p>
           </div>
@@ -56,12 +56,12 @@ export default function ProductsPage() {
         <section
           key={group.id}
           id={group.id}
-          className={`scroll-mt-28 py-16 sm:py-20 lg:py-24 ${index > 0 ? "border-t border-metal-200 bg-metal-50" : ""}`}
+          className={`scroll-mt-28 py-10 sm:py-20 lg:py-24 ${index > 0 ? "border-t border-metal-200 bg-metal-50" : ""}`}
         >
           <Container>
             <CategoryHeader category={group.title} description={group.description} />
             {group.id === "flow-measurement" ? <FeaturedVortexSolution /> : null}
-            <div className={`${group.id === "flow-measurement" ? "mt-12" : "mt-10"} grid gap-6 sm:grid-cols-2 lg:grid-cols-3`}>
+            <div className={`${group.id === "flow-measurement" ? "mt-7 sm:mt-12" : "mt-7 sm:mt-10"} grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3`}>
               {group.products.map((product) => (
                 <CatalogueProductCard key={product.slug} product={product} />
               ))}
@@ -70,7 +70,7 @@ export default function ProductsPage() {
         </section>
       ))}
 
-      <section className="border-t border-metal-200 bg-white py-12 sm:py-14">
+      <section className="border-t border-metal-200 bg-white py-9 sm:py-14">
         <Container className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-center">
           <div>
             <p className={eyebrowClass}>Application Review</p>
@@ -102,9 +102,9 @@ function CategoryHeader({
   description: string;
 }) {
   return (
-    <header className="border-b border-metal-300 pb-7">
+    <header className="border-b border-metal-300 pb-5 sm:pb-7">
       <h2 className={categoryTitleClass}>{category}</h2>
-      <p className="mt-4 max-w-5xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{description}</p>
+      <p className="mt-3 max-w-5xl text-base leading-7 text-slate-600 sm:mt-4 sm:text-lg sm:leading-8">{description}</p>
     </header>
   );
 }
@@ -113,10 +113,10 @@ function FeaturedVortexSolution() {
   const featured = productCatalog.featuredSolution;
 
   return (
-    <article className="relative mt-10 grid overflow-hidden border border-metal-300 bg-white shadow-[0_18px_50px_rgba(7,26,45,0.08)] lg:grid-cols-[0.58fr_0.42fr]">
-      <div className="border-t-4 border-industrial-600 px-6 pb-5 pt-7 sm:px-8 sm:pb-6 sm:pt-8 lg:col-start-1 lg:row-start-1 lg:px-10 lg:pt-10">
+    <article className="relative mt-7 grid overflow-hidden border border-metal-300 bg-white shadow-[0_18px_50px_rgba(7,26,45,0.08)] sm:mt-10 lg:grid-cols-[0.58fr_0.42fr]">
+      <div className="border-t-4 border-industrial-600 px-5 pb-4 pt-5 sm:px-8 sm:pb-6 sm:pt-8 lg:col-start-1 lg:row-start-1 lg:px-10 lg:pt-10">
         <p className={eyebrowClass}>{featured.eyebrow}</p>
-        <h3 className="mt-4 max-w-2xl text-[1.8rem] font-semibold leading-[1.12] tracking-[-0.02em] text-navy-950 sm:text-[2.1rem] lg:text-[2.2rem]">
+        <h3 className="mt-4 max-w-2xl text-2xl font-semibold leading-[1.18] tracking-[-0.01em] text-navy-950 sm:text-[2.1rem] sm:leading-[1.12] sm:tracking-[-0.02em] lg:text-[2.2rem]">
           <Link className="focus-ring transition hover:text-industrial-700" href={featured.ctaHref}>
             {featured.title}
           </Link>
@@ -126,7 +126,7 @@ function FeaturedVortexSolution() {
       <Link
         href={featured.ctaHref}
         aria-label={`${featured.ctaLabel}: ${featured.title}`}
-        className="focus-ring group relative min-h-[360px] border-y border-metal-200 bg-metal-50 sm:min-h-[420px] lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:min-h-[500px] lg:border-b-0 lg:border-l lg:border-t-4 lg:border-t-industrial-600"
+        className="focus-ring group relative min-h-[300px] border-y border-metal-200 bg-metal-50 sm:min-h-[420px] lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:min-h-[500px] lg:border-b-0 lg:border-l lg:border-t-4 lg:border-t-industrial-600"
       >
         <Image
           src={featured.image.src}
@@ -143,11 +143,11 @@ function FeaturedVortexSolution() {
         ))}
       </div>
 
-      <p className="px-6 py-6 text-base leading-7 text-slate-600 sm:px-8 sm:text-lg sm:leading-8 lg:col-start-1 lg:row-start-3 lg:px-10">
+      <p className="px-5 py-4 text-base leading-7 text-slate-600 sm:px-8 sm:py-6 sm:text-lg sm:leading-8 lg:col-start-1 lg:row-start-3 lg:px-10">
         {featured.description}
       </p>
 
-      <div className="px-6 pb-8 sm:px-8 lg:col-start-1 lg:row-start-4 lg:px-10 lg:pb-10">
+      <div className="px-5 pb-6 sm:px-8 sm:pb-8 lg:col-start-1 lg:row-start-4 lg:px-10 lg:pb-10">
         <Link
           href={featured.ctaHref}
           className="focus-ring inline-flex items-center gap-2 bg-navy-950 px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-industrial-700"
@@ -172,8 +172,8 @@ function CatalogueProductCard({ product }: { product: Product }) {
   const imageScaleClass = imageScaleClasses[product.slug] ?? "scale-[1.04] group-hover:scale-[1.07]";
 
   return (
-    <article className="group flex h-full min-h-[460px] flex-col overflow-hidden rounded-[6px] border border-metal-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-industrial-600">
-      <Link href={`/products/${product.slug}`} className="focus-ring relative block h-60 overflow-hidden border-b border-metal-200 bg-metal-50 sm:h-64">
+    <article className="group flex h-full min-h-0 flex-col overflow-hidden rounded-[6px] border border-metal-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-industrial-600 sm:min-h-[460px]">
+      <Link href={`/products/${product.slug}`} className="focus-ring relative block h-52 overflow-hidden border-b border-metal-200 bg-metal-50 sm:h-64">
         <Image
           src={product.image}
           alt={product.imageAlt}
@@ -188,12 +188,12 @@ function CatalogueProductCard({ product }: { product: Product }) {
             {product.name}
           </Link>
         </h3>
-        <p className="mt-3 flex-1 text-base leading-7 text-slate-600 sm:min-h-[5.25rem]">
+        <p className="mt-2 flex-1 text-base leading-7 text-slate-600 sm:mt-3 sm:min-h-[5.25rem]">
           {productCatalog.catalogueDescriptions[product.slug] ?? product.shortDescription}
         </p>
         <Link
           href={`/products/${product.slug}`}
-          className="focus-ring mt-5 inline-flex w-fit items-center gap-2 text-[15px] font-semibold text-industrial-700 transition hover:text-navy-950"
+          className="focus-ring mt-4 inline-flex w-fit items-center gap-2 text-[15px] font-semibold text-industrial-700 transition hover:text-navy-950 sm:mt-5"
         >
           View details <span aria-hidden="true">→</span>
         </Link>
@@ -202,6 +202,6 @@ function CatalogueProductCard({ product }: { product: Product }) {
   );
 }
 
-const categoryTitleClass = "text-[1.9rem] font-semibold leading-tight tracking-[-0.01em] text-navy-950 sm:text-4xl";
+const categoryTitleClass = "text-2xl font-semibold leading-tight tracking-[-0.01em] text-navy-950 sm:text-4xl";
 const eyebrowClass = "text-[13px] font-semibold uppercase tracking-[0.16em] text-industrial-700";
 const darkEyebrowClass = "text-[13px] font-semibold uppercase tracking-[0.16em] text-blue-100";

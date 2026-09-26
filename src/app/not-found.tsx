@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <Section>
       <Container className="max-w-3xl">
-        <h1 className="text-4xl font-semibold text-navy-950">Page not found</h1>
+        <h1 className="text-[1.875rem] font-semibold text-navy-950 sm:text-4xl">Page not found</h1>
         <p className="mt-4 text-base leading-7 text-slate-600">
           The page may have moved, or the requested content is not available.
         </p>

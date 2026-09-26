@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
+import { MobileDisclosure } from "@/components/MobileDisclosure";
 import { applications, resolveApplicationSlug } from "@/content/applications";
 import { products } from "@/content/products";
 import { articles } from "@/content/resources";
@@ -84,10 +85,10 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {application.detailPage.eyebrow}
               </p>
-              <h1 className="mt-4 text-4xl font-semibold leading-[1.08] text-navy-950 sm:text-5xl">
+              <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.08]">
                 {application.detailPage.h1}
               </h1>
-              <p className="mt-5 text-lg leading-8 text-slate-600">
+              <p className="mt-3 text-lg leading-8 text-slate-600 sm:mt-5">
                 {application.detailPage.introduction}
               </p>
               <Link
@@ -199,19 +200,21 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
         <Section>
           <Container>
             <SectionHeading eyebrow="Related Resources" title="Practical notes for the application review" />
-            <div className="mt-8 divide-y divide-metal-200 border-y border-metal-200">
-              {relatedResources.map((article) => (
-                <Link
-                  key={article.slug}
-                  href={`/resources/${article.slug}`}
-                  className="focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"
-                >
-                  <span className="text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">{article.category}</span>
-                  <span className="text-lg font-semibold text-navy-950">{article.title}</span>
-                  <span className="text-sm font-semibold text-industrial-700">Read {article.category} →</span>
-                </Link>
-              ))}
-            </div>
+            <MobileDisclosure label="View related resources" className="pt-6 sm:pt-0">
+              <div className="divide-y divide-metal-200 border-y border-metal-200 sm:mt-8">
+                {relatedResources.map((article) => (
+                  <Link
+                    key={article.slug}
+                    href={`/resources/${article.slug}`}
+                    className="focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"
+                  >
+                    <span className="text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">{article.category}</span>
+                    <span className="text-lg font-semibold text-navy-950">{article.title}</span>
+                    <span className="text-sm font-semibold text-industrial-700">Read {article.category} →</span>
+                  </Link>
+                ))}
+              </div>
+            </MobileDisclosure>
           </Container>
         </Section>
       ) : null}
@@ -279,7 +282,7 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
   return (
     <div className="max-w-3xl">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-semibold leading-tight text-navy-950 sm:text-4xl">{title}</h2>
+      <h2 className="mt-3 text-2xl font-semibold leading-tight text-navy-950 sm:text-4xl">{title}</h2>
     </div>
   );
 }

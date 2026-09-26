@@ -34,22 +34,22 @@ export function CTASection({
   const hasSideContent = Boolean(imageSrc || detailChips?.length);
 
   return (
-    <section className={`${surfaceClassName} py-16 text-white sm:py-20`}>
+    <section className={`${surfaceClassName} py-10 text-white sm:py-20`}>
       <div
-        className={`mx-auto grid w-full max-w-[1200px] gap-8 px-5 sm:px-6 lg:items-center lg:px-8 ${
+        className={`mx-auto grid w-full max-w-[1200px] gap-6 px-5 sm:gap-8 sm:px-6 lg:items-center lg:px-8 ${
           hasSideContent ? "lg:grid-cols-[0.95fr_0.72fr]" : "lg:grid-cols-[1fr_auto]"
         }`}
       >
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">Selection support</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-normal sm:text-4xl">{title}</h2>
-          <p className="mt-5 text-base leading-7 text-slate-300 sm:text-lg">{text}</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-normal sm:text-4xl">{title}</h2>
+          <p className="mt-3 text-base leading-7 text-slate-300 sm:mt-5 sm:text-lg">{text}</p>
           {hasSideContent ? (
             reviewCtaContext ? (
               <ApplicationReviewLink
                 href={href}
                 {...reviewCtaContext}
-                className="focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
+                className="focus-ring mt-5 inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100 sm:mt-8"
               >
                 {buttonLabel}
                 <span aria-hidden="true">{">"}</span>
@@ -57,7 +57,7 @@ export function CTASection({
             ) : (
               <Link
                 href={href}
-                className="focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100"
+                className="focus-ring mt-5 inline-flex w-fit items-center justify-center gap-2 border border-white bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-metal-100 sm:mt-8"
               >
                 {buttonLabel}
                 <span aria-hidden="true">{">"}</span>
@@ -66,7 +66,7 @@ export function CTASection({
           ) : null}
         </div>
         {imageSrc ? (
-          <div className="relative min-h-[240px] overflow-hidden rounded-[6px] bg-white/10 sm:min-h-[300px]">
+          <div className="relative min-h-[210px] overflow-hidden rounded-[6px] bg-white/10 sm:min-h-[300px]">
             <Image
               src={imageSrc}
               alt={imageAlt || "Industrial flow measurement application context"}

@@ -66,7 +66,7 @@ export function TechnologyDetailExperience({
               ) : (
                 <TechnologyCategoryLabel categoryId={article.categoryId} />
               )}
-              <h1 className="mt-5 text-4xl font-semibold leading-[1.08] text-navy-950 sm:text-5xl">
+              <h1 className="mt-5 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.08]">
                 {article.title}
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
@@ -107,7 +107,7 @@ export function TechnologyDetailExperience({
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {page.relatedEyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold text-navy-950 sm:text-4xl">
               {page.relatedHeading}
             </h2>
           </div>
@@ -448,7 +448,7 @@ function ModuleHeading({
         {module.eyebrow ?? `Engineering Area ${String(index + 1).padStart(2, "0")}`}
       </p>
       <h2
-        className={`mt-3 text-3xl font-semibold leading-tight sm:text-4xl ${
+        className={`mt-3 text-2xl font-semibold leading-tight sm:text-4xl ${
           dark ? "text-white" : "text-navy-950"
         }`}
       >

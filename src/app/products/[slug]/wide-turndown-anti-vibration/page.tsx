@@ -55,16 +55,16 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
         ])}
       />
       <section className="overflow-hidden border-b border-metal-200 bg-metal-50">
-        <Container className="grid gap-x-10 gap-y-8 py-12 sm:py-16 lg:grid-cols-[1.28fr_0.72fr] lg:grid-rows-[auto_auto_auto] lg:items-center lg:py-20">
+        <Container className="grid gap-x-10 gap-y-6 py-9 sm:gap-y-8 sm:py-16 lg:grid-cols-[1.28fr_0.72fr] lg:grid-rows-[auto_auto_auto] lg:items-center lg:py-20">
           <div className="lg:col-start-1 lg:row-start-1">
             <p className={technicalLabelClass}>{featuredVortexSolution.hero.eyebrow}</p>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-[-0.025em] text-navy-950 sm:text-5xl lg:text-[2.8rem] xl:text-[3.1rem]">
+            <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] tracking-[-0.015em] text-navy-950 sm:text-5xl sm:leading-[1.08] sm:tracking-[-0.025em] lg:text-[2.8rem] xl:text-[3.1rem]">
               {featuredVortexSolution.hero.title}
             </h1>
             <p className="mt-6 text-xl font-semibold leading-8 text-navy-950">
               {featuredVortexSolution.hero.lead}
             </p>
-            <p className="mt-3 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+            <p className="mt-3 max-w-2xl text-[15px] leading-6 text-slate-600 sm:text-xl sm:leading-8">
               {featuredVortexSolution.hero.description}
             </p>
           </div>
@@ -150,7 +150,7 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
         </p>
       </PageSection>
 
-      <section id="flow-envelope" className="scroll-mt-28 bg-navy-950 py-16 text-white sm:py-20 lg:py-24">
+      <section id="flow-envelope" className="scroll-mt-28 bg-navy-950 py-10 text-white sm:py-20 lg:py-24">
         <Container className="grid gap-12 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-16">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{featuredVortexSolution.flowEnvelope.eyebrow}</p>
@@ -163,7 +163,7 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
               title={featuredVortexSolution.flowEnvelope.title}
               description={featuredVortexSolution.flowEnvelope.description}
             />
-            <div className="mt-9 grid border-y border-white/15 sm:grid-cols-3 sm:divide-x sm:divide-white/15">
+            <div className="mt-6 grid border-y border-white/15 sm:mt-9 sm:grid-cols-3 sm:divide-x sm:divide-white/15">
               {featuredVortexSolution.flowEnvelope.applications.map((example) => (
                 <h3 key={example} className="border-b border-white/15 py-5 text-xl font-semibold leading-7 text-white last:border-b-0 sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:pr-0">
                   {example}
@@ -179,7 +179,7 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
           eyebrow={featuredVortexSolution.engineering.eyebrow}
           title={featuredVortexSolution.engineering.title}
         />
-        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="mt-7 grid gap-7 sm:mt-12 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <VortexEngineeringVisual />
           <div className="divide-y divide-metal-200 border-y border-metal-200">
             {featuredVortexSolution.engineering.mechanisms.map((mechanism) => (
@@ -197,7 +197,7 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
 
       <PageSection id="vibration" className="bg-metal-50">
         <SectionHeading eyebrow={featuredVortexSolution.vibration.eyebrow} title={featuredVortexSolution.vibration.title} />
-        <div className="mt-10 grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16">
+        <div className="mt-7 grid gap-7 sm:mt-10 sm:gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16">
           <div>
             <p className="max-w-xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
               {featuredVortexSolution.vibration.description}
@@ -210,7 +210,7 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
           <SignalProcessingVisual />
         </div>
 
-        <div className="mt-12 grid gap-x-12 border-y border-metal-200 md:grid-cols-2">
+        <div className="mt-7 grid gap-x-12 border-y border-metal-200 sm:mt-12 md:grid-cols-2">
           {featuredVortexSolution.vibration.modes.map((mode) => (
             <EditorialRow key={mode.title} title={mode.title} text={mode.text} />
           ))}
@@ -219,12 +219,12 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
 
       <PageSection id="engineering-data">
         <SectionHeading eyebrow={featuredVortexSolution.engineeringData.eyebrow} title={featuredVortexSolution.engineeringData.title} />
-        <div className="mt-10 grid grid-cols-2 border-y border-metal-300 lg:grid-cols-4 lg:divide-x lg:divide-metal-200">
+        <div className="mt-7 grid grid-cols-2 border-y border-metal-300 sm:mt-10 lg:grid-cols-4 lg:divide-x lg:divide-metal-200">
           {featuredVortexSolution.engineeringData.metrics.map((metric) => (
             <MetricStripItem key={metric.label} value={metric.value} label={metric.label} />
           ))}
         </div>
-        <p className="border-b border-metal-200 py-6 text-lg leading-8 text-slate-600">
+        <p className="border-b border-metal-200 py-4 text-[15px] leading-6 text-slate-600 sm:py-6 sm:text-lg sm:leading-8">
           <span className="font-semibold text-navy-950">{featuredVortexSolution.engineeringData.mediaLabel}:</span>{" "}
           {featuredVortexSolution.engineeringData.media.join(" · ")}
         </p>
@@ -233,7 +233,7 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
       <PageSection className="bg-metal-50">
         <div id="full-measurement-range" className="scroll-mt-56 lg:scroll-mt-32">
           <SectionHeading eyebrow={featuredVortexSolution.measurementRange.eyebrow} title={featuredVortexSolution.measurementRange.title} />
-          <div className="mt-10 grid gap-10 lg:grid-cols-[0.3fr_0.7fr] lg:items-start lg:gap-16">
+          <div className="mt-7 grid gap-7 sm:mt-10 sm:gap-10 lg:grid-cols-[0.3fr_0.7fr] lg:items-start lg:gap-16">
             <div>
               <p className="text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
                 {featuredVortexSolution.measurementRange.description}
@@ -262,12 +262,12 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
 }
 
 const technicalLabelClass = "text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700";
-const bodyClass = "text-lg leading-8 text-slate-600";
+const bodyClass = "text-[15px] leading-6 text-slate-600 sm:text-lg sm:leading-8";
 const h3Class = "text-xl font-semibold leading-7 text-navy-950";
 
 function PageSection({ children, className = "", compact = false, id }: { children: ReactNode; className?: string; compact?: boolean; id?: string }) {
   return (
-    <section id={id} className={`scroll-mt-28 ${compact ? "py-14 sm:py-16 lg:py-[4.5rem]" : "py-16 sm:py-20 lg:py-24"} ${className}`}>
+    <section id={id} className={`scroll-mt-28 ${compact ? "py-9 sm:py-16 lg:py-[4.5rem]" : "py-10 sm:py-20 lg:py-24"} ${className}`}>
       <Container>{children}</Container>
     </section>
   );
@@ -287,7 +287,7 @@ function SectionHeading({
   return (
     <div>
       {eyebrow ? <p className={dark ? "text-xs font-semibold uppercase tracking-[0.18em] text-blue-200" : technicalLabelClass}>{eyebrow}</p> : null}
-      <h2 className={`mt-3 text-3xl font-semibold leading-tight sm:text-4xl lg:whitespace-nowrap lg:text-[2.75rem] lg:leading-[1.08] ${dark ? "text-white" : "text-navy-950"}`}>
+      <h2 className={`mt-3 text-2xl font-semibold leading-tight sm:text-4xl lg:whitespace-nowrap lg:text-[2.75rem] lg:leading-[1.08] ${dark ? "text-white" : "text-navy-950"}`}>
         {title}
       </h2>
       {description ? <p className={`mt-5 max-w-3xl text-base leading-7 sm:text-lg sm:leading-8 ${dark ? "text-slate-300" : "text-slate-600"}`}>{description}</p> : null}
@@ -308,7 +308,7 @@ function EditorialRow({ title, text }: { title: string; text: string }) {
   return (
     <div className="py-5 first:pt-0 last:pb-0 md:first:pt-5 md:last:pb-5">
       <h3 className="text-xl font-semibold leading-7 text-navy-950">{title}</h3>
-      <p className="mt-2 text-lg leading-8 text-slate-600">{text}</p>
+      <p className="mt-2 text-[15px] leading-6 text-slate-600 sm:text-lg sm:leading-8">{text}</p>
     </div>
   );
 }

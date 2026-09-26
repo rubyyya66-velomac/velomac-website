@@ -55,13 +55,13 @@ export default async function FlowmeterApplicationReviewPage({ searchParams }: {
       />
 
       <section className="velomac-blue-surface text-white">
-        <Container className="py-12 sm:py-14 lg:py-16">
+        <Container className="py-9 sm:py-14 lg:py-16">
           <div className="max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Selection Support</p>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] tracking-[-0.01em] text-white sm:text-5xl sm:leading-[1.08] sm:tracking-[-0.02em] lg:text-[3.5rem]">
               Flowmeter Application Review
             </h1>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-50 sm:text-xl">
+            <p className="mt-3 max-w-3xl text-lg leading-8 text-blue-50 sm:mt-5 sm:text-xl">
               Medium, flow range, pressure, temperature and pipe size are enough to start. Add more details only if available.
             </p>
           </div>

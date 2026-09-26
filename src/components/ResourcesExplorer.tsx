@@ -244,7 +244,7 @@ function FeaturedArticle({ article }: { article: ResourceListItem }) {
         <p className="mt-5 text-sm font-semibold text-slate-500">
           {getDisplayCategory(article.category)}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold leading-tight text-navy-950 sm:text-4xl">
+        <h2 className="mt-3 text-2xl font-semibold leading-tight text-navy-950 sm:text-4xl">
           <Link className="focus-ring transition hover:text-industrial-700" href={`/resources/${article.slug}`}>
             {article.title}
           </Link>

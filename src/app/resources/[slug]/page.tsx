@@ -97,10 +97,10 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
                   <time dateTime={article.modifiedDate}>Updated {formatResourceDate(article.modifiedDate)}</time>
                 ) : null}
               </div>
-              <h1 className="mt-4 text-[2rem] font-semibold leading-[1.14] tracking-normal text-white sm:text-5xl sm:leading-tight">
+              <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.16] tracking-normal text-white sm:text-5xl sm:leading-tight">
                 {article.title}
               </h1>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-50">{article.intro || article.summary}</p>
+              <p className="mt-3 max-w-3xl text-lg leading-8 text-blue-50 sm:mt-5">{article.intro || article.summary}</p>
             </div>
             <figure>
               <div className="relative aspect-[16/9] overflow-hidden rounded-[6px] bg-white/10">

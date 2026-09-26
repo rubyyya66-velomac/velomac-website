@@ -31,7 +31,7 @@ export function Header() {
             width={211}
             height={140}
             priority
-            className="h-10 w-auto sm:h-12 xl:h-[72px]"
+            className="h-11 w-auto sm:h-12 xl:h-[72px]"
           />
         </Link>
         <TrackedContactLink

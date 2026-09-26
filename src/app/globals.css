@@ -401,6 +401,32 @@ body:has(.admin-shell) > main {
 }
 
 @media (max-width: 640px) {
+  main section.py-16,
+  main section.py-14 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  main section.py-12,
+  main section.py-10 {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+  }
+
+  main p[class~="text-lg"],
+  main li[class~="text-lg"],
+  main dd[class~="text-lg"] {
+    font-size: 0.9375rem;
+    line-height: 1.625rem;
+  }
+
+  main p[class~="text-base"],
+  main li[class~="text-base"],
+  main dd[class~="text-base"] {
+    font-size: 0.9375rem;
+    line-height: 1.625rem;
+  }
+
   .resource-rich-text-editor__content {
     min-height: 480px;
     padding: 1.1rem;
@@ -412,13 +438,25 @@ body:has(.admin-shell) > main {
   }
 
   .resource-article-body {
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.9375rem;
+    line-height: 1.7;
   }
 
   .resource-rich-text-editor__content h2,
   .resource-article-body h2 {
     font-size: 1.5rem;
+  }
+
+  .resource-article-body h2 {
+    margin-top: 2.25rem;
+    border-top: 1px solid #dbe3ec;
+    padding-top: 1.125rem;
+  }
+
+  .resource-article-body h2:first-child {
+    margin-top: 0;
+    border-top: 0;
+    padding-top: 0;
   }
 
   .resource-rich-text-editor__content h3,
@@ -431,5 +469,13 @@ body:has(.admin-shell) > main {
   .resource-article-body ul,
   .resource-article-body ol {
     padding-left: 1.4rem;
+  }
+
+  .resource-article-body p {
+    margin-bottom: 1rem;
+  }
+
+  .resource-article-body blockquote {
+    margin: 1.5rem 0;
   }
 }

@@ -44,13 +44,13 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
   return (
     <>
       <section className="velomac-blue-surface text-white">
-        <Container className="py-14 sm:py-16 lg:py-20">
+        <Container className="py-10 sm:py-16 lg:py-20">
           <div className="max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">{resourcesPage.hero.eyebrow}</p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-normal text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-[1.875rem] font-semibold tracking-normal text-white sm:text-5xl lg:text-6xl">
               {resourcesPage.hero.title}
             </h1>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-50 sm:text-xl">
+            <p className="mt-3 max-w-3xl text-lg leading-8 text-blue-50 sm:mt-5 sm:text-xl">
               {resourcesPage.hero.description}
             </p>
           </div>

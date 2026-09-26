@@ -94,7 +94,7 @@ function GasCalibrationHero({
             <p className="inline-flex bg-[#eef3f8] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">
               {page.heroLabel}
             </p>
-            <h1 className="mt-5 text-4xl font-semibold leading-[1.06] text-navy-950 sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="mt-5 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.06] lg:text-[3.5rem]">
               {article.title}
             </h1>
             <p className="mt-4 max-w-lg text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
@@ -178,7 +178,7 @@ function GasCalibrationHero({
 function GasCoreCapability({ module }: { module: TechnologyDetailModule }) {
   const items = module.items ?? [];
   return (
-    <section className="border-b border-metal-200 bg-white py-12 sm:py-14 lg:py-16">
+    <section className="border-b border-metal-200 bg-white py-9 sm:py-14 lg:py-16">
       <Container>
         <GasSectionHeading
           eyebrow={module.eyebrow ?? ""}
@@ -208,7 +208,7 @@ function GasCoreCapability({ module }: { module: TechnologyDetailModule }) {
 function GasCalibrationProcess({ module }: { module: TechnologyDetailModule }) {
   const stages = module.items ?? [];
   return (
-    <section className="border-b border-metal-200 bg-[#eef3f8] py-12 sm:py-14 lg:py-16">
+    <section className="border-b border-metal-200 bg-[#eef3f8] py-9 sm:py-14 lg:py-16">
       <Container>
         <GasSectionHeading eyebrow={module.eyebrow ?? ""} title={module.title} />
         <div className="relative mt-9">
@@ -317,7 +317,7 @@ function MasterMeterCalibrationHero({
             <p className="inline-flex bg-[#eef3f8] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">
               {page.heroLabel}
             </p>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.06] text-navy-950 sm:text-5xl lg:text-[3.1rem]">
+            <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.06] lg:text-[3.1rem]">
               {page.heroTitleLines?.length
                 ? page.heroTitleLines.map((line) => (
                     <span key={line} className="block xl:whitespace-nowrap">
@@ -433,7 +433,7 @@ function MasterMeterMethodSection({ module }: { module: TechnologyDetailModule }
   const stages = module.items ?? [];
   const image = module.image;
   return (
-    <section className="border-b border-metal-200 bg-[#eef3f8] py-12 sm:py-14 lg:py-16">
+    <section className="border-b border-metal-200 bg-[#eef3f8] py-9 sm:py-14 lg:py-16">
       <Container>
         <MasterSectionHeading eyebrow={module.eyebrow ?? ""} title={module.title} />
         <div className="mt-8 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:gap-14">
@@ -472,7 +472,7 @@ function MasterMeterBenchSection({ module }: { module: TechnologyDetailModule })
   }
 
   return (
-    <section className="border-b border-metal-200 bg-white py-12 sm:py-14 lg:py-16">
+    <section className="border-b border-metal-200 bg-white py-9 sm:py-14 lg:py-16">
       <Container>
         <div className="grid overflow-hidden bg-[#eef3f8] lg:grid-cols-2 lg:items-stretch">
           <div className="flex items-center p-6 sm:p-8">
@@ -633,7 +633,7 @@ function GravimetricCalibrationHero({
             <p className="inline-flex bg-[#eef3f8] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">
               {page.heroLabel}
             </p>
-            <h1 className="mt-5 text-4xl font-semibold leading-[1.06] text-navy-950 sm:text-5xl lg:text-[3.25rem]">
+            <h1 className="mt-5 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.06] lg:text-[3.25rem]">
               {article.title}
             </h1>
             <p className="mt-4 max-w-lg text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
@@ -704,7 +704,7 @@ function GravimetricEvidenceSection({
   }
 
   return (
-    <section className="border-b border-metal-200 bg-[#eef3f8] py-12 sm:py-14 lg:py-16">
+    <section className="border-b border-metal-200 bg-[#eef3f8] py-9 sm:py-14 lg:py-16">
       <Container className="grid gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-14">
         <div>
           <GravimetricSectionHeading
@@ -763,13 +763,13 @@ function GravimetricEvidenceSection({
 function GravimetricProcessSection({ module }: { module: TechnologyDetailModule }) {
   const steps = module.items ?? [];
   return (
-    <section className="border-b border-metal-200 bg-white py-12 sm:py-14 lg:py-16">
+    <section className="border-b border-metal-200 bg-white py-9 sm:py-14 lg:py-16">
       <Container>
         <GravimetricSectionHeading
           eyebrow={module.eyebrow ?? ""}
           title={module.title}
         />
-        <ol className="mt-9 grid gap-8 sm:grid-cols-3 sm:gap-0">
+        <ol className="mt-6 grid gap-5 sm:mt-9 sm:grid-cols-3 sm:gap-0">
           {steps.map((step, index) => (
             <li key={step.title} className="relative border-t border-metal-300 pt-6 sm:pr-8">
               <span className="absolute -top-[17px] left-0 flex h-8 w-8 items-center justify-center rounded-full bg-industrial-700 text-xs font-semibold text-white">
@@ -849,7 +849,7 @@ function CalibrationBenchPage({
         items={developedModule.items ?? []}
       />
 
-      <section className="border-b border-metal-200 bg-[#eef3f8] py-14 sm:py-16 lg:py-20">
+      <section className="border-b border-metal-200 bg-[#eef3f8] py-10 sm:py-16 lg:py-20">
         <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <SectionHeading
             eyebrow={structureModule.eyebrow ?? ""}
@@ -862,13 +862,13 @@ function CalibrationBenchPage({
         </Container>
       </section>
 
-      <section className="border-b border-navy-800 bg-navy-950 py-14 text-white sm:py-16 lg:py-20">
+      <section className="border-b border-navy-800 bg-navy-950 py-10 text-white sm:py-16 lg:py-20">
         <Container className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
               {roleModule.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold leading-tight sm:text-4xl">
               {roleModule.title}
             </h2>
             <p className="mt-5 text-base leading-7 text-blue-50 sm:text-lg">
@@ -932,10 +932,10 @@ function CalibrationHero({
                 Velomac In-House Engineering
               </p>
             )}
-            <h1 className="mt-5 text-4xl font-semibold leading-[1.08] text-navy-950 sm:text-5xl">
+            <h1 className="mt-5 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.08]">
               {article.title}
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+            <p className="mt-3 max-w-xl text-lg leading-8 text-slate-600 sm:mt-5">
               {page.heroIntroduction}
             </p>
             <HeroFacts facts={facts} />
@@ -1040,7 +1040,7 @@ function TechnicalCards({
     <Section className="border-b border-metal-200 bg-white">
       <Container>
         <SectionHeading eyebrow={eyebrow} title={title} />
-        <div className={`mt-10 grid gap-7 ${columns === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"}`}>
+        <div className={`mt-7 grid gap-5 sm:mt-10 sm:gap-7 ${columns === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"}`}>
           {items.map((item) => (
             <article key={item.title} className="border-t-2 border-industrial-600 pt-5">
               <h3 className="text-xl font-semibold leading-8 text-navy-950">{item.title}</h3>
@@ -1131,7 +1131,7 @@ function SectionHeading({
       <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${dark ? "text-blue-200" : "text-industrial-700"}`}>
         {eyebrow}
       </p>
-      <h2 className={`mt-3 text-3xl font-semibold leading-tight sm:text-4xl ${dark ? "text-white" : "text-navy-950"}`}>
+      <h2 className={`mt-3 text-2xl font-semibold leading-tight sm:text-4xl ${dark ? "text-white" : "text-navy-950"}`}>
         {title}
       </h2>
       {description ? (
@@ -1240,14 +1240,14 @@ function FlowCalibrationCTA({
   surfaceClassName?: string;
 }) {
   return (
-    <section className={`${surfaceClassName} py-16 text-white sm:py-20`}>
+    <section className={`${surfaceClassName} py-10 text-white sm:py-20`}>
       <Container className="grid gap-9 lg:grid-cols-[0.95fr_0.72fr] lg:items-center lg:gap-14">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-100">
             {eyebrow}
           </p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{title}</h2>
-          <p className="mt-5 text-lg leading-8 text-blue-50">{text}</p>
+          <h2 className="mt-3 text-2xl font-semibold leading-tight sm:text-4xl">{title}</h2>
+          <p className="mt-3 text-lg leading-8 text-blue-50 sm:mt-5">{text}</p>
           <Link
             href={href}
             className="focus-ring mt-8 inline-flex w-fit items-center justify-center gap-2 bg-white px-6 py-3.5 text-base font-semibold text-navy-950 transition hover:bg-metal-100 sm:text-lg"

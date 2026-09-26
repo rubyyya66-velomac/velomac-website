@@ -24,9 +24,9 @@ export function StatsSection({
   notes?: Note[];
 }) {
   return (
-    <section className="homepage-proof-surface homepage-reveal relative overflow-hidden py-16 text-white sm:py-20 lg:py-24">
+    <section className="homepage-proof-surface homepage-reveal relative overflow-hidden py-10 text-white sm:py-20 lg:py-24">
       <Container className="relative z-10">
-        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+        <div className="grid gap-7 sm:gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <SectionHeader
             eyebrow={eyebrow}
             title={title}
@@ -43,7 +43,7 @@ export function StatsSection({
           </div>
         </div>
         {notes ? (
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-7 grid gap-4 sm:mt-10 md:grid-cols-3">
             {notes.map((note) => (
               <article key={note.title} className="rounded-[8px] border border-white/[0.12] bg-white/[0.06] p-5 text-white backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.09]">
                 <h3 className="text-base font-semibold">{note.title}</h3>

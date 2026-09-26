@@ -32,12 +32,12 @@ export default function TechnologyPage() {
       <TechnologySubnav />
 
       <section className="border-b border-metal-200 bg-white">
-        <Container className="grid gap-10 py-12 sm:py-14 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-14 lg:py-16">
+        <Container className="grid gap-7 py-9 sm:gap-10 sm:py-14 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-14 lg:py-16">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {hero.eyebrow}
             </p>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.06] tracking-normal text-navy-950 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] tracking-normal text-navy-950 sm:text-5xl sm:leading-[1.06] lg:text-6xl">
               {hero.title}
             </h1>
             <p className="mt-5 text-xl font-semibold leading-8 text-navy-950 sm:text-2xl">
@@ -310,7 +310,7 @@ function TechnologySectionHeading({
         >
           {eyebrow}
         </p>
-        <h2 className={`mt-2 text-3xl font-semibold tracking-normal sm:text-4xl ${dark ? "text-white" : "text-navy-950"}`}>
+        <h2 className={`mt-2 text-2xl font-semibold tracking-normal sm:text-4xl ${dark ? "text-white" : "text-navy-950"}`}>
           {title}
         </h2>
         <p className={`mt-4 text-base leading-7 sm:text-lg ${dark ? "text-slate-300" : "text-slate-600"}`}>

@@ -40,7 +40,7 @@ export function ProductCard({
           />
         </div>
       </Link>
-      <div className={`flex flex-1 flex-col ${isFeatured ? "p-6" : isCompact ? "p-4" : "p-5"}`}>
+      <div className={`flex flex-1 flex-col ${isFeatured ? "p-5 sm:p-6" : isCompact ? "p-4" : "p-5"}`}>
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-metal-600">
           {product.category}
         </p>

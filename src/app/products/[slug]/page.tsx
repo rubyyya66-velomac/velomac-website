@@ -9,6 +9,7 @@ import { CTASection } from "@/components/CTASection";
 import { JsonLd } from "@/components/JsonLd";
 import { InPageNav } from "@/components/InPageNav";
 import { Container, Section } from "@/components/Layout";
+import { MobileDisclosure } from "@/components/MobileDisclosure";
 import { SpecTable } from "@/components/SpecTable";
 import { applications } from "@/content/applications";
 import { articles } from "@/content/resources";
@@ -67,7 +68,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         ])}
       />
       <section className="border-b border-metal-200 bg-gradient-to-br from-white via-white to-blue-50/70">
-        <Container className="grid gap-10 py-14 sm:py-16 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-20">
+        <Container className="grid gap-7 py-10 sm:gap-10 sm:py-16 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-20">
           <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-slate-500 lg:col-span-2">
             <Link href="/" className="focus-ring transition hover:text-industrial-700">Home</Link>
             <span aria-hidden="true">/</span>
@@ -79,10 +80,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {product.category}
             </p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-normal text-navy-950 sm:text-5xl">
+            <h1 className="mt-4 text-[1.875rem] font-semibold tracking-normal text-navy-950 sm:text-5xl">
               {product.name}
             </h1>
-            <p className="mt-5 text-lg leading-8 text-slate-600">{product.shortDescription}</p>
+            <p className="mt-3 text-lg leading-8 text-slate-600 sm:mt-5">{product.shortDescription}</p>
             <p className="mt-5 text-base leading-7 text-slate-600">{product.overview}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -176,7 +177,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {productCatalog.detailPage.applicationEyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {productCatalog.detailPage.applicationTitle}
             </h2>
             <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
@@ -210,7 +211,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {productCatalog.detailPage.selectionEyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {productCatalog.detailPage.selectionTitle}
             </h2>
             <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
@@ -220,7 +221,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {productCatalog.detailPage.selectionText}
             </p>
           </div>
-          <RowList items={selectionNotes} />
+          <MobileDisclosure label="View selection checks" className="pt-6 sm:pt-0">
+            <RowList items={selectionNotes} />
+          </MobileDisclosure>
         </Container>
       </Section>
 
@@ -230,7 +233,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {productCatalog.detailPage.relatedApplicationsEyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {productCatalog.detailPage.relatedApplicationsTitle}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">
@@ -244,36 +247,38 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               ))}
             </div>
           </div>
-          <div>
-            <h3 className="text-xl font-semibold text-navy-950">{productCatalog.detailPage.configurationTitle}</h3>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {product.availableTypes.map((type) => (
-                <span key={type} className="border border-metal-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700">
-                  {type}
-                </span>
-              ))}
-            </div>
-            <div className="mt-8 space-y-5">
-              {product.coreCapabilities.slice(0, 3).map((capability) => (
-                <div key={capability.title} className="border-l-2 border-industrial-600 pl-5">
-                  <h3 className="text-base font-semibold text-navy-950">{capability.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{capability.text}</p>
-                </div>
-              ))}
-            </div>
-            {relatedTechnology.length ? (
-              <div className="mt-8 border-t border-metal-200 pt-6">
-                <h3 className="text-base font-semibold text-navy-950">Related engineering and calibration</h3>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {relatedTechnology.map((item) => (
-                    <ChipLink key={item.href} href={item.href}>
-                      {item.label}
-                    </ChipLink>
-                  ))}
-                </div>
+          <MobileDisclosure label="View configurations and capabilities" className="pt-6 sm:pt-0">
+            <div>
+              <h3 className="text-xl font-semibold text-navy-950">{productCatalog.detailPage.configurationTitle}</h3>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {product.availableTypes.map((type) => (
+                  <span key={type} className="border border-metal-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700">
+                    {type}
+                  </span>
+                ))}
               </div>
-            ) : null}
-          </div>
+              <div className="mt-8 space-y-5">
+                {product.coreCapabilities.slice(0, 3).map((capability) => (
+                  <div key={capability.title} className="border-l-2 border-industrial-600 pl-5">
+                    <h3 className="text-base font-semibold text-navy-950">{capability.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{capability.text}</p>
+                  </div>
+                ))}
+              </div>
+              {relatedTechnology.length ? (
+                <div className="mt-8 border-t border-metal-200 pt-6">
+                  <h3 className="text-base font-semibold text-navy-950">Related engineering and calibration</h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {relatedTechnology.map((item) => (
+                      <ChipLink key={item.href} href={item.href}>
+                        {item.label}
+                      </ChipLink>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </MobileDisclosure>
         </Container>
       </Section>
 
@@ -284,7 +289,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {productCatalog.detailPage.quotationEyebrow}
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
                 {productCatalog.detailPage.quotationTitle}
               </h2>
               <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
@@ -311,14 +316,16 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
               {productCatalog.detailPage.technicalEyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {productCatalog.detailPage.technicalTitle}
             </h2>
           </div>
-          <div className="grid gap-10">
-            <SpecTable table={product.technicalData} />
-            {product.flowRange ? <SpecTable table={{ ...product.flowRange, title: product.flowRange.title || "Flow Range" }} /> : null}
-          </div>
+          <MobileDisclosure label="View technical data" className="pt-6 sm:pt-0">
+            <div className="grid gap-10">
+              <SpecTable table={product.technicalData} />
+              {product.flowRange ? <SpecTable table={{ ...product.flowRange, title: product.flowRange.title || "Flow Range" }} /> : null}
+            </div>
+          </MobileDisclosure>
         </Container>
       </Section>
 
@@ -338,25 +345,27 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {productCatalog.detailPage.resourcesEyebrow}
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
                 {productCatalog.detailPage.resourcesTitle}
               </h2>
             </div>
-            <div className="mt-8 divide-y divide-metal-200 border-y border-metal-200">
-              {relatedArticles.map((article) => (
-                <Link
-                  key={article.slug}
-                  href={`/resources/${article.slug}`}
-                  className="focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"
-                >
-                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">
-                    {article.category}
-                  </span>
-                  <span className="text-lg font-semibold text-navy-950">{article.title}</span>
-                  <span className="text-sm font-semibold text-industrial-700">Read {article.category} {">"}</span>
-                </Link>
-              ))}
-            </div>
+            <MobileDisclosure label="View related resources" className="pt-6 sm:pt-0">
+              <div className="divide-y divide-metal-200 border-y border-metal-200 sm:mt-8">
+                {relatedArticles.map((article) => (
+                  <Link
+                    key={article.slug}
+                    href={`/resources/${article.slug}`}
+                    className="focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"
+                  >
+                    <span className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">
+                      {article.category}
+                    </span>
+                    <span className="text-lg font-semibold text-navy-950">{article.title}</span>
+                    <span className="text-sm font-semibold text-industrial-700">Read {article.category} {">"}</span>
+                  </Link>
+                ))}
+              </div>
+            </MobileDisclosure>
           </Container>
         </Section>
       ) : null}

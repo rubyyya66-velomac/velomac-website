@@ -33,7 +33,7 @@ export function TechnologyCategoryPage({ category }: { category: TechnologyCateg
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {category.eyebrow}
               </p>
-              <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-normal text-navy-950 sm:text-5xl">
+              <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] tracking-normal text-navy-950 sm:text-5xl sm:leading-[1.08]">
                 {category.title}
               </h1>
               <p className="mt-5 text-xl font-semibold leading-8 text-navy-950">
@@ -68,7 +68,7 @@ export function TechnologyCategoryPage({ category }: { category: TechnologyCateg
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 Current Work
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
                 Development Cases
               </h2>
             </div>
@@ -78,7 +78,7 @@ export function TechnologyCategoryPage({ category }: { category: TechnologyCateg
             </p>
           </div>
 
-          <div className="mt-10 grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-7 grid items-stretch gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
               <TechnologyCard key={article.slug} article={article} />
             ))}

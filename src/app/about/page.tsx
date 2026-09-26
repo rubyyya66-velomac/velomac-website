@@ -19,10 +19,10 @@ export default function AboutPage() {
   return (
     <>
       <section className="border-b border-metal-200 bg-gradient-to-br from-white via-white to-blue-50/70">
-        <Container className="grid gap-9 py-12 sm:py-14 lg:grid-cols-[0.68fr_1.32fr] lg:items-center lg:py-16">
+        <Container className="grid gap-7 py-9 sm:gap-9 sm:py-14 lg:grid-cols-[0.68fr_1.32fr] lg:items-center lg:py-16">
           <div className="max-w-lg">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">{hero.label}</p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-normal text-navy-950 sm:text-[2.75rem] sm:leading-[1.08] lg:text-[3rem]">
+            <h1 className="mt-4 text-[1.875rem] font-semibold tracking-normal text-navy-950 sm:text-[2.75rem] sm:leading-[1.08] lg:text-[3rem]">
               {hero.headline}
             </h1>
             <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
@@ -54,7 +54,7 @@ export default function AboutPage() {
         <Container>
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">{companyProfile.label}</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {companyProfile.headline}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
@@ -85,7 +85,7 @@ export default function AboutPage() {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">{processContext.label}</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {processContext.headline}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
@@ -99,7 +99,7 @@ export default function AboutPage() {
         <Container className="grid gap-10 lg:grid-cols-[0.84fr_1.16fr] lg:items-center">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">{capabilities.label}</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {capabilities.headline}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
@@ -139,7 +139,7 @@ export default function AboutPage() {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">{calibration.label}</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
               {calibration.headline}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
@@ -168,7 +168,7 @@ export default function AboutPage() {
         <Container className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{finalCta.label}</p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">{finalCta.headline}</h2>
+            <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">{finalCta.headline}</h2>
             <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-300">
               {finalCta.text}
             </p>

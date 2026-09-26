@@ -50,7 +50,7 @@ export default function HomePage() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {homepage.featuredVortex.eyebrow}
               </p>
-              <h2 className="mt-4 max-w-3xl text-[1.95rem] font-semibold leading-[1.1] tracking-[-0.025em] text-navy-950 sm:text-[2.25rem] lg:text-[2.35rem] xl:text-[2.65rem]">
+              <h2 className="mt-4 max-w-3xl text-2xl font-semibold leading-[1.16] tracking-[-0.015em] text-navy-950 sm:text-[2.25rem] sm:leading-[1.1] sm:tracking-[-0.025em] lg:text-[2.35rem] xl:text-[2.65rem]">
                 {homepage.featuredVortex.title}
               </h2>
 
@@ -144,7 +144,7 @@ export default function HomePage() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
               {homepage.technology.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-[1.08]">
+            <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-[1.08]">
               {homepage.technology.title}
             </h2>
             <p className="mt-4 max-w-lg text-base leading-7 text-blue-100 sm:text-lg sm:leading-8">
@@ -213,7 +213,7 @@ export default function HomePage() {
               <span aria-hidden="true">{">"}</span>
             </Link>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-7 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {homepageProducts.map((product) => (
               <ProductCard
                 key={product.slug}
@@ -236,7 +236,7 @@ export default function HomePage() {
             title={homepage.applicationsPreview.title}
             description={homepage.applicationsPreview.description}
           />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-7 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
             {featuredApplications.map((application) => (
               <ApplicationCard key={application.slug} application={application} variant="featured" />
             ))}
