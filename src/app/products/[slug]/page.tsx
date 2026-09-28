@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { ApplicationReview } from "@/components/ApplicationReview";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { CTASection } from "@/components/CTASection";
+import { ElectromagneticApplicationChecks } from "@/components/ElectromagneticApplicationChecks";
 import { JsonLd } from "@/components/JsonLd";
 import { InPageNav } from "@/components/InPageNav";
 import { Container, Section } from "@/components/Layout";
@@ -156,6 +157,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           { href: "#selection", label: "Selection" },
           { href: "#configuration", label: "Configuration" },
           { href: "#technical-data", label: "Technical data" },
+          ...(product.slug === "electromagnetic-flowmeter"
+            ? [{ href: "#application-checks" as const, label: "Application checks" }]
+            : []),
           product.category === "Flowmeters"
             ? { href: "#application-review", label: "Application review" }
             : { href: "#quote-details", label: "Quote details" }
@@ -329,12 +333,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </Container>
       </Section>
 
+      {product.slug === "electromagnetic-flowmeter" ? <ElectromagneticApplicationChecks /> : null}
+
       {product.category === "Flowmeters" ? (
         <ApplicationReview
           productName={product.name}
           productSlug={product.slug}
           productCategory={product.category}
           sourcePath={`/products/${product.slug}`}
+          initialMediumType={product.slug === "electromagnetic-flowmeter" ? "liquid" : undefined}
         />
       ) : null}
 

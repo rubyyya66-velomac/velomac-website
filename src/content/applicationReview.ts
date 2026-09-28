@@ -11,7 +11,9 @@ export type ApplicationReviewFieldKey =
   | "viscosity"
   | "liquidCondition"
   | "installationType"
-  | "pipeConstruction";
+  | "pipeConstruction"
+  | "wettedMaterials"
+  | "outputApproval";
 
 export type ApplicationReviewProductConfig = {
   heading: string;
@@ -42,7 +44,7 @@ const productReviewConfigs: Record<string, ApplicationReviewProductConfig> = {
   },
   "electromagnetic-flowmeter": {
     heading: "Electromagnetic application focus",
-    fields: ["conductivity", "fullPipe", "solids"]
+    fields: ["conductivity", "fullPipe", "solids", "pipeConstruction", "wettedMaterials", "outputApproval"]
   },
   "thermal-mass-flowmeter": {
     heading: "Thermal mass application focus",

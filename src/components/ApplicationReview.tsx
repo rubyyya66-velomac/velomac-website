@@ -446,6 +446,23 @@ function ProductSpecificFields({ fields }: { fields: ApplicationReviewFieldKey[]
                 <ValueOrNotSure name="pipe-wall-thickness" label="Pipe wall thickness" unit="mm" />
               </div>
             );
+          case "wettedMaterials":
+            return (
+              <Field key={field} label="Electrode / liner requirements">
+                <input name="electrode-liner-requirements" className={inputClass} placeholder="If specified" />
+              </Field>
+            );
+          case "outputApproval":
+            return (
+              <div key={field} className="grid gap-4 sm:col-span-2 sm:grid-cols-2">
+                <Field label="Output / communication">
+                  <input name="output-communication" className={inputClass} placeholder="4–20 mA, pulse, RS485..." />
+                </Field>
+                <Field label="Hazardous-area / approval requirements">
+                  <input name="approval-requirements" className={inputClass} placeholder="If applicable" />
+                </Field>
+              </div>
+            );
         }
       })}
     </div>
@@ -743,6 +760,9 @@ function buildApplicationData(data: FormData) {
     ["Installation type", readValue(data, "installation-type")],
     ["Pipe material", readValue(data, "pipe-material")],
     ["Pipe wall thickness", formatOptionalValue(data, "pipe-wall-thickness")],
+    ["Electrode / liner requirements", readValue(data, "electrode-liner-requirements")],
+    ["Output / communication", readValue(data, "output-communication")],
+    ["Approval requirements", readValue(data, "approval-requirements")],
     ["Additional notes", readValue(data, "additional-notes")]
   ].filter((row): row is [string, string] => Boolean(row[1]));
 
