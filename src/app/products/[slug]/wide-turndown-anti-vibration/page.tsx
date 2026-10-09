@@ -8,6 +8,7 @@ import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container } from "@/components/Layout";
 import { JsonLd } from "@/components/JsonLd";
 import { InPageNav } from "@/components/InPageNav";
+import { OperatingRangeCheck } from "@/components/OperatingRangeCheck";
 import { featuredVortexSolution } from "@/content/featuredVortexSolution";
 import { getProductBySlug } from "@/content/products";
 import { buildPageMetadata } from "@/lib/seo";
@@ -151,26 +152,29 @@ export default async function WideTurndownAntiVibrationPage({ params }: { params
       </PageSection>
 
       <section id="flow-envelope" className="scroll-mt-28 bg-navy-950 py-10 text-white sm:py-20 lg:py-24">
-        <Container className="grid gap-12 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-16">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{featuredVortexSolution.flowEnvelope.eyebrow}</p>
-            <p className="mt-5 text-[5rem] font-semibold leading-none tracking-[-0.05em] text-white sm:text-[7rem]">{featuredVortexSolution.flowEnvelope.value}</p>
-            <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-blue-200">{featuredVortexSolution.flowEnvelope.valueLabel}</p>
-          </div>
-          <div>
-            <SectionHeading
-              dark
-              title={featuredVortexSolution.flowEnvelope.title}
-              description={featuredVortexSolution.flowEnvelope.description}
-            />
-            <div className="mt-6 grid border-y border-white/15 sm:mt-9 sm:grid-cols-3 sm:divide-x sm:divide-white/15">
-              {featuredVortexSolution.flowEnvelope.applications.map((example) => (
-                <h3 key={example} className="border-b border-white/15 py-5 text-xl font-semibold leading-7 text-white last:border-b-0 sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:pr-0">
-                  {example}
-                </h3>
-              ))}
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-16">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{featuredVortexSolution.flowEnvelope.eyebrow}</p>
+              <p className="mt-5 text-[5rem] font-semibold leading-none tracking-[-0.05em] text-white sm:text-[7rem]">{featuredVortexSolution.flowEnvelope.value}</p>
+              <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-blue-200">{featuredVortexSolution.flowEnvelope.valueLabel}</p>
+            </div>
+            <div>
+              <SectionHeading
+                dark
+                title={featuredVortexSolution.flowEnvelope.title}
+                description={featuredVortexSolution.flowEnvelope.description}
+              />
+              <div className="mt-6 grid border-y border-white/15 sm:mt-9 sm:grid-cols-3 sm:divide-x sm:divide-white/15">
+                {featuredVortexSolution.flowEnvelope.applications.map((example) => (
+                  <h3 key={example} className="border-b border-white/15 py-5 text-xl font-semibold leading-7 text-white last:border-b-0 sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:pr-0">
+                    {example}
+                  </h3>
+                ))}
+              </div>
             </div>
           </div>
+          <OperatingRangeCheck pagePath={pagePath} productSlug={featuredVortexSolution.slug} />
         </Container>
       </section>
 

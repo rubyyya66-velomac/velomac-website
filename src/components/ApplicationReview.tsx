@@ -37,6 +37,14 @@ type SummaryItem = {
   value: string;
 };
 
+type ApplicationReviewPrefill = {
+  productSlug?: string;
+  minimumFlow?: string;
+  normalFlow?: string;
+  maximumFlow?: string;
+  flowUnit?: string;
+};
+
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
@@ -104,6 +112,26 @@ export function ApplicationReview({
     window.addEventListener("velomac:application-review-reset", resetApplicationReview);
     return () => window.removeEventListener("velomac:application-review-reset", resetApplicationReview);
   }, [allowProductSelection, initialMediumType, initialProductSlug, productSlug]);
+
+  useEffect(() => {
+    function handleApplicationReviewPrefill(event: Event) {
+      const detail = (event as CustomEvent<ApplicationReviewPrefill>).detail;
+      const form = formRef.current;
+      if (!form || !detail || (detail.productSlug && detail.productSlug !== activeProductSlug)) return;
+
+      setFormValue(form, "minimum-flow", detail.minimumFlow);
+      setFormValue(form, "normal-flow", detail.normalFlow);
+      setFormValue(form, "maximum-flow", detail.maximumFlow);
+      ["minimum-flow-unit", "normal-flow-unit", "maximum-flow-unit"].forEach((name) => {
+        setFormValue(form, name, detail.flowUnit);
+      });
+      setSummary(buildApplicationSummary(new FormData(form)));
+      setQuickError("");
+    }
+
+    window.addEventListener("velomac:application-review-prefill", handleApplicationReviewPrefill);
+    return () => window.removeEventListener("velomac:application-review-prefill", handleApplicationReviewPrefill);
+  }, [activeProductSlug]);
 
   function markStarted() {
     if (hasStarted.current) return;
@@ -804,6 +832,15 @@ function readValue(data: FormData, name: string) {
 
 function readValues(data: FormData, name: string) {
   return data.getAll(name).filter((value): value is string => typeof value === "string" && Boolean(value.trim())).join(", ");
+}
+
+function setFormValue(form: HTMLFormElement, name: string, value?: string) {
+  if (!value) return;
+  const control = form.elements.namedItem(name);
+  if (control instanceof HTMLInputElement || control instanceof HTMLSelectElement) {
+    control.value = value;
+    control.dispatchEvent(new Event("change", { bubbles: true }));
+  }
 }
 
 function normalizeMediumType(value?: "liquid" | "gas" | "steam" | "not-sure"): MediumType {
