@@ -39,10 +39,24 @@ type SummaryItem = {
 
 type ApplicationReviewPrefill = {
   productSlug?: string;
+  mediumType?: "liquid" | "gas" | "steam" | "not-sure";
   minimumFlow?: string;
   normalFlow?: string;
   maximumFlow?: string;
   flowUnit?: string;
+  operatingPressureValue?: string;
+  operatingPressureUnit?: string;
+  operatingTemperatureValue?: string;
+  operatingTemperatureUnit?: string;
+  vaporPressureValue?: string;
+  vaporPressureUnit?: string;
+  minimumDownstreamPressureValue?: string;
+  minimumDownstreamPressureUnit?: string;
+  entrainedGas?: string;
+  viscosityAtOperatingTemperature?: string;
+  densitySpecificGravity?: string;
+  solidsPresence?: string;
+  sourceSection?: string;
 };
 
 declare global {
@@ -81,6 +95,7 @@ export function ApplicationReview({
   const [summary, setSummary] = useState<SummaryItem[]>([]);
   const [quickError, setQuickError] = useState("");
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
+  const [prefillSourceSection, setPrefillSourceSection] = useState("");
   const selectedProduct = getApplicationReviewProductOption(selectedProductSlug);
   const activeProductSlug = allowProductSelection ? selectedProduct?.value || "not-sure-yet" : productSlug;
   const activeProductName = allowProductSelection ? selectedProduct?.label || "Not sure yet" : productName;
@@ -105,6 +120,7 @@ export function ApplicationReview({
       setSummary([]);
       setQuickError("");
       setSubmissionState("idle");
+      setPrefillSourceSection("");
       hasStarted.current = false;
       startedAt.current = Date.now();
     }
@@ -119,13 +135,46 @@ export function ApplicationReview({
       const form = formRef.current;
       if (!form || !detail || (detail.productSlug && detail.productSlug !== activeProductSlug)) return;
 
+      if (detail.sourceSection) setPrefillSourceSection(detail.sourceSection);
+      if (detail.mediumType) setMediumType(normalizeMediumType(detail.mediumType));
       setFormValue(form, "minimum-flow", detail.minimumFlow);
       setFormValue(form, "normal-flow", detail.normalFlow);
       setFormValue(form, "maximum-flow", detail.maximumFlow);
       ["minimum-flow-unit", "normal-flow-unit", "maximum-flow-unit"].forEach((name) => {
         setFormValue(form, name, detail.flowUnit);
       });
-      setSummary(buildApplicationSummary(new FormData(form)));
+      setFormValue(form, "pressure", detail.operatingPressureValue);
+      setFormValue(form, "pressure-unit", detail.operatingPressureUnit);
+      setFormValue(form, "temperature", detail.operatingTemperatureValue);
+      setFormValue(form, "temperature-unit", detail.operatingTemperatureUnit);
+
+      const hasLiquidPhaseDetails = Boolean(
+        detail.vaporPressureValue ||
+          detail.minimumDownstreamPressureValue ||
+          detail.entrainedGas ||
+          detail.viscosityAtOperatingTemperature ||
+          detail.densitySpecificGravity ||
+          detail.solidsPresence
+      );
+
+      if (hasLiquidPhaseDetails) setMoreDetailsOpen(true);
+      window.requestAnimationFrame(() => {
+        const currentForm = formRef.current;
+        if (!currentForm) return;
+        setFormValue(currentForm, "vapor-pressure", detail.vaporPressureValue);
+        setFormValue(currentForm, "vapor-pressure-unit", detail.vaporPressureUnit);
+        setFormValue(currentForm, "minimum-downstream-pressure", detail.minimumDownstreamPressureValue);
+        setFormValue(currentForm, "minimum-downstream-pressure-unit", detail.minimumDownstreamPressureUnit);
+        setFormValue(currentForm, "entrained-gas", detail.entrainedGas);
+        setFormValue(
+          currentForm,
+          "viscosity-at-operating-temperature",
+          detail.viscosityAtOperatingTemperature
+        );
+        setFormValue(currentForm, "density-specific-gravity", detail.densitySpecificGravity);
+        setFormValue(currentForm, "solids-particles", detail.solidsPresence);
+        setSummary(buildApplicationSummary(new FormData(currentForm)));
+      });
       setQuickError("");
     }
 
@@ -195,7 +244,7 @@ export function ApplicationReview({
       "page-path": sourcePath,
       "page-url": window.location.href,
       "source-type": sourceContext?.sourceType || "direct",
-      "source-section": sourceContext?.sourceSection || "application-review",
+      "source-section": prefillSourceSection || sourceContext?.sourceSection || "application-review",
       "source-origin-path": sourceContext?.sourcePath || sourcePath,
       "application-type": sourceContext?.applicationType || "",
       website: readValue(formData, "website"),
@@ -204,6 +253,27 @@ export function ApplicationReview({
       "pipe-size": currentSummary.find((item) => item.label === "Pipe")?.value || "Not provided",
       "flow-range": currentSummary.find((item) => item.label === "Flow")?.value || "Not provided",
       "temperature-pressure": `${currentSummary.find((item) => item.label === "Pressure")?.value || "Not provided"}; ${currentSummary.find((item) => item.label === "Temperature")?.value || "Not provided"}`,
+      flowmeterTechnology: activeProductName,
+      mediumName: readValue(formData, "medium-name"),
+      minimumFlow: readValue(formData, "minimum-flow"),
+      normalFlow: readValue(formData, "normal-flow"),
+      maximumFlow: readValue(formData, "maximum-flow"),
+      operatingPressureValue: readValue(formData, "pressure"),
+      operatingPressureUnit: readValue(formData, "pressure-unit"),
+      operatingTemperatureValue: readValue(formData, "temperature"),
+      operatingTemperatureUnit: readValue(formData, "temperature-unit"),
+      vaporPressureValue: readValue(formData, "vapor-pressure"),
+      vaporPressureUnit: readValue(formData, "vapor-pressure-unit"),
+      minimumDownstreamPressureValue: readValue(formData, "minimum-downstream-pressure"),
+      minimumDownstreamPressureUnit: readValue(formData, "minimum-downstream-pressure-unit"),
+      entrainedGas: readValue(formData, "entrained-gas"),
+      viscosityValue: readValue(formData, "viscosity-at-operating-temperature") || readValue(formData, "viscosity"),
+      densitySpecificGravity: readValue(formData, "density-specific-gravity"),
+      solidsPresence: readValue(formData, "solids-particles") || readValue(formData, "solids-present"),
+      pipeSize: readValue(formData, "pipe-size-value"),
+      applicationPurpose: readValue(formData, "measurement-purpose"),
+      sourcePath,
+      sourceSection: prefillSourceSection || sourceContext?.sourceSection || "application-review",
       requirements: buildApplicationData(formData)
     };
 
@@ -226,6 +296,13 @@ export function ApplicationReview({
       }
       window.dispatchEvent(new Event("velomac:application-review-submitted"));
       trackApplicationReview("application_review_success", activeProductSlug, productCategory, mediumType, sourcePath, sourceContext);
+      if (activeProductSlug === "liquid-turbine-flowmeter" && hasLiquidPhaseApplicationData(formData)) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "liquid_phase_check_submitted",
+          source_page: "liquid_turbine_flowmeter"
+        });
+      }
     } catch {
       setSubmissionState("error");
       trackApplicationReview("application_review_error", activeProductSlug, productCategory, mediumType, sourcePath, sourceContext);
@@ -295,7 +372,11 @@ export function ApplicationReview({
                 </div>
               ) : null}
               <div className="divide-y divide-metal-200 border-y border-metal-200">
-                <QuickReviewFields mediumType={mediumType} onMediumTypeChange={setMediumType} />
+                <QuickReviewFields
+                  mediumType={mediumType}
+                  onMediumTypeChange={setMediumType}
+                  productSlug={activeProductSlug}
+                />
               </div>
 
               <button
@@ -348,11 +429,18 @@ export function ApplicationReview({
 
 function QuickReviewFields({
   mediumType,
-  onMediumTypeChange
+  onMediumTypeChange,
+  productSlug
 }: {
   mediumType: MediumType;
   onMediumTypeChange: (value: MediumType) => void;
+  productSlug: string;
 }) {
+  const pressureUnits =
+    productSlug === "liquid-turbine-flowmeter"
+      ? ["bar(g)", "bar(a)", "kPa(g)", "kPa(a)", "MPa(g)", "MPa(a)", "psi(g)", "psi(a)", "Not sure"]
+      : ["bar", "MPa", "kPa", "psi", "Not sure"];
+
   return (
     <>
       <FormSection number="01" title="What is flowing?">
@@ -387,7 +475,7 @@ function QuickReviewFields({
 
       <FormSection number="03" title="Operating conditions">
         <div className="grid gap-4 sm:grid-cols-2">
-          <ValueWithUnit label="Pressure" name="pressure" units={["bar", "MPa", "kPa", "psi", "Not sure"]} />
+          <ValueWithUnit label="Pressure" name="pressure" units={pressureUnits} />
           <ValueWithUnit label="Temperature" name="temperature" units={["°C", "°F", "Not sure"]} />
         </div>
       </FormSection>
@@ -465,6 +553,41 @@ function ProductSpecificFields({ fields }: { fields: ApplicationReviewFieldKey[]
             return <ValueOrNotSure key={field} name="viscosity" label="Viscosity" unit="mPa·s" />;
           case "liquidCondition":
             return <SelectField key={field} name="liquid-condition" label="Liquid condition" options={["Clean", "Some particles possible", "Particles present", "Not sure"]} />;
+          case "liquidPhase":
+            return (
+              <div key={field} className="grid gap-5 sm:col-span-2 sm:grid-cols-2">
+                <ValueWithUnit
+                  label="Vapor pressure at operating temperature"
+                  name="vapor-pressure"
+                  units={["bar(a)", "kPa(a)", "MPa(a)", "psi(a)"]}
+                />
+                <ValueWithUnit
+                  label="Minimum downstream pressure"
+                  name="minimum-downstream-pressure"
+                  units={["bar(g)", "bar(a)", "kPa(g)", "kPa(a)", "MPa(g)", "MPa(a)", "psi(g)", "psi(a)"]}
+                />
+                <SelectField
+                  name="entrained-gas"
+                  label="Entrained gas / bubbles?"
+                  options={["No known gas", "Yes", "Possible", "Not sure"]}
+                />
+                <Field label="Viscosity at operating temperature">
+                  <input
+                    name="viscosity-at-operating-temperature"
+                    className={inputClass}
+                    placeholder="e.g. 5 cP at 70°C"
+                  />
+                </Field>
+                <Field label="Density / specific gravity">
+                  <input name="density-specific-gravity" className={inputClass} placeholder="If known" />
+                </Field>
+                <SelectField
+                  name="solids-particles"
+                  label="Solids or particles present?"
+                  options={["None known", "Yes", "Possible", "Not sure"]}
+                />
+              </div>
+            );
           case "installationType":
             return <SelectField key={field} name="installation-type" label="Installation type" options={["Clamp-on", "Inline", "Not sure"]} />;
           case "pipeConstruction":
@@ -501,6 +624,7 @@ function MediumSpecificFields({ mediumType, excludedFields }: { mediumType: Medi
   if (!mediumType || mediumType === "Not sure") return null;
 
   if (mediumType === "Liquid") {
+    if (excludedFields.includes("liquidPhase")) return null;
     return (
       <OptionalSection title="Liquid details" description="Useful only where these properties affect the application.">
         <div className="grid gap-5 sm:grid-cols-2">
@@ -774,7 +898,12 @@ function buildApplicationData(data: FormData) {
     ["P/T compensation", readValue(data, "pt-compensation")],
     ["Conductivity", formatOptionalValue(data, "conductivity")],
     ["Viscosity", formatOptionalValue(data, "viscosity")],
+    ["Viscosity at operating temperature", readValue(data, "viscosity-at-operating-temperature")],
+    ["Density / specific gravity", readValue(data, "density-specific-gravity")],
+    ["Vapor pressure at operating temperature", formatOptionalValue(data, "vapor-pressure")],
+    ["Minimum downstream pressure", formatOptionalValue(data, "minimum-downstream-pressure")],
     ["Solids present", readValue(data, "solids-present")],
+    ["Solids or particles present", readValue(data, "solids-particles")],
     ["Entrained gas / bubbles", readValue(data, "entrained-gas")],
     ["Corrosive", readValue(data, "corrosive")],
     ["Gas composition", readValue(data, "gas-composition")],
@@ -799,6 +928,17 @@ function buildApplicationData(data: FormData) {
     ...summary.map((item) => `${item.label}: ${item.value}`),
     ...(optionalRows.length ? ["", "Additional Details:", ...optionalRows.map(([label, value]) => `${label}: ${value}`)] : [])
   ].join("\n");
+}
+
+function hasLiquidPhaseApplicationData(data: FormData) {
+  return [
+    "vapor-pressure",
+    "minimum-downstream-pressure",
+    "entrained-gas",
+    "viscosity-at-operating-temperature",
+    "density-specific-gravity",
+    "solids-particles"
+  ].some((name) => Boolean(readValue(data, name)));
 }
 
 function formatNamedValue(label: string, data: FormData, name: string) {

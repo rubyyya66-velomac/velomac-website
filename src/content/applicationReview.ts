@@ -10,6 +10,7 @@ export type ApplicationReviewFieldKey =
   | "moisture"
   | "viscosity"
   | "liquidCondition"
+  | "liquidPhase"
   | "installationType"
   | "pipeConstruction"
   | "wettedMaterials"
@@ -52,7 +53,7 @@ const productReviewConfigs: Record<string, ApplicationReviewProductConfig> = {
   },
   "liquid-turbine-flowmeter": {
     heading: "Liquid turbine application focus",
-    fields: ["viscosity", "liquidCondition"]
+    fields: ["liquidPhase"]
   },
   "ultrasonic-flowmeter": {
     heading: "Ultrasonic application focus",

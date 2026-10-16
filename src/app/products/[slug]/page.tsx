@@ -10,6 +10,7 @@ import { ElectromagneticApplicationChecks } from "@/components/ElectromagneticAp
 import { JsonLd } from "@/components/JsonLd";
 import { InPageNav } from "@/components/InPageNav";
 import { Container, Section } from "@/components/Layout";
+import LiquidPhaseCheck from "@/components/LiquidPhaseCheck";
 import { MobileDisclosure } from "@/components/MobileDisclosure";
 import { SpecTable } from "@/components/SpecTable";
 import { applications } from "@/content/applications";
@@ -155,6 +156,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         items={[
           { href: "#applications", label: "Applications" },
           { href: "#selection", label: "Selection" },
+          ...(product.slug === "liquid-turbine-flowmeter"
+            ? [{ href: "#liquid-phase-check" as const, label: "Liquid phase" }]
+            : []),
           { href: "#configuration", label: "Configuration" },
           { href: "#technical-data", label: "Technical data" },
           ...(product.slug === "electromagnetic-flowmeter"
@@ -230,6 +234,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </MobileDisclosure>
         </Container>
       </Section>
+
+      {product.slug === "liquid-turbine-flowmeter" ? <LiquidPhaseCheck /> : null}
 
       <Section id="configuration" className="scroll-mt-28">
         <Container className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr]">
@@ -341,7 +347,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           productSlug={product.slug}
           productCategory={product.category}
           sourcePath={`/products/${product.slug}`}
-          initialMediumType={product.slug === "electromagnetic-flowmeter" ? "liquid" : undefined}
+          initialMediumType={
+            ["electromagnetic-flowmeter", "liquid-turbine-flowmeter"].includes(product.slug)
+              ? "liquid"
+              : undefined
+          }
         />
       ) : null}
 
@@ -534,6 +544,33 @@ function getSelectionNotes(product: Product) {
     ];
   }
 
+  if (product.slug === "liquid-turbine-flowmeter") {
+    return [
+      {
+        label: "Media",
+        value:
+          "Clean liquid service. Best evaluated with the actual liquid condition, viscosity, cleanliness and operating range."
+      },
+      { label: "Flow range", value: "Share minimum, normal and maximum flow before sizing." },
+      {
+        label: "Pressure / temperature",
+        value:
+          "Confirm operating P/T and review liquid phase conditions where vapor formation may be relevant.",
+        href: "#liquid-phase-check",
+        linkLabel: "Check Liquid Phase →"
+      },
+      { label: "Pipe size", value: "Send DN, connection type and available straight pipe." },
+      {
+        label: "Installation condition",
+        value: "Note access limits, pipe layout, nearby restrictions and shutdown limits."
+      },
+      {
+        label: "Output / signal",
+        value: "Confirm local display, 4-20mA, pulse, RS485 or other site needs."
+      }
+    ];
+  }
+
   if (product.slug === "thermal-mass-flowmeter") {
     return [
       { label: "Gas composition", value: "Confirm the gas or gas mixture used at the measurement point." },
@@ -566,13 +603,27 @@ const levelQuoteDetails = [
   "Signal output"
 ];
 
-function RowList({ items }: { items: { label: string; value: string }[] }) {
+function RowList({
+  items
+}: {
+  items: { label: string; value: string; href?: string; linkLabel?: string }[];
+}) {
   return (
     <div className="divide-y divide-metal-200 border-y border-metal-200 bg-white">
       {items.map((item) => (
         <div key={item.label} className="grid gap-2 py-4 md:grid-cols-[0.32fr_1fr]">
           <h3 className="text-sm font-semibold text-navy-950">{item.label}</h3>
-          <p className="text-sm leading-6 text-slate-600">{item.value}</p>
+          <div>
+            <p className="text-sm leading-6 text-slate-600">{item.value}</p>
+            {item.href && item.linkLabel ? (
+              <Link
+                href={item.href}
+                className="focus-ring mt-2 inline-flex text-sm font-semibold text-industrial-700 hover:text-navy-950"
+              >
+                {item.linkLabel}
+              </Link>
+            ) : null}
+          </div>
         </div>
       ))}
     </div>
