@@ -1685,9 +1685,15 @@
     "relatedProducts": [],
     "relatedApplications": [],
     "relatedProductSlugs": [
-      "Velomac Flow Calibration Systems"
+      "electromagnetic-flowmeter",
+      "vortex-flowmeter",
+      "liquid-turbine-flowmeter"
     ],
-    "relatedApplicationSlugs": [],
+    "relatedApplicationSlugs": [
+      "water-treatment-flow-measurement",
+      "chemical-process-flow-measurement",
+      "steam-flow-measurement"
+    ],
     "takeaways": [
       "Match each calibration record to an individually identifiable physical flowmeter.",
       "Compare actual calibration test points with the agreed order requirements.",
