@@ -13,7 +13,7 @@ export function Header() {
           <CopyEmailButton email={site.email} />
           <span className="text-metal-300">|</span>
           <TrackedContactLink
-            href="https://wa.me/8613326311877"
+            href="https://wa.me/8618660373361"
             channel="whatsapp"
             newTab
             ariaLabel={`Contact ${site.name} on WhatsApp`}
@@ -35,7 +35,7 @@ export function Header() {
           />
         </Link>
         <TrackedContactLink
-          href="https://wa.me/8613326311877"
+          href="https://wa.me/8618660373361"
           channel="whatsapp"
           newTab
           ariaLabel={`Contact ${site.name} on WhatsApp`}

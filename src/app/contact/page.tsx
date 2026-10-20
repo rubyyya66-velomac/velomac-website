@@ -41,7 +41,7 @@ export default function ContactPage() {
               <p>
                 WhatsApp:{" "}
                 <TrackedContactLink
-                  href="https://wa.me/8613326311877"
+                  href="https://wa.me/8618660373361"
                   channel="whatsapp"
                   newTab
                   ariaLabel="Contact Velomac on WhatsApp"
