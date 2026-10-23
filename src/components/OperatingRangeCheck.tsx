@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 const flowUnits = ["m³/h", "L/min", "L/h", "kg/h", "t/h"] as const;
 
@@ -230,9 +231,7 @@ function formatRatio(value: number) {
 }
 
 function trackRangeCheck(event: string, productSlug: string, pagePath: string, details: Record<string, unknown>) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event,
+  trackAnalyticsEvent(event, {
     product_slug: productSlug,
     page_path: pagePath,
     source_section: "operating-range-check",

@@ -51,9 +51,17 @@ const productReviewConfigs: Record<string, ApplicationReviewProductConfig> = {
     heading: "Thermal mass application focus",
     fields: ["gasComposition", "compositionStability", "moisture"]
   },
+  "gas-turbine-flowmeter": {
+    heading: "Gas turbine application focus",
+    fields: ["gasComposition", "compositionStability", "moisture", "straightRun", "outputApproval"]
+  },
   "liquid-turbine-flowmeter": {
     heading: "Liquid turbine application focus",
     fields: ["liquidPhase"]
+  },
+  "v-cone-flowmeter": {
+    heading: "V-Cone application focus",
+    fields: ["ptCompensation", "straightRun", "outputApproval"]
   },
   "ultrasonic-flowmeter": {
     heading: "Ultrasonic application focus",

@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { FloatingApplicationReview } from "@/components/FloatingApplicationReview";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/content/site";
 import { organizationStructuredData, websiteStructuredData } from "@/lib/structuredData";
+
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-4FBZ89F9LJ";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -46,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <GoogleAnalytics measurementId={googleAnalyticsId} />
         <JsonLd data={organizationStructuredData()} />
         <JsonLd data={websiteStructuredData()} />
         <Header />

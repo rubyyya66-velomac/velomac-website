@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ClipboardCheck, X } from "lucide-react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 type ProductContext = {
   name: string;
@@ -407,9 +408,7 @@ function trackFloatingReview(
     applicationContext: ApplicationContext | null;
   }
 ) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event,
+  trackAnalyticsEvent(event, {
     page_path: context.pathname,
     page_type: context.pageType,
     source_section: "floating_application_review",

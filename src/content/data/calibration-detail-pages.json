@@ -112,9 +112,11 @@
         "tone": "soft"
       }
     ],
-    "relatedEyebrow": "Related Calibration Methods",
-    "relatedHeading": "Compare the liquid calibration routes",
+    "relatedEyebrow": "Related Gas Flowmeters & Methods",
+    "relatedHeading": "Continue from calibration capability to gas-flowmeter selection",
     "relatedLinks": [
+      { "label": "Gas Turbine Flowmeter", "href": "/products/gas-turbine-flowmeter" },
+      { "label": "Thermal Mass Flowmeter", "href": "/products/thermal-mass-flowmeter" },
       { "label": "Master-Meter Liquid Calibration", "href": "/technology/master-meter-liquid-calibration" },
       { "label": "Gravimetric Liquid Calibration", "href": "/technology/gravimetric-liquid-calibration" }
     ],
@@ -259,9 +261,11 @@
         "tone": "soft"
       }
     ],
-    "relatedEyebrow": "Related Calibration Methods",
-    "relatedHeading": "Compare the gas and gravimetric routes",
+    "relatedEyebrow": "Related Liquid Flowmeters & Calibration",
+    "relatedHeading": "Continue from calibration evidence to product selection",
     "relatedLinks": [
+      { "label": "Liquid Turbine Flowmeter", "href": "/products/liquid-turbine-flowmeter" },
+      { "label": "Electromagnetic Flowmeter", "href": "/products/electromagnetic-flowmeter" },
       { "label": "Gas Flow Calibration", "href": "/technology/gas-flow-calibration" },
       { "label": "Gravimetric Liquid Calibration", "href": "/technology/gravimetric-liquid-calibration" }
     ],
@@ -476,9 +480,11 @@
         "tone": "dark"
       }
     ],
-    "relatedEyebrow": "Related Calibration Pages",
-    "relatedHeading": "Continue the calibration review",
+    "relatedEyebrow": "Related Liquid Flowmeters & Calibration",
+    "relatedHeading": "Continue from calibration capability to product selection",
     "relatedLinks": [
+      { "label": "Liquid Turbine Flowmeter", "href": "/products/liquid-turbine-flowmeter" },
+      { "label": "Electromagnetic Flowmeter", "href": "/products/electromagnetic-flowmeter" },
       { "label": "Master-Meter Liquid Calibration", "href": "/technology/master-meter-liquid-calibration" },
       { "label": "Flow Calibration Systems", "href": "/technology/flow-calibration-systems" }
     ],
@@ -633,9 +639,11 @@
         "tone": "soft"
       }
     ],
-    "relatedEyebrow": "Related Calibration Methods",
-    "relatedHeading": "Compare the gas and master-meter routes",
+    "relatedEyebrow": "Related Liquid Flowmeters & Calibration",
+    "relatedHeading": "Continue from calibration evidence to product selection",
     "relatedLinks": [
+      { "label": "Liquid Turbine Flowmeter", "href": "/products/liquid-turbine-flowmeter" },
+      { "label": "Electromagnetic Flowmeter", "href": "/products/electromagnetic-flowmeter" },
       { "label": "Master-Meter Liquid Calibration", "href": "/technology/master-meter-liquid-calibration" },
       { "label": "Gas Flow Calibration", "href": "/technology/gas-flow-calibration" }
     ],

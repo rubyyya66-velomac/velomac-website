@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export function CopyEmailButton({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
@@ -31,9 +32,7 @@ export function CopyEmailButton({ email }: { email: string }) {
     }
 
     setCopied(true);
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "contact_link_click",
+    trackAnalyticsEvent("contact_link_click", {
       contact_channel: "email_copy",
       page_path: window.location.pathname
     });

@@ -355,7 +355,7 @@
     "name": "Liquid Turbine Flowmeter",
     "category": "Flowmeters",
     "shortDescription": "For clean liquid applications with stable flow conditions.",
-    "overview": "Liquid turbine flowmeters are used for clean liquids in stable flow conditions. Selection should confirm line size, connection type, viscosity, pressure loss and the required output signal.",
+    "overview": "Liquid turbine flowmeters are used for clean liquids in stable flow conditions. Selection should confirm liquid cleanliness, viscosity at operating temperature, the complete flow range, minimum downstream pressure and any risk of vapor formation.",
     "image": "/images/products/liquid-turbine-flowmeter.jpg",
     "imageAlt": "Velomac flanged liquid turbine flowmeter on clean background",
     "relatedApplicationSlugs": [
@@ -383,12 +383,12 @@
     ],
     "coreCapabilities": [
       {
-        "title": "Clean liquid service",
-        "text": "Suitable for clean liquid applications where flow is stable and the fluid will not damage the turbine rotor."
+        "title": "Clean liquid and viscosity review",
+        "text": "Confirm liquid cleanliness and viscosity at the operating temperature before selecting the meter range and configuration."
       },
       {
-        "title": "Connection options",
-        "text": "Threaded, integral flanged, sanitary tri-clamp and insertion styles support different installation requirements."
+        "title": "Liquid phase margin",
+        "text": "Review operating pressure, vapor pressure and minimum downstream pressure where vapor formation may affect the measurement."
       },
       {
         "title": "Signal outputs",
@@ -516,16 +516,16 @@
       "note": "Selected flow ranges are shown for orientation. Final sizing depends on media, flow range, pressure, temperature and site details."
     },
     "seo": {
-      "title": "Liquid Turbine Flowmeter for Clean Liquid Applications | Velomac",
-      "description": "Velomac liquid turbine flowmeter options for clean liquids with threaded, flanged, sanitary and insertion configurations."
+      "title": "Liquid Turbine Flowmeter for Clean Liquids | Velomac",
+      "description": "Liquid turbine flowmeters for clean, low-viscosity liquids. Review viscosity, operating pressure, vapor risk, flow range and connection options."
     }
   },
   {
     "slug": "gas-turbine-flowmeter",
     "name": "Gas Turbine Flowmeter",
     "category": "Flowmeters",
-    "shortDescription": "For natural gas, coal gas, air and compatible industrial gases.",
-    "overview": "Gas turbine flowmeters are used for compatible gases where line size, pressure rating, connection type and flow range can be matched to the operating condition.",
+    "shortDescription": "For natural gas, air and compatible clean, dry gas service.",
+    "overview": "Gas turbine flowmeters are used for compatible gases where composition, operating pressure, temperature and the complete flow range are known. Selection should also confirm whether flow is stated at actual conditions or a defined standard reference condition.",
     "image": "/images/products/gas-turbine-flowmeter.jpg",
     "imageAlt": "Velomac gas turbine flowmeter on clean background",
     "relatedApplicationSlugs": [
@@ -553,12 +553,12 @@
     ],
     "coreCapabilities": [
       {
-        "title": "Gas-focused sizing",
-        "text": "Gas flow ranges should be reviewed by line size, standard range, extended range and pressure rating."
+        "title": "Gas measurement basis",
+        "text": "Confirm whether the required flow is stated at operating conditions or a defined normal or standard reference condition."
       },
       {
-        "title": "Connection flexibility",
-        "text": "Threaded, flanged, sanitary and insertion configurations support different line sizes and installation needs."
+        "title": "Gas condition and installation",
+        "text": "Review gas composition, cleanliness, pressure, temperature, filtration and upstream pipe conditions together."
       },
       {
         "title": "Output and communication options",
@@ -690,8 +690,8 @@
       "note": "Selected flow ranges are shown for orientation. Final sizing depends on media, flow range, pressure, temperature and site details."
     },
     "seo": {
-      "title": "Gas Turbine Flowmeter for Industrial Gas Measurement | Velomac",
-      "description": "Velomac gas turbine flowmeter options for natural gas, air, coal gas and compatible industrial gas applications."
+      "title": "Gas Turbine Flowmeter for Natural Gas | Velomac",
+      "description": "Gas turbine flowmeters for natural gas, air and compatible dry gas service. Review flow basis, pressure, line size, conditioning and output options."
     }
   },
   {
@@ -699,7 +699,7 @@
     "name": "Thermal Mass Flowmeter",
     "category": "Flowmeters",
     "shortDescription": "For compressed air, flare gas, ventilation and stable gas measurement.",
-    "overview": "Thermal mass flowmeters measure gas mass flow directly and are often considered for compressed air, flare gas, ventilation and multi-component gas applications after gas composition and operating range are checked.",
+    "overview": "Thermal mass flowmeters measure gas mass flow directly and are often considered for compressed air and stable industrial gases. Selection should confirm gas composition, calibration basis, reference conditions, operating range and whether an inline or insertion arrangement fits the pipe.",
     "image": "/images/products/thermal-mass-flowmeter.jpg",
     "imageAlt": "Velomac thermal mass flowmeter options on clean background",
     "relatedApplicationSlugs": [
@@ -727,16 +727,16 @@
     ],
     "coreCapabilities": [
       {
-        "title": "Direct gas mass measurement",
-        "text": "Direct mass flow measurement can be reviewed without separate temperature and pressure compensation sensors."
+        "title": "Gas composition and calibration basis",
+        "text": "Confirm the gas or gas mixture and the reference conditions used for calibration and reported flow."
       },
       {
-        "title": "Insertion and in-line options",
-        "text": "Insertion and in-line installation types cover a broad line size range when process conditions are confirmed."
+        "title": "Insertion and inline selection",
+        "text": "Compare pipe size, access, installation arrangement and expected flow range before choosing an insertion or inline configuration."
       },
       {
-        "title": "Gas range selection",
-        "text": "Flow range depends on line size and gas type, including air, oxygen and combustible gas service."
+        "title": "Operating range review",
+        "text": "Use the minimum, normal and maximum gas flow rather than pipe size alone when reviewing the usable range."
       },
       {
         "title": "Industrial gas monitoring",
@@ -874,16 +874,16 @@
       "note": "Selected flow ranges are shown for orientation. Final sizing depends on gas type, flow range, pressure, temperature and site details."
     },
     "seo": {
-      "title": "Thermal Mass Flowmeter for Industrial Gas Measurement | Velomac",
-      "description": "Velomac thermal mass flowmeter options for compressed air, flare gas, ventilation and stable industrial gas measurement."
+      "title": "Thermal Mass Flowmeter for Compressed Air | Velomac",
+      "description": "Thermal mass flowmeters for compressed air and stable industrial gases. Review gas composition, calibration basis, range and inline or insertion selection."
     }
   },
   {
     "slug": "v-cone-flowmeter",
     "name": "V-Cone Flowmeter",
     "category": "Flowmeters",
-    "shortDescription": "For differential pressure flow measurement in larger process lines.",
-    "overview": "V-Cone flowmeters are differential pressure meters used where process layout, pipe size and pressure conditions must be reviewed together.",
+    "shortDescription": "Differential-pressure flow measurement for gas, steam and liquid process lines.",
+    "overview": "V-Cone flowmeters use a cone element to generate a differential-pressure signal for flow calculation. Selection should define the medium, complete flow range, pressure, temperature, pipe layout, differential-pressure system and allowable pressure loss.",
     "image": "/images/products/v-cone-flowmeter.jpg",
     "imageAlt": "Velomac V-Cone flowmeter on clean background",
     "relatedApplicationSlugs": [
@@ -915,8 +915,12 @@
         "text": "Uses a cone element to create a differential pressure signal for flow calculation."
       },
       {
-        "title": "Large line options",
-        "text": "Line sizes up to DN3000 can be reviewed according to the application."
+        "title": "Application-based sizing",
+        "text": "Sizing should use the medium properties, minimum, normal and maximum flow, pressure and temperature."
+      },
+      {
+        "title": "Installation and pressure-loss review",
+        "text": "Confirm pipe layout, available straight run, pressure-tapping arrangement and allowable permanent pressure loss."
       }
     ],
     "technicalData": {
@@ -978,8 +982,8 @@
       ]
     },
     "seo": {
-      "title": "V-Cone Flowmeter for Differential Pressure Measurement | Velomac",
-      "description": "Velomac V-Cone flowmeter options for differential pressure flow measurement in process and utility lines."
+      "title": "V-Cone Differential Pressure Flowmeter | Velomac",
+      "description": "V-Cone differential pressure flowmeters for gas, steam and liquid service. Review pipe layout, pressure loss, sizing data and installation needs."
     }
   },
   {

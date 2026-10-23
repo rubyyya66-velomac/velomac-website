@@ -15,6 +15,13 @@ type MailOptions = {
   replyTo: string;
   subject: string;
   text: string;
+  attachments?: MailAttachment[];
+};
+
+export type MailAttachment = {
+  filename: string;
+  contentType: string;
+  content: Buffer;
 };
 
 type ResponseWaiter = {
@@ -160,6 +167,43 @@ function buildMessage(options: MailOptions) {
   const replyTo = cleanEmailAddress(options.replyTo);
   const body = dotStuff(options.text.replace(/\r?\n/g, CRLF));
 
+  if (options.attachments?.length) {
+    const boundary = `velomac-${randomUUID()}`;
+    const parts = [
+      `--${boundary}`,
+      "Content-Type: text/plain; charset=UTF-8",
+      "Content-Transfer-Encoding: 8bit",
+      "",
+      body
+    ];
+
+    for (const attachment of options.attachments) {
+      parts.push(
+        `--${boundary}`,
+        `Content-Type: ${cleanHeaderValue(attachment.contentType)}; name="${encodeMimeWord(attachment.filename)}"`,
+        "Content-Transfer-Encoding: base64",
+        `Content-Disposition: attachment; filename="${encodeMimeWord(attachment.filename)}"`,
+        "",
+        wrapBase64(attachment.content.toString("base64"))
+      );
+    }
+
+    parts.push(`--${boundary}--`);
+
+    return [
+      `From: ${from}`,
+      `To: ${to}`,
+      `Reply-To: ${replyTo}`,
+      `Subject: ${cleanHeaderValue(options.subject)}`,
+      "MIME-Version: 1.0",
+      `Content-Type: multipart/mixed; boundary="${boundary}"`,
+      `Date: ${new Date().toUTCString()}`,
+      `Message-ID: <${Date.now()}.${randomUUID()}@velomacflowmeter.com>`,
+      "",
+      ...parts
+    ].join(CRLF);
+  }
+
   return [
     `From: ${from}`,
     `To: ${to}`,
@@ -173,6 +217,14 @@ function buildMessage(options: MailOptions) {
     "",
     body
   ].join(CRLF);
+}
+
+function encodeMimeWord(value: string) {
+  return `=?UTF-8?B?${Buffer.from(cleanHeaderValue(value), "utf8").toString("base64")}?=`;
+}
+
+function wrapBase64(value: string) {
+  return value.match(/.{1,76}/g)?.join(CRLF) || "";
 }
 
 function cleanHeaderValue(value: string) {

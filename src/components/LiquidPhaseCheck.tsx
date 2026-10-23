@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container } from "@/components/Layout";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 const PRESSURE_UNITS = [
   "bar(g)",
@@ -51,13 +52,7 @@ const INITIAL_STATE: PhaseCheckState = {
 };
 
 function trackEvent(event: string) {
-  if (typeof window === "undefined") return;
-  const dataLayerWindow = window as typeof window & {
-    dataLayer?: Record<string, unknown>[];
-  };
-  dataLayerWindow.dataLayer = dataLayerWindow.dataLayer ?? [];
-  dataLayerWindow.dataLayer.push({
-    event,
+  trackAnalyticsEvent(event, {
     source_page: "liquid_turbine_flowmeter",
   });
 }

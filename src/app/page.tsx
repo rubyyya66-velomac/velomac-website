@@ -103,7 +103,6 @@ export default function HomePage() {
                   src={homepage.siteConditions.image.src}
                   alt={homepage.siteConditions.image.alt}
                   fill
-                  loading="eager"
                   sizes="(min-width: 1024px) 520px, 100vw"
                   className="object-cover"
                 />
@@ -226,6 +225,25 @@ export default function HomePage() {
               />
             ))}
           </div>
+          <nav
+            aria-label="Additional flowmeter product families"
+            className="mt-6 flex flex-col gap-3 border-y border-metal-200 py-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              More flowmeter families
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {homepage.productsPreview.additionalProductLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
+                >
+                  {item.label} <span aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </div>
+          </nav>
         </Container>
       </Section>
 

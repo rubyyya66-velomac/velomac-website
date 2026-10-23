@@ -58,6 +58,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const relatedTechnology = getRelatedTechnology(product.slug);
   const selectionNotes = getSelectionNotes(product);
   const productArticle = getIndefiniteArticle(product.name);
+  const useProductSpecificHeadings = seoPriorityProductSlugs.has(product.slug);
 
   return (
     <>
@@ -89,7 +90,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="mt-5 text-base leading-7 text-slate-600">{product.overview}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/contact"
+                href={`/contact?product=${product.slug}`}
                 className="focus-ring inline-flex items-center justify-center gap-2 bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700"
               >
                 {productCatalog.detailPage.requestQuoteLabel}
@@ -186,7 +187,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {productCatalog.detailPage.applicationEyebrow}
             </p>
             <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              {productCatalog.detailPage.applicationTitle}
+              {useProductSpecificHeadings ? `${product.name} Application Context` : productCatalog.detailPage.applicationTitle}
             </h2>
             <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
               Where is {productArticle} {product.name} typically used?
@@ -220,7 +221,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {productCatalog.detailPage.selectionEyebrow}
             </p>
             <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              {productCatalog.detailPage.selectionTitle}
+              {useProductSpecificHeadings ? `${product.name} Selection Requirements` : productCatalog.detailPage.selectionTitle}
             </h2>
             <h3 className="mt-5 text-xl font-semibold leading-8 text-navy-950">
               What should be checked before selecting {productArticle} {product.name}?
@@ -244,7 +245,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {productCatalog.detailPage.relatedApplicationsEyebrow}
             </p>
             <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              {productCatalog.detailPage.relatedApplicationsTitle}
+              {useProductSpecificHeadings
+                ? `${product.name} Configurations and Applications`
+                : productCatalog.detailPage.relatedApplicationsTitle}
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">
               {productCatalog.detailPage.relatedApplicationsText}
@@ -327,7 +330,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {productCatalog.detailPage.technicalEyebrow}
             </p>
             <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-              {productCatalog.detailPage.technicalTitle}
+              {useProductSpecificHeadings ? `${product.name} Technical Data` : productCatalog.detailPage.technicalTitle}
             </h2>
           </div>
           <MobileDisclosure label="View technical data" className="pt-6 sm:pt-0">
@@ -350,6 +353,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           initialMediumType={
             ["electromagnetic-flowmeter", "liquid-turbine-flowmeter"].includes(product.slug)
               ? "liquid"
+              : ["gas-turbine-flowmeter", "thermal-mass-flowmeter"].includes(product.slug)
+                ? "gas"
               : undefined
           }
         />
@@ -363,7 +368,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 {productCatalog.detailPage.resourcesEyebrow}
               </p>
               <h2 className="mt-3 text-2xl font-semibold tracking-normal text-navy-950 sm:text-4xl">
-                {productCatalog.detailPage.resourcesTitle}
+                {useProductSpecificHeadings ? `${product.name} Selection Resources` : productCatalog.detailPage.resourcesTitle}
               </h2>
             </div>
             <MobileDisclosure label="View related resources" className="pt-6 sm:pt-0">
@@ -390,6 +395,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <CTASection
         title={productCatalog.detailPage.ctaTitle}
         text={productCatalog.detailPage.ctaText}
+        href={`/contact?product=${product.slug}`}
         imageSrc={applicationImage.src}
         imageAlt={applicationImage.alt}
         surfaceClassName="bg-industrial-700"
@@ -405,10 +411,35 @@ function getRelatedApplications(slug: string) {
     .filter((application): application is (typeof applications)[number] => Boolean(application));
 }
 
+const seoPriorityProductSlugs = new Set([
+  "gas-turbine-flowmeter",
+  "liquid-turbine-flowmeter",
+  "v-cone-flowmeter",
+  "thermal-mass-flowmeter"
+]);
+
 function getSelectionBasis(product: Product) {
-  return product.category === "Level Instruments"
-    ? "Medium, level range, pressure, temperature, mounting position and required output."
-    : "Minimum, normal and maximum flow, pressure, temperature, pipe size and installation conditions.";
+  if (product.category === "Level Instruments") {
+    return "Medium, level range, pressure, temperature, mounting position and required output.";
+  }
+
+  if (product.slug === "gas-turbine-flowmeter") {
+    return "Gas composition, flow basis, minimum, normal and maximum flow, pressure, temperature and pipe conditions.";
+  }
+
+  if (product.slug === "liquid-turbine-flowmeter") {
+    return "Liquid cleanliness, viscosity, complete flow range, operating pressure, vapor risk and pipe conditions.";
+  }
+
+  if (product.slug === "v-cone-flowmeter") {
+    return "Medium properties, complete flow range, pressure, temperature, pipe layout, DP system and allowable pressure loss.";
+  }
+
+  if (product.slug === "thermal-mass-flowmeter") {
+    return "Gas composition, calibration basis, reference conditions, complete flow range, pipe size and installation type.";
+  }
+
+  return "Minimum, normal and maximum flow, pressure, temperature, pipe size and installation conditions.";
 }
 
 function getIndefiniteArticle(name: string) {
@@ -475,9 +506,20 @@ const curatedResourceSlugsByProduct: Record<string, string[]> = {
     "semiconductor-gas-flow-boundaries"
   ],
   "thermal-mass-flowmeter": [
-    "cement-carbon-capture-utility-flow",
     "semiconductor-utility-flowmeter-sizing-full-utilization",
-    "blast-furnace-gas-flow-measurement"
+    "blast-furnace-gas-flow-measurement",
+    "biomethane-grid-injection-flow-measurement"
+  ],
+  "liquid-turbine-flowmeter": [
+    "flowmeter-quote-site-details",
+    "food-plant-commissioning-flowmeter-sizing",
+    "multi-product-chemical-flowmeter-sizing"
+  ],
+  "v-cone-flowmeter": [
+    "lng-feed-gas-composition-flow-measurement-review",
+    "gas-flow-measurement-commissioning-commercial-delivery",
+    "shared-ccs-co2-measurement-basis",
+    "steam-flowmeter-sizing-production-expansion"
   ]
 };
 
@@ -535,11 +577,11 @@ function getSelectionNotes(product: Product) {
 
   if (product.slug === "gas-turbine-flowmeter") {
     return [
-      { label: "Gas composition", value: "Describe the gas and whether the service is clean and dry." },
-      { label: "Flow range", value: "Share minimum, normal and maximum operating flow." },
-      { label: "Pressure / temperature", value: "Confirm conditions used for density and volume review." },
+      { label: "Gas composition", value: "Describe the gas, composition stability and whether the service is clean and dry." },
+      { label: "Flow basis and range", value: "State whether flow is actual, normal or standard, then share minimum, normal and maximum values." },
+      { label: "Pressure / temperature", value: "Confirm operating conditions and the reference basis used for volume review." },
       { label: "Pipe layout", value: "Send DN, upstream fittings and available straight pipe." },
-      { label: "Installation", value: "Note filtration, access and maintenance conditions." },
+      { label: "Gas conditioning", value: "Note filtration, moisture, particulates, access and maintenance conditions." },
       { label: "Signal / display", value: "Confirm totalization, local display and output needs." }
     ];
   }
@@ -573,12 +615,23 @@ function getSelectionNotes(product: Product) {
 
   if (product.slug === "thermal-mass-flowmeter") {
     return [
-      { label: "Gas composition", value: "Confirm the gas or gas mixture used at the measurement point." },
+      { label: "Gas composition", value: "Confirm the gas or gas mixture and whether its composition remains stable." },
+      { label: "Calibration basis", value: "Share the required normal or standard reference conditions for reported flow." },
       { label: "Gas condition", value: "Share pressure, temperature and any moisture or contamination concerns." },
       { label: "Flow range", value: "Provide minimum, normal and maximum flow for application review." },
-      { label: "Pipe / duct", value: "Confirm size, geometry and insertion or inline arrangement." },
-      { label: "Installation", value: "Review upstream disturbances, access and sensor position." },
+      { label: "Pipe and installation", value: "Confirm size, geometry, upstream disturbances, access and insertion or inline arrangement." },
       { label: "Signal / display", value: "Confirm local display, totalization and control-system output." }
+    ];
+  }
+
+  if (product.slug === "v-cone-flowmeter") {
+    return [
+      { label: "Medium and properties", value: "Confirm gas, steam or liquid service and the density or other sizing properties available." },
+      { label: "Flow range", value: "Share minimum, normal and maximum flow with the corresponding operating basis." },
+      { label: "Pressure / temperature", value: "Confirm operating and design conditions for the primary element and DP system review." },
+      { label: "Pipe layout", value: "Send DN, schedule, nearby fittings and the available upstream and downstream straight run." },
+      { label: "DP arrangement", value: "Describe the transmitter, pressure taps, impulse lines and mounting arrangement if already defined." },
+      { label: "Pressure loss / output", value: "State the allowable pressure loss and required flow output or communication signal." }
     ];
   }
 

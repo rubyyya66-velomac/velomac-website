@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 type TrackedContactLinkProps = {
   href: string;
@@ -20,9 +21,7 @@ export function TrackedContactLink({
   newTab = false
 }: TrackedContactLinkProps) {
   function trackClick() {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "contact_link_click",
+    trackAnalyticsEvent("contact_link_click", {
       contact_channel: channel,
       page_path: window.location.pathname
     });

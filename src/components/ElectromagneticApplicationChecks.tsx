@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
 import { Container } from "@/components/Layout";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 const checks = [
   {
@@ -153,9 +154,7 @@ export function ElectromagneticApplicationChecks() {
 }
 
 function trackCheckEvent(event: string, details: Record<string, string> = {}) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event,
+  trackAnalyticsEvent(event, {
     page_path: "/products/electromagnetic-flowmeter",
     product_slug: "electromagnetic-flowmeter",
     ...details

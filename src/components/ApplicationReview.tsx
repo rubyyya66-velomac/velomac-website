@@ -11,6 +11,7 @@ import {
   type ApplicationReviewFieldKey,
   type ApplicationReviewProductConfig
 } from "@/content/applicationReview";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 type MediumType = "" | "Liquid" | "Gas" | "Steam" | "Not sure";
 type SubmissionState = "idle" | "submitting" | "success" | "error";
@@ -58,12 +59,6 @@ type ApplicationReviewPrefill = {
   solidsPresence?: string;
   sourceSection?: string;
 };
-
-declare global {
-  interface Window {
-    dataLayer?: Array<Record<string, unknown>>;
-  }
-}
 
 const flowUnits = ["m³/h", "L/min", "L/h", "kg/h", "t/h", "Nm³/h", "Sm³/h", "GPM", "SCFM", "Other"];
 const purposes = ["Flow monitoring", "Process control", "Totalization", "Utility measurement", "Batch / dosing", "Internal transfer", "Other", "Not sure"];
@@ -297,9 +292,7 @@ export function ApplicationReview({
       window.dispatchEvent(new Event("velomac:application-review-submitted"));
       trackApplicationReview("application_review_success", activeProductSlug, productCategory, mediumType, sourcePath, sourceContext);
       if (activeProductSlug === "liquid-turbine-flowmeter" && hasLiquidPhaseApplicationData(formData)) {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "liquid_phase_check_submitted",
+        trackAnalyticsEvent("liquid_phase_check_submitted", {
           source_page: "liquid_turbine_flowmeter"
         });
       }
@@ -999,10 +992,7 @@ function trackApplicationReview(
   pagePath: string,
   sourceContext?: ApplicationReviewProps["sourceContext"]
 ) {
-  if (typeof window === "undefined") return;
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event,
+  trackAnalyticsEvent(event, {
     product_slug: productSlug,
     product_category: productCategory,
     medium_type: mediumType || "not_provided",

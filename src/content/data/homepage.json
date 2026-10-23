@@ -98,7 +98,11 @@
       "ultrasonic-flowmeter": "For pipe, open channel and utility metering.",
       "radar-level-transmitter": "For non-contact tank and vessel level.",
       "magnetic-level-gauge": "For local tank and vessel level indication."
-    }
+    },
+    "additionalProductLinks": [
+      { "label": "Gas Turbine Flowmeter", "href": "/products/gas-turbine-flowmeter" },
+      { "label": "V-Cone Flowmeter", "href": "/products/v-cone-flowmeter" }
+    ]
   },
   "applicationsPreview": {
     "eyebrow": "Applications",

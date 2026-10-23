@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export type ApplicationReviewSourceType =
   | "homepage"
@@ -55,9 +56,7 @@ export function ApplicationReviewLink({
   });
 
   function handleClick() {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "application_review_cta_click",
+    trackAnalyticsEvent("application_review_cta_click", {
       page_path: pagePath,
       source_type: sourceType,
       source_section: sourceSection,
