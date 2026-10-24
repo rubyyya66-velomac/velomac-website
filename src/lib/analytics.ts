@@ -1,3 +1,5 @@
+import { getLeadAttributionAnalyticsParameters } from "@/lib/leadAttribution";
+
 type AnalyticsParameters = Record<string, unknown>;
 
 type AnalyticsWindow = Window & {
@@ -9,7 +11,9 @@ export function trackAnalyticsEvent(event: string, parameters: AnalyticsParamete
   if (typeof window === "undefined") return;
 
   const analyticsWindow = window as AnalyticsWindow;
+  const attributionParameters = getLeadAttributionAnalyticsParameters();
+  const eventParameters = { ...attributionParameters, ...parameters };
   analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-  analyticsWindow.dataLayer.push({ event, ...parameters });
-  analyticsWindow.gtag?.("event", event, parameters);
+  analyticsWindow.dataLayer.push({ event, ...eventParameters });
+  analyticsWindow.gtag?.("event", event, eventParameters);
 }

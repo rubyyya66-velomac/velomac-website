@@ -12,6 +12,7 @@ import {
   type ApplicationReviewProductConfig
 } from "@/content/applicationReview";
 import { trackAnalyticsEvent } from "@/lib/analytics";
+import { getLeadAttributionPayload } from "@/lib/leadAttribution";
 
 type MediumType = "" | "Liquid" | "Gas" | "Steam" | "Not sure";
 type SubmissionState = "idle" | "submitting" | "success" | "error";
@@ -269,7 +270,8 @@ export function ApplicationReview({
       applicationPurpose: readValue(formData, "measurement-purpose"),
       sourcePath,
       sourceSection: prefillSourceSection || sourceContext?.sourceSection || "application-review",
-      requirements: buildApplicationData(formData)
+      requirements: buildApplicationData(formData),
+      ...getLeadAttributionPayload()
     };
 
     try {
@@ -291,6 +293,14 @@ export function ApplicationReview({
       }
       window.dispatchEvent(new Event("velomac:application-review-submitted"));
       trackApplicationReview("application_review_success", activeProductSlug, productCategory, mediumType, sourcePath, sourceContext);
+      trackAnalyticsEvent("generate_lead", {
+        lead_type: "application_review",
+        form_type: "application_review",
+        product_slug: activeProductSlug,
+        product_category: productCategory,
+        application_type: sourceContext?.applicationType || "not_provided",
+        page_path: sourcePath
+      });
       if (activeProductSlug === "liquid-turbine-flowmeter" && hasLiquidPhaseApplicationData(formData)) {
         trackAnalyticsEvent("liquid_phase_check_submitted", {
           source_page: "liquid_turbine_flowmeter"

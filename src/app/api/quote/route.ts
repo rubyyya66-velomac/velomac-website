@@ -142,7 +142,8 @@ function buildEmailBody(payload: QuotePayload) {
     ["Pipe size", readString(payload["pipe-size"])],
     ["Flow range", readString(payload["flow-range"])],
     ["Temperature / pressure", readString(payload["temperature-pressure"])],
-    ["Message", readString(payload.requirements)]
+    ["Message", readString(payload.requirements)],
+    ...leadAttributionRows(payload)
   ];
 
   return [
@@ -200,6 +201,9 @@ function buildApplicationReviewEmailBody(payload: QuotePayload) {
     `Source origin path: ${readString(payload["source-origin-path"]) || "-"}`,
     `Application type: ${readString(payload["application-type"]) || "-"}`,
     "",
+    "Lead attribution:",
+    ...leadAttributionRows(payload).map(([label, value]) => `${label}: ${value || "-"}`),
+    "",
     applicationData,
     "",
     "Contact:",
@@ -209,6 +213,45 @@ function buildApplicationReviewEmailBody(payload: QuotePayload) {
     `Country / Region: ${readString(payload["country-region"]) || "-"}`,
     `Phone / WhatsApp: ${readString(payload["whatsapp-phone"]) || "-"}`
   ].join("\n");
+}
+
+function leadAttributionRows(payload: QuotePayload): Array<[string, string]> {
+  const rows: Array<[string, string]> = [
+    ["First-touch landing page", readString(payload["first-touch-landing-page"])],
+    ["First-touch referrer", readString(payload["first-touch-referrer"])],
+    ["First-touch captured at", readString(payload["first-touch-captured-at"])],
+    ["First-touch UTM source", readString(payload["first-touch-utm-source"])],
+    ["First-touch UTM medium", readString(payload["first-touch-utm-medium"])],
+    ["First-touch UTM campaign", readString(payload["first-touch-utm-campaign"])],
+    ["First-touch UTM ID", readString(payload["first-touch-utm-id"])],
+    ["First-touch UTM term", readString(payload["first-touch-utm-term"])],
+    ["First-touch UTM content", readString(payload["first-touch-utm-content"])],
+    ["First-touch UTM source platform", readString(payload["first-touch-utm-source-platform"])],
+    ["First-touch UTM creative format", readString(payload["first-touch-utm-creative-format"])],
+    ["First-touch UTM marketing tactic", readString(payload["first-touch-utm-marketing-tactic"])],
+    ["Session landing page", readString(payload["session-touch-landing-page"])],
+    ["Session referrer", readString(payload["session-touch-referrer"])],
+    ["Session captured at", readString(payload["session-touch-captured-at"])],
+    ["Session UTM source", readString(payload["session-touch-utm-source"])],
+    ["Session UTM medium", readString(payload["session-touch-utm-medium"])],
+    ["Session UTM campaign", readString(payload["session-touch-utm-campaign"])],
+    ["Session UTM ID", readString(payload["session-touch-utm-id"])],
+    ["Session UTM term", readString(payload["session-touch-utm-term"])],
+    ["Session UTM content", readString(payload["session-touch-utm-content"])],
+    ["Session UTM source platform", readString(payload["session-touch-utm-source-platform"])],
+    ["Session UTM creative format", readString(payload["session-touch-utm-creative-format"])],
+    ["Session UTM marketing tactic", readString(payload["session-touch-utm-marketing-tactic"])],
+    ["Google click ID", readString(payload["session-touch-gclid"]) || readString(payload["first-touch-gclid"])],
+    ["Google GBRAID", readString(payload["session-touch-gbraid"]) || readString(payload["first-touch-gbraid"])],
+    ["Google WBRAID", readString(payload["session-touch-wbraid"]) || readString(payload["first-touch-wbraid"])],
+    ["Microsoft click ID", readString(payload["session-touch-msclkid"]) || readString(payload["first-touch-msclkid"])],
+    ["Facebook click ID", readString(payload["session-touch-fbclid"]) || readString(payload["first-touch-fbclid"])],
+    ["TikTok click ID", readString(payload["session-touch-ttclid"]) || readString(payload["first-touch-ttclid"])],
+    ["LinkedIn click ID", readString(payload["session-touch-linkedin-click-id"]) || readString(payload["first-touch-linkedin-click-id"])],
+    ["Submission page", readString(payload["submission-page"])]
+  ];
+
+  return rows.filter(([, value]) => Boolean(value));
 }
 
 function readString(value: unknown) {

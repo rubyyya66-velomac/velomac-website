@@ -2,6 +2,10 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import {
+  captureLeadAttribution,
+  getLeadAttributionAnalyticsParameters
+} from "@/lib/leadAttribution";
 
 type AnalyticsWindow = Window & {
   dataLayer?: unknown[];
@@ -16,6 +20,7 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
   const lastPagePath = useRef("");
 
   useEffect(() => {
+    captureLeadAttribution();
     if (!measurementId || !productionHosts.has(window.location.hostname)) return;
 
     const analyticsWindow = window as AnalyticsWindow;
@@ -39,8 +44,10 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
     const pagePath = `${pathname}${window.location.search}`;
     if (lastPagePath.current === pagePath) return;
     lastPagePath.current = pagePath;
+    const attributionParameters = getLeadAttributionAnalyticsParameters();
 
     analyticsWindow.gtag("event", "page_view", {
+      ...attributionParameters,
       page_title: document.title,
       page_location: window.location.href,
       page_path: pagePath,

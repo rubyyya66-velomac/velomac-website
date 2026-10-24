@@ -1,5 +1,13 @@
 # Velomac Search Traffic Growth Log
 
+## Lead Attribution and GA4 Conversion Events
+
+- Preserves first-touch and current-session landing pages, referrers, complete UTM values and supported advertising click IDs across internal navigation.
+- Sends the same attribution context with Quote Request and Application Review emails.
+- Adds attribution parameters to GA4 custom events and page views.
+- Sends the GA4 recommended `generate_lead` event only after a successful Quote Request or Application Review submission, while retaining the existing form-specific success events.
+- Keeps localhost analytics isolated from the production GA4 property.
+
 ## Baseline
 
 - Reporting window: 2026-09-15 to 2026-10-12

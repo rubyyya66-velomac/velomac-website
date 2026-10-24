@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { contactContent } from "@/content/contact";
 import { products } from "@/content/products";
 import { trackAnalyticsEvent } from "@/lib/analytics";
+import { appendLeadAttribution } from "@/lib/leadAttribution";
 
 const applicationLabels: Record<string, string> = {
   "steam-measurement": "Steam Measurement",
@@ -56,6 +57,7 @@ export function QuoteForm() {
 
     const formElement = event.currentTarget;
     const formData = new FormData(formElement);
+    appendLeadAttribution(formData);
 
     try {
       const response = await fetch("/api/quote", {
@@ -73,6 +75,13 @@ export function QuoteForm() {
       hasStarted.current = false;
       setSubmissionState("success");
       trackQuoteForm("quote_form_success");
+      trackAnalyticsEvent("generate_lead", {
+        lead_type: "quote_request",
+        form_type: "quote_request",
+        product_slug: sourceProductSlug || "not_provided",
+        application_type: sourceApplicationSlug || "not_provided",
+        page_path: window.location.pathname
+      });
     } catch (error) {
       setSubmissionError(error instanceof Error ? error.message : form.errorMessage);
       setSubmissionState("error");
