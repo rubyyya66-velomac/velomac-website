@@ -831,6 +831,7 @@ function ArticleManager({
               <div className="grid gap-4">
                 <ListTextarea label="Related Product Slugs" value={stringArray(selectedArticle.relatedProductSlugs)} onChange={(value) => updateArticle({ ...selectedArticle, relatedProductSlugs: value })} />
                 <ListTextarea label="Related Application Slugs" value={stringArray(selectedArticle.relatedApplicationSlugs)} onChange={(value) => updateArticle({ ...selectedArticle, relatedApplicationSlugs: value })} />
+                <p className="text-sm leading-6 text-slate-600">Use exact, case-sensitive slugs from Individual Products and Application Categories, not industry labels or full URLs. Leave a list empty when no existing page applies. Invalid references will prevent saving and identify the article to correct.</p>
                 <ListTextarea label="Takeaways" value={stringArray(selectedArticle.takeaways)} onChange={(value) => updateArticle({ ...selectedArticle, takeaways: value })} />
               </div>
             </FieldGroup>

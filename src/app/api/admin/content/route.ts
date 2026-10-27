@@ -4,6 +4,7 @@ import { adminSessionCookieName, getAdminAuthFailure, verifyAdminSession } from 
 import { AdminContentLoadError, readAdminContent, saveAdminContent } from "@/lib/adminContent";
 import type { AdminContentDiagnostics } from "@/lib/adminContent";
 import { sanitizeArticleCollection } from "@/lib/richTextSanitizer";
+import { getArticleRelationshipIssues } from "@/lib/articleRelationships";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -62,6 +63,30 @@ export async function POST(request: Request) {
 
     if (!body.file || body.content === undefined) {
       return NextResponse.json({ message: "File and content are required." }, { status: 400 });
+    }
+
+    if (body.file === "articles") {
+      // Read the current editable catalogues so an admin addition does not have
+      // to wait for the next deployment before it can be linked from an article.
+      const [productCatalog, applicationCatalog] = await Promise.all([
+        readAdminContent("products"),
+        readAdminContent("applications")
+      ]);
+      let issues;
+      try {
+        issues = getArticleRelationshipIssues(body.content, productCatalog.content, applicationCatalog.content);
+      } catch (error) {
+        return NextResponse.json(
+          { message: error instanceof Error ? error.message : "Article relationships could not be validated." },
+          { status: 400 }
+        );
+      }
+      if (issues.length) {
+        return NextResponse.json({
+          message: `Articles were not saved. Fix these related-page references: ${issues.slice(0, 8).map((issue) => `${issue.article} / ${issue.field}: ${issue.message}`).join(" ")}${issues.length > 8 ? ` (${issues.length} issues in total.)` : ""}`,
+          issues
+        }, { status: 400 });
+      }
     }
 
     const content =
