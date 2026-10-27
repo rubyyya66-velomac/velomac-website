@@ -2,7 +2,7 @@
 
 Date: 2026-10-27. Project: `/Users/rubyli/Documents/web`. Baseline commit: `ca2908c`.
 
-Local implementation only; no commit, push or deployment was performed for this change.
+The implementation was first verified locally without deployment. Production release was subsequently authorized by the user on 2026-10-27. The release also preserves the newer DN50 flange-compatibility article and image from `origin/main`.
 
 ## Audit and linking map
 
@@ -228,4 +228,3 @@ Changed implementation files:
 - `src/content/data/articles.json`: links in the eight targets and six related source articles.
 - `src/content/data/quality-innovation.json`: one link in the existing evidence list.
 - `RESOURCE_INTERNAL_LINKING_REPORT.md`: this audit and complete link map.
-
