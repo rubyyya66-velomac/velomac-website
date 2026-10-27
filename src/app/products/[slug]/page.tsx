@@ -485,20 +485,25 @@ const curatedResourceSlugsByProduct: Record<string, string[]> = {
     "vortex-flowmeter-steam-selection",
     "pharma-utility-flow-measurement-precheck",
     "cement-carbon-capture-utility-flow",
-    "steam-flowmeter-sizing-production-expansion"
+    "steam-flowmeter-sizing-production-expansion",
+    "steam-flow-measurement-turbine-power-check"
   ],
   "electromagnetic-flowmeter": [
     "flowmeter-data-quality-measurement-point",
     "semiconductor-water-flow-boundaries",
     "concentrator-expansion-slurry-flow",
     "reclaimed-water-flowmeter-selection-conductivity",
-    "ro-train-flow-measurement"
+    "ro-train-flow-measurement",
+    "dle-brine-flow-measurement",
+    "produced-water-flow-measurement-after-separation",
+    "reclaimed-water-flowmeter-sizing-dn500"
   ],
   "ultrasonic-flowmeter": [
     "data-center-commissioning-water-flow-record",
     "data-center-water-recovery-flow-measurement",
     "temporary-wastewater-flow-measurement-brownfield-upgrade",
-    "ro-train-flow-measurement"
+    "ro-train-flow-measurement",
+    "mine-water-flow-selenium-load"
   ],
   "gas-turbine-flowmeter": [
     "lng-feed-gas-composition-flow-measurement-review",
@@ -508,7 +513,9 @@ const curatedResourceSlugsByProduct: Record<string, string[]> = {
   "thermal-mass-flowmeter": [
     "semiconductor-utility-flowmeter-sizing-full-utilization",
     "blast-furnace-gas-flow-measurement",
-    "biomethane-grid-injection-flow-measurement"
+    "biomethane-grid-injection-flow-measurement",
+    "hydrogen-flowmeter-selection-electrolyzer-load",
+    "industrial-off-gas-fermentation-flow-measurement"
   ],
   "liquid-turbine-flowmeter": [
     "flowmeter-quote-site-details",

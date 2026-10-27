@@ -21,6 +21,20 @@ const preferredResourceSlugsByApplication: Record<string, string[]> = {
   ]
 };
 
+const additionalResourceSlugsByApplication: Record<string, string[]> = {
+  "steam-measurement": ["steam-flow-measurement-turbine-power-check"],
+  "gas-flow-measurement": [
+    "hydrogen-flowmeter-selection-electrolyzer-load",
+    "industrial-off-gas-fermentation-flow-measurement"
+  ],
+  "conductive-liquid-measurement": [
+    "produced-water-flow-measurement-after-separation",
+    "mine-water-flow-selenium-load",
+    "reclaimed-water-flowmeter-sizing-dn500"
+  ],
+  "chemical-process-lines": ["dle-brine-flow-measurement"]
+};
+
 export function generateStaticParams() {
   return applications.map((application) => ({ slug: application.slug }));
 }
@@ -59,12 +73,19 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
     )
   );
   const preferredResourceSlugs = preferredResourceSlugsByApplication[application.slug] || [];
-  const relatedResources = [
+  const existingRelatedResources = [
     ...preferredResourceSlugs
       .map((slug) => relevantResources.find((article) => article.slug === slug))
       .filter((article): article is (typeof articles)[number] => Boolean(article)),
     ...relevantResources.filter((article) => !preferredResourceSlugs.includes(article.slug))
   ].slice(0, 3);
+  const relatedResources = [
+    ...existingRelatedResources,
+    ...(additionalResourceSlugsByApplication[application.slug] || [])
+      .filter((slug) => !existingRelatedResources.some((article) => article.slug === slug))
+      .map((slug) => relevantResources.find((article) => article.slug === slug))
+      .filter((article): article is (typeof articles)[number] => Boolean(article))
+  ];
   const otherApplications = applications.filter((item) => item.slug !== application.slug).slice(0, 5);
   const breadcrumbs = [
     { name: "Home", path: "/" },
