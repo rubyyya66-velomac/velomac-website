@@ -52,10 +52,14 @@
         "kind": "highlight",
         "eyebrow": "Service Direction",
         "title": "Replace the sensor core without removing the complete meter body",
-        "description": "The removable core is designed to reduce full-meter disassembly. Any field intervention still follows the approved isolation, pressure and temperature safety procedure.",
+        "description": "This serviceability benefit applies only to meters supplied with the removable non-wetted sensor-core configuration. Confirm the installed model and sensor assembly against the approved maintenance procedure, including required isolation and pressure/temperature safety checks. It does not establish permission to replace the core while the pipeline is pressurized, hot or operating.",
         "result": {
           "label": "Meter-body removal",
-          "value": "Not required for sensor-core replacement"
+          "value": "Not required on applicable removable-core configurations"
+        },
+        "link": {
+          "label": "Review Vortex Flowmeter Configurations",
+          "href": "/products/vortex-flowmeter#configuration"
         },
         "tone": "dark"
       },

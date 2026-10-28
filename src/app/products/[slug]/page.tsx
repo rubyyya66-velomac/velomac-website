@@ -277,6 +277,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     <p className="mt-2 text-sm leading-6 text-slate-600">{capability.text}</p>
                   </div>
                 ))}
+                {product.slug === "vortex-flowmeter" ? (
+                  <div className="border-l-2 border-industrial-600 pl-5">
+                    <h3 className="text-base font-semibold text-navy-950">Removable Sensor Core</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      For applicable configurations supplied with the removable non-wetted sensor core, the sensing element can be replaced without removing the complete meter body, subject to the approved maintenance procedure. Confirm the installed model and sensor configuration before service.
+                    </p>
+                    <Link
+                      href="/technology/non-wetted-piezoelectric-vortex-sensor"
+                      className="focus-ring mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-industrial-700 transition hover:text-navy-950"
+                    >
+                      Explore the Sensor Design <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                ) : null}
               </div>
               {relatedTechnology.length ? (
                 <div className="mt-8 border-t border-metal-200 pt-6">
