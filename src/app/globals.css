@@ -217,6 +217,13 @@ body:has(.admin-shell) > main {
   min-height: 100vh;
 }
 
+.admin-shell input,
+.admin-shell textarea,
+.admin-shell select {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .resource-rich-text-editor {
   overflow: visible;
   border: 1px solid #cbd5e1;
@@ -260,6 +267,79 @@ body:has(.admin-shell) > main {
 
 .resource-rich-text-editor__content > *:last-child {
   margin-bottom: 0;
+}
+
+/* Only article-body images use this sizing system; covers and other pages are unchanged. */
+.resource-rich-text-editor__content figure[data-article-image],
+.resource-article-body figure[data-article-image] {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  margin: 1.75rem 0;
+}
+
+.resource-rich-text-editor__content figure[data-width="50"],
+.resource-article-body figure[data-width="50"] { width: 50%; }
+.resource-rich-text-editor__content figure[data-width="75"],
+.resource-article-body figure[data-width="75"] { width: 75%; }
+.resource-rich-text-editor__content figure[data-align="center"],
+.resource-article-body figure[data-align="center"] { margin-left: auto; margin-right: auto; }
+.resource-rich-text-editor__content figure[data-align="right"],
+.resource-article-body figure[data-align="right"] { margin-left: auto; margin-right: 0; }
+
+.resource-rich-text-editor__content figure img,
+.resource-article-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.resource-rich-text-editor__content figcaption,
+.resource-article-body figcaption {
+  margin-top: 0.65rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.resource-rich-text-editor__content figure {
+  cursor: pointer;
+  outline: 1px dashed #cbd5e1;
+  outline-offset: 5px;
+}
+.resource-rich-text-editor__content figure.ProseMirror-selectednode { outline: 2px solid #0a6bb8; }
+.resource-rich-text-editor__content figure:not([data-decorative="true"]):has(img[alt=""]) { outline-color: #d97706; }
+
+.article-image-settings {
+  width: min(900px, calc(100vw - 24px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #cbd5e1;
+  color: #071a2d;
+  background: white;
+  box-shadow: 0 20px 60px #071a2d40;
+}
+.article-image-settings::backdrop { background: #071a2d80; }
+
+.article-body-preview-dialog {
+  width: min(920px, calc(100vw - 24px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  border: 1px solid #cbd5e1;
+  background: white;
+}
+.article-body-preview-dialog::backdrop { background: #071a2d80; }
+
+@media (max-width: 640px) {
+  .resource-rich-text-editor__content figure[data-article-image],
+  .resource-article-body figure[data-article-image] { width: 100%; margin: 1.25rem 0; }
 }
 
 .resource-rich-text-editor__content h2,

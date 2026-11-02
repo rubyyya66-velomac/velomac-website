@@ -1,0 +1,19 @@
+{
+  "slug": "local-article-image-demo",
+  "title": "Article image workflow — local draft sample",
+  "category": "Flowmeter Selection",
+  "status": "draft",
+  "summary": "Local-only demonstration of paragraph-level images, captions and accessible descriptions.",
+  "description": "A local sample for reviewing the article image editor. Not a published Resource Article.",
+  "excerpt": "This sample is for testing image placement and editing, not for publication.",
+  "intro": "Review images in their article context without changing an existing article.",
+  "coverImage": "/images/technology/liquid-flow-calibration-bench.jpg",
+  "coverAlt": "Liquid flow calibration equipment inside the Velomac workshop",
+  "publishedDate": "2026-11-02",
+  "relatedProducts": [],
+  "relatedApplications": [],
+  "relatedProductSlugs": [],
+  "relatedApplicationSlugs": [],
+  "takeaways": [],
+  "bodyHtml": "<h2>Show the equipment in context</h2><p>This <strong>local draft sample</strong> demonstrates a technical image between two paragraphs. It does not introduce new product specifications.</p><figure data-article-image=\"true\" data-width=\"100\" data-align=\"center\" data-decorative=\"false\"><img src=\"/images/technology/liquid-flow-calibration-bench.jpg\" width=\"1408\" height=\"1117\" alt=\"Liquid flow calibration bench with pipework and measurement equipment inside the Velomac workshop\" loading=\"lazy\" decoding=\"async\"><figcaption>Existing calibration-bench photograph, reused from the Media Library.</figcaption></figure><p>The paragraph following this image keeps its position. Read about <a href=\"/technology/flow-calibration-systems\">Velomac flow calibration systems</a> for the existing technical context.</p><h3>Use a separate description for each image</h3><ul><li><p><em>ALT text</em> describes what is visible.</p></li><li><p>A caption adds context below the image.</p></li><li><p><u>Placement settings</u> belong to each image instance.</p></li></ul><figure data-article-image=\"true\" data-width=\"75\" data-align=\"right\" data-decorative=\"false\"><img src=\"/images/technology/non-wetted-sensor-main.png\" width=\"1688\" height=\"932\" alt=\"Comparison graphic showing oscilloscope waveforms for traditional medium-contact and Velomac non-wetted vortex sensing\" loading=\"lazy\" decoding=\"async\"><figcaption>Existing waveform-comparison graphic, reused from the Media Library.</figcaption></figure><blockquote><p>Image context supports understanding; ALT text alone does not guarantee search rankings.</p></blockquote><hr><p><mark data-color=\"#dbeafe\" style=\"background-color: #dbeafe\">The sample remains a draft.</mark> Review the <a href=\"/products/vortex-flowmeter\">Vortex Flowmeter product page</a> for existing product information.</p><ol><li><p>Select an image to edit its settings.</p></li><li><p>Preview the body before saving.</p></li></ol>"
+}

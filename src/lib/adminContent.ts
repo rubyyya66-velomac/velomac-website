@@ -178,7 +178,7 @@ export async function saveAdminContent(input: SaveContentInput) {
 }
 
 export async function listPublicImages() {
-  if (process.env.NODE_ENV === "production" && hasGitHubSaveConfig()) {
+  if (!usesLocalAdminFiles() && hasGitHubSaveConfig()) {
     try {
       return await listPublicImagesFromGitHub("public/images");
     } catch (error) {
@@ -207,6 +207,17 @@ export async function saveUploadedImage(input: {
   const publicPath = `/images/uploads/${Date.now()}-${safeFilename}`;
   const repoPath = `public${publicPath}`;
 
+  if (usesLocalAdminFiles()) {
+    const uploadDir = path.join(process.cwd(), "public/images/uploads");
+    await fs.mkdir(uploadDir, { recursive: true });
+    await fs.writeFile(path.join(uploadDir, path.basename(publicPath)), input.bytes);
+
+    return {
+      mode: "local",
+      path: publicPath
+    };
+  }
+
   if (hasGitHubSaveConfig()) {
     await commitNewFileToGitHub({
       path: repoPath,
@@ -216,17 +227,6 @@ export async function saveUploadedImage(input: {
 
     return {
       mode: "github",
-      path: publicPath
-    };
-  }
-
-  if (usesLocalAdminFiles()) {
-    const uploadDir = path.join(process.cwd(), "public/images/uploads");
-    await fs.mkdir(uploadDir, { recursive: true });
-    await fs.writeFile(path.join(uploadDir, path.basename(publicPath)), input.bytes);
-
-    return {
-      mode: "local",
       path: publicPath
     };
   }

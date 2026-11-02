@@ -65,13 +65,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "File and content are required." }, { status: 400 });
     }
 
+    let existingArticles: unknown;
     if (body.file === "articles") {
       // Read the current editable catalogues so an admin addition does not have
       // to wait for the next deployment before it can be linked from an article.
-      const [productCatalog, applicationCatalog] = await Promise.all([
+      const [productCatalog, applicationCatalog, articleCatalog] = await Promise.all([
         readAdminContent("products"),
-        readAdminContent("applications")
+        readAdminContent("applications"),
+        readAdminContent("articles")
       ]);
+      existingArticles = articleCatalog.content;
       let issues;
       try {
         issues = getArticleRelationshipIssues(body.content, productCatalog.content, applicationCatalog.content);
@@ -91,7 +94,7 @@ export async function POST(request: Request) {
 
     const content =
       body.file === "articles"
-        ? sanitizeArticleCollection(body.content)
+        ? sanitizeArticleCollection(body.content, existingArticles)
         : body.content;
 
     const result = await saveAdminContent({

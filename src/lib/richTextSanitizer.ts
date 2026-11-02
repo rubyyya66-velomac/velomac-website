@@ -1,5 +1,7 @@
 import sanitizeHtml from "sanitize-html";
+import { isDeepStrictEqual } from "node:util";
 import { legacySectionsToHtml, plainTextWordCount } from "@/lib/articleBody";
+import { articleImageSizes, articleImageSrcSet, normalizeArticleImage } from "@/lib/articleImage";
 
 const allowedHighlightColors = new Set(["#dbeafe", "#e5e7eb", "#fef3c7"]);
 
@@ -20,17 +22,36 @@ export function sanitizeArticleBodyHtml(value: string): string {
       "blockquote",
       "hr",
       "a",
-      "br"
+      "br",
+      "figure",
+      "figcaption",
+      "img"
     ],
     allowedAttributes: {
       a: ["href", "target", "rel"],
-      mark: ["data-color", "style"]
+      mark: ["data-color", "style"],
+      figure: ["data-article-image", "data-width", "data-align", "data-decorative"],
+      img: ["src", "alt", "width", "height", "loading", "decoding", "srcset", "sizes", "data-decorative"]
     },
     allowedSchemes: ["http", "https", "mailto", "tel"],
     allowProtocolRelative: false,
     transformTags: {
       h1: "h2",
       div: "p",
+      figure: (tagName, attributes) => {
+        const attrs = normalizeArticleImage({displayWidth: attributes["data-width"], alignment: attributes["data-align"], decorative: attributes["data-decorative"]});
+        return {tagName, attribs: {"data-article-image": "true", "data-width": attrs.displayWidth, "data-align": attrs.alignment, "data-decorative": String(attrs.decorative)}};
+      },
+      img: (tagName, attributes) => {
+        const attrs = normalizeArticleImage({src: attributes.src, alt: attributes.alt, width: attributes.width, height: attributes.height, decorative: attributes["data-decorative"]});
+        if (!attrs.src) return {tagName, attribs: {}};
+        const srcset = articleImageSrcSet(attrs.src);
+        return {tagName, attribs: {
+          src: attrs.src, alt: attrs.alt, loading: "lazy", decoding: "async", "data-decorative": String(attrs.decorative),
+          ...(attrs.width && attrs.height ? {width: String(attrs.width), height: String(attrs.height)} : {}),
+          ...(srcset ? {srcset, sizes: articleImageSizes("100")} : {})
+        }};
+      },
       a: (tagName, attributes) => {
         const href = sanitizeLinkHref(attributes.href || "");
         const opensInNewTab = attributes.target === "_blank";
@@ -64,6 +85,7 @@ export function sanitizeArticleBodyHtml(value: string): string {
         };
       }
     },
+    exclusiveFilter: frame => frame.tag === "img" && !frame.attribs.src,
     allowedStyles: {
       mark: {
         "background-color": [
@@ -78,15 +100,20 @@ export function sanitizeArticleBodyHtml(value: string): string {
   }).trim();
 }
 
-export function sanitizeArticleCollection(content: unknown): unknown {
+export function sanitizeArticleCollection(content: unknown, existingContent: unknown = []): unknown {
   if (!Array.isArray(content)) {
     throw new Error("Article content must be an array.");
   }
 
+  const existing = new Map((Array.isArray(existingContent) ? existingContent : []).filter(isRecord).map(article => [article.slug, article]));
   return content.map((article) => {
     if (!isRecord(article)) {
       return article;
     }
+
+    // Saving an image in one article must not recalculate or migrate other articles.
+    const previous = existing.get(article.slug);
+    if (previous && isDeepStrictEqual(previous, article)) return previous;
 
     const sourceHtml =
       typeof article.bodyHtml === "string" && article.bodyHtml.trim()

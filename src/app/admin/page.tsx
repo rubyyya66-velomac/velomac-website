@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function AdminPage() {
-  return <AdminEditor files={adminContentFiles} />;
+  return <AdminEditor files={adminContentFiles} localImageDemo={process.env.ADMIN_LOCAL_PREVIEW === "true"} />;
 }

@@ -5,13 +5,14 @@ import { Extension } from "@tiptap/core";
 import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
-import { Plugin, TextSelection } from "@tiptap/pm/state";
+import { NodeSelection, Plugin, TextSelection } from "@tiptap/pm/state";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
   Bold,
   Eraser,
   Highlighter,
+  ImagePlus,
   IndentDecrease,
   IndentIncrease,
   Italic,
@@ -26,6 +27,9 @@ import {
   Undo2,
   Unlink
 } from "lucide-react";
+import { ArticleImageNode } from "@/components/ArticleImageNode";
+import { ArticleImageSettings } from "@/components/ArticleImageSettings";
+import { normalizeArticleImage, safeArticleImageSrc, type ArticleImageAttributes } from "@/lib/articleImage";
 
 const highlightOptions = [
   { label: "Light blue", color: "#dbeafe" },
@@ -65,10 +69,14 @@ const PlainTextPaste = Extension.create({
 
 export function ResourceArticleRichTextEditor({
   value,
-  onChange
+  onChange,
+  mediaImages = [],
+  onUploadImage
 }: {
   value: string;
   onChange: (value: string) => void;
+  mediaImages?: string[];
+  onUploadImage?: (file: File) => Promise<string>;
 }) {
   const [linkPanelOpen, setLinkPanelOpen] = useState(false);
   const [linkHref, setLinkHref] = useState("");
@@ -76,6 +84,8 @@ export function ResourceArticleRichTextEditor({
   const [linkError, setLinkError] = useState("");
   const [counts, setCounts] = useState({ words: 0, characters: 0 });
   const [, setSelectionVersion] = useState(0);
+  const [imagePanel, setImagePanel] = useState<{position: number; replacing: boolean; attributes: ArticleImageAttributes} | null>(null);
+  const [missingImageAltCount, setMissingImageAltCount] = useState(0);
 
   const editor = useEditor({
     extensions: [
@@ -97,7 +107,8 @@ export function ResourceArticleRichTextEditor({
           rel: null
         }
       }),
-      PlainTextPaste
+      PlainTextPaste,
+      ArticleImageNode
     ],
     content: value || "<p></p>",
     immediatelyRender: false,
@@ -120,19 +131,54 @@ export function ResourceArticleRichTextEditor({
         );
         return false;
       },
+      handleClickOn(view, _position, node, nodePosition, _event, direct) {
+        if (!direct || node.type.name !== "articleImage") return false;
+        view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePosition)));
+        setLinkPanelOpen(false);
+        setImagePanel({position: nodePosition, replacing: true, attributes: normalizeArticleImage(node.attrs)});
+        return true;
+      },
       transformPastedHTML: cleanPastedHtml
     },
     onCreate({ editor: currentEditor }) {
       setCounts(countEditorText(currentEditor.getText()));
+      updateImageWarnings(currentEditor.state.doc);
     },
     onUpdate({ editor: currentEditor }) {
       onChange(currentEditor.getHTML());
       setCounts(countEditorText(currentEditor.getText()));
+      updateImageWarnings(currentEditor.state.doc);
     },
     onSelectionUpdate() {
       setSelectionVersion((current) => current + 1);
     }
   });
+
+  function updateImageWarnings(doc: import("@tiptap/pm/model").Node) {
+    let count = 0;
+    doc.descendants(node => {
+      if (node.type.name === "articleImage" && !node.attrs.decorative && !String(node.attrs.alt || "").trim()) count += 1;
+    });
+    setMissingImageAltCount(count);
+  }
+
+  function openImagePanel() {
+    if (!editor) return;
+    const selection = editor.state.selection;
+    const selected = selection instanceof NodeSelection && selection.node.type.name === "articleImage";
+    setLinkPanelOpen(false);
+    setImagePanel({ position: selection.from, replacing: selected, attributes: normalizeArticleImage(selected ? selection.node.attrs : {}) });
+  }
+
+  function applyImage(attributes: ArticleImageAttributes) {
+    if (!editor || !imagePanel) return;
+    if (imagePanel.replacing && editor.state.doc.nodeAt(imagePanel.position)?.type.name === "articleImage") {
+      editor.chain().focus().setNodeSelection(imagePanel.position).updateAttributes("articleImage", attributes).run();
+    } else if (!imagePanel.replacing) {
+      editor.chain().focus().insertContentAt(imagePanel.position, {type: "articleImage", attrs: attributes}).createParagraphNear().run();
+    }
+    setImagePanel(null);
+  }
 
   useEffect(() => {
     if (!editor || editor.getHTML() === value) {
@@ -141,6 +187,7 @@ export function ResourceArticleRichTextEditor({
 
     editor.commands.setContent(value || "<p></p>", { emitUpdate: false });
     setCounts(countEditorText(editor.getText()));
+    updateImageWarnings(editor.state.doc);
   }, [editor, value]);
 
   const currentLink = editor?.getAttributes("link") as
@@ -376,6 +423,13 @@ export function ResourceArticleRichTextEditor({
             <Unlink aria-hidden="true" size={18} />
           </ToolbarIconButton>
           <ToolbarIconButton
+            label="Insert or edit image"
+            active={editor.isActive("articleImage")}
+            onClick={openImagePanel}
+          >
+            <ImagePlus aria-hidden="true" size={18} />
+          </ToolbarIconButton>
+          <ToolbarIconButton
             label="Clear formatting"
             onClick={() => editor.chain().focus().unsetAllMarks().clearNodes().run()}
           >
@@ -397,6 +451,23 @@ export function ResourceArticleRichTextEditor({
           </ToolbarIconButton>
         </div>
       </div>
+
+      {imagePanel ? <ArticleImageSettings
+        initial={imagePanel.attributes}
+        replacing={imagePanel.replacing}
+        mediaImages={mediaImages}
+        onUploadImage={onUploadImage || (async () => { throw new Error("Image uploading is unavailable in this preview."); })}
+        onApply={applyImage}
+        onClose={() => {setImagePanel(null); editor.commands.focus();}}
+        onRemove={() => {
+          editor.chain().focus().setNodeSelection(imagePanel.position).deleteSelection().run();
+          setImagePanel(null);
+        }}
+      /> : null}
+
+      {missingImageAltCount ? <p role="status" className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+        {missingImageAltCount} informative image{missingImageAltCount > 1 ? "s need" : " needs"} ALT text. Select the image to add a description, or mark it decorative only if appropriate.
+      </p> : null}
 
       {linkPanelOpen ? (
         <div className="border-b border-metal-200 bg-blue-50 px-4 py-4">
@@ -561,6 +632,25 @@ function cleanPastedHtml(html: string) {
   });
 
   document.querySelectorAll("*").forEach((element) => {
+    if (element.tagName === "IMG") {
+      const src = safeArticleImageSrc(element.getAttribute("src"));
+      if (!src) { element.remove(); return; }
+      const attrs = normalizeArticleImage({src, alt: element.getAttribute("alt"), width: element.getAttribute("width"), height: element.getAttribute("height")});
+      Array.from(element.attributes).forEach(attribute => element.removeAttribute(attribute.name));
+      element.setAttribute("src", attrs.src);
+      element.setAttribute("alt", attrs.alt);
+      if (attrs.width && attrs.height) { element.setAttribute("width", String(attrs.width)); element.setAttribute("height", String(attrs.height)); }
+      return;
+    }
+    if (element.tagName === "FIGURE") {
+      const attrs = normalizeArticleImage({displayWidth: element.getAttribute("data-width"), alignment: element.getAttribute("data-align"), decorative: element.getAttribute("data-decorative")});
+      Array.from(element.attributes).forEach(attribute => element.removeAttribute(attribute.name));
+      element.setAttribute("data-article-image", "true");
+      element.setAttribute("data-width", attrs.displayWidth);
+      element.setAttribute("data-align", attrs.alignment);
+      element.setAttribute("data-decorative", String(attrs.decorative));
+      return;
+    }
     if (element.tagName === "A") {
       const href = normalizeLinkHref(element.getAttribute("href") || "");
       const target = element.getAttribute("target");

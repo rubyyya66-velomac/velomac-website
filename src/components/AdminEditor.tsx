@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { ResourceArticleRichTextEditor } from "@/components/ResourceArticleRichTextEditor";
+import { AdminArticleBodyPreview } from "@/components/AdminArticleBodyPreview";
+import articleImageDemo from "@/content/fixtures/article-image-demo.json";
 import type { AdminContentFile } from "@/content/adminContentFiles";
 import { resourceCategoryConfig } from "@/content/resourceCategories";
 import { getEditableArticleHtml } from "@/lib/articleBody";
@@ -23,7 +25,7 @@ type AuthState = "checking" | "login" | "authenticated" | "missing-config";
 type SaveState = "idle" | "loading" | "saving" | "saved" | "error";
 type UploadState = "idle" | "uploading" | "uploaded" | "error";
 
-export function AdminEditor({ files }: { files: AdminContentFile[] }) {
+export function AdminEditor({ files, localImageDemo = false }: { files: AdminContentFile[]; localImageDemo?: boolean }) {
   const [authState, setAuthState] = useState<AuthState>("checking");
   const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("");
@@ -425,7 +427,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
         </div>
       </header>
 
-      <main className="mx-auto grid w-full max-w-[1200px] gap-6 px-5 py-8 sm:px-6 lg:grid-cols-[280px_1fr] lg:px-8">
+      <main className="mx-auto grid w-full max-w-[1200px] gap-6 px-5 py-8 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
         <aside className="h-fit border border-metal-200 bg-white p-4">
           <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-industrial-700">Edit Content</h2>
           <div className="mt-4 grid gap-5">
@@ -466,7 +468,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
           </div>
         </aside>
 
-        <section className="border border-metal-200 bg-white p-5 sm:p-6">
+        <section className="min-w-0 border border-metal-200 bg-white p-5 sm:p-6">
           <div className="flex flex-col gap-4 border-b border-metal-200 pb-5 lg:flex-row lg:items-start lg:justify-between">
             <div>
               <h2 className="text-2xl font-semibold">{selectedFile === "media" ? "Media Library" : activeFile?.label}</h2>
@@ -510,6 +512,7 @@ export function AdminEditor({ files }: { files: AdminContentFile[] }) {
             <div className="mt-6">
               {selectedFile === "articles" && Array.isArray(payload.content) ? (
                 <ArticleManager
+                  localImageDemo={localImageDemo}
                   articles={payload.content}
                   mediaImages={mediaImages}
                   onUploadImage={uploadImage}
@@ -633,11 +636,13 @@ function MediaLibrary({
 
 function ArticleManager({
   articles,
+  localImageDemo,
   mediaImages,
   onUploadImage,
   onChange
 }: {
   articles: JsonValue[];
+  localImageDemo: boolean;
   mediaImages: string[];
   onUploadImage: (file: File) => Promise<string>;
   onChange: (value: JsonValue) => void;
@@ -713,7 +718,7 @@ function ArticleManager({
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+    <div className="grid min-w-0 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
       <aside className="border border-metal-200 bg-metal-50 p-3">
         <div className="flex flex-wrap gap-2">
           <button className="bg-navy-950 px-3 py-2 text-xs font-semibold text-white" type="button" onClick={createArticle}>
@@ -722,6 +727,12 @@ function ArticleManager({
           <button className="border border-metal-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700" type="button" onClick={duplicateArticle}>
             Duplicate
           </button>
+          {localImageDemo ? <button type="button" className="border border-industrial-300 bg-white px-3 py-2 text-xs font-semibold text-industrial-700" onClick={() => {
+            const existing = slugs.indexOf(articleImageDemo.slug);
+            if (existing >= 0) {setSelectedIndex(existing); return;}
+            onChange([...articles, cloneValue(articleImageDemo) as JsonObject]);
+            setSelectedIndex(articles.length);
+          }}>Load local image sample</button> : null}
         </div>
         <div className="mt-4 grid gap-2">
           {articles.map((article, index) => (
@@ -740,7 +751,7 @@ function ArticleManager({
         </div>
       </aside>
 
-      <div>
+      <div className="min-w-0">
         {selectedArticle ? (
           <div className="grid gap-6">
             {duplicateSlug ? (
@@ -824,6 +835,8 @@ function ArticleManager({
             <ArticleBodyEditor
               article={selectedArticle}
               key={stringValue(selectedArticle.slug) || selectedIndex}
+              mediaImages={mediaImages}
+              onUploadImage={onUploadImage}
               onChange={updateArticle}
             />
 
@@ -841,6 +854,7 @@ function ArticleManager({
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">{stringValue(selectedArticle.category)}</p>
                 <h3 className="mt-2 text-2xl font-semibold text-navy-950">{stringValue(selectedArticle.title) || "Untitled article"}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">{stringValue(selectedArticle.excerpt)}</p>
+                <AdminArticleBodyPreview html={getEditableArticleHtml(selectedArticle)} />
               </article>
             </FieldGroup>
 
@@ -858,9 +872,13 @@ function ArticleManager({
 
 function ArticleBodyEditor({
   article,
+  mediaImages,
+  onUploadImage,
   onChange
 }: {
   article: JsonObject;
+  mediaImages: string[];
+  onUploadImage: (file: File) => Promise<string>;
   onChange: (value: JsonObject) => void;
 }) {
   const bodyHtml = getEditableArticleHtml(article);
@@ -873,6 +891,8 @@ function ArticleBodyEditor({
       </p>
       <ResourceArticleRichTextEditor
         value={bodyHtml}
+        mediaImages={mediaImages}
+        onUploadImage={onUploadImage}
         onChange={(value) => onChange({ ...article, bodyHtml: value })}
       />
     </FieldGroup>

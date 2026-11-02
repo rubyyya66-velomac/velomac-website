@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import { adminSessionCookieName, getAdminAuthFailure, verifyAdminSession } from "@/lib/adminAuth";
 import { isAllowedImageFilename, listPublicImages, saveUploadedImage } from "@/lib/adminContent";
+import { AdminImageValidationError, maxAdminImageBytes, validateAdminRasterImage } from "@/lib/adminImageUpload";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const maxUploadBytes = 5 * 1024 * 1024;
 
 export async function GET(request: Request) {
   const authFailure = requireAdmin(request);
@@ -43,25 +42,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Please upload a JPG, PNG, WEBP or SVG image." }, { status: 400 });
     }
 
-    if (file.size > maxUploadBytes) {
+    if (!file.size) {
+      return NextResponse.json({message: "Image is empty. Please choose a non-empty image file."}, {status: 400});
+    }
+    if (file.size > maxAdminImageBytes) {
       return NextResponse.json({ message: "Image is too large. Please upload a file under 5 MB." }, { status: 400 });
     }
 
+    const bytes = Buffer.from(await file.arrayBuffer());
+    // Preserve the existing Media Library SVG workflow; article uploads use raster images.
+    const dimensions = /\.svg$/i.test(file.name) ? {} : await validateAdminRasterImage(file.name, file.type, bytes);
     const result = await saveUploadedImage({
       filename: file.name,
-      bytes: Buffer.from(await file.arrayBuffer())
+      bytes
     });
 
     return NextResponse.json({
       message: result.mode === "github" ? "Image uploaded and committed to GitHub." : "Image uploaded locally.",
       path: result.path,
-      mode: result.mode
+      mode: result.mode,
+      ...dimensions
     });
   } catch (error) {
     console.error("Admin media upload failed", error);
     return NextResponse.json(
       { message: error instanceof Error ? error.message : "Image upload failed. Please try again." },
-      { status: 500 }
+      { status: error instanceof AdminImageValidationError ? 400 : 500 }
     );
   }
 }
