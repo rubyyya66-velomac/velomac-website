@@ -25,7 +25,10 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
 
     const analyticsWindow = window as AnalyticsWindow;
     analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-    analyticsWindow.gtag = analyticsWindow.gtag || ((...args: unknown[]) => analyticsWindow.dataLayer?.push(args));
+    analyticsWindow.gtag = analyticsWindow.gtag || function gtag() {
+      // Google tag dispatches gtag commands from Arguments objects, not arrays.
+      analyticsWindow.dataLayer?.push(arguments);
+    };
 
     if (!initialized.current) {
       initialized.current = true;
