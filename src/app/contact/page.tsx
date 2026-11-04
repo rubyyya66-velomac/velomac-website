@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
+import { QuoteComparisonDownload } from "@/components/BuyerTools";
 import { Container, PageIntro, Section } from "@/components/Layout";
 import { QuoteForm } from "@/components/QuoteForm";
 import { TrackedContactLink } from "@/components/TrackedContactLink";
@@ -71,6 +72,7 @@ export default function ContactPage() {
             </div>
           </aside>
           <div className="rounded-[6px] border border-metal-200 bg-white p-6 shadow-sm sm:p-8">
+            <QuoteComparisonDownload />
             <QuoteForm />
           </div>
         </Container>
