@@ -20,7 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...technologyCategoryPages,
     ...technologyPages
   ].map((path) => ({
-    url: absoluteUrl(path)
+    url: absoluteUrl(path),
+    ...(path === "/resources" ? { lastModified: "2026-11-05" } : {})
   }));
 
   const publishedResourcePages = resources.map((resource) => ({

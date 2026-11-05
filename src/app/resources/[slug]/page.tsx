@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
+import { buyerToolsHref } from "@/components/BuyerTools";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
 import { getApplicationsByRelatedSlugs } from "@/content/applications";
@@ -15,6 +16,11 @@ import { legacySectionsToHtml } from "@/lib/articleBody";
 import { sanitizeArticleBodyHtml } from "@/lib/richTextSanitizer";
 import { buildPageMetadata } from "@/lib/seo";
 import { articleStructuredData, breadcrumbStructuredData } from "@/lib/structuredData";
+
+const quotationWorksheetContext: Record<string, string> = {
+  "flowmeter-quote-site-details": "Once suppliers quote the same operating conditions, compare what each offer includes with the",
+  "flowmeter-selection-messy-site-conditions": "Once the meter configuration is clear, compare each supplier’s quoted scope and delivery costs with the"
+};
 
 export function generateStaticParams() {
   return resources.map((resource) => ({ slug: resource.slug }));
@@ -215,6 +221,15 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
                 className={`resource-article-body ${enhancement ? "mt-8" : "mt-10"}`}
                 dangerouslySetInnerHTML={{ __html: preparedArticle.html }}
               />
+
+              {quotationWorksheetContext[article.slug] ? (
+                <p className="mt-6 text-base leading-7 text-slate-700">
+                  {quotationWorksheetContext[article.slug]}{" "}
+                  <Link href={buyerToolsHref} className="focus-ring font-semibold text-industrial-700 underline underline-offset-4">
+                    flow meter quotation comparison sheet
+                  </Link>.
+                </p>
+              ) : null}
 
               {article.takeaways.length ? (
                 <section className="mt-10 rounded-[6px] border border-metal-200 bg-metal-50 p-6">

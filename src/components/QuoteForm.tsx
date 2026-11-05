@@ -65,8 +65,8 @@ export function QuoteForm() {
         body: formData
       });
 
+      const result = (await response.json().catch(() => null)) as { message?: string; accepted?: boolean } | null;
       if (!response.ok) {
-        const result = (await response.json().catch(() => null)) as { message?: string } | null;
         throw new Error(result?.message || form.errorMessage);
       }
 
@@ -74,14 +74,16 @@ export function QuoteForm() {
       startedAt.current = Date.now();
       hasStarted.current = false;
       setSubmissionState("success");
-      trackQuoteForm("quote_form_success");
-      trackAnalyticsEvent("generate_lead", {
-        lead_type: "quote_request",
-        form_type: "quote_request",
-        product_slug: sourceProductSlug || "not_provided",
-        application_type: sourceApplicationSlug || "not_provided",
-        page_path: window.location.pathname
-      });
+      if (result?.accepted === true) {
+        trackQuoteForm("quote_form_success");
+        trackAnalyticsEvent("generate_lead", {
+          lead_type: "quote_request",
+          form_type: "quote_request",
+          product_slug: sourceProductSlug || "not_provided",
+          application_type: sourceApplicationSlug || "not_provided",
+          page_path: window.location.pathname
+        });
+      }
     } catch (error) {
       setSubmissionError(error instanceof Error ? error.message : form.errorMessage);
       setSubmissionState("error");

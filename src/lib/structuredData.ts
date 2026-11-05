@@ -15,6 +15,7 @@ export function organizationStructuredData() {
     "@id": absoluteUrl("/#organization"),
     name: site.name,
     legalName: site.legalName,
+    description: site.description,
     alternateName: "Velomac",
     foundingDate: site.foundingDate,
     url: absoluteUrl("/"),

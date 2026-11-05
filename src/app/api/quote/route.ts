@@ -98,6 +98,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
+      accepted: true,
       message: isApplicationReview ? "Application review received." : "Quote request received."
     });
   } catch (error) {

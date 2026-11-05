@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { BuyerTools } from "@/components/BuyerTools";
 import {
   getArticleCategorySlugs,
   getResourceCategoryByLabel,
@@ -130,7 +129,6 @@ export function ResourcesExplorer({
 
   return (
     <>
-      <BuyerTools />
       {showFeatured ? <FeaturedArticle article={featured} /> : null}
 
       <nav

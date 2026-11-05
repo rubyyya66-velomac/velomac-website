@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { ApplicationReview } from "@/components/ApplicationReview";
 import { ApplicationReviewLink } from "@/components/ApplicationReviewLink";
+import { buyerToolsHref } from "@/components/BuyerTools";
 import { CTASection } from "@/components/CTASection";
 import { ElectromagneticApplicationChecks } from "@/components/ElectromagneticApplicationChecks";
 import { JsonLd } from "@/components/JsonLd";
@@ -402,6 +403,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 ))}
               </div>
             </MobileDisclosure>
+            {product.slug === "vortex-flowmeter" ? (
+              <p className="mt-5 text-sm leading-6 text-slate-700">
+                Comparing supplier offers? Use the{" "}
+                <Link href={buyerToolsHref} className="focus-ring font-semibold text-industrial-700 underline underline-offset-4">
+                  flow meter quotation comparison sheet
+                </Link>{" "}
+                to check which accessories and delivery costs are included.
+              </p>
+            ) : null}
           </Container>
         </Section>
       ) : null}

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { BuyerTools } from "@/components/BuyerTools";
 import { CTASection } from "@/components/CTASection";
+import { JsonLd } from "@/components/JsonLd";
 import {
   ResourcesExplorer,
   type ResourceListItem
@@ -8,15 +10,30 @@ import { Container, Section } from "@/components/Layout";
 import { getResourceCategoryBySlug } from "@/content/resourceCategories";
 import { articles } from "@/content/resources";
 import { resourcesPage } from "@/content/resourcesPage";
-import { buildPageMetadata } from "@/lib/seo";
+import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
+import { breadcrumbStructuredData } from "@/lib/structuredData";
 
-export const metadata: Metadata = buildPageMetadata({
+const resourcesUrl = absoluteUrl("/resources");
+const shareTitle = "Comparing Flowmeter Quotations? Look Beyond the Unit Price.";
+const shareDescription = resourcesPage.metadata.openGraphDescription;
+const shareImage = {
+  url: absoluteUrl("/images/brand/quotation-comparison-share.png"),
+  alt: "Velomac Flow Meter buyer worksheet: compare flowmeter quotations beyond the unit price.",
+  width: 1200,
+  height: 630
+};
+const baseMetadata = buildPageMetadata({
   title: resourcesPage.metadata.title,
   description: resourcesPage.metadata.description,
   path: "/resources",
-  image: articles[0]?.coverImage || "/images/applications/quote-support.png",
-  imageAlt: articles[0]?.coverAlt || "Velomac flow measurement resources"
+  image: "/images/brand/quotation-comparison-share.png",
+  imageAlt: shareImage.alt
 });
+export const metadata: Metadata = {
+  ...baseMetadata,
+  openGraph: { ...baseMetadata.openGraph, title: shareTitle, description: shareDescription, images: [shareImage] },
+  twitter: { card: "summary_large_image", title: shareTitle, description: shareDescription, images: [shareImage] }
+};
 
 type ResourcesPageProps = {
   searchParams?: Promise<{
@@ -43,6 +60,22 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
 
   return (
     <>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `${resourcesUrl}#webpage`,
+        url: resourcesUrl,
+        name: resourcesPage.metadata.title,
+        description: resourcesPage.metadata.description,
+        inLanguage: "en",
+        isPartOf: { "@id": absoluteUrl("/#website") },
+        publisher: { "@id": absoluteUrl("/#organization") },
+        breadcrumb: { "@id": `${resourcesUrl}#breadcrumb` }
+      }} />
+      <JsonLd data={{
+        ...breadcrumbStructuredData([{ name: "Home", path: "/" }, { name: "Resources", path: "/resources" }]),
+        "@id": `${resourcesUrl}#breadcrumb`
+      }} />
       <section className="velomac-blue-surface text-white">
         <Container className="py-10 sm:py-16 lg:py-20">
           <div className="max-w-4xl">
@@ -59,6 +92,7 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
 
       <Section>
         <Container>
+          <BuyerTools />
           <ResourcesExplorer
             items={resourceItems}
             initialCategorySlug={initialCategorySlug}
