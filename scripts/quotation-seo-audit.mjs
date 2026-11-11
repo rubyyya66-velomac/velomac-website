@@ -77,7 +77,13 @@ const entries = [...sitemap.html.matchAll(/<url>\s*<loc>([^<]+)<\/loc>([\s\S]*?)
 const resourceEntry = entries.filter(([, loc]) => loc === canonical);
 assert.equal(resourceEntry.length, 1);
 assert.ok(!entries.some(([, loc]) => loc.startsWith(canonical + "?") || loc.startsWith(canonical + "#") || loc.includes(download)));
-if (!baseline) assert.match(resourceEntry[0][2], /<lastmod>2026-11-05<\/lastmod>/);
+if (!baseline) {
+  const latest = ["2026-11-05", ...entries
+    .filter(([, loc]) => loc.startsWith(canonical + "/"))
+    .map(([, , tags]) => tags.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1].slice(0, 10))
+    .filter(Boolean)].sort().at(-1);
+  assert.equal(resourceEntry[0][2].match(/<lastmod>([^<]+)<\/lastmod>/)?.[1].slice(0, 10), latest);
+}
 
 const downloads = await Promise.all(["pdf", "xlsx"].map(async (ext) => {
   const { response } = await request(download + "." + ext);

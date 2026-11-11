@@ -285,7 +285,10 @@ export function ApplicationReview({
         throw new Error("Application review submission failed.");
       }
 
+      const result = (await response.json().catch(() => null)) as { accepted?: boolean } | null;
       setSubmissionState("success");
+      // Keep the API's quiet response to automated submissions, but never count them as leads.
+      if (result?.accepted !== true) return;
       try {
         sessionStorage.setItem("velomac-application-review-session-state", "submitted");
       } catch {

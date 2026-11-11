@@ -229,7 +229,7 @@ export default function HomePage() {
             aria-label="Additional flowmeter product families"
             className="mt-6 flex flex-col gap-3 border-y border-metal-200 py-4 sm:flex-row sm:items-center sm:justify-between"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-700">
               More flowmeter families
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">

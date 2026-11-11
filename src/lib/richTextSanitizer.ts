@@ -25,11 +25,19 @@ export function sanitizeArticleBodyHtml(value: string): string {
       "br",
       "figure",
       "figcaption",
-      "img"
+      "img",
+      "table",
+      "caption",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td"
     ],
     allowedAttributes: {
       a: ["href", "target", "rel"],
       mark: ["data-color", "style"],
+      th: ["scope"],
       figure: ["data-article-image", "data-width", "data-align", "data-decorative"],
       img: ["src", "alt", "width", "height", "loading", "decoding", "srcset", "sizes", "data-decorative"]
     },
@@ -38,6 +46,11 @@ export function sanitizeArticleBodyHtml(value: string): string {
     transformTags: {
       h1: "h2",
       div: "p",
+      th: (tagName, attributes) => {
+        const attribs: Record<string, string> = {};
+        if (attributes.scope === "col" || attributes.scope === "row") attribs.scope = attributes.scope;
+        return { tagName, attribs };
+      },
       figure: (tagName, attributes) => {
         const attrs = normalizeArticleImage({displayWidth: attributes["data-width"], alignment: attributes["data-align"], decorative: attributes["data-decorative"]});
         return {tagName, attribs: {"data-article-image": "true", "data-width": attrs.displayWidth, "data-align": attrs.alignment, "data-decorative": String(attrs.decorative)}};

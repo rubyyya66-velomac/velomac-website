@@ -30,6 +30,7 @@ export function Header() {
             alt={site.logos.alt}
             width={211}
             height={140}
+            sizes="(min-width: 1280px) 109px, (min-width: 640px) 73px, 67px"
             priority
             className="h-11 w-auto sm:h-12 xl:h-[72px]"
           />

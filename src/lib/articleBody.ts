@@ -42,6 +42,15 @@ export function plainTextWordCount(value: string): number {
   return text.trim() ? text.trim().split(/\s+/).length : 0;
 }
 
+// Call only after sanitization. The scroll container keeps wide data inside the article on phones.
+export function wrapArticleTables(sanitizedHtml: string): string {
+  return sanitizedHtml.replace(/<table(?=[\s>])[^>]*>|<\/table>/gi, (tag) =>
+    tag.startsWith("</")
+      ? `${tag}</div></div>`
+      : `<div class="article-table"><div class="article-table-scroll" role="region" aria-label="Scrollable data table" tabindex="0">${tag}`
+  );
+}
+
 function legacyParagraphsToHtml(paragraphs: string[]): string {
   const fragments: string[] = [];
   let activeList: { type: ListType; items: string[] } | null = null;

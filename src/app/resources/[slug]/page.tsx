@@ -12,7 +12,7 @@ import { getResourceEnhancement } from "@/content/resourceEnhancements";
 import { getArticleBySlug, resources } from "@/content/resources";
 import { getProductsByRelatedSlugs } from "@/content/products";
 import { getTechnologyArticle } from "@/content/technology";
-import { legacySectionsToHtml } from "@/lib/articleBody";
+import { legacySectionsToHtml, wrapArticleTables } from "@/lib/articleBody";
 import { sanitizeArticleBodyHtml } from "@/lib/richTextSanitizer";
 import { buildPageMetadata } from "@/lib/seo";
 import { articleStructuredData, breadcrumbStructuredData } from "@/lib/structuredData";
@@ -219,7 +219,7 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
 
               <div
                 className={`resource-article-body ${enhancement ? "mt-8" : "mt-10"}`}
-                dangerouslySetInnerHTML={{ __html: preparedArticle.html }}
+                dangerouslySetInnerHTML={{ __html: wrapArticleTables(preparedArticle.html) }}
               />
 
               {quotationWorksheetContext[article.slug] ? (

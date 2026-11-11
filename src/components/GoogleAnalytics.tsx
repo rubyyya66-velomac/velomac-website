@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { isPrivateAnalyticsPath } from "@/lib/analyticsScope";
 import {
   captureLeadAttribution,
   getLeadAttributionAnalyticsParameters
@@ -20,6 +21,10 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
   const lastPagePath = useRef("");
 
   useEffect(() => {
+    if (!pathname || isPrivateAnalyticsPath(pathname)) {
+      lastPagePath.current = "";
+      return;
+    }
     captureLeadAttribution();
     if (!measurementId || !productionHosts.has(window.location.hostname)) return;
 

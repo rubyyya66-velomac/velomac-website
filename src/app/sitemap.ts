@@ -6,6 +6,11 @@ import { technologyArticles, technologyCategories } from "@/content/technology";
 import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // The hub changes when a published resource is added or updated, not on every build.
+  const resourcesLastModified = resources.reduce((latest, resource) => {
+    const revision = (resource.modifiedDate || resource.publishedDate).slice(0, 10);
+    return /^\d{4}-\d{2}-\d{2}$/.test(revision) && revision > latest ? revision : latest;
+  }, "2026-11-05");
   const staticPages = ["", "/products", "/applications", "/application-review", "/technology", "/resources", "/about", "/quality-innovation", "/contact"];
   const productPages = products.map((product) => `/products/${product.slug}`);
   const featuredProductPages = ["/products/vortex-flowmeter/wide-turndown-anti-vibration"];
@@ -21,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...technologyPages
   ].map((path) => ({
     url: absoluteUrl(path),
-    ...(path === "/resources" ? { lastModified: "2026-11-05" } : {})
+    ...(path === "/resources" ? { lastModified: resourcesLastModified } : {})
   }));
 
   const publishedResourcePages = resources.map((resource) => ({

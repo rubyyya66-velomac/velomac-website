@@ -374,6 +374,64 @@ body:has(.admin-shell) > main {
   word-break: normal;
 }
 
+.resource-article-body .article-table {
+  max-width: 100%;
+  margin: 1.5rem 0 0.65rem;
+}
+
+.resource-article-body .article-table-scroll {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  border: 1px solid #dbe3eb;
+  border-radius: 6px;
+}
+
+.resource-article-body .article-table-scroll:focus-visible {
+  outline: 2px solid #0a6bb8;
+  outline-offset: 2px;
+}
+
+.resource-article-body .article-table-scroll table,
+.resource-rich-text-editor__content table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #334155;
+  font-size: 0.925rem;
+  line-height: 1.55;
+}
+
+.resource-article-body .article-table-scroll table:has(tr > :nth-child(3)) {
+  min-width: 32rem;
+}
+
+.resource-article-body .article-table-scroll caption,
+.resource-rich-text-editor__content table caption {
+  padding: 0.75rem;
+  color: #071a2d;
+  font-weight: 600;
+  text-align: left;
+}
+
+.resource-article-body .article-table-scroll :is(th, td),
+.resource-rich-text-editor__content table :is(th, td) {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #dbe3eb;
+  text-align: left;
+  vertical-align: top;
+}
+
+.resource-article-body .article-table-scroll th,
+.resource-rich-text-editor__content table th {
+  color: #071a2d;
+  background-color: #f1f5f9;
+  font-weight: 600;
+}
+
+.resource-article-body .article-table-scroll :is(th, td) > p,
+.resource-rich-text-editor__content table :is(th, td) > p {
+  margin: 0;
+}
+
 .resource-rich-text-editor__content ul,
 .resource-rich-text-editor__content ol,
 .resource-article-body ul,

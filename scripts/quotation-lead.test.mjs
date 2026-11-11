@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
+import { isPrivateAnalyticsPath } from "../src/lib/analyticsScope.ts";
+import * as applicationReviewConfig from "../src/content/applicationReview.ts";
 
 // Exercise the actual handler and client event guard without opening an SMTP
 // connection, writing a lead, or sending analytics to Google.
@@ -49,6 +51,11 @@ test("quote API confirms accepted only after SMTP resolves", async () => {
   const bot = await submit(post, { website: "honeypot" });
   assert.equal(bot.status, 200);
   assert.notEqual((await bot.json()).accepted, true);
+  assert.equal(smtpCalls, 0);
+
+  const tooFast = await submit(post, { "started-at": String(Date.now()) });
+  assert.equal(tooFast.status, 200);
+  assert.notEqual((await tooFast.json()).accepted, true);
   assert.equal(smtpCalls, 0);
 
   const ok = await submit(post);
@@ -107,30 +114,102 @@ test("Buyer Tools link records a quote click, not a lead", () => {
 });
 
 test("existing page_view instrumentation sends one manual event with campaign URL on the production hostname", () => {
-  for (const hostname of ["www.velomacflowmeter.com", "127.0.0.1"]) {
+  for (const [hostname, pathname, pageViewCount, captureCount] of [
+    ["www.velomacflowmeter.com", "/resources", 1, 1],
+    ["127.0.0.1", "/resources", 0, 1],
+    ["www.velomacflowmeter.com", "/admin", 0, 0],
+    ["www.velomacflowmeter.com", "/admin/content", 0, 0],
+    ["www.velomacflowmeter.com", "/api/quote", 0, 0]
+  ]) {
     const commands = [];
+    let captures = 0;
     const search = "?utm_source=linkedin&utm_medium=organic_social&utm_campaign=quotation_comparison_sheet";
-    const href = `https://${hostname}/resources${search}#buyer-tools-heading`;
+    const href = `https://${hostname}${pathname}${search}#buyer-tools-heading`;
     const { GoogleAnalytics } = load("../src/components/GoogleAnalytics.tsx", {
-      "next/navigation": { usePathname: () => "/resources" },
+      "next/navigation": { usePathname: () => pathname },
       "react": {
         useEffect: (effect) => effect(),
         useRef: (current) => ({ current })
       },
       "@/lib/leadAttribution": {
-        captureLeadAttribution: () => {},
+        captureLeadAttribution: () => { captures++; },
         getLeadAttributionAnalyticsParameters: () => ({})
-      }
+      },
+      "@/lib/analyticsScope": { isPrivateAnalyticsPath }
     }, {
       window: { location: { hostname, search, href }, gtag: (...args) => commands.push(args) },
       document: { title: "Resources", getElementById: () => ({}) }
     });
     GoogleAnalytics({ measurementId: "G-FIXTURE" });
     const pageViews = commands.filter(([command, event]) => command === "event" && event === "page_view");
-    assert.equal(pageViews.length, hostname === "127.0.0.1" ? 0 : 1);
+    assert.equal(pageViews.length, pageViewCount);
+    assert.equal(captures, captureCount);
     if (pageViews.length) {
       assert.equal(pageViews[0][2].page_location, href);
       assert.equal(pageViews[0][2].page_path, "/resources" + search);
     }
+  }
+});
+
+test("custom analytics and attribution are skipped on private paths", () => {
+  for (const pathname of ["/admin", "/admin/content", "/api/quote", "/resources"]) {
+    const commands = [];
+    const window = { location: { pathname }, gtag: (...args) => commands.push(args) };
+    const { trackAnalyticsEvent } = load("../src/lib/analytics.ts", {
+      "@/lib/analyticsScope": { isPrivateAnalyticsPath },
+      "@/lib/leadAttribution": { getLeadAttributionAnalyticsParameters: () => ({}) }
+    }, { window });
+    trackAnalyticsEvent("fixture");
+    assert.equal(commands.length, pathname === "/resources" ? 1 : 0);
+    assert.equal(window.dataLayer?.length ?? 0, commands.length);
+  }
+});
+
+test("Application Review only records accepted inquiries as successful leads", async () => {
+  const form = new FormData();
+  for (const [key, value] of Object.entries({
+    "medium-name": "Water", "medium-type": "Liquid", "normal-flow": "10", "entrained-gas": "No",
+    name: "Fixture", email: "test@example.test"
+  })) form.set(key, value);
+  const jsx = (type, props) => ({ type, props });
+  const findSubmit = (element) => {
+    if (Array.isArray(element)) return element.map(findSubmit).find(Boolean);
+    if (element?.type === "form") return element.props.onSubmit;
+    return element?.props ? findSubmit(element.props.children) : undefined;
+  };
+  for (const [status, payload, accepted] of [[200, { accepted: true }, true], [200, {}, false], [400, {}, false], [500, {}, false]]) {
+    const events = [];
+    const signals = [];
+    const { ApplicationReview } = load("../src/components/ApplicationReview.tsx", {
+      "next/link": { __esModule: true, default: "a" },
+      "react/jsx-runtime": { jsx, jsxs: jsx, Fragment: Symbol("Fragment") },
+      "react": {
+        useEffect: () => {},
+        useState: (initial) => [typeof initial === "function" ? initial() : initial, () => {}],
+        useRef: (current) => ({ current })
+      },
+      "@/components/Layout": { Container: "div" },
+      "@/content/applicationReview": applicationReviewConfig,
+      "@/lib/analytics": { trackAnalyticsEvent: (name) => events.push(name) },
+      "@/lib/leadAttribution": { getLeadAttributionPayload: () => ({}) }
+    }, {
+      FormData: class { constructor() { return form; } },
+      window: { location: { href: "https://www.velomacflowmeter.com/application-review" }, dispatchEvent: (event) => signals.push(event.type) },
+      sessionStorage: { setItem: () => signals.push("submitted") },
+      Event,
+      fetch: async () => Response.json(payload, { status })
+    });
+    const submit = findSubmit(ApplicationReview({
+      productName: "Liquid Turbine Flowmeter", productSlug: "liquid-turbine-flowmeter",
+      productCategory: "Flowmeters", sourcePath: "/application-review"
+    }));
+    assert.ok(submit);
+    await submit({ preventDefault() {}, currentTarget: {} });
+    assert.deepEqual(events, [
+      "application_review_submit",
+      ...(accepted ? ["application_review_success", "generate_lead", "liquid_phase_check_submitted"] : []),
+      ...(status >= 400 ? ["application_review_error"] : [])
+    ]);
+    assert.deepEqual(signals, accepted ? ["submitted", "velomac:application-review-submitted"] : []);
   }
 });

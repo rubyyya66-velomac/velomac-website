@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { ArticleImageNode } from "@/components/ArticleImageNode";
 import { ArticleImageSettings } from "@/components/ArticleImageSettings";
+import { articleTableNodes } from "@/components/ArticleTableNodes";
 import { normalizeArticleImage, safeArticleImageSrc, type ArticleImageAttributes } from "@/lib/articleImage";
 
 const highlightOptions = [
@@ -108,7 +109,8 @@ export function ResourceArticleRichTextEditor({
         }
       }),
       PlainTextPaste,
-      ArticleImageNode
+      ArticleImageNode,
+      ...articleTableNodes
     ],
     content: value || "<p></p>",
     immediatelyRender: false,
@@ -632,6 +634,12 @@ function cleanPastedHtml(html: string) {
   });
 
   document.querySelectorAll("*").forEach((element) => {
+    if (element.tagName === "TH") {
+      const scope = element.getAttribute("scope");
+      Array.from(element.attributes).forEach(attribute => element.removeAttribute(attribute.name));
+      if (scope === "row" || scope === "col") element.setAttribute("scope", scope);
+      return;
+    }
     if (element.tagName === "IMG") {
       const src = safeArticleImageSrc(element.getAttribute("src"));
       if (!src) { element.remove(); return; }

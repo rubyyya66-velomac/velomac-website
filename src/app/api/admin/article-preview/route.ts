@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { adminSessionCookieName, getAdminAuthFailure, verifyAdminSession } from "@/lib/adminAuth";
 import { sanitizeArticleBodyHtml } from "@/lib/richTextSanitizer";
+import { wrapArticleTables } from "@/lib/articleBody";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,7 +16,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     if (typeof body.html !== "string" || body.html.length > 2_000_000) return NextResponse.json({message: "Article preview requires HTML text under 2 MB."}, {status: 400});
-    return NextResponse.json({html: sanitizeArticleBodyHtml(body.html)}, {headers: {"Cache-Control": "no-store"}});
+    return NextResponse.json({html: wrapArticleTables(sanitizeArticleBodyHtml(body.html))}, {headers: {"Cache-Control": "no-store"}});
   } catch {
     return NextResponse.json({message: "Article preview could not be rendered."}, {status: 400});
   }
