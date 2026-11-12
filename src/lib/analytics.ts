@@ -1,5 +1,6 @@
 import { getLeadAttributionAnalyticsParameters } from "@/lib/leadAttribution";
 import { isPrivateAnalyticsPath } from "@/lib/analyticsScope";
+import { analyticsPageContext, analyticsPathname } from "@/lib/analyticsContext";
 
 type AnalyticsParameters = Record<string, unknown>;
 
@@ -13,7 +14,15 @@ export function trackAnalyticsEvent(event: string, parameters: AnalyticsParamete
 
   const analyticsWindow = window as AnalyticsWindow;
   const attributionParameters = getLeadAttributionAnalyticsParameters();
-  const eventParameters = { ...attributionParameters, ...parameters };
+  const pageContext = analyticsPageContext(window.location.href, document.referrer);
+  const eventParameters = {
+    ...attributionParameters,
+    ...parameters,
+    ...pageContext,
+    page_path: analyticsPathname(
+      typeof parameters.page_path === "string" ? parameters.page_path : window.location.pathname
+    )
+  };
   analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
   analyticsWindow.dataLayer.push({ event, ...eventParameters });
   analyticsWindow.gtag?.("event", event, eventParameters);

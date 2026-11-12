@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
+import * as analyticsContext from "../src/lib/analyticsContext.ts";
 import { isPrivateAnalyticsPath } from "../src/lib/analyticsScope.ts";
 import * as applicationReviewConfig from "../src/content/applicationReview.ts";
 
@@ -124,7 +125,7 @@ test("existing page_view instrumentation sends one manual event with campaign UR
     const commands = [];
     let captures = 0;
     const search = "?utm_source=linkedin&utm_medium=organic_social&utm_campaign=quotation_comparison_sheet";
-    const href = `https://${hostname}${pathname}${search}#buyer-tools-heading`;
+    const href = `https://${hostname}${pathname}${search}&email=buyer%40example.test#private-message`;
     const { GoogleAnalytics } = load("../src/components/GoogleAnalytics.tsx", {
       "next/navigation": { usePathname: () => pathname },
       "react": {
@@ -135,18 +136,23 @@ test("existing page_view instrumentation sends one manual event with campaign UR
         captureLeadAttribution: () => { captures++; },
         getLeadAttributionAnalyticsParameters: () => ({})
       },
-      "@/lib/analyticsScope": { isPrivateAnalyticsPath }
+      "@/lib/analyticsScope": { isPrivateAnalyticsPath },
+      "@/lib/analyticsContext": analyticsContext
     }, {
       window: { location: { hostname, search, href }, gtag: (...args) => commands.push(args) },
-      document: { title: "Resources", getElementById: () => ({}) }
+      document: { title: "Resources", referrer: "https://example.test/buyer/private?email=buyer%40example.test", getElementById: () => ({}) }
     });
     GoogleAnalytics({ measurementId: "G-FIXTURE" });
     const pageViews = commands.filter(([command, event]) => command === "event" && event === "page_view");
     assert.equal(pageViews.length, pageViewCount);
     assert.equal(captures, captureCount);
     if (pageViews.length) {
-      assert.equal(pageViews[0][2].page_location, href);
+      assert.equal(pageViews[0][2].page_location, `https://${hostname}${pathname}${search}`);
       assert.equal(pageViews[0][2].page_path, "/resources" + search);
+      assert.equal(pageViews[0][2].page_referrer, "https://example.test");
+      const set = commands.find(([command]) => command === "set");
+      assert.equal(set[1].page_location, pageViews[0][2].page_location);
+      assert.equal(set[1].page_referrer, pageViews[0][2].page_referrer);
     }
   }
 });
@@ -154,15 +160,62 @@ test("existing page_view instrumentation sends one manual event with campaign UR
 test("custom analytics and attribution are skipped on private paths", () => {
   for (const pathname of ["/admin", "/admin/content", "/api/quote", "/resources"]) {
     const commands = [];
-    const window = { location: { pathname }, gtag: (...args) => commands.push(args) };
+    const window = {
+      location: { pathname, href: `https://www.velomacflowmeter.com${pathname}?utm_source=linkedin&requirements=private` },
+      gtag: (...args) => commands.push(args)
+    };
     const { trackAnalyticsEvent } = load("../src/lib/analytics.ts", {
       "@/lib/analyticsScope": { isPrivateAnalyticsPath },
-      "@/lib/leadAttribution": { getLeadAttributionAnalyticsParameters: () => ({}) }
-    }, { window });
-    trackAnalyticsEvent("fixture");
+      "@/lib/leadAttribution": { getLeadAttributionAnalyticsParameters: () => ({}) },
+      "@/lib/analyticsContext": analyticsContext
+    }, { window, document: { referrer: "" } });
+    trackAnalyticsEvent("fixture", { page_location: "https://example.test/?email=buyer@example.test" });
     assert.equal(commands.length, pathname === "/resources" ? 1 : 0);
     assert.equal(window.dataLayer?.length ?? 0, commands.length);
+    if (commands.length) {
+      assert.equal(commands[0][2].page_location, "https://www.velomacflowmeter.com/resources?utm_source=linkedin");
+      assert.equal(window.dataLayer[0].page_path, "/resources");
+      assert.equal(window.dataLayer[0].page_location, commands[0][2].page_location);
+    }
   }
+});
+
+test("analytics URL context allows campaign and ad tags but drops personal or unknown inputs", () => {
+  const href = "https://www.velomacflowmeter.com/contact?product=vortex-flowmeter&utm_source=newsletter" +
+    "&utm_campaign=Flow+meters&utm_term=buyer%40example.test&utm_content=office-44-1234-567890" +
+    "&utm_medium=555-123-4567&utm_id=buyer%2540example.test&gclid=abc-123_abc&email=buyer%40example.test#message";
+  const referrer = "https://user:password@example.test/path-with-personal-details?phone=555-123-4567";
+  assert.deepEqual(analyticsContext.analyticsPageContext(href, referrer), {
+    page_location: "https://www.velomacflowmeter.com/contact?utm_source=newsletter&utm_campaign=Flow+meters&gclid=abc-123_abc",
+    page_path: "/contact?utm_source=newsletter&utm_campaign=Flow+meters&gclid=abc-123_abc",
+    page_referrer: "https://example.test"
+  });
+  assert.equal(analyticsContext.analyticsPathname("/resources/buyer%40example.test"), "/unknown");
+  assert.equal(analyticsContext.analyticsPathname("/resources/phone-15551234567"), "/unknown");
+  assert.equal(analyticsContext.analyticsPathname("/resources/dn50-flowmeter-flange-compatibility"), "/resources/dn50-flowmeter-flange-compatibility");
+});
+
+test("analytics filters stored attribution without changing inquiry attribution", () => {
+  const fixture = new URL("https://www.velomacflowmeter.com/contact?utm_source=linkedin" +
+    "&utm_content=buyer%40example.test&requirements=private");
+  const storage = new Map();
+  const fixtureStorage = { getItem: (key) => storage.get(key), setItem: (key, value) => storage.set(key, value) };
+  const { getLeadAttributionAnalyticsParameters, getLeadAttributionPayload } = load("../src/lib/leadAttribution.ts", {
+    "@/lib/analyticsContext": analyticsContext
+  }, {
+    URL, URLSearchParams,
+    window: { location: fixture, localStorage: fixtureStorage, sessionStorage: fixtureStorage },
+    document: { referrer: "https://example.test/campaign/referrer?email=buyer%40example.test" }
+  });
+  const analytics = getLeadAttributionAnalyticsParameters();
+  assert.equal(analytics.campaign_source, "linkedin");
+  assert.equal(analytics.landing_page, "/contact?utm_source=linkedin");
+  assert.equal(analytics.lead_referrer, "https://example.test");
+  assert.equal(analytics.campaign_content, undefined);
+  const inquiry = getLeadAttributionPayload();
+  assert.equal(inquiry["session-touch-utm-content"], "buyer@example.test");
+  assert.equal(inquiry["session-touch-referrer"], "https://example.test/campaign/referrer");
+  assert.equal(inquiry["submission-page"], "/contact");
 });
 
 test("Application Review only records accepted inquiries as successful leads", async () => {

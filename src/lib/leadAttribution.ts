@@ -1,3 +1,5 @@
+import { analyticsCampaignValue, analyticsLandingPage, analyticsReferrerOrigin } from "@/lib/analyticsContext";
+
 export type AttributionTouch = {
   landingPage: string;
   referrer: string;
@@ -115,21 +117,22 @@ export function getLeadAttributionAnalyticsParameters(): Record<string, string> 
   if (!attribution) return {};
 
   const effectiveTouch = attribution.sessionTouch;
-  const inferredSource = effectiveTouch.utmSource || referrerHostname(effectiveTouch.referrer) || "direct";
-  const inferredMedium = effectiveTouch.utmMedium || (effectiveTouch.referrer ? "referral" : "none");
+  const referrer = analyticsReferrerOrigin(effectiveTouch.referrer);
+  const inferredSource = analyticsCampaignValue(effectiveTouch.utmSource) || referrerHostname(referrer) || "direct";
+  const inferredMedium = analyticsCampaignValue(effectiveTouch.utmMedium) || (referrer ? "referral" : "none");
 
   return compactRecord({
     campaign_source: inferredSource,
     campaign_medium: inferredMedium,
-    campaign_name: effectiveTouch.utmCampaign,
-    campaign_id: effectiveTouch.utmId,
-    campaign_term: effectiveTouch.utmTerm,
-    campaign_content: effectiveTouch.utmContent,
-    source_platform: effectiveTouch.utmSourcePlatform,
-    creative_format: effectiveTouch.utmCreativeFormat,
-    marketing_tactic: effectiveTouch.utmMarketingTactic,
-    landing_page: effectiveTouch.landingPage,
-    lead_referrer: effectiveTouch.referrer || "direct",
+    campaign_name: analyticsCampaignValue(effectiveTouch.utmCampaign),
+    campaign_id: analyticsCampaignValue(effectiveTouch.utmId),
+    campaign_term: analyticsCampaignValue(effectiveTouch.utmTerm),
+    campaign_content: analyticsCampaignValue(effectiveTouch.utmContent),
+    source_platform: analyticsCampaignValue(effectiveTouch.utmSourcePlatform),
+    creative_format: analyticsCampaignValue(effectiveTouch.utmCreativeFormat),
+    marketing_tactic: analyticsCampaignValue(effectiveTouch.utmMarketingTactic),
+    landing_page: analyticsLandingPage(effectiveTouch.landingPage),
+    lead_referrer: referrer || "direct",
     attribution_scope: "session"
   });
 }

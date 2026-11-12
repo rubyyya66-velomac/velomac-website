@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { analyticsPageContext } from "@/lib/analyticsContext";
 import { isPrivateAnalyticsPath } from "@/lib/analyticsScope";
 import {
   captureLeadAttribution,
@@ -28,6 +29,10 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
     captureLeadAttribution();
     if (!measurementId || !productionHosts.has(window.location.hostname)) return;
 
+    const pageContext = analyticsPageContext(window.location.href, document.referrer);
+    if (lastPagePath.current === pageContext.page_path) return;
+    lastPagePath.current = pageContext.page_path;
+
     const analyticsWindow = window as AnalyticsWindow;
     analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
     analyticsWindow.gtag = analyticsWindow.gtag || function gtag() {
@@ -35,9 +40,17 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
       analyticsWindow.dataLayer?.push(arguments);
     };
 
-    if (!initialized.current) {
+    const shouldInitialize = !initialized.current;
+    if (shouldInitialize) analyticsWindow.gtag("js", new Date());
+
+    // Use the same filtered context for the tag's automatic and manual events.
+    analyticsWindow.gtag("set", {
+      page_location: pageContext.page_location,
+      page_referrer: pageContext.page_referrer
+    });
+
+    if (shouldInitialize) {
       initialized.current = true;
-      analyticsWindow.gtag("js", new Date());
       analyticsWindow.gtag("config", measurementId, { send_page_view: false });
 
       if (!document.getElementById("velomac-google-analytics")) {
@@ -49,16 +62,12 @@ export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
       }
     }
 
-    const pagePath = `${pathname}${window.location.search}`;
-    if (lastPagePath.current === pagePath) return;
-    lastPagePath.current = pagePath;
     const attributionParameters = getLeadAttributionAnalyticsParameters();
 
     analyticsWindow.gtag("event", "page_view", {
       ...attributionParameters,
       page_title: document.title,
-      page_location: window.location.href,
-      page_path: pagePath,
+      ...pageContext,
       send_to: measurementId
     });
   }, [measurementId, pathname]);

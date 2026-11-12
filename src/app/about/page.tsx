@@ -44,6 +44,7 @@ export default function AboutPage() {
               width={hero.image.width}
               height={hero.image.height}
               priority
+              sizes="(min-width: 1200px) 727px, (min-width: 1024px) calc(66vw - 66px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 40px)"
               className="aspect-[16/9] min-h-[300px] w-full object-cover object-center sm:min-h-[360px] lg:min-h-[430px]"
             />
           </div>
