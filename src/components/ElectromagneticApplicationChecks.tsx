@@ -8,6 +8,7 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 const checks = [
   {
     number: "01",
+    anchorId: "full-pipe",
     title: "Full Pipe",
     question: "Is the measuring tube completely filled during operation?",
     note: "Electromagnetic flow measurement requires a full pipe. Partial filling, air pockets or unsuitable high-point installation can cause unstable or misleading readings.",
@@ -98,12 +99,15 @@ export function ElectromagneticApplicationChecks() {
           {checks.map((check) => {
             const isExpanded = expandedCheck === check.title;
             const detailId = `application-check-${check.number}`;
+            const anchorId = "anchorId" in check ? check.anchorId : undefined;
 
             return (
               <article key={check.number} className="flex h-full flex-col border border-metal-200 bg-white">
                 <div className="flex flex-1 flex-col p-4 sm:p-5">
                   <p className="text-xs font-semibold tracking-[0.16em] text-industrial-700">{check.number}</p>
-                  <h3 className="mt-2 text-lg font-semibold leading-6 text-navy-950">{check.title}</h3>
+                  <h3 id={anchorId} className={`mt-2 text-lg font-semibold leading-6 text-navy-950${anchorId ? " scroll-mt-32 lg:scroll-mt-44" : ""}`}>
+                    {check.title}
+                  </h3>
                   <p className="mt-3 text-sm font-semibold leading-6 text-navy-950">{check.question}</p>
                   <p className="mt-2 flex-1 text-sm leading-6 text-slate-600">{check.note}</p>
                   <button

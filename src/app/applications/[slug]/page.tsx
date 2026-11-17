@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -151,7 +152,24 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
         <Container>
           <SectionHeading eyebrow="Site Conditions" title="Conditions that affect meter selection" />
           <div className="mt-9 grid gap-px bg-metal-300 md:grid-cols-2">
-            <ConditionCard title="Operating condition" text={application.siteCondition} />
+            <ConditionCard
+              title="Operating condition"
+              text={
+                application.slug === "conductive-liquid-measurement" ? (
+                  <>
+                    {application.siteCondition}{" "}
+                    For pump-fed wastewater and other conductive-liquid lines, check whether start/stop cycles can drain the measuring section or allow air to collect; partial filling can distort electromagnetic flow readings, so confirm the{" "}
+                    <Link
+                      href="/products/electromagnetic-flowmeter#full-pipe"
+                      className="focus-ring font-semibold text-industrial-700 underline underline-offset-4 hover:text-navy-950"
+                    >
+                      full-pipe installation requirements
+                    </Link>{" "}
+                    before fixing the meter location.
+                  </>
+                ) : application.siteCondition
+              }
+            />
             <ConditionCard title="Selection risk" text={application.challenge} />
           </div>
         </Container>
@@ -308,7 +326,7 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
   );
 }
 
-function ConditionCard({ title, text }: { title: string; text: string }) {
+function ConditionCard({ title, text }: { title: string; text: ReactNode }) {
   return (
     <article className="bg-white p-6 sm:p-7">
       <h3 className="text-xl font-semibold text-navy-950">{title}</h3>
