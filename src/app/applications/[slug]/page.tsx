@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
+import { ChemicalProcessGuide } from "@/components/ChemicalProcessGuide";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
 import { MobileDisclosure } from "@/components/MobileDisclosure";
@@ -36,6 +37,9 @@ const additionalResourceSlugsByApplication: Record<string, string[]> = {
   "chemical-process-lines": ["dle-brine-flow-measurement"]
 };
 
+const chemicalGuideSlug = "chemical-process-lines";
+const chemicalResourcePriority = ["multi-product-chemical-flowmeter-sizing", "dle-brine-flow-measurement"];
+
 export function generateStaticParams() {
   return applications.map((application) => ({ slug: application.slug }));
 }
@@ -65,6 +69,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
     notFound();
   }
 
+  const isChemicalGuide = application.slug === chemicalGuideSlug;
   const relatedProducts = products.filter((product) =>
     application.detailPage.relatedProductSlugs.includes(product.slug)
   );
@@ -80,13 +85,22 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       .filter((article): article is (typeof articles)[number] => Boolean(article)),
     ...relevantResources.filter((article) => !preferredResourceSlugs.includes(article.slug))
   ].slice(0, 3);
-  const relatedResources = [
+  const defaultRelatedResources = [
     ...existingRelatedResources,
     ...(additionalResourceSlugsByApplication[application.slug] || [])
       .filter((slug) => !existingRelatedResources.some((article) => article.slug === slug))
       .map((slug) => relevantResources.find((article) => article.slug === slug))
       .filter((article): article is (typeof articles)[number] => Boolean(article))
   ];
+  const relatedResources = isChemicalGuide
+    ? [
+        ...chemicalResourcePriority.flatMap((resourceSlug) => {
+          const article = relevantResources.find((item) => item.slug === resourceSlug);
+          return article ? [article] : [];
+        }),
+        ...defaultRelatedResources.filter((article) => !chemicalResourcePriority.includes(article.slug))
+      ]
+    : defaultRelatedResources;
   const otherApplications = applications.filter((item) => item.slug !== application.slug).slice(0, 5);
   const breadcrumbs = [
     { name: "Home", path: "/" },
@@ -94,15 +108,35 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
     { name: application.title, path: `/applications/${application.slug}` }
   ];
   const reviewMediumType = getApplicationReviewMediumType(application.slug);
+  const reviewCta = (
+    <CTASection
+      title={isChemicalGuide ? "Discuss Your Chemical Process Application" : application.detailPage.ctaTitle}
+      text={isChemicalGuide
+        ? "Share the chemical, concentration, flow range and operating conditions. We’ll identify what else is needed for meter selection."
+        : "Share the media, pipe size, flow range, pressure, temperature and installation details for an application review."}
+      href="/application-review"
+      buttonLabel={isChemicalGuide ? "Review Your Chemical Application" : "Review This Application"}
+      reviewCtaContext={{
+        sourceType: "application_page",
+        sourceSection: "bottom-application-review",
+        sourcePath: `/applications/${application.slug}`,
+        applicationType: application.slug,
+        mediumType: reviewMediumType
+      }}
+      surfaceClassName="velomac-blue-surface"
+    />
+  );
 
   return (
     <>
       <JsonLd data={breadcrumbStructuredData(breadcrumbs)} />
 
       <section className="border-b border-metal-200 bg-white">
-        <Container className="py-10 sm:py-12 lg:py-16">
+        <Container className={isChemicalGuide ? "py-7 sm:py-10 lg:py-12" : "py-10 sm:py-12 lg:py-16"}>
           <Breadcrumb items={breadcrumbs} />
-          <div className="mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
+          <div className={isChemicalGuide
+            ? "mt-5 grid gap-6 lg:mt-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-10"
+            : "mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14"}>
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {application.detailPage.eyebrow}
@@ -111,7 +145,9 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                 {application.detailPage.h1}
               </h1>
               <p className="mt-3 text-lg leading-8 text-slate-600 sm:mt-5">
-                {application.detailPage.introduction}
+                {isChemicalGuide
+                  ? "Flowmeter selection for chemical service starts with the medium, concentration, operating range and wetted-material compatibility."
+                  : application.detailPage.introduction}
               </p>
               <Link
                 href={`/contact?application=${application.slug}`}
@@ -126,7 +162,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                 alt={application.image.alt}
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 650px"
+                sizes={isChemicalGuide ? "(min-width: 1200px) 592px, (min-width: 1024px) 50vw, (min-width: 640px) calc(100vw - 48px), calc(100vw - 40px)" : "(max-width: 1024px) 100vw, 650px"}
                 className="object-cover"
               />
             </div>
@@ -134,6 +170,13 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
         </Container>
       </section>
 
+      {isChemicalGuide ? (
+        <>
+          <ChemicalProcessGuide products={relatedProducts} />
+          {reviewCta}
+        </>
+      ) : (
+        <>
       <Section>
         <Container className="grid gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16">
           <SectionHeading eyebrow="What Needs to Be Measured" title={application.detailPage.measurementTitle} />
@@ -234,22 +277,30 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
           </Container>
         </Section>
       ) : null}
+        </>
+      )}
 
       {relatedResources.length ? (
         <Section>
           <Container>
-            <SectionHeading eyebrow="Related Resources" title="Practical notes for the application review" />
+            <SectionHeading eyebrow="Related Resources" title={isChemicalGuide ? "Further Reading for Chemical Flow Measurement" : "Practical notes for the application review"} />
             <MobileDisclosure label="View related resources" className="pt-6 sm:pt-0">
               <div className="divide-y divide-metal-200 border-y border-metal-200 sm:mt-8">
                 {relatedResources.map((article) => (
                   <Link
                     key={article.slug}
                     href={`/resources/${article.slug}`}
-                    className="focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"
+                    className={isChemicalGuide
+                      ? "focus-ring grid gap-1.5 py-3.5 transition hover:text-industrial-700 md:grid-cols-[10rem_minmax(0,1fr)_auto] md:items-center md:gap-4"
+                      : "focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"}
                   >
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">{article.category}</span>
-                    <span className="text-lg font-semibold text-navy-950">{article.title}</span>
-                    <span className="text-sm font-semibold text-industrial-700">Read {article.category} →</span>
+                    <span className={isChemicalGuide ? "text-base font-semibold leading-snug text-navy-950" : "text-lg font-semibold text-navy-950"}>{article.title}</span>
+                    {isChemicalGuide ? (
+                      <span aria-hidden="true" className="hidden font-semibold text-industrial-700 md:inline">→</span>
+                    ) : (
+                      <span className="text-sm font-semibold text-industrial-700">Read {article.category} →</span>
+                    )}
                   </Link>
                 ))}
               </div>
@@ -266,7 +317,9 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
               <Link
                 key={item.slug}
                 href={`/applications/${item.slug}`}
-                className="focus-ring border border-metal-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-industrial-600 hover:text-industrial-700"
+              className={isChemicalGuide
+                ? "focus-ring inline-flex min-h-11 items-center rounded-md border border-metal-200 bg-metal-50 px-3 text-sm font-semibold text-slate-700 transition hover:border-industrial-600 hover:text-industrial-700"
+                : "focus-ring border border-metal-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-industrial-600 hover:text-industrial-700"}
               >
                 {item.title}
               </Link>
@@ -275,20 +328,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
         </Container>
       </section>
 
-      <CTASection
-        title={application.detailPage.ctaTitle}
-        text="Share the media, pipe size, flow range, pressure, temperature and installation details for an application review."
-        href="/application-review"
-        buttonLabel="Review This Application"
-        reviewCtaContext={{
-          sourceType: "application_page",
-          sourceSection: "bottom-application-review",
-          sourcePath: `/applications/${application.slug}`,
-          applicationType: application.slug,
-          mediumType: reviewMediumType
-        }}
-        surfaceClassName="velomac-blue-surface"
-      />
+      {isChemicalGuide ? null : reviewCta}
     </>
   );
 }
