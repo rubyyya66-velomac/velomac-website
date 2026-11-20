@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
 import { ChemicalProcessGuide } from "@/components/ChemicalProcessGuide";
+import { HighVibrationGuide } from "@/components/HighVibrationGuide";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
 import { MobileDisclosure } from "@/components/MobileDisclosure";
@@ -70,6 +71,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   }
 
   const isChemicalGuide = application.slug === chemicalGuideSlug;
+  const isVibrationGuide = application.slug === "high-vibration-pipelines";
   const relatedProducts = products.filter((product) =>
     application.detailPage.relatedProductSlugs.includes(product.slug)
   );
@@ -110,9 +112,11 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   const reviewMediumType = getApplicationReviewMediumType(application.slug);
   const reviewCta = (
     <CTASection
-      title={isChemicalGuide ? "Discuss Your Chemical Process Application" : application.detailPage.ctaTitle}
+      title={isChemicalGuide ? "Discuss Your Chemical Process Application" : isVibrationGuide ? "Discuss Your High-Vibration Pipeline" : application.detailPage.ctaTitle}
       text={isChemicalGuide
         ? "Share the chemical, concentration, flow range and operating conditions. We’ll identify what else is needed for meter selection."
+        : isVibrationGuide
+        ? "Share your medium, pipe size, operating range and vibration conditions for a technical application review."
         : "Share the media, pipe size, flow range, pressure, temperature and installation details for an application review."}
       href="/application-review"
       buttonLabel={isChemicalGuide ? "Review Your Chemical Application" : "Review This Application"}
@@ -132,9 +136,9 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       <JsonLd data={breadcrumbStructuredData(breadcrumbs)} />
 
       <section className="border-b border-metal-200 bg-white">
-        <Container className={isChemicalGuide ? "py-7 sm:py-10 lg:py-12" : "py-10 sm:py-12 lg:py-16"}>
+        <Container className={isChemicalGuide || isVibrationGuide ? "py-7 sm:py-10 lg:py-12" : "py-10 sm:py-12 lg:py-16"}>
           <Breadcrumb items={breadcrumbs} />
-          <div className={isChemicalGuide
+          <div className={isChemicalGuide || isVibrationGuide
             ? "mt-5 grid gap-6 lg:mt-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-10"
             : "mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14"}>
             <div className="max-w-2xl">
@@ -147,6 +151,8 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
               <p className="mt-3 text-lg leading-8 text-slate-600 sm:mt-5">
                 {isChemicalGuide
                   ? "Flowmeter selection for chemical service starts with the medium, concentration, operating range and wetted-material compatibility."
+                  : isVibrationGuide
+                  ? "Separate actual process flow from mechanical interference before choosing a meter for a vibration-prone line."
                   : application.detailPage.introduction}
               </p>
               <Link
@@ -162,7 +168,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                 alt={application.image.alt}
                 fill
                 priority
-                sizes={isChemicalGuide ? "(min-width: 1200px) 592px, (min-width: 1024px) 50vw, (min-width: 640px) calc(100vw - 48px), calc(100vw - 40px)" : "(max-width: 1024px) 100vw, 650px"}
+                sizes={isChemicalGuide || isVibrationGuide ? "(min-width: 1200px) 592px, (min-width: 1024px) 50vw, (min-width: 640px) calc(100vw - 48px), calc(100vw - 40px)" : "(max-width: 1024px) 100vw, 650px"}
                 className="object-cover"
               />
             </div>
@@ -175,6 +181,8 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
           <ChemicalProcessGuide products={relatedProducts} />
           {reviewCta}
         </>
+      ) : isVibrationGuide ? (
+        <HighVibrationGuide products={relatedProducts} />
       ) : (
         <>
       <Section>
