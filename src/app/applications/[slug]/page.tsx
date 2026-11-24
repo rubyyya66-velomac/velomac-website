@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTASection } from "@/components/CTASection";
 import { ChemicalProcessGuide } from "@/components/ChemicalProcessGuide";
+import { EnergyUtilityGuide, utilityPage } from "@/components/EnergyUtilityGuide";
 import { HighVibrationGuide } from "@/components/HighVibrationGuide";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
@@ -53,12 +54,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {};
   }
 
+  const image = slug === utilityPage.slug ? utilityPage.hero : application.image;
+
   return buildPageMetadata({
     title: application.detailPage.metadata.title,
     description: application.detailPage.metadata.description,
     path: `/applications/${application.slug}`,
-    image: application.image.src,
-    imageAlt: application.image.alt
+    image: image.src,
+    imageAlt: image.alt
   });
 }
 
@@ -72,6 +75,8 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
 
   const isChemicalGuide = application.slug === chemicalGuideSlug;
   const isVibrationGuide = application.slug === "high-vibration-pipelines";
+  const isUtilityGuide = application.slug === utilityPage.slug;
+  const hasCompactHero = isChemicalGuide || isVibrationGuide || isUtilityGuide;
   const relatedProducts = products.filter((product) =>
     application.detailPage.relatedProductSlugs.includes(product.slug)
   );
@@ -112,11 +117,13 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   const reviewMediumType = getApplicationReviewMediumType(application.slug);
   const reviewCta = (
     <CTASection
-      title={isChemicalGuide ? "Discuss Your Chemical Process Application" : isVibrationGuide ? "Discuss Your High-Vibration Pipeline" : application.detailPage.ctaTitle}
+      title={isChemicalGuide ? "Discuss Your Chemical Process Application" : isVibrationGuide ? "Discuss Your High-Vibration Pipeline" : isUtilityGuide ? "Discuss Your Utility Flow Measurement Application" : application.detailPage.ctaTitle}
       text={isChemicalGuide
         ? "Share the chemical, concentration, flow range and operating conditions. We’ll identify what else is needed for meter selection."
         : isVibrationGuide
         ? "Share your medium, pipe size, operating range and vibration conditions for a technical application review."
+        : isUtilityGuide
+        ? "Share your utility type, measurement point, operating range and installation details. Velomac can review the application conditions and recommend a suitable meter direction."
         : "Share the media, pipe size, flow range, pressure, temperature and installation details for an application review."}
       href="/application-review"
       buttonLabel={isChemicalGuide ? "Review Your Chemical Application" : "Review This Application"}
@@ -136,18 +143,24 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       <JsonLd data={breadcrumbStructuredData(breadcrumbs)} />
 
       <section className="border-b border-metal-200 bg-white">
-        <Container className={isChemicalGuide || isVibrationGuide ? "py-7 sm:py-10 lg:py-12" : "py-10 sm:py-12 lg:py-16"}>
+        <Container className={hasCompactHero ? "py-7 sm:py-10 lg:py-12" : "py-10 sm:py-12 lg:py-16"}>
           <Breadcrumb items={breadcrumbs} />
-          <div className={isChemicalGuide || isVibrationGuide
+          <div className={hasCompactHero
             ? "mt-5 grid gap-6 lg:mt-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-10"
             : "mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14"}>
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">
                 {application.detailPage.eyebrow}
               </p>
-              <h1 className="mt-4 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.08]">
+              <h1 className={isUtilityGuide ? "mt-3 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-[2.5rem] sm:leading-[1.08]" : "mt-4 text-[1.875rem] font-semibold leading-[1.12] text-navy-950 sm:text-5xl sm:leading-[1.08]"}>
                 {application.detailPage.h1}
               </h1>
+              {isUtilityGuide ? (
+                <div className="mt-3 space-y-2 text-sm leading-6 text-slate-700 sm:mt-4 sm:text-base sm:leading-7">
+                  <p>Measure steam, compressed air, cooling water and process utilities at defined points across the plant.</p>
+                  <p>Start with the operating range, measurement location and purpose before selecting the flowmeter.</p>
+                </div>
+              ) : (
               <p className="mt-3 text-lg leading-8 text-slate-600 sm:mt-5">
                 {isChemicalGuide
                   ? "Flowmeter selection for chemical service starts with the medium, concentration, operating range and wetted-material compatibility."
@@ -155,6 +168,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                   ? "Separate actual process flow from mechanical interference before choosing a meter for a vibration-prone line."
                   : application.detailPage.introduction}
               </p>
+              )}
               <Link
                 href={`/contact?application=${application.slug}`}
                 className="focus-ring mt-7 inline-flex items-center gap-2 bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700"
@@ -162,6 +176,12 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                 Request a Quote <span aria-hidden="true">→</span>
               </Link>
             </div>
+            {isUtilityGuide ? (
+              <figure>
+                <Image src={utilityPage.hero.src} alt={utilityPage.hero.alt} width={845} height={681} priority sizes="(min-width: 1200px) 592px, (min-width: 1024px) 50vw, (min-width: 640px) calc(100vw - 48px), calc(100vw - 40px)" className="h-auto w-full object-contain" />
+                <figcaption className="mt-2 text-xs leading-5 text-slate-600">{utilityPage.hero.caption}</figcaption>
+              </figure>
+            ) : (
             <div className="relative aspect-[16/9] overflow-hidden bg-navy-950">
               <Image
                 src={application.image.src}
@@ -172,6 +192,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                 className="object-cover"
               />
             </div>
+            )}
           </div>
         </Container>
       </section>
@@ -183,6 +204,8 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
         </>
       ) : isVibrationGuide ? (
         <HighVibrationGuide products={relatedProducts} />
+      ) : isUtilityGuide ? (
+        <EnergyUtilityGuide products={relatedProducts} />
       ) : (
         <>
       <Section>
@@ -289,22 +312,22 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       )}
 
       {relatedResources.length ? (
-        <Section>
+        <Section className={isUtilityGuide ? "!py-9 sm:!py-12" : undefined}>
           <Container>
-            <SectionHeading eyebrow="Related Resources" title={isChemicalGuide ? "Further Reading for Chemical Flow Measurement" : "Practical notes for the application review"} />
+            <SectionHeading eyebrow="Related Resources" title={isChemicalGuide ? "Further Reading for Chemical Flow Measurement" : isUtilityGuide ? "Practical Notes for the Application Review" : "Practical notes for the application review"} compact={isUtilityGuide} />
             <MobileDisclosure label="View related resources" className="pt-6 sm:pt-0">
               <div className="divide-y divide-metal-200 border-y border-metal-200 sm:mt-8">
                 {relatedResources.map((article) => (
                   <Link
                     key={article.slug}
                     href={`/resources/${article.slug}`}
-                    className={isChemicalGuide
+                    className={isChemicalGuide || isUtilityGuide
                       ? "focus-ring grid gap-1.5 py-3.5 transition hover:text-industrial-700 md:grid-cols-[10rem_minmax(0,1fr)_auto] md:items-center md:gap-4"
                       : "focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"}
                   >
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">{article.category}</span>
-                    <span className={isChemicalGuide ? "text-base font-semibold leading-snug text-navy-950" : "text-lg font-semibold text-navy-950"}>{article.title}</span>
-                    {isChemicalGuide ? (
+                    <span className={isChemicalGuide || isUtilityGuide ? "text-base font-semibold leading-snug text-navy-950" : "text-lg font-semibold text-navy-950"}>{article.title}</span>
+                    {isChemicalGuide || isUtilityGuide ? (
                       <span aria-hidden="true" className="hidden font-semibold text-industrial-700 md:inline">→</span>
                     ) : (
                       <span className="text-sm font-semibold text-industrial-700">Read {article.category} →</span>
@@ -325,7 +348,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
               <Link
                 key={item.slug}
                 href={`/applications/${item.slug}`}
-              className={isChemicalGuide
+              className={isChemicalGuide || isUtilityGuide
                 ? "focus-ring inline-flex min-h-11 items-center rounded-md border border-metal-200 bg-metal-50 px-3 text-sm font-semibold text-slate-700 transition hover:border-industrial-600 hover:text-industrial-700"
                 : "focus-ring border border-metal-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-industrial-600 hover:text-industrial-700"}
               >
@@ -365,11 +388,11 @@ function Breadcrumb({ items }: { items: { name: string; path: string }[] }) {
   );
 }
 
-function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
+function SectionHeading({ eyebrow, title, compact = false }: { eyebrow: string; title: string; compact?: boolean }) {
   return (
     <div className="max-w-3xl">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">{eyebrow}</p>
-      <h2 className="mt-3 text-2xl font-semibold leading-tight text-navy-950 sm:text-4xl">{title}</h2>
+      <h2 className={compact ? "mt-2 text-[1.65rem] font-semibold leading-tight text-navy-950 sm:text-3xl lg:text-[2.125rem]" : "mt-3 text-2xl font-semibold leading-tight text-navy-950 sm:text-4xl"}>{title}</h2>
     </div>
   );
 }
