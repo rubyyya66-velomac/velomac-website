@@ -4,6 +4,7 @@ import { applications } from "@/content/applications";
 import { resources } from "@/content/resources";
 import { technologyArticles, technologyCategories } from "@/content/technology";
 import { absoluteUrl } from "@/lib/seo";
+import { steamApplicationRevision } from "@/content/steamApplication";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // The hub changes when a published resource is added or updated, not on every build.
@@ -26,7 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...technologyPages
   ].map((path) => ({
     url: absoluteUrl(path),
-    ...(path === "/resources" ? { lastModified: resourcesLastModified } : {})
+    ...(path === "/resources" ? { lastModified: resourcesLastModified } : {}),
+    ...(path === "/applications/steam-measurement" ? { lastModified: steamApplicationRevision } : {})
   }));
 
   const publishedResourcePages = resources.map((resource) => ({

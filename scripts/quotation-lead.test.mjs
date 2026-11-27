@@ -6,6 +6,7 @@ import ts from "typescript";
 import * as analyticsContext from "../src/lib/analyticsContext.ts";
 import { isPrivateAnalyticsPath } from "../src/lib/analyticsScope.ts";
 import * as applicationReviewConfig from "../src/content/applicationReview.ts";
+import * as steamApplicationReview from "../src/lib/steamApplicationReview.ts";
 
 // Exercise the actual handler and client event guard without opening an SMTP
 // connection, writing a lead, or sending analytics to Google.
@@ -29,6 +30,7 @@ function quoteRoute(smtp) {
   return load("../src/app/api/quote/route.ts", {
     "next/server": { NextResponse: Response },
     "@/lib/smtp": { sendSmtpMail: smtp },
+    "@/lib/steamApplicationReview": steamApplicationReview,
     "@/lib/requestSecurity": {
       consumeRateLimit: () => ({ allowed: true }),
       hasOversizedBody: () => false,
@@ -242,9 +244,11 @@ test("Application Review only records accepted inquiries as successful leads", a
         useRef: (current) => ({ current })
       },
       "@/components/Layout": { Container: "div" },
+      "@/components/SteamApplicationReviewFields": { SteamApplicationReviewFields: "div" },
       "@/content/applicationReview": applicationReviewConfig,
       "@/lib/analytics": { trackAnalyticsEvent: (name) => events.push(name) },
-      "@/lib/leadAttribution": { getLeadAttributionPayload: () => ({}) }
+      "@/lib/leadAttribution": { getLeadAttributionPayload: () => ({}) },
+      "@/lib/steamApplicationReview": steamApplicationReview
     }, {
       FormData: class { constructor() { return form; } },
       window: { location: { href: "https://www.velomacflowmeter.com/application-review" }, dispatchEvent: (event) => signals.push(event.type) },

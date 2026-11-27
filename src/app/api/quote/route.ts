@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendSmtpMail } from "@/lib/smtp";
 import { consumeRateLimit, hasOversizedBody, isTrustedRequestOrigin } from "@/lib/requestSecurity";
+import { formatSteamReview, parseSteamReviewData, validateSteamReview, type SteamReviewData } from "@/lib/steamApplicationReview";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -75,6 +76,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Please enter a valid email address." }, { status: 400 });
     }
 
+    let steamData: SteamReviewData | null = null;
+    if (isApplicationReview && readString(payload["application-type"]) === "steam-measurement" && Object.hasOwn(payload, "steam-review-data")) {
+      steamData = parseSteamReviewData(readString(payload["steam-review-data"]));
+      const steamError = steamData ? validateSteamReview(steamData) : "Please check the steam application details.";
+      if (steamError) return NextResponse.json({ message: steamError }, { status: 400 });
+      if (!readString(payload.company) || !readString(payload["country-region"])) return NextResponse.json({ message: "Please include your company and country / region." }, { status: 400 });
+    }
+
     const smtpHost = process.env.SMTP_HOST || "smtp.hostinger.com";
     const smtpPort = Number(process.env.SMTP_PORT || 465);
     const smtpUser = process.env.SMTP_USER;
@@ -93,7 +102,7 @@ export async function POST(request: Request) {
       to: quoteToEmail,
       replyTo: email,
       subject: isApplicationReview ? applicationReviewSubject : quoteSubject,
-      text: isApplicationReview ? buildApplicationReviewEmailBody(payload) : buildEmailBody(payload),
+      text: isApplicationReview ? buildApplicationReviewEmailBody(payload, steamData) : buildEmailBody(payload),
       attachments: mailAttachment ? [mailAttachment] : undefined
     });
 
@@ -185,8 +194,8 @@ function matchesFileSignature(content: Buffer, extension: string) {
   return false;
 }
 
-function buildApplicationReviewEmailBody(payload: QuotePayload) {
-  const applicationData = readString(payload.requirements);
+function buildApplicationReviewEmailBody(payload: QuotePayload, steamData: SteamReviewData | null = null) {
+  const applicationData = steamData ? formatSteamReview(steamData) : readString(payload.requirements);
 
   return [
     "Flowmeter Application Review",

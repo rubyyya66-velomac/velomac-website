@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { Container } from "@/components/Layout";
+import { SteamApplicationReviewFields } from "@/components/SteamApplicationReviewFields";
 import {
   applicationReviewProductOptions,
   getApplicationReviewProductConfig,
@@ -13,6 +14,7 @@ import {
 } from "@/content/applicationReview";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 import { getLeadAttributionPayload } from "@/lib/leadAttribution";
+import { formatSteamReview, steamReviewFromFormData, validateSteamReview } from "@/lib/steamApplicationReview";
 
 type MediumType = "" | "Liquid" | "Gas" | "Steam" | "Not sure";
 type SubmissionState = "idle" | "submitting" | "success" | "error";
@@ -77,11 +79,12 @@ export function ApplicationReview({
   initialMediumType,
   sourceContext
 }: ApplicationReviewProps) {
+  const isSteamApplication = sourceContext?.applicationType === "steam-measurement";
   const formRef = useRef<HTMLFormElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const hasStarted = useRef(false);
   const startedAt = useRef(Date.now());
-  const [mediumType, setMediumType] = useState<MediumType>(() => normalizeMediumType(initialMediumType));
+  const [mediumType, setMediumType] = useState<MediumType>(() => isSteamApplication ? "Steam" : normalizeMediumType(initialMediumType));
   const [selectedProductSlug, setSelectedProductSlug] = useState(() => {
     if (!allowProductSelection) return productSlug;
     return getApplicationReviewProductOption(initialProductSlug || "")?.value || "not-sure-yet";
@@ -91,6 +94,7 @@ export function ApplicationReview({
   const [summary, setSummary] = useState<SummaryItem[]>([]);
   const [quickError, setQuickError] = useState("");
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
+  const [submissionError, setSubmissionError] = useState("");
   const [prefillSourceSection, setPrefillSourceSection] = useState("");
   const selectedProduct = getApplicationReviewProductOption(selectedProductSlug);
   const activeProductSlug = allowProductSelection ? selectedProduct?.value || "not-sure-yet" : productSlug;
@@ -105,7 +109,7 @@ export function ApplicationReview({
 
   useEffect(() => {
     function resetApplicationReview() {
-      setMediumType(normalizeMediumType(initialMediumType));
+      setMediumType(isSteamApplication ? "Steam" : normalizeMediumType(initialMediumType));
       setSelectedProductSlug(
         allowProductSelection
           ? getApplicationReviewProductOption(initialProductSlug || "")?.value || "not-sure-yet"
@@ -116,6 +120,7 @@ export function ApplicationReview({
       setSummary([]);
       setQuickError("");
       setSubmissionState("idle");
+      setSubmissionError("");
       setPrefillSourceSection("");
       hasStarted.current = false;
       startedAt.current = Date.now();
@@ -123,7 +128,7 @@ export function ApplicationReview({
 
     window.addEventListener("velomac:application-review-reset", resetApplicationReview);
     return () => window.removeEventListener("velomac:application-review-reset", resetApplicationReview);
-  }, [allowProductSelection, initialMediumType, initialProductSlug, productSlug]);
+  }, [allowProductSelection, initialMediumType, initialProductSlug, productSlug, isSteamApplication]);
 
   useEffect(() => {
     function handleApplicationReviewPrefill(event: Event) {
@@ -196,7 +201,7 @@ export function ApplicationReview({
     const form = formRef.current;
     if (!form) return;
 
-    const validationMessage = validateQuickReview(form);
+    const validationMessage = isSteamApplication ? validateSteamReview(steamReviewFromFormData(new FormData(form))) : validateQuickReview(form);
     if (validationMessage) {
       setQuickError(validationMessage);
       return;
@@ -213,14 +218,22 @@ export function ApplicationReview({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const validationMessage = validateQuickReview(form);
+    const validationMessage = isSteamApplication ? validateSteamReview(steamReviewFromFormData(new FormData(form))) : validateQuickReview(form);
     if (validationMessage) {
       setQuickError(validationMessage);
-      setContactOpen(false);
+      if (!isSteamApplication) setContactOpen(false);
       return;
     }
 
     const formData = new FormData(form);
+    const steamData = isSteamApplication ? steamReviewFromFormData(formData) : null;
+    const attachment = isSteamApplication ? formData.get("attachment") as File | null : null;
+    if (attachment?.size && (attachment.size > 5 * 1024 * 1024 || !/\.(pdf|jpe?g|png|webp)$/i.test(attachment.name))) {
+      setQuickError("Please choose a PDF, JPG, PNG or WebP file up to 5 MB. Your entries are still here.");
+      return;
+    }
+    setQuickError("");
+    setSubmissionError("");
     const currentSummary = buildApplicationSummary(formData);
     setSummary(currentSummary);
     setSubmissionState("submitting");
@@ -270,22 +283,29 @@ export function ApplicationReview({
       applicationPurpose: readValue(formData, "measurement-purpose"),
       sourcePath,
       sourceSection: prefillSourceSection || sourceContext?.sourceSection || "application-review",
-      requirements: buildApplicationData(formData),
+      requirements: steamData ? formatSteamReview(steamData) : buildApplicationData(formData),
+      ...(steamData ? { "steam-review-data": JSON.stringify(steamData) } : {}),
       ...getLeadAttributionPayload()
     };
 
     try {
+      let body: string | FormData = JSON.stringify(payload);
+      if (attachment?.size) {
+        const multipart = new FormData();
+        Object.entries(payload).forEach(([key, value]) => multipart.set(key, value));
+        multipart.set("attachment", attachment);
+        body = multipart;
+      }
       const response = await fetch("/api/quote", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        ...(typeof body === "string" ? { headers: { "Content-Type": "application/json" } } : {}),
+        body
       });
-
+      const result = (await response.json().catch(() => null)) as { accepted?: boolean; message?: string } | null;
       if (!response.ok) {
-        throw new Error("Application review submission failed.");
+        throw new Error(result?.message || "Application review submission failed.");
       }
 
-      const result = (await response.json().catch(() => null)) as { accepted?: boolean } | null;
       setSubmissionState("success");
       // Keep the API's quiet response to automated submissions, but never count them as leads.
       if (result?.accepted !== true) return;
@@ -309,7 +329,8 @@ export function ApplicationReview({
           source_page: "liquid_turbine_flowmeter"
         });
       }
-    } catch {
+    } catch (error) {
+      if (isSteamApplication) setSubmissionError(error instanceof Error ? error.message : "The application review could not be sent.");
       setSubmissionState("error");
       trackApplicationReview("application_review_error", activeProductSlug, productCategory, mediumType, sourcePath, sourceContext);
     }
@@ -322,10 +343,10 @@ export function ApplicationReview({
       data-product-slug={activeProductSlug}
       data-product-category={productCategory}
       data-page-path={sourcePath}
-      className="scroll-mt-28 border-y border-metal-200 bg-metal-50 py-10 sm:py-20 lg:py-24"
+      className={isSteamApplication ? "scroll-mt-28 border-y border-metal-200 bg-metal-50 py-7 sm:py-10" : "scroll-mt-28 border-y border-metal-200 bg-metal-50 py-10 sm:py-20 lg:py-24"}
     >
-      <Container className="grid gap-7 sm:gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 xl:gap-20">
-        <div className="lg:pt-2">
+      <Container className={isSteamApplication ? "!max-w-4xl" : "grid gap-7 sm:gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 xl:gap-20"}>
+        {isSteamApplication ? <div className="mb-6 max-w-3xl"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">Steam Application Review</p><h2 className="mt-2 text-2xl font-semibold leading-tight text-navy-950 sm:text-3xl">Discuss Your Steam Measurement Application</h2><p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">Share the conditions you know. All technical fields are optional; missing details can be confirmed during review.</p></div> : <div className="lg:pt-2">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">Application Review</p>
           <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.015em] text-navy-950 sm:text-4xl lg:text-[2.5rem]">
             Choose the Meter From the Application, Not the Pipe Size
@@ -344,18 +365,18 @@ export function ApplicationReview({
               Flowmeter selection usually starts with the medium, operating flow range, pressure, temperature, pipe size and measurement purpose. Additional properties such as conductivity, viscosity, gas composition or installation conditions can be reviewed where relevant.
             </p>
           </div>
-        </div>
+        </div>}
 
         <div className="min-w-0">
           {submissionState === "success" ? (
-            <SuccessState sourcePath={sourcePath} />
+            <SuccessState sourcePath={isSteamApplication ? "/applications/steam-measurement" : sourcePath} isSteam={isSteamApplication} />
           ) : (
             <form
               ref={formRef}
               onSubmit={handleSubmit}
               onFocusCapture={markStarted}
               onChange={(event) => {
-                if (contactOpen) setSummary(buildApplicationSummary(new FormData(event.currentTarget)));
+                if (contactOpen && !isSteamApplication) setSummary(buildApplicationSummary(new FormData(event.currentTarget)));
               }}
               className="bg-white px-5 shadow-sm sm:px-8"
             >
@@ -377,7 +398,7 @@ export function ApplicationReview({
                   <p className="mt-2 text-sm leading-6 text-slate-500">Choose a direction if you have one. Otherwise, start from the operating conditions.</p>
                 </div>
               ) : null}
-              <div className="divide-y divide-metal-200 border-y border-metal-200">
+              {isSteamApplication ? <SteamApplicationReviewFields /> : <><div className="divide-y divide-metal-200 border-y border-metal-200">
                 <QuickReviewFields
                   mediumType={mediumType}
                   onMediumTypeChange={setMediumType}
@@ -403,9 +424,9 @@ export function ApplicationReview({
                   mediumType={mediumType}
                   productConfig={productConfig}
                 />
-              ) : null}
+              ) : null}</>}
 
-              {!contactOpen ? (
+              {isSteamApplication ? <div className="py-5"><ContactStep submissionState={submissionState} isSteam errorMessage={submissionError} />{quickError ? <p className="mt-3 text-sm font-semibold text-red-700" role="alert">{quickError}</p> : null}</div> : !contactOpen ? (
                 <div className="border-t border-metal-200 py-5 sm:py-7">
                   <button
                     type="button"
@@ -669,30 +690,31 @@ function MediumSpecificFields({ mediumType, excludedFields }: { mediumType: Medi
   );
 }
 
-function ContactStep({ submissionState }: { submissionState: SubmissionState }) {
+function ContactStep({ submissionState, isSteam = false, errorMessage = "" }: { submissionState: SubmissionState; isSteam?: boolean; errorMessage?: string }) {
   return (
     <div className="mt-6 sm:mt-8">
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-industrial-700">Contact step</p>
       <h3 className="mt-2 text-2xl font-semibold text-navy-950">Where should we send the review follow-up?</h3>
-      <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-5">
-        <Field label="Name"><input name="name" className={inputClass} required autoComplete="name" /></Field>
-        <Field label="Work Email"><input name="email" type="email" className={inputClass} required autoComplete="email" /></Field>
-        <Field label="Company"><input name="company" className={inputClass} autoComplete="organization" /></Field>
-        <Field label="Country / Region"><input name="country-region" className={inputClass} autoComplete="country-name" /></Field>
-        <Field label="Phone / WhatsApp"><input name="whatsapp-phone" className={inputClass} autoComplete="tel" /></Field>
+      <div className={isSteam ? "mt-5 grid items-start gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-5" : "mt-5 grid gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-5"}>
+        <Field label={isSteam ? "Name (required)" : "Name"}><input name="name" className={inputClass} required autoComplete="name" /></Field>
+        <Field label={isSteam ? "Business Email (required)" : "Work Email"}><input name="email" type="email" className={inputClass} required autoComplete="email" /></Field>
+        <Field label={isSteam ? "Company (required)" : "Company"}><input name="company" className={inputClass} required={isSteam} autoComplete="organization" /></Field>
+        <Field label={isSteam ? "Country / Region (required)" : "Country / Region"}><input name="country-region" className={inputClass} required={isSteam} autoComplete="country-name" /></Field>
+        <Field label={isSteam ? "Phone / WhatsApp (optional)" : "Phone / WhatsApp"}><input name="whatsapp-phone" className={inputClass} autoComplete="tel" /></Field>
         <Field label="Additional notes"><textarea name="additional-notes" className={`${inputClass} min-h-24 resize-y`} /></Field>
       </div>
+      {isSteam ? <div className="mt-4"><Field label="Supporting document (optional)"><input name="attachment" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className={`${inputClass} border-dashed text-sm`} aria-describedby="steam-attachment-help" /><span id="steam-attachment-help" className="text-xs font-normal leading-5 text-slate-500">One P&amp;ID, datasheet, process specification or installation drawing. PDF, JPG, PNG or WebP, up to 5 MB.</span></Field></div> : null}
       <button
         type="submit"
         disabled={submissionState === "submitting"}
         className="focus-ring mt-7 inline-flex min-h-12 w-full items-center justify-center bg-navy-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700 disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
       >
-        {submissionState === "submitting" ? "Sending..." : "Send Application Review"}
+        {submissionState === "submitting" ? "Sending..." : isSteam ? "Submit Steam Application for Review" : "Send Application Review"}
         <span aria-hidden="true" className="ml-2">→</span>
       </button>
       {submissionState === "error" ? (
         <p className="mt-4 border-l-2 border-red-500 bg-red-50 px-4 py-3 text-sm leading-6 text-red-900" role="alert">
-          The application review could not be sent. Your entries are still here—please check your connection and try again.
+          {errorMessage || "The application review could not be sent."} Your entries are still here—please check your connection and try again.
         </p>
       ) : null}
     </div>
@@ -715,14 +737,14 @@ function ApplicationSummary({ items }: { items: SummaryItem[] }) {
   );
 }
 
-function SuccessState({ sourcePath }: { sourcePath: string }) {
+function SuccessState({ sourcePath, isSteam = false }: { sourcePath: string; isSteam?: boolean }) {
   return (
     <div className="border-y border-industrial-600 bg-white px-6 py-10 shadow-sm sm:px-9 sm:py-12" role="status">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-industrial-700">Application received</p>
       <h3 className="mt-3 text-2xl font-semibold leading-tight text-navy-950 sm:text-3xl">Thank you. We will review the operating conditions and selection details you provided.</h3>
       <p className="mt-5 text-base leading-7 text-slate-600">If another value is needed, we can follow up with the specific point to confirm.</p>
       <div className="mt-7 flex flex-wrap gap-3">
-        <Link href={sourcePath} className="focus-ring inline-flex min-h-11 items-center bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700">Back to Product</Link>
+        <Link href={sourcePath} className="focus-ring inline-flex min-h-11 items-center bg-navy-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-industrial-700">{isSteam ? "Back to Steam Measurement" : "Back to Product"}</Link>
         <Link href="/products#flow-measurement" className="focus-ring inline-flex min-h-11 items-center border border-metal-300 px-5 py-3 text-sm font-semibold text-navy-950 transition hover:border-industrial-600 hover:text-industrial-700">Explore Flowmeters</Link>
       </div>
     </div>

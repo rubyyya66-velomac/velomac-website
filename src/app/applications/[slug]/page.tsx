@@ -10,10 +10,12 @@ import { HighVibrationGuide } from "@/components/HighVibrationGuide";
 import { JsonLd } from "@/components/JsonLd";
 import { Container, Section } from "@/components/Layout";
 import { MobileDisclosure } from "@/components/MobileDisclosure";
+import { SteamApplicationGuide, SteamSystemOverview } from "@/components/SteamApplicationGuide";
 import { applications, resolveApplicationSlug } from "@/content/applications";
 import { products } from "@/content/products";
 import { articles } from "@/content/resources";
-import { buildPageMetadata } from "@/lib/seo";
+import { steamApplicationRevision, steamApplicationShareImage, steamResourceSlugs } from "@/content/steamApplication";
+import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
 import { breadcrumbStructuredData } from "@/lib/structuredData";
 
 const preferredResourceSlugsByApplication: Record<string, string[]> = {
@@ -54,15 +56,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {};
   }
 
-  const image = slug === utilityPage.slug ? utilityPage.hero : application.image;
+  const image = slug === "steam-measurement" ? steamApplicationShareImage : slug === utilityPage.slug ? utilityPage.hero : application.image;
 
-  return buildPageMetadata({
+  const metadata = buildPageMetadata({
     title: application.detailPage.metadata.title,
     description: application.detailPage.metadata.description,
     path: `/applications/${application.slug}`,
     image: image.src,
     imageAlt: image.alt
   });
+  if (slug === "steam-measurement" && metadata.openGraph) {
+    metadata.openGraph.images = [{ url: absoluteUrl(image.src), alt: image.alt, width: steamApplicationShareImage.width, height: steamApplicationShareImage.height }];
+  }
+  return metadata;
 }
 
 export default async function ApplicationDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -76,7 +82,8 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   const isChemicalGuide = application.slug === chemicalGuideSlug;
   const isVibrationGuide = application.slug === "high-vibration-pipelines";
   const isUtilityGuide = application.slug === utilityPage.slug;
-  const hasCompactHero = isChemicalGuide || isVibrationGuide || isUtilityGuide;
+  const isSteamGuide = application.slug === "steam-measurement";
+  const hasCompactHero = isChemicalGuide || isVibrationGuide || isUtilityGuide || isSteamGuide;
   const relatedProducts = products.filter((product) =>
     application.detailPage.relatedProductSlugs.includes(product.slug)
   );
@@ -99,7 +106,12 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       .map((slug) => relevantResources.find((article) => article.slug === slug))
       .filter((article): article is (typeof articles)[number] => Boolean(article))
   ];
-  const relatedResources = isChemicalGuide
+  const relatedResources = isSteamGuide
+    ? steamResourceSlugs.flatMap((resourceSlug) => {
+        const article = articles.find((item) => item.slug === resourceSlug);
+        return article ? [article] : [];
+      })
+    : isChemicalGuide
     ? [
         ...chemicalResourcePriority.flatMap((resourceSlug) => {
           const article = relevantResources.find((item) => item.slug === resourceSlug);
@@ -117,8 +129,10 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   const reviewMediumType = getApplicationReviewMediumType(application.slug);
   const reviewCta = (
     <CTASection
-      title={isChemicalGuide ? "Discuss Your Chemical Process Application" : isVibrationGuide ? "Discuss Your High-Vibration Pipeline" : isUtilityGuide ? "Discuss Your Utility Flow Measurement Application" : application.detailPage.ctaTitle}
-      text={isChemicalGuide
+      title={isSteamGuide ? "Discuss Your Steam Measurement Application" : isChemicalGuide ? "Discuss Your Chemical Process Application" : isVibrationGuide ? "Discuss Your High-Vibration Pipeline" : isUtilityGuide ? "Discuss Your Utility Flow Measurement Application" : application.detailPage.ctaTitle}
+      text={isSteamGuide
+        ? "Share your steam operating conditions, flow range and installation details. Our team will review the application and confirm the appropriate meter configuration."
+        : isChemicalGuide
         ? "Share the chemical, concentration, flow range and operating conditions. We’ll identify what else is needed for meter selection."
         : isVibrationGuide
         ? "Share your medium, pipe size, operating range and vibration conditions for a technical application review."
@@ -126,7 +140,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
         ? "Share your utility type, measurement point, operating range and installation details. Velomac can review the application conditions and recommend a suitable meter direction."
         : "Share the media, pipe size, flow range, pressure, temperature and installation details for an application review."}
       href="/application-review"
-      buttonLabel={isChemicalGuide ? "Review Your Chemical Application" : "Review This Application"}
+      buttonLabel={isSteamGuide ? "Submit Steam Application for Review" : isChemicalGuide ? "Review Your Chemical Application" : "Review This Application"}
       reviewCtaContext={{
         sourceType: "application_page",
         sourceSection: "bottom-application-review",
@@ -140,7 +154,31 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
 
   return (
     <>
-      <JsonLd data={breadcrumbStructuredData(breadcrumbs)} />
+      <JsonLd data={isSteamGuide ? {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": absoluteUrl("/applications/steam-measurement#webpage"),
+            url: absoluteUrl("/applications/steam-measurement"),
+            name: application.detailPage.metadata.title,
+            description: application.detailPage.metadata.description,
+            inLanguage: "en",
+            dateModified: steamApplicationRevision,
+            isPartOf: { "@id": absoluteUrl("/#website") },
+            publisher: { "@id": absoluteUrl("/#organization") },
+            breadcrumb: { "@id": absoluteUrl("/applications/steam-measurement#breadcrumb") },
+            primaryImageOfPage: {
+              "@type": "ImageObject",
+              contentUrl: absoluteUrl(steamApplicationShareImage.src),
+              caption: steamApplicationShareImage.alt,
+              width: steamApplicationShareImage.width,
+              height: steamApplicationShareImage.height
+            }
+          },
+          { ...breadcrumbStructuredData(breadcrumbs), "@id": absoluteUrl("/applications/steam-measurement#breadcrumb") }
+        ]
+      } : breadcrumbStructuredData(breadcrumbs)} />
 
       <section className="border-b border-metal-200 bg-white">
         <Container className={hasCompactHero ? "py-7 sm:py-10 lg:py-12" : "py-10 sm:py-12 lg:py-16"}>
@@ -176,7 +214,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
                 Request a Quote <span aria-hidden="true">→</span>
               </Link>
             </div>
-            {isUtilityGuide ? (
+            {isSteamGuide ? <SteamSystemOverview /> : isUtilityGuide ? (
               <figure>
                 <Image src={utilityPage.hero.src} alt={utilityPage.hero.alt} width={845} height={681} priority sizes="(min-width: 1200px) 592px, (min-width: 1024px) 50vw, (min-width: 640px) calc(100vw - 48px), calc(100vw - 40px)" className="h-auto w-full object-contain" />
                 <figcaption className="mt-2 text-xs leading-5 text-slate-600">{utilityPage.hero.caption}</figcaption>
@@ -197,7 +235,9 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
         </Container>
       </section>
 
-      {isChemicalGuide ? (
+      {isSteamGuide ? (
+        <SteamApplicationGuide products={relatedProducts} />
+      ) : isChemicalGuide ? (
         <>
           <ChemicalProcessGuide products={relatedProducts} />
           {reviewCta}
@@ -312,22 +352,22 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       )}
 
       {relatedResources.length ? (
-        <Section className={isUtilityGuide ? "!py-9 sm:!py-12" : undefined}>
+        <Section className={isUtilityGuide || isSteamGuide ? "!py-9 sm:!py-12" : undefined}>
           <Container>
-            <SectionHeading eyebrow="Related Resources" title={isChemicalGuide ? "Further Reading for Chemical Flow Measurement" : isUtilityGuide ? "Practical Notes for the Application Review" : "Practical notes for the application review"} compact={isUtilityGuide} />
+            <SectionHeading eyebrow="Related Resources" title={isSteamGuide ? "Steam Flow Measurement Resources" : isChemicalGuide ? "Further Reading for Chemical Flow Measurement" : isUtilityGuide ? "Practical Notes for the Application Review" : "Practical notes for the application review"} compact={isUtilityGuide || isSteamGuide} />
             <MobileDisclosure label="View related resources" className="pt-6 sm:pt-0">
               <div className="divide-y divide-metal-200 border-y border-metal-200 sm:mt-8">
                 {relatedResources.map((article) => (
                   <Link
                     key={article.slug}
                     href={`/resources/${article.slug}`}
-                    className={isChemicalGuide || isUtilityGuide
+                    className={isChemicalGuide || isUtilityGuide || isSteamGuide
                       ? "focus-ring grid gap-1.5 py-3.5 transition hover:text-industrial-700 md:grid-cols-[10rem_minmax(0,1fr)_auto] md:items-center md:gap-4"
                       : "focus-ring grid gap-2 py-5 transition hover:text-industrial-700 md:grid-cols-[0.28fr_1fr_auto] md:items-center"}
                   >
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-industrial-700">{article.category}</span>
-                    <span className={isChemicalGuide || isUtilityGuide ? "text-base font-semibold leading-snug text-navy-950" : "text-lg font-semibold text-navy-950"}>{article.title}</span>
-                    {isChemicalGuide || isUtilityGuide ? (
+                    <span className={isChemicalGuide || isUtilityGuide || isSteamGuide ? "text-base font-semibold leading-snug text-navy-950" : "text-lg font-semibold text-navy-950"}>{article.title}</span>
+                    {isChemicalGuide || isUtilityGuide || isSteamGuide ? (
                       <span aria-hidden="true" className="hidden font-semibold text-industrial-700 md:inline">→</span>
                     ) : (
                       <span className="text-sm font-semibold text-industrial-700">Read {article.category} →</span>
